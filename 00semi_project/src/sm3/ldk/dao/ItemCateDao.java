@@ -41,7 +41,7 @@ public class ItemCateDao {
 			}
 		}
 	}
-	public int insert(ItemCateVo vo) {
+	public int insert(String cate_name) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
@@ -49,7 +49,7 @@ public class ItemCateDao {
 			String sql="insert into sm3_itemcate values(?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, getMaxNum()+1);
-			pstmt.setString(2, vo.getCate_name());
+			pstmt.setString(2, cate_name);
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
