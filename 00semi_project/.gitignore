@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 /build/
 #자바 버전다른거 무시하기
 *.jar
+=======
+/build/
+>>>>>>> refs/remotes/origin/test
