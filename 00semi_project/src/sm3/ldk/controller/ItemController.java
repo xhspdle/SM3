@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sm3.ldk.dao.ItemCateDao;
-import sm3.ldk.vo.ItemCateVo;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-@WebServlet("/itemOrder/item.do")
+import sm3.ldk.dao.ItemDao;
+import sm3.ldk.vo.ItemVo;
+
+@WebServlet("/itemOrder/itemCate.do")
 public class ItemController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -32,59 +35,113 @@ public class ItemController extends HttpServlet{
 	}
 	protected void insert(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		String cate_name=request.getParameter("cate_name");
-		int n=ItemCateDao.getInstance().insert(cate_name);
-		if(n>0) {
-			request.setAttribute("msg", "카테고리 추가 성공!!");
-		}else {
-			request.setAttribute("msg", "카테고리 추가 실패..");
+		String path=request.getServletContext().getRealPath("/images");
+		MultipartRequest mr=new MultipartRequest(request,
+				path,
+				1024*1024*10,
+				"UTF-8",
+				new DefaultFileRenamePolicy()
+				);
+		String item_name=request.getParameter("item_name");
+		String scate_num=request.getParameter("cate_num");
+		int cate_num=0;
+		if(scate_num!=null) {
+			cate_num=Integer.parseInt(scate_num);
 		}
-		request.getRequestDispatcher("ITEMCATE_msg.jsp").forward(request, response);
+		String item_info=request.getParameter("item_info");
+		String sitem_price=request.getParameter("item_price");
+		int item_price=0;
+		if(sitem_price!=null) {
+			item_price=Integer.parseInt(sitem_price);
+		}
+		String item_orgimg=mr.getOriginalFileName("file1");
+		String item_savimg=mr.getFilesystemName("file1");
+		int n=ItemDao.getInstance().insert(new ItemVo(0, item_name,
+				cate_num, item_info, item_price, item_orgimg, item_savimg));
+		if(n>0) {
+			request.setAttribute("msg", "상품 추가 성공!!");
+		}else {
+			request.setAttribute("msg", "상품 추가 실패..");
+		}
+		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 	}
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<ItemCateVo> list=ItemCateDao.getInstance().list();
+		ArrayList<ItemVo> list=ItemDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("ITEMCATE_list.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
-			request.getRequestDispatcher("ITEMCATE_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		int cate_num=Integer.parseInt(request.getParameter("cate_num"));
-		int n=ItemCateDao.getInstance().delete(cate_num);
-		if(n>0) {
-			request.setAttribute("msg", "카테고리 삭제 성공!!");
-		}else {
-			request.setAttribute("msg", "카테고리 삭제 실패..");
+		String sitem_num=request.getParameter("item_num");
+		int item_num=0;
+		if(sitem_num!=null) {
+			item_num=Integer.parseInt(sitem_num);
 		}
-		request.getRequestDispatcher("ITEMCATE_msg.jsp").forward(request, response);
+		int n=ItemDao.getInstance().delete(item_num);
+		if(n>0) {
+			request.setAttribute("msg", "상품 삭제 성공!!");
+		}else {
+			request.setAttribute("msg", "상품 삭제 실패..");
+		}
+		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		int cate_num=Integer.parseInt(request.getParameter("cate_num"));
-		ItemCateVo vo=ItemCateDao.getInstance().select(cate_num);
+		String sitem_num=request.getParameter("item_num");
+		int item_num=0;
+		if(sitem_num!=null) {
+			item_num=Integer.parseInt(sitem_num);
+		}
+		ItemVo vo=ItemDao.getInstance().select(item_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("ITEMCATE_insert.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_insert.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
-			request.getRequestDispatcher("ITEMCATE_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 		}
 	}
 	protected void update(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		int cate_num=Integer.parseInt(request.getParameter("cate_num"));
-		String cate_name=request.getParameter("cate_name");
-		int n=ItemCateDao.getInstance().update(new ItemCateVo(cate_num, cate_name));
-		if(n>0) {
-			request.setAttribute("msg", "카테고리 수정 성공!!");
-		}else {
-			request.setAttribute("msg", "카테고리 수정 실패..");
+		String path=request.getServletContext().getRealPath("/images");
+		MultipartRequest mr=new MultipartRequest(request,
+				path,
+				1024*1024*10,
+				"UTF-8",
+				new DefaultFileRenamePolicy()
+				);
+		String sitem_num=request.getParameter("item_num");
+		int item_num=0;
+		if(sitem_num!=null) {
+			item_num=Integer.parseInt(sitem_num);
 		}
-		request.getRequestDispatcher("ITEMCATE_msg.jsp").forward(request, response);
+		String item_name=request.getParameter("item_name");
+		String scate_num=request.getParameter("cate_num");
+		int cate_num=0;
+		if(scate_num!=null) {
+			cate_num=Integer.parseInt(scate_num);
+		}
+		String item_info=request.getParameter("item_info");
+		String sitem_price=request.getParameter("item_price");
+		int item_price=0;
+		if(sitem_price!=null) {
+			item_price=Integer.parseInt(sitem_price);
+		}
+		String item_orgimg=mr.getOriginalFileName("file1");
+		String item_savimg=mr.getFilesystemName("file1");
+		int n=ItemDao.getInstance().update(new ItemVo(item_num,
+				item_name, cate_num, item_info, item_price, item_orgimg, item_savimg));
+		if(n>0) {
+			request.setAttribute("msg", "상품 수정 성공!!");
+		}else {
+			request.setAttribute("msg", "상품 수정 실패..");
+		}
+		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 	}
 }

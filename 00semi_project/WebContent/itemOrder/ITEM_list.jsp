@@ -10,17 +10,28 @@
 <body>
 <table width="400" border="1">
 	<tr>
+		<th>상품번호</th>
+		<th>상품이름</th>
 		<th>분류번호</th>
-		<th>카테고리명</th>
+		<th>상품설명</th>
+		<th>상품가격</th>
+		<th>이미지</th>
 		<th>수정</th>
 		<th>삭제</th>
 	</tr>
 	<c:forEach var="vo" items="${requestScope.list }">
 	<tr>
+		<td>${vo.item_num }</td>
+		<td>${vo.item_name }</td>
 		<td>${vo.cate_num }</td>
-		<td>${vo.cate_name }</td>
-		<td><a href="<c:url value='/itemOrder/itemCate.do?cmd=select&cate_num=${vo.cate_num }'/>">수정</a></td>
-		<td><a href="<c:url value='/itemOrder/itemCate.do?cmd=delete&cate_num=${vo.cate_num }'/>">삭제</a></td>
+		<td>${vo.item_info }</td>
+		<td>${vo.item_price }</td>
+		<td><img src='<c:url value="/images/${vo.item_savimg }"/>' 
+		style="width:100px;height:100px;"></td>
+		<td><a href="<c:url value=
+		'/itemOrder/item.do?cmd=select&item_num=${vo.item_num }'/>">수정</a></td>
+		<td><a href="<c:url value=
+		'/itemOrder/item.do?cmd=delete&item_num=${vo.item_num }'/>">삭제</a></td>
 	</tr>
 	</c:forEach>
 </table>

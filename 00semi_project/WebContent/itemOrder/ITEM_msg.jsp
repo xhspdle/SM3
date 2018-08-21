@@ -8,9 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>상품</h1>
-<h3>상품분류</h3>
-<a href="<c:url value='/itemOrder/ITEMCATE_insert.jsp'/>">상품분류insert</a>
-<a href="<c:url value='/itemOrder/item.do?cmd=list'/>">상품분류list</a>
+<h1>${msg }</h1>
+<a href="<c:url value='/itemOrder/ITEM_main.jsp'/>">상품메인</a>
 </body>
 </html>
