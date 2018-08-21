@@ -1,12 +1,11 @@
 package sm3.jya.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import sm3.dbcp.DBConnection;
 import sm3.jya.vo.EventNoticeVo;
@@ -18,6 +17,12 @@ public class EventNoticeDao {
 	public static EventNoticeDao getInstance() {
 		return instance;
 	}
+//	public int insert(EventNoticeVo vo) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		
+//		
+//	}
 	public int getMaxNum() {    //가장큰수얻어오기.
 		Connection con = null;
 		PreparedStatement pstmt=null;
@@ -121,14 +126,44 @@ public class EventNoticeDao {
 							"select AA.*,rownum rnum from"+
 							"("+
 							" select *from SM3_EVENT_NOTICE" +
+							" WHERE " +search+" "+searchCase+
 							" order by EN_NUM DESC" +
 							")AA" +
 							")" +
 							"WHERE RNUM<=? AND RNUM<=?";
 					pstmt=con.prepareStatement(sql);
-					pstmt.setInt(1, startRow);
-					pstmt.setInt(2, endRow);
+					pstmt.setString(1, keyword);
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, endRow);
 					rs=pstmt.executeQuery();
+			}
+			if(rs.next()) {
+				do {
+					int EN_NUM = rs.getInt("EN_NUM");
+					String EN_WRITER = rs.getString("EN_WRITER");
+					String EN_TITLE = rs.getString("EN_TITLE");
+					Long EN_CONTENT = rs.getLong("EN_CONTENT");
+					Date EN_DATE = rs.getDate("EN_DATE");
+					String EN_ORGIMG = rs.getString("EN_ORGIMG");
+					String EN_SAVIMG = rs.getString("EN_SAVIMG");
+					int ADMIN_NUM = rs.getInt("ADMIN_NUM");
+					EventNoticeVo vo = new EventNoticeVo(EN_NUM,EN_WRITER,EN_TITLE,EN_CONTENT,EN_DATE,EN_ORGIMG,EN_SAVIMG,ADMIN_NUM);
+					list.add(vo);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
+			}catch(SQLException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}
