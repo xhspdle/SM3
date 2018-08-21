@@ -31,15 +31,19 @@ public class QaDao {
 		con=DBConnection.getConn();
 		//글번호, 작성자, 글제목,글내용,sysdate,부모글번호,그룹,등록순서,유저번호,관리자번호
 		String sql="insert into sm3_qa values (?,?,?,?,sysdate,?,?,?,?,?)";
-		
+		pstmt=con.prepareStatement(sql);
 		pstmt.setInt(1, vo.getQa_num());
 		pstmt.setString(2, vo.getQa_writer());
 		pstmt.setString(3, vo.getQa_title());
 		pstmt.setString(4, vo.getQa_content());
-		pstmt.setDate(5, vo.getQa_date());
-		pstmt.setInt(6, vo.getRef());
+		pstmt.setInt(5, vo.getRef());
+		pstmt.setInt(6, vo.getLev());
 		pstmt.setInt(7, vo.getLev());
-		pstmt.setInt(8, vo.getLev());
+		pstmt.setInt(8, vo.getUser_num());
+		pstmt.setInt(9, vo.getAdmin_num());
+		
+		
+		pstmt.executeUpdate();
 		//QaVo vo = new QaVo(qa_num, qa_writer, qa_title, qa_content, qa_date, ref, lev, step)			
 		int n=0;
 		return n;

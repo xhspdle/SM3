@@ -11,8 +11,11 @@ public class QaVo {
 	private int ref;
 	private int lev;
 	private int step;
+	private int user_num;
+	private int admin_num;
+	public QaVo() {}
 	public QaVo(int qa_num, String qa_writer, String qa_title, String qa_content, Date qa_date, int ref, int lev,
-			int step) {
+			int step, int user_num, int admin_num) {
 		super();
 		this.qa_num = qa_num;
 		this.qa_writer = qa_writer;
@@ -22,7 +25,10 @@ public class QaVo {
 		this.ref = ref;
 		this.lev = lev;
 		this.step = step;
+		this.user_num = user_num;
+		this.admin_num = admin_num;
 	}
+
 	public int getQa_num() {
 		return qa_num;
 	}
@@ -71,5 +77,18 @@ public class QaVo {
 	public void setStep(int step) {
 		this.step = step;
 	}
+	public int getUser_num() {
+		return user_num;
+	}
+	public void setUser_num(int user_num) {
+		this.user_num = user_num;
+	}
+	public int getAdmin_num() {
+		return admin_num;
+	}
+	public void setAdmin_num(int admin_num) {
+		this.admin_num = admin_num;
+	}
+
 	
 }

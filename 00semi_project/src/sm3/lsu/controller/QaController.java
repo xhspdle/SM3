@@ -1,6 +1,7 @@
 package sm3.lsu.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +32,8 @@ public class QaController extends HttpServlet{
 		String qa_writer=request.getParameter("user_name");
 		String qa_title=request.getParameter("qa_title");
 		String qa_content=request.getParameter("qa_content");
+		int user_num=Integer.parseInt(request.getParameter("user_num")) ;
+		int admin_num=Integer.parseInt(request.getParameter("admin_num"));
 		int qa_num=0;
 		int ref=0;
 		int lev=0;
@@ -43,7 +46,7 @@ public class QaController extends HttpServlet{
 		}*/
 		
 		QaDao qa=QaDao.getInstance();
-		QaVo vo=new QaVo(qa_num, qa_writer, qa_title, qa_content, null, ref, lev, step);
+		QaVo vo =new QaVo(qa_num, qa_writer, qa_title, qa_content, null, ref, lev, step, user_num, admin_num);
 		
 		 qa.insert(vo);
 			
