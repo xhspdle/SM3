@@ -15,7 +15,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import sm3.ldk.dao.ItemDao;
 import sm3.ldk.vo.ItemVo;
 
-@WebServlet("/itemOrder/itemCate.do")
+@WebServlet("/itemOrder/item.do")
 public class ItemController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
