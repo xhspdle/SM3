@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" action="">
+<form method="post" action='<c:url value="/item"/>'>
 	상품분류 <input type="text" name="cate_name">
 	<input type="submit" value="입력">
 </form>
