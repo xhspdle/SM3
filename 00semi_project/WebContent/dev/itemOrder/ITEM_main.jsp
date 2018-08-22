@@ -19,7 +19,7 @@
 <a href="<c:url value='/dev/itemOrder/item.do?cmd=list'/>">상품list</a><br><br>
 <hr>
 <h3>색상</h3>
-<a href="<c:url value='/dev/itemOrder/ITEM_COLOR_insert.jsp?do1=insert'/>">상품insert</a><br>
-<a href="<c:url value='/dev/itemOrder/itemColor.do?cmd=list'/>">상품list</a><br><br>
+<a href="<c:url value='/dev/itemOrder/ITEM_COLOR_insert.jsp?do1=insert'/>">색상insert</a><br>
+<a href="<c:url value='/dev/itemOrder/itemColor.do?cmd=list'/>">색상list</a><br><br>
 </body>
 </html>

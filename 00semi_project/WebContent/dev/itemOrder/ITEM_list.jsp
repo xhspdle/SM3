@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table width="400" border="1">
+<table width="800" border="1">
 	<tr>
 		<th>상품번호</th>
 		<th>상품이름</th>
@@ -26,8 +26,8 @@
 		<td>${vo.cate_num }</td>
 		<td>${vo.item_info }</td>
 		<td>${vo.item_price }</td>
-		<td><img src='<c:url value="/images/${vo.item_savimg }"/>' 
-		style="width:100px;height:100px;"></td>
+		<td><img src='<c:url value="/DBImages/${vo.item_savimg }"/>' 
+		style="width:100px;height:100px;" id="img1"></td>
 		<td><a href="<c:url value=
 		'/dev/itemOrder/item.do?cmd=select&item_num=${vo.item_num }'/>">수정</a></td>
 		<td><a href="<c:url value=
