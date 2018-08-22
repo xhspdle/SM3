@@ -47,7 +47,6 @@
 	}
 	function callback(){
 		if(xhr.readyState==4 && xhr.status==200){
-			alert("sss")
 			/*var txt=xhr.responseText;
 			var json=JSON.parse(txt);
 			var color_num=document.getElementsByName("color_num")[0];
