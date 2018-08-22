@@ -56,7 +56,7 @@ public class ItemColorController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<ItemColorVo> list=ItemColorDao.getInstance().list();
 		String ajax=request.getParameter("ajax");
-		System.out.println(ajax);//---------------------------------
+		System.out.println(ajax);//-------------
 		if(ajax!=null && ajax.equals("true")) {
 			JSONArray arr=new JSONArray();
 			for(ItemColorVo vo:list) {
