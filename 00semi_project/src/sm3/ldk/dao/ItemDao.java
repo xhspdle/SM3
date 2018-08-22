@@ -48,6 +48,7 @@ public class ItemDao {
 			con=DBConnection.getConn();
 			String sql="insert into sm3_item values(?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
+			con.setAutoCommit(false);
 			pstmt.setInt(1, getMaxNum()+1);
 			pstmt.setString(2, vo.getItem_name());
 			pstmt.setInt(3, vo.getCate_num());
@@ -55,7 +56,13 @@ public class ItemDao {
 			pstmt.setInt(5, vo.getItem_price());
 			pstmt.setString(6, vo.getItem_orgimg());
 			pstmt.setString(7, vo.getItem_savimg());
-			return pstmt.executeUpdate();
+			int n=pstmt.executeUpdate();
+			if(n>0) {
+				
+			}else {
+				con.rollback();
+				return -2;
+			}
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
