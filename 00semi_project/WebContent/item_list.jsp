@@ -120,7 +120,7 @@
 								<article class="post">
 									<h5>
 										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이2</a>
+											허밍 그레이</a>
 									</h5>
 
 									<div class="post-meta" class="item_info">
