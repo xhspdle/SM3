@@ -68,6 +68,7 @@
 
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
+<!-- api -->
 
 </head>
 <body>
@@ -85,8 +86,7 @@
 								<div class="row">
 									<div class="col-sm-8 loginBox">
 										<div
-											class="featured-box featured-box-primary align-left mt-xlg"
-											style="height: 1000px;">
+											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">회원가입</h4>
 												<form action="/" id="frmSignIn" method="post">
@@ -162,22 +162,19 @@
 															<div class="col-md-12">
 																<label>주소</label>
 																<div>
-																	<input id="rzipcode1" name="rzipcode1"
-																		 placeholder="" size="6"
-																		maxlength="6" readonly="1" value="" type="text"
-																		class="form-control input-lg"> <a href="#none"
-																		id="btn_search_rzipcode"><img
-																		src="//img.echosting.cafe24.com/skin/base_ko_KR/order/btn_zipcode.gif"
-																		alt="우편번호"></a><br> <input id="raddr1"
-																		name="raddr1"placeholder=""
-																		size="40" readonly="1" value="" type="text"
-																		class="form-control input-lg"> <span
-																		class="grid">기본주소</span><br> <input id="raddr2"
-																		name="raddr2"  placeholder=""
-																		size="40" value="" type="text"
-																		class="form-control input-lg"> <span
-																		class="grid">나머지주소</span><span
-																		class="grid displaynone">(선택입력가능)</span>
+																	<input type="text" id="sample3_postcode"
+																		placeholder="우편번호" class="form-control input-lg"> <input type="button"
+																		onclick="sample3_execDaumPostcode()" class="form-control input-lg" value="우편번호 찾기"><br>
+																	<div id="wraps"
+																		style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
+																		<img
+																			src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png"
+																			id="btnFoldWrap"
+																			style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
+																			onclick="foldDaumPostcode()" alt="접기 버튼">
+																	</div>
+																	<input type="text" id="sample3_address"
+																		class="d_form large  form-control input-lg" placeholder="주소">
 																</div>
 															</div>
 														</div>
@@ -197,12 +194,13 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-6" style="margin-top:40px">
+														<div class="col-md-6" style="margin-top: 40px">
 															<input type="submit" value="가입완료"
 																class="btn btn-primary pull-right mb-xl"
 																data-loading-text="Loading...">
 														</div>
 													</div>
+
 												</form>
 											</div>
 										</div>
@@ -263,6 +261,68 @@
 			ga('send', 'pageview');
 		</script>
 		 -->
+		 
+		 
+	
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    // 우편번호 찾기 찾기 화면을 넣을 element
+    var element_wrap = document.getElementById('wraps');
+
+    function foldDaumPostcode() {
+        // iframe을 넣은 element를 안보이게 한다.
+        element_wrap.style.display = 'none';
+    }
+
+    function sample3_execDaumPostcode() {
+        // 현재 scroll 위치를 저장해놓는다.
+        var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = data.address; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 기본 주소가 도로명 타입일때 조합한다.
+                if(data.addressType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample3_postcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('sample3_address').value = fullAddr;
+
+                // iframe을 넣은 element를 안보이게 한다.
+                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+                element_wrap.style.display = 'none';
+
+                // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
+                document.body.scrollTop = currentScroll;
+            },
+            // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
+            onresize : function(size) {
+                element_wrap.style.height = size.height+'px';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_wrap);
+
+        // iframe을 넣은 element를 보이게 한다.
+        element_wrap.style.display = 'block';
+    }
+</script>	 
 
 </body>
 </html>
