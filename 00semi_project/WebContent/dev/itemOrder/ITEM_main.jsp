@@ -9,15 +9,17 @@
 </head>
 <body>
 <h1>상품</h1>
+<hr>
 <h3>상품분류</h3>
-<a href="<c:url value='/itemOrder/ITEMCATE_insert.jsp'/>">상품분류insert</a><br>
-<a href="<c:url value='/itemOrder/itemCate.do?cmd=list'/>">상품분류list</a><br><br>
+<a href="<c:url value='/dev/itemOrder/ITEMCATE_insert.jsp?do1=insert'/>">상품분류insert</a><br>
+<a href="<c:url value='/dev/itemOrder/itemCate.do?cmd=list'/>">상품분류list</a><br><br>
+<hr>
 <h3>상품</h3>
-<a href="<c:url value='/itemOrder/ITEM_insert.jsp'/>">상품insert</a><br>
-<a href="<c:url value='/itemOrder/item.do?cmd=list'/>">상품list</a><br><br>
-<h1>-----------------</h1>
-<h3>상품 관리자페이지</h3>
-<a href="<c:url value='/itemOrder/ITEM_admin.jsp?form1=insert'/>">insert</a><br>
-<a href="<c:url value='/itemOrder/ITEM_admin.jsp?form1=update'/>">update</a><br>
+<a href="<c:url value='/dev/itemOrder/ITEM_insert.jsp?do1=insert'/>">상품insert</a><br>
+<a href="<c:url value='/dev/itemOrder/item.do?cmd=list'/>">상품list</a><br><br>
+<hr>
+<h3>색상</h3>
+<a href="<c:url value='/dev/itemOrder/ITEM_COLOR_insert.jsp?do1=insert'/>">상품insert</a><br>
+<a href="<c:url value='/dev/itemOrder/itemColor.do?cmd=list'/>">상품list</a><br><br>
 </body>
 </html>

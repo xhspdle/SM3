@@ -9,6 +9,6 @@
 </head>
 <body>
 <h1>${msg }</h1>
-<a href="<c:url value='/itemOrder/ITEM_main.jsp'/>">상품메인</a>
+<a href="<c:url value='/dev/itemOrder/ITEM_main.jsp'/>">상품메인</a>
 </body>
 </html>

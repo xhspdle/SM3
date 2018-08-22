@@ -10,17 +10,19 @@
 <body>
 <table width="400" border="1">
 	<tr>
-		<th>분류번호</th>
-		<th>카테고리명</th>
+		<th>컬러번호</th>
+		<th>컬러이름</th>
+		<th>컬러코드</th>
 		<th>수정</th>
 		<th>삭제</th>
 	</tr>
 	<c:forEach var="vo" items="${requestScope.list }">
 	<tr>
-		<td>${vo.cate_num }</td>
-		<td>${vo.cate_name }</td>
-		<td><a href="<c:url value='/dev/itemOrder/itemCate.do?cmd=select&cate_num=${vo.cate_num }'/>">수정</a></td>
-		<td><a href="<c:url value='/dev/itemOrder/itemCate.do?cmd=delete&cate_num=${vo.cate_num }'/>">삭제</a></td>
+		<td>${vo.color_num }</td>
+		<td>${vo.color_name }</td>
+		<td>${vo.color_code }</td>
+		<td><a href="<c:url value='/dev/itemOrder/itemColor.do?cmd=select&color_num=${vo.color_num }'/>">수정</a></td>
+		<td><a href="<c:url value='/dev/itemOrder/itemColor.do?cmd=delete&color_num=${vo.color_num }'/>">삭제</a></td>
 	</tr>
 	</c:forEach>
 </table>

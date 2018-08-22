@@ -15,7 +15,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import sm3.ldk.dao.ItemDao;
 import sm3.ldk.vo.ItemVo;
 
-@WebServlet("/itemOrder/item.do")
+@WebServlet("/dev/itemOrder/item.do")
 public class ItemController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -101,7 +101,7 @@ public class ItemController extends HttpServlet{
 		ItemVo vo=ItemDao.getInstance().select(item_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("ITEM_insert.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_insert.jsp?do1=update").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
 			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);

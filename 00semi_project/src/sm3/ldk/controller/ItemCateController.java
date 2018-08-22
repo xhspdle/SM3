@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import sm3.ldk.dao.ItemCateDao;
 import sm3.ldk.vo.ItemCateVo;
 
-@WebServlet("/itemOrder/itemCate.do")
+@WebServlet("/dev/itemOrder/itemCate.do")
 public class ItemCateController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -69,7 +69,7 @@ public class ItemCateController extends HttpServlet{
 		ItemCateVo vo=ItemCateDao.getInstance().select(cate_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("ITEMCATE_insert.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEMCATE_insert.jsp?do1=update").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
 			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
