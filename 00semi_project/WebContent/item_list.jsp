@@ -82,14 +82,13 @@
 					<li class=""><a href="#tabsNavigationSimple1"
 						data-toggle="tab" aria-expanded="false">ALL</a></li>
 					<li class=""><a href="#tabsNavigationSimple2"
-						data-toggle="tab" aria-expanded="false">TOP</a></li>
+						data-toggle="tab" aria-expanded="false">OUTER</a></li>
 					<li class=""><a href="#tabsNavigationSimple3"
-						data-toggle="tab" aria-expanded="false">HOODIE</a></li>
+						data-toggle="tab" aria-expanded="false">TOP</a></li>
 					<li class="active"><a href="#tabsNavigationSimple4"
-						data-toggle="tab" aria-expanded="true">TEE</a></li>
+						data-toggle="tab" aria-expanded="true">BOTTOM</a></li>
 				</ul>
 			</div>
-
 		</div>
 		<div role="sub" class="sub">
 			<section class="section mt-none section-footer">

@@ -8,25 +8,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table width="400" border="1">
+<table width="700" border="1">
 	<tr>
+		<th>입고번호</th>
 		<th>사이즈번호</th>
-		<th>사이즈이름</th>
-		<th>상품번호</th>
-		<th>컬러번호</th>
-		<th>재고수량</th>
+		<th>관리자번호</th>
+		<th>입고수량</th>
+		<th>주문원가</th>
+		<th>입고날짜</th>
 		<th>수정</th>
 		<th>삭제</th>
 	</tr>
 	<c:forEach var="vo" items="${requestScope.list }">
 	<tr>
+		<td>${vo.in_num }</td>
 		<td>${vo.size_num }</td>
-		<td>${vo.size_name }</td>
-		<td>${vo.item_num }</td>
-		<td>${vo.color_num }</td>
-		<td>${vo.size_cnt }</td>
-		<td><a href="<c:url value='/dev/itemOrder/itemSize.do?cmd=select&size_num=${vo.size_num }'/>">수정</a></td>
-		<td><a href="<c:url value='/dev/itemOrder/itemSize.do?cmd=delete&size_num=${vo.size_num }'/>">삭제</a></td>
+		<td>${vo.admin_num }</td>
+		<td>${vo.in_cnt }</td>
+		<td>${vo.in_cost }</td>
+		<td>${vo.in_date }</td>
+		<td><a href="<c:url value='/dev/itemOrder/inItem.do?cmd=select&in_num=${vo.in_num }'/>">수정</a></td>
+		<td><a href="<c:url value='/dev/itemOrder/inItem.do?cmd=delete&in_num=${vo.in_num }'/>">삭제</a></td>
 	</tr>
 	</c:forEach>
 </table>

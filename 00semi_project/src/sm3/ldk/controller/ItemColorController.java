@@ -1,6 +1,7 @@
 package sm3.ldk.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import sm3.ldk.dao.ItemColorDao;
 import sm3.ldk.vo.ItemColorVo;
@@ -51,6 +55,23 @@ public class ItemColorController extends HttpServlet{
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<ItemColorVo> list=ItemColorDao.getInstance().list();
+		String ajax=request.getParameter("ajax");
+		System.out.println(ajax);//-------------
+		if(ajax!=null && ajax.equals("true")) {
+			JSONArray arr=new JSONArray();
+			for(ItemColorVo vo:list) {
+				JSONObject ob=new JSONObject();
+				ob.put("color_num", vo.getColor_num());
+				ob.put("color_name", vo.getColor_name());
+				ob.put("color_code", vo.getColor_code());
+				arr.add(ob);
+			}
+			response.setContentType("text/plain;charset=utf-8");
+			PrintWriter pw=response.getWriter();
+			pw.println(arr.toString());
+			pw.close();
+			return;
+		}
 		if(list!=null) {
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("ITEM_COLOR_list.jsp").forward(request, response);

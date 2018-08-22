@@ -27,5 +27,9 @@
 <a href="<c:url value='/dev/itemOrder/ITEM_SIZE_insert.jsp?do1=insert'/>">사이즈insert</a><br>
 <a href="<c:url value='/dev/itemOrder/itemSize.do?cmd=list'/>">사이즈list</a><br><br>
 <h4>사이즈는 미리 자바 배열에다 만들어두고, 상품 인서트할때 자동으로 인서트되게끔</h4>
+<hr>
+<h3>상품입고처리</h3>
+<a href="<c:url value='/dev/itemOrder/IN_ITEM_insert.jsp?do1=insert'/>">상품 입고</a><br>
+<a href="<c:url value='/dev/itemOrder/inItem.do?cmd=list'/>">입고 목록</a><br>
 </body>
 </html>
