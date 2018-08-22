@@ -21,7 +21,7 @@ public class ItemDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(max(cate_num),0) maxnum from sm3_item";
+			String sql="select NVL(max(item_num),0) maxnum from sm3_item";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {

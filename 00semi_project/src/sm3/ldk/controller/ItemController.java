@@ -42,14 +42,14 @@ public class ItemController extends HttpServlet{
 				"UTF-8",
 				new DefaultFileRenamePolicy()
 				);
-		String item_name=request.getParameter("item_name");
-		String scate_num=request.getParameter("cate_num");
+		String item_name=mr.getParameter("item_name");
+		String scate_num=mr.getParameter("cate_num");
 		int cate_num=0;
 		if(scate_num!=null) {
 			cate_num=Integer.parseInt(scate_num);
 		}
-		String item_info=request.getParameter("item_info");
-		String sitem_price=request.getParameter("item_price");
+		String item_info=mr.getParameter("item_info");
+		String sitem_price=mr.getParameter("item_price");
 		int item_price=0;
 		if(sitem_price!=null) {
 			item_price=Integer.parseInt(sitem_price);
@@ -116,19 +116,19 @@ public class ItemController extends HttpServlet{
 				"UTF-8",
 				new DefaultFileRenamePolicy()
 				);
-		String sitem_num=request.getParameter("item_num");
+		String sitem_num=mr.getParameter("item_num");
 		int item_num=0;
 		if(sitem_num!=null) {
 			item_num=Integer.parseInt(sitem_num);
 		}
-		String item_name=request.getParameter("item_name");
-		String scate_num=request.getParameter("cate_num");
+		String item_name=mr.getParameter("item_name");
+		String scate_num=mr.getParameter("cate_num");
 		int cate_num=0;
 		if(scate_num!=null) {
 			cate_num=Integer.parseInt(scate_num);
 		}
-		String item_info=request.getParameter("item_info");
-		String sitem_price=request.getParameter("item_price");
+		String item_info=mr.getParameter("item_info");
+		String sitem_price=mr.getParameter("item_price");
 		int item_price=0;
 		if(sitem_price!=null) {
 			item_price=Integer.parseInt(sitem_price);
