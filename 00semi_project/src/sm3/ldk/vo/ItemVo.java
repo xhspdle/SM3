@@ -6,23 +6,19 @@ public class ItemVo {
 	private int cate_num;
 	private String item_info;
 	private int item_price;
-	private String item_big_orgimg;
-	private String item_big_savimg;
-	private String item_small_orgimg;
-	private String item_small_savimg;
+	private String item_orgimg;
+	private String item_savimg;
 	public ItemVo() {}
-	public ItemVo(int item_num, String item_name, int cate_num, String item_info, int item_price,
-			String item_big_orgimg, String item_big_savimg, String item_small_orgimg, String item_small_savimg) {
+	public ItemVo(int item_num, String item_name, int cate_num, String item_info, int item_price, String item_orgimg,
+			String item_savimg) {
 		super();
 		this.item_num = item_num;
 		this.item_name = item_name;
 		this.cate_num = cate_num;
 		this.item_info = item_info;
 		this.item_price = item_price;
-		this.item_big_orgimg = item_big_orgimg;
-		this.item_big_savimg = item_big_savimg;
-		this.item_small_orgimg = item_small_orgimg;
-		this.item_small_savimg = item_small_savimg;
+		this.item_orgimg = item_orgimg;
+		this.item_savimg = item_savimg;
 	}
 	public int getItem_num() {
 		return item_num;
@@ -54,28 +50,16 @@ public class ItemVo {
 	public void setItem_price(int item_price) {
 		this.item_price = item_price;
 	}
-	public String getItem_big_orgimg() {
-		return item_big_orgimg;
+	public String getItem_orgimg() {
+		return item_orgimg;
 	}
-	public void setItem_big_orgimg(String item_big_orgimg) {
-		this.item_big_orgimg = item_big_orgimg;
+	public void setItem_orgimg(String item_orgimg) {
+		this.item_orgimg = item_orgimg;
 	}
-	public String getItem_big_savimg() {
-		return item_big_savimg;
+	public String getItem_savimg() {
+		return item_savimg;
 	}
-	public void setItem_big_savimg(String item_big_savimg) {
-		this.item_big_savimg = item_big_savimg;
-	}
-	public String getItem_small_orgimg() {
-		return item_small_orgimg;
-	}
-	public void setItem_small_orgimg(String item_small_orgimg) {
-		this.item_small_orgimg = item_small_orgimg;
-	}
-	public String getItem_small_savimg() {
-		return item_small_savimg;
-	}
-	public void setItem_small_savimg(String item_small_savimg) {
-		this.item_small_savimg = item_small_savimg;
+	public void setItem_savimg(String item_savimg) {
+		this.item_savimg = item_savimg;
 	}
 }
