@@ -35,7 +35,7 @@ public class ItemController extends HttpServlet{
 	}
 	protected void insert(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		String path=request.getServletContext().getRealPath("/images");
+		String path=request.getServletContext().getRealPath("/DBImages");
 		MultipartRequest mr=new MultipartRequest(request,
 				path,
 				1024*1024*10,
@@ -109,7 +109,7 @@ public class ItemController extends HttpServlet{
 	}
 	protected void update(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		String path=request.getServletContext().getRealPath("/images");
+		String path=request.getServletContext().getRealPath("/DBImages");
 		MultipartRequest mr=new MultipartRequest(request,
 				path,
 				1024*1024*10,
