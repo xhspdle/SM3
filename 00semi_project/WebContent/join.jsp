@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-
 <!-- Basic -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -89,11 +89,19 @@
 											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">회원가입</h4>
-												<form action="/" id="frmSignIn" method="post">
+												<form action="<c:url value='user_insert.do'/>" method="post">
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>아이디</label> <input type="text" value=""
+																<label for="id">아이디</label> <input id="id" type="text"
+																	name="id" class="form-control input-lg">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label for="pwd">비밀번호</label> <input id="pwd" name="pwd" type="password" value=""
 																	class="form-control input-lg">
 															</div>
 														</div>
@@ -101,15 +109,7 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>비밀번호</label> <input type="password" value=""
-																	class="form-control input-lg">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="form-group">
-															<div class="col-md-12">
-																<label>비밀번호 확인</label> <input type="password" value=""
+																<label for="pwdOk">비밀번호 확인</label> <input type="password" name="pwdOk"
 																	class="form-control input-lg">
 															</div>
 														</div>
@@ -140,7 +140,7 @@
 															<div class="col-md-12">
 																<label>핸드폰 번호</label>
 																<div>
-																	<select id="rphone2_1" name="rphone2"
+																	<select id="phone1" name="phone[]"
 																		class="form-control input-lg">
 																		<option value="010">010</option>
 																		<option value="011">011</option>
@@ -148,11 +148,11 @@
 																		<option value="017">017</option>
 																		<option value="018">018</option>
 																		<option value="019">019</option>
-																	</select> - <input id="rphone2_2" name="rphone2_[]"
-																		maxlength="4" size="4" value="" type="text"
+																	</select> - <input id="phone2" name="phone[]"
+																		maxlength="4" size="4"  type="text"
 																		class="form-control input-lg"> - <input
-																		id="rphone2_3" name="rphone2" maxlength="4" size="4"
-																		value="" type="text" class="form-control input-lg">
+																		id="phone3" name="phone[]" maxlength="4" size="4"
+																		 type="text" class="form-control input-lg">
 																</div>
 															</div>
 														</div>
@@ -163,8 +163,10 @@
 																<label>주소</label>
 																<div>
 																	<input type="text" id="sample3_postcode"
-																		placeholder="우편번호" class="form-control input-lg"> <input type="button"
-																		onclick="sample3_execDaumPostcode()" class="form-control input-lg" value="우편번호 찾기"><br>
+																		placeholder="우편번호" class="form-control input-lg">
+																	<input type="button"
+																		onclick="sample3_execDaumPostcode()"
+																		class="form-control input-lg" value="우편번호 찾기"><br>
 																	<div id="wraps"
 																		style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
 																		<img
@@ -174,7 +176,8 @@
 																			onclick="foldDaumPostcode()" alt="접기 버튼">
 																	</div>
 																	<input type="text" id="sample3_address"
-																		class="d_form large  form-control input-lg" placeholder="주소">
+																		class="d_form large  form-control input-lg"
+																		placeholder="주소">
 																</div>
 															</div>
 														</div>
@@ -182,12 +185,12 @@
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>이메일</label>
+																<label for="email1">이메일</label>
 																<div>
-																	<input id="rphone2_2" name="email" maxlength="4"
+																	<input id="email1" name="email[]" maxlength="4"
 																		size="8" value="" type="text"
 																		class="form-control input-lg"> @ <input
-																		id="rphone2_3" name="email" maxlength="4" size="8"
+																		id="email2" name="email[]" maxlength="4" size="8"
 																		value="" type="text" class="form-control input-lg">
 																</div>
 															</div>
@@ -261,68 +264,73 @@
 			ga('send', 'pageview');
 		</script>
 		 -->
-		 
-		 
-	
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-    // 우편번호 찾기 찾기 화면을 넣을 element
-    var element_wrap = document.getElementById('wraps');
 
-    function foldDaumPostcode() {
-        // iframe을 넣은 element를 안보이게 한다.
-        element_wrap.style.display = 'none';
-    }
 
-    function sample3_execDaumPostcode() {
-        // 현재 scroll 위치를 저장해놓는다.
-        var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var fullAddr = data.address; // 최종 주소 변수
-                var extraAddr = ''; // 조합형 주소 변수
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script>
+		// 우편번호 찾기 찾기 화면을 넣을 element
+		var element_wrap = document.getElementById('wraps');
 
-                // 기본 주소가 도로명 타입일때 조합한다.
-                if(data.addressType === 'R'){
-                    //법정동명이 있을 경우 추가한다.
-                    if(data.bname !== ''){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있을 경우 추가한다.
-                    if(data.buildingName !== ''){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                }
+		function foldDaumPostcode() {
+			// iframe을 넣은 element를 안보이게 한다.
+			element_wrap.style.display = 'none';
+		}
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample3_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('sample3_address').value = fullAddr;
+		function sample3_execDaumPostcode() {
+			// 현재 scroll 위치를 저장해놓는다.
+			var currentScroll = Math.max(document.body.scrollTop,
+					document.documentElement.scrollTop);
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // iframe을 넣은 element를 안보이게 한다.
-                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
-                element_wrap.style.display = 'none';
+							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var fullAddr = data.address; // 최종 주소 변수
+							var extraAddr = ''; // 조합형 주소 변수
 
-                // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
-                document.body.scrollTop = currentScroll;
-            },
-            // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
-            onresize : function(size) {
-                element_wrap.style.height = size.height+'px';
-            },
-            width : '100%',
-            height : '100%'
-        }).embed(element_wrap);
+							// 기본 주소가 도로명 타입일때 조합한다.
+							if (data.addressType === 'R') {
+								//법정동명이 있을 경우 추가한다.
+								if (data.bname !== '') {
+									extraAddr += data.bname;
+								}
+								// 건물명이 있을 경우 추가한다.
+								if (data.buildingName !== '') {
+									extraAddr += (extraAddr !== '' ? ', '
+											+ data.buildingName
+											: data.buildingName);
+								}
+								// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+								fullAddr += (extraAddr !== '' ? ' ('
+										+ extraAddr + ')' : '');
+							}
 
-        // iframe을 넣은 element를 보이게 한다.
-        element_wrap.style.display = 'block';
-    }
-</script>	 
+							// 우편번호와 주소 정보를 해당 필드에 넣는다.
+							document.getElementById('sample3_postcode').value = data.zonecode; //5자리 새우편번호 사용
+							document.getElementById('sample3_address').value = fullAddr;
+
+							// iframe을 넣은 element를 안보이게 한다.
+							// (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+							element_wrap.style.display = 'none';
+
+							// 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
+							document.body.scrollTop = currentScroll;
+						},
+						// 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
+						onresize : function(size) {
+							element_wrap.style.height = size.height + 'px';
+						},
+						width : '100%',
+						height : '100%'
+					}).embed(element_wrap);
+
+			// iframe을 넣은 element를 보이게 한다.
+			element_wrap.style.display = 'block';
+		}
+	</script>
 
 </body>
 </html>
