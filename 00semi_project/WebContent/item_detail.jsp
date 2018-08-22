@@ -86,7 +86,6 @@
 						<hr class="tall">
 					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-md-6">
 						<div>
@@ -96,9 +95,7 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="col-md-6">
-
 						<div class="summary entry-summary">
 							<!-- 제목 -->
 							<h1 class="mb-none">
@@ -140,21 +137,15 @@
 									class="btn btn-primary btn-icon">주문하기</a> <a
 									href="<c:url value='cart.jsp'/>"
 									class="btn btn-primary btn-icon">장바구니</a>
-
 							</form>
-
 							<div class="product_meta">
 								<span class="posted_in">Categories: <a rel="tag" href="#">Accessories</a>,
 									<a rel="tag" href="#">Bags</a>.
 								</span>
 							</div>
-
 						</div>
-
-
 					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-md-12">
 						<div class="tabs tabs-product">
