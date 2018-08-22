@@ -16,7 +16,7 @@
 </form>	
 	</c:when>
 	<c:when test="${param.do1=='update' }">
-<form method="post" action='<c:url value="/dev/itemOrder/itemCate.do?cmd=insert"/>'>
+<form method="post" action='<c:url value="/dev/itemOrder/itemCate.do?cmd=update"/>'>
 	분류번호 <input type="text" readonly="readonly" name="cate_num" value="${vo.cate_num }">
 	상품분류 <input type="text" name="cate_name" value="${vo.cate_name }">
 	<input type="submit" value="수정">

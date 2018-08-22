@@ -34,7 +34,7 @@ public class ItemColorController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		String scolor_num=request.getParameter("color_num");
 		int color_num=0;
-		if(scolor_num!=null) {
+		if(scolor_num!=null && !scolor_num.equals("")) {
 			color_num=Integer.parseInt(scolor_num);
 		}
 		String color_name=request.getParameter("color_name");
@@ -63,7 +63,7 @@ public class ItemColorController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		String scolor_num=request.getParameter("color_num");
 		int color_num=0;
-		if(scolor_num!=null) {
+		if(scolor_num!=null && !scolor_num.equals("")) {
 			color_num=Integer.parseInt(scolor_num);
 		}	
 		int n=ItemColorDao.getInstance().delete(color_num);
@@ -94,7 +94,7 @@ public class ItemColorController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		String scolor_num=request.getParameter("color_num");
 		int color_num=0;
-		if(scolor_num!=null) {
+		if(scolor_num!=null && !scolor_num.equals("")) {
 			color_num=Integer.parseInt(scolor_num);
 		}
 		String color_name=request.getParameter("color_name");
