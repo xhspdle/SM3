@@ -45,13 +45,13 @@ public class ItemController extends HttpServlet{
 		String item_name=mr.getParameter("item_name");
 		String scate_num=mr.getParameter("cate_num");
 		int cate_num=0;
-		if(scate_num!=null) {
+		if(scate_num!=null && !scate_num.equals("")) {
 			cate_num=Integer.parseInt(scate_num);
 		}
 		String item_info=mr.getParameter("item_info");
 		String sitem_price=mr.getParameter("item_price");
 		int item_price=0;
-		if(sitem_price!=null) {
+		if(sitem_price!=null && !sitem_price.equals("")) {
 			item_price=Integer.parseInt(sitem_price);
 		}
 		String item_orgimg=mr.getOriginalFileName("file1");
@@ -80,7 +80,7 @@ public class ItemController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		String sitem_num=request.getParameter("item_num");
 		int item_num=0;
-		if(sitem_num!=null) {
+		if(sitem_num!=null && !sitem_num.equals("")) {
 			item_num=Integer.parseInt(sitem_num);
 		}
 		int n=ItemDao.getInstance().delete(item_num);
@@ -95,7 +95,7 @@ public class ItemController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		String sitem_num=request.getParameter("item_num");
 		int item_num=0;
-		if(sitem_num!=null) {
+		if(sitem_num!=null && !sitem_num.equals("")) {
 			item_num=Integer.parseInt(sitem_num);
 		}
 		ItemVo vo=ItemDao.getInstance().select(item_num);
@@ -118,19 +118,19 @@ public class ItemController extends HttpServlet{
 				);
 		String sitem_num=mr.getParameter("item_num");
 		int item_num=0;
-		if(sitem_num!=null) {
+		if(sitem_num!=null && !sitem_num.equals("")) {
 			item_num=Integer.parseInt(sitem_num);
 		}
 		String item_name=mr.getParameter("item_name");
 		String scate_num=mr.getParameter("cate_num");
 		int cate_num=0;
-		if(scate_num!=null) {
+		if(scate_num!=null && !scate_num.equals("")) {
 			cate_num=Integer.parseInt(scate_num);
 		}
 		String item_info=mr.getParameter("item_info");
 		String sitem_price=mr.getParameter("item_price");
 		int item_price=0;
-		if(sitem_price!=null) {
+		if(sitem_price!=null && !sitem_price.equals("")) {
 			item_price=Integer.parseInt(sitem_price);
 		}
 		String item_orgimg=mr.getOriginalFileName("file1");

@@ -21,7 +21,7 @@
 </form>	
 	</c:when>
 	<c:when test="${param.do1=='update' }">
-<form method="post" action='<c:url value="/dev/itemOrder/item.do?cmd=insert"/>'
+<form method="post" action='<c:url value="/dev/itemOrder/item.do?cmd=update"/>'
 	enctype="multipart/form-data">
 	상품번호 <input type="text" readonly="readonly" name="item_num" value="${vo.item_num }"><br>
 	상품이름 <input type="text" name="item_name" value="${vo.item_name }"><br>

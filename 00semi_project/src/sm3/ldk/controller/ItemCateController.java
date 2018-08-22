@@ -54,7 +54,11 @@ public class ItemCateController extends HttpServlet{
 	}
 	protected void delete(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		int cate_num=Integer.parseInt(request.getParameter("cate_num"));
+		String scate_num=request.getParameter("cate_num");
+		int cate_num=0;
+		if(scate_num!=null && !scate_num.equals("")) {
+			cate_num=Integer.parseInt(scate_num);
+		}
 		int n=ItemCateDao.getInstance().delete(cate_num);
 		if(n>0) {
 			request.setAttribute("msg", "카테고리 삭제 성공!!");
@@ -65,7 +69,11 @@ public class ItemCateController extends HttpServlet{
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		int cate_num=Integer.parseInt(request.getParameter("cate_num"));
+		String scate_num=request.getParameter("cate_num");
+		int cate_num=0;
+		if(scate_num!=null && !scate_num.equals("")) {
+			cate_num=Integer.parseInt(scate_num);
+		}
 		ItemCateVo vo=ItemCateDao.getInstance().select(cate_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
@@ -77,7 +85,11 @@ public class ItemCateController extends HttpServlet{
 	}
 	protected void update(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		int cate_num=Integer.parseInt(request.getParameter("cate_num"));
+		String scate_num=request.getParameter("cate_num");
+		int cate_num=0;
+		if(scate_num!=null && !scate_num.equals("")) {
+			cate_num=Integer.parseInt(scate_num);
+		}
 		String cate_name=request.getParameter("cate_name");
 		int n=ItemCateDao.getInstance().update(new ItemCateVo(cate_num, cate_name));
 		if(n>0) {

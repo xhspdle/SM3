@@ -3,13 +3,15 @@ package sm3.ldk.vo;
 public class ItemSizeVo {
 	private int size_num;
 	private String size_name;
+	private int item_num;
 	private int color_num;
 	private int size_cnt;
 	public ItemSizeVo() {}
-	public ItemSizeVo(int size_num, String size_name, int color_num, int size_cnt) {
+	public ItemSizeVo(int size_num, String size_name, int item_num, int color_num, int size_cnt) {
 		super();
 		this.size_num = size_num;
 		this.size_name = size_name;
+		this.item_num = item_num;
 		this.color_num = color_num;
 		this.size_cnt = size_cnt;
 	}
@@ -24,6 +26,12 @@ public class ItemSizeVo {
 	}
 	public void setSize_name(String size_name) {
 		this.size_name = size_name;
+	}
+	public int getItem_num() {
+		return item_num;
+	}
+	public void setItem_num(int item_num) {
+		this.item_num = item_num;
 	}
 	public int getColor_num() {
 		return color_num;
