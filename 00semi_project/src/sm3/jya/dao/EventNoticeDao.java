@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import sm3.dbcp.DBConnection;
 import sm3.jya.vo.EventNoticeVo;
+import sm3.ldk.vo.ItemVo;
 
 public class EventNoticeDao {
 	//싱글톤패턴
@@ -17,19 +18,13 @@ public class EventNoticeDao {
 	public static EventNoticeDao getInstance() {
 		return instance;
 	}
-//	public int insert(EventNoticeVo vo) {
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		
-//		
-//	}
-	public int getMaxNum() {    //가장큰수얻어오기.
+	public int getMaxNum() {     //가장큰수얻어오기.
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(max(num),0) maxnum from SM3_EVENT_NOTICE";
+			String sql="select NVL(max(en_num),0) maxnum from sm3_event_notice";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) { //값이 없을리가 없다.
@@ -49,6 +44,80 @@ public class EventNoticeDao {
 			}
 		}
 	}
+	public int insert(EventNoticeVo vo) {
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="insert into sm3_event_notice values(?,?,?,?,sysdate,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, getMaxNum()+1);
+			pstmt.setString(2, vo.getEn_writer());
+			pstmt.setString(3, vo.getEn_title());
+			pstmt.setString(4, vo.getEn_content());
+			pstmt.setString(5, vo.getEn_orgimg());
+			pstmt.setString(6, vo.getEn_savimg());
+			pstmt.setInt(7, vo.getAdmin_num());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
+			}catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+	public int delete(int en_num) {
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="delete from sm3_event_notice where en_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, en_num);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public int update(EventNoticeVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="update sm3_event_notice set en_title=?,"
+					  +"en_content=?, en_orgimg=? en_savimg=? where en_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getEn_title());
+			pstmt.setString(2, vo.getEn_content());
+			pstmt.setString(3, vo.getEn_orgimg());
+			pstmt.setString(4, vo.getEn_savimg());
+			pstmt.setInt(5, vo.getEn_num());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	//검색해서 나온 데이터갯수
 	public int getCount(String search,String keyword) {  //검색된 데이터 갯수.
 		Connection con = null;
@@ -57,7 +126,7 @@ public class EventNoticeDao {
 		try {
 			con=DBConnection.getConn();
 			if(keyword.equals("")) { //검색어 없으면 전체목록보여줌.
-				String sql="select NVL(count(num),0) cnt from SM3_EVENT_NOTICE";
+				String sql="select NVL(count(num),0) cnt from sm3_event_notice";
 				pstmt=con.prepareStatement(sql);
 				rs=pstmt.executeQuery();
 			}else {  //검색된게 있으면
@@ -67,7 +136,7 @@ public class EventNoticeDao {
 				}else {
 					searchCase=" like '%'||?||'%' "; //부분검색, 특정 단어나 글씨 검색.
 				}
-					String sql="select NVL(count(num),0) cnt from SM3_EVENT_NOTICE"
+					String sql="select NVL(count(num),0) cnt from sm3_event_notice"
 							+ "where" +search+searchCase;
 					pstmt=con.prepareStatement(sql);
 					pstmt.setString(1, keyword);
@@ -139,15 +208,16 @@ public class EventNoticeDao {
 			}
 			if(rs.next()) {
 				do {
-					int EN_NUM = rs.getInt("EN_NUM");
-					String EN_WRITER = rs.getString("EN_WRITER");
-					String EN_TITLE = rs.getString("EN_TITLE");
-					Long EN_CONTENT = rs.getLong("EN_CONTENT");
-					Date EN_DATE = rs.getDate("EN_DATE");
-					String EN_ORGIMG = rs.getString("EN_ORGIMG");
-					String EN_SAVIMG = rs.getString("EN_SAVIMG");
-					int ADMIN_NUM = rs.getInt("ADMIN_NUM");
-					EventNoticeVo vo = new EventNoticeVo(EN_NUM,EN_WRITER,EN_TITLE,EN_CONTENT,EN_DATE,EN_ORGIMG,EN_SAVIMG,ADMIN_NUM);
+					int en_num = rs.getInt("en_num");
+					String en_writer = rs.getString("en_writer");
+					String en_title = rs.getString("en_title");
+					String en_content = rs.getString("en_content");
+					Date en_date = rs.getDate("en_date");
+					String en_orgimg = rs.getString("en_orgimg");
+					String en_savimg = rs.getString("en_savimg");
+					int admin_num = rs.getInt("admin_num");
+					EventNoticeVo vo = new EventNoticeVo(en_num, en_writer, en_title, en_content, 
+							en_date, en_orgimg, en_savimg, admin_num);
 					list.add(vo);
 				}while(rs.next());
 				return list;

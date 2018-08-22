@@ -29,9 +29,9 @@
 		<td><img src='<c:url value="/images/${vo.item_savimg }"/>' 
 		style="width:100px;height:100px;"></td>
 		<td><a href="<c:url value=
-		'/itemOrder/item.do?cmd=select&item_num=${vo.item_num }'/>">수정</a></td>
+		'/dev/itemOrder/item.do?cmd=select&item_num=${vo.item_num }'/>">수정</a></td>
 		<td><a href="<c:url value=
-		'/itemOrder/item.do?cmd=delete&item_num=${vo.item_num }'/>">삭제</a></td>
+		'/dev/itemOrder/item.do?cmd=delete&item_num=${vo.item_num }'/>">삭제</a></td>
 	</tr>
 	</c:forEach>
 </table>

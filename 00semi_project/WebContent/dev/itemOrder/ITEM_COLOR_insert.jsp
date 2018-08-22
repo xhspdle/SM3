@@ -11,15 +11,17 @@
 <c:choose>
 	<c:when test="${param.do1=='insert' }">
 <form method="post" action='<c:url value="/dev/itemOrder/itemCate.do?cmd=insert"/>'>
-	상품분류 <input type="text" name="cate_name">
+	컬러이름 <input type="text" name="color_name" value="${vo.color_name }">
+	컬러코드 <input type="text" name="color_code" value="${vo.color_code }">
 	<input type="submit" value="입력">
 </form>	
 	</c:when>
 	<c:when test="${param.do1=='update' }">
 <form method="post" action='<c:url value="/dev/itemOrder/itemCate.do?cmd=insert"/>'>
-	분류번호 <input type="text" readonly="readonly" name="cate_num" value="${vo.cate_num }">
-	상품분류 <input type="text" name="cate_name" value="${vo.cate_name }">
-	<input type="submit" value="수정">
+	컬러번호 <input type="text" readonly="readonly" name="color_num" value="${vo.color_num }">
+	컬러이름 <input type="text" name="color_name" value="${vo.color_name }">
+	컬러코드 <input type="text" name="color_code" value="${vo.color_code }">
+	<input type="submit" value="입력">
 </form>	
 	</c:when>
 </c:choose>

@@ -3,99 +3,99 @@ package sm3.jya.vo;
 import java.util.Date;
 
 public class EventNoticeVo {
-	private int EN_NUM;
-	private String EN_WRITER;
-	private String EN_TITLE;
-	private long EN_CONTENT;
-	private Date EN_DATE;
-	private String EN_ORGIMG;
-	private String EN_SAVIMG;
-	private int ADMIN_NUM;
+	private int en_num;
+	private String en_writer;
+	private String en_title;
+	private String en_content;
+	private Date en_date;
+	private String en_orgimg;
+	private String en_savimg;
+	private int admin_num;
 	
 	public EventNoticeVo () {}
 
-	public EventNoticeVo(int eN_NUM, String eN_WRITER, String eN_TITLE, long eN_CONTENT, Date eN_DATE, String eN_ORGIMG,
-			String eN_SAVIMG, int aDMIN_NUM) {
+	public EventNoticeVo(int en_num, String en_writer, String en_title, String en_content, Date en_date,
+			String en_orgimg, String en_savimg, int admin_num) {
 		super();
-		EN_NUM = eN_NUM;
-		EN_WRITER = eN_WRITER;
-		EN_TITLE = eN_TITLE;
-		EN_CONTENT = eN_CONTENT;
-		EN_DATE = eN_DATE;
-		EN_ORGIMG = eN_ORGIMG;
-		EN_SAVIMG = eN_SAVIMG;
-		ADMIN_NUM = aDMIN_NUM;
+		this.en_num = en_num;
+		this.en_writer = en_writer;
+		this.en_title = en_title;
+		this.en_content = en_content;
+		this.en_date = en_date;
+		this.en_orgimg = en_orgimg;
+		this.en_savimg = en_savimg;
+		this.admin_num = admin_num;
 	}
 
-	public int getEN_NUM() {
-		return EN_NUM;
+	public int getEn_num() {
+		return en_num;
 	}
 
-	public void setEN_NUM(int eN_NUM) {
-		EN_NUM = eN_NUM;
+	public void setEn_num(int en_num) {
+		this.en_num = en_num;
 	}
 
-	public String getEN_WRITER() {
-		return EN_WRITER;
+	public String getEn_writer() {
+		return en_writer;
 	}
 
-	public void setEN_WRITER(String eN_WRITER) {
-		EN_WRITER = eN_WRITER;
+	public void setEn_writer(String en_writer) {
+		this.en_writer = en_writer;
 	}
 
-	public String getEN_TITLE() {
-		return EN_TITLE;
+	public String getEn_title() {
+		return en_title;
 	}
 
-	public void setEN_TITLE(String eN_TITLE) {
-		EN_TITLE = eN_TITLE;
+	public void setEn_title(String en_title) {
+		this.en_title = en_title;
 	}
 
-	public long getEN_CONTENT() {
-		return EN_CONTENT;
+	public String getEn_content() {
+		return en_content;
 	}
 
-	public void setEN_CONTENT(long eN_CONTENT) {
-		EN_CONTENT = eN_CONTENT;
+	public void setEn_content(String en_content) {
+		this.en_content = en_content;
 	}
 
-	public Date getEN_DATE() {
-		return EN_DATE;
+	public Date getEn_date() {
+		return en_date;
 	}
 
-	public void setEN_DATE(Date eN_DATE) {
-		EN_DATE = eN_DATE;
+	public void setEn_date(Date en_date) {
+		this.en_date = en_date;
 	}
 
-	public String getEN_ORGIMG() {
-		return EN_ORGIMG;
+	public String getEn_orgimg() {
+		return en_orgimg;
 	}
 
-	public void setEN_ORGIMG(String eN_ORGIMG) {
-		EN_ORGIMG = eN_ORGIMG;
+	public void setEn_orgimg(String en_orgimg) {
+		this.en_orgimg = en_orgimg;
 	}
 
-	public String getEN_SAVIMG() {
-		return EN_SAVIMG;
+	public String getEn_savimg() {
+		return en_savimg;
 	}
 
-	public void setEN_SAVIMG(String eN_SAVIMG) {
-		EN_SAVIMG = eN_SAVIMG;
+	public void setEn_savimg(String en_savimg) {
+		this.en_savimg = en_savimg;
 	}
 
-	public int getADMIN_NUM() {
-		return ADMIN_NUM;
+	public int getAdmin_num() {
+		return admin_num;
 	}
 
-	public void setADMIN_NUM(int aDMIN_NUM) {
-		ADMIN_NUM = aDMIN_NUM;
+	public void setAdmin_num(int admin_num) {
+		this.admin_num = admin_num;
 	}
 
 	@Override
 	public String toString() {
-		return "SM3Vo [EN_NUM=" + EN_NUM + ", EN_WRITER=" + EN_WRITER + ", EN_TITLE=" + EN_TITLE + ", EN_CONTENT="
-				+ EN_CONTENT + ", EN_DATE=" + EN_DATE + ", EN_ORGIMG=" + EN_ORGIMG + ", EN_SAVIMG=" + EN_SAVIMG
-				+ ", ADMIN_NUM=" + ADMIN_NUM + "]";
+		return "EventNoticeVo [en_num=" + en_num + ", en_writer=" + en_writer + ", en_title=" + en_title
+				+ ", en_content=" + en_content + ", en_date=" + en_date + ", en_orgimg=" + en_orgimg + ", en_savimg="
+				+ en_savimg + ", admin_num=" + admin_num + "]";
 	}
 	
 }
