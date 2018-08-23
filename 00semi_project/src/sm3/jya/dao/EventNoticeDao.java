@@ -98,7 +98,7 @@ public class EventNoticeDao {
 		try {
 			con=DBConnection.getConn();
 			String sql="update sm3_event_notice set en_title=?,"
-					  +"en_content=?, en_orgimg=? en_savimg=? where en_num=?";
+					  +"en_content=?, en_orgimg=?, en_savimg=? where en_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEn_title());
 			pstmt.setString(2, vo.getEn_content());

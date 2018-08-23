@@ -30,12 +30,13 @@
 	<td>첨부파일</td>
 	<td><input type="file" name="file1"></td>
 </tr>
-<input type="hidden" value="1">
 <tr>
 	<td colspan="2" align="center">
 		<input type="submit" value="전송">
+		<input type="hidden" name="admin_num" value="1">
 	</td>
 </tr>
+
 </table>
 	</form>
 	</c:when>
@@ -49,7 +50,7 @@
 </tr>
 <tr>
 	<td>작성자</td>
-	<td><input type="text" name="en_writer"></td>
+	<td><input type="text" name="en_writer" value=""></td>
 </tr>
 <tr>
 	<td>제목</td>

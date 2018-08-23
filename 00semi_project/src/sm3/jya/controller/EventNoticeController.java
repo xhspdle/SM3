@@ -80,14 +80,14 @@ public class EventNoticeController extends HttpServlet{
 			1024*1024*5,
 			"UTF-8",
 			new DefaultFileRenamePolicy());
-		//int en_num = Integer.parseInt(mr.getParameter("en_num"));
+		int en_num = Integer.parseInt(mr.getParameter("en_num"));
 		String en_writer=mr.getParameter("en_writer");
 		String en_title=mr.getParameter("en_title");
 		String en_content=mr.getParameter("en_content");
 		String en_orgimg=mr.getOriginalFileName("file1");
 		String en_savimg=mr.getFilesystemName("file1");
 		int admin_num=Integer.parseInt(mr.getParameter("admin_num"));
-		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(0, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
+		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(en_num, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
 		if(n>0) {
 			request.setAttribute("msg", "이벤트공지 수정 성공");
 		}else {
