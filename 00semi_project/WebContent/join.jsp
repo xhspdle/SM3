@@ -71,7 +71,7 @@
 <!-- api -->
 
 </head>
-<body>
+<body onload="joinCheck()">
 	<div class="body">
 		<header id="header"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
@@ -89,27 +89,40 @@
 											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">회원가입</h4>
-												<form action="<c:url value='user_insert.do'/>" method="post">
+												<form action="<c:url value='userControll.do?cmd=insert'/>"
+													method="post">
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="id">아이디</label> <input id="id" type="text"
-																	name="id" class="form-control input-lg">
+																<label for="id">아이디</label> <span></span><input id="id"
+																	type="text" name="id" class="form-control input-lg">
 															</div>
 														</div>
 													</div>
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="pwd">비밀번호</label> <input id="pwd" name="pwd" type="password" value=""
+																<label for="pwd">비밀번호</label> <span></span><input
+																	id="pwd" name="pwd" type="password" value=""
 																	class="form-control input-lg">
 															</div>
 														</div>
 													</div>
+
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="pwdOk">비밀번호 확인</label> <input type="password" name="pwdOk"
+																<label for="pwdOk">비밀번호 확인</label> <span></span><input
+																	type="password" name="pwdOk"
+																	class="form-control input-lg" id="pwdOk">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label for="names">이름</label> <span></span><input
+																	id="names" name="name" type="text"
 																	class="form-control input-lg">
 															</div>
 														</div>
@@ -118,7 +131,7 @@
 														<div class="form-group">
 															<div class="col-md-12">
 																<label>비밀번호 힌트</label> <select
-																	class="form-control input-lg">
+																	class="form-control input-lg" name="pwdHint">
 																	<option>당신의 보물 1호는?</option>
 																	<option>당신의 취미는?</option>
 																	<option>당신의 생일은?</option>
@@ -130,15 +143,16 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>힌트 답 입력</label> <input type="password" value=""
-																	class="form-control input-lg">
+																<label for="hintOk">힌트 답 입력</label> <span></span><input
+																	type="password" name="hintOk"
+																	class="form-control input-lg" id="hintOk">
 															</div>
 														</div>
 													</div>
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>핸드폰 번호</label>
+																<label>핸드폰 번호</label> <span></span>
 																<div>
 																	<select id="phone1" name="phone[]"
 																		class="form-control input-lg">
@@ -148,11 +162,10 @@
 																		<option value="017">017</option>
 																		<option value="018">018</option>
 																		<option value="019">019</option>
-																	</select> - <input id="phone2" name="phone[]"
-																		maxlength="4" size="4"  type="text"
-																		class="form-control input-lg"> - <input
-																		id="phone3" name="phone[]" maxlength="4" size="4"
-																		 type="text" class="form-control input-lg">
+																	</select> - <input id="phone2" name="phone[]" maxlength="4"
+																		size="4" type="text" class="form-control input-lg">
+																	- <input id="phone3" name="phone[]" maxlength="4"
+																		size="4" type="text" class="form-control input-lg">
 																</div>
 															</div>
 														</div>
@@ -160,7 +173,7 @@
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>주소</label>
+																<label>주소</label> <span></span>
 																<div>
 																	<input type="text" id="sample3_postcode"
 																		placeholder="우편번호" class="form-control input-lg">
@@ -177,7 +190,7 @@
 																	</div>
 																	<input type="text" id="sample3_address"
 																		class="d_form large  form-control input-lg"
-																		placeholder="주소">
+																		placeholder="주소" name="addr">
 																</div>
 															</div>
 														</div>
@@ -185,7 +198,7 @@
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="email1">이메일</label>
+																<label for="email1">이메일</label> <span></span>
 																<div>
 																	<input id="email1" name="email[]" maxlength="4"
 																		size="8" value="" type="text"
@@ -203,7 +216,6 @@
 																data-loading-text="Loading...">
 														</div>
 													</div>
-
 												</form>
 											</div>
 										</div>
@@ -221,6 +233,64 @@
 			<jsp:include page="footer.jsp" />
 		</footer>
 	</div>
+
+
+	<!-- 로그인 유효성검사 -->
+	<script>
+		var inputs = document.getElementsByTagName("input");
+		var id = document.getElementById("id");
+		var pwd = document.getElementById("pwd");
+		var names = document.getElementById("names");
+		var pwdOk = document.getElementById("pwdOk");
+		var hintOk = document.getElementById("hintOk");
+		var phone2 = document.getElementById("phone2");
+		var phone3 = document.getElementById("phone3");
+		var email1 = document.getElementById("email1");
+		var email2 = document.getElementById("email2");
+
+		function joinCheck() {
+			for (var i = 0; i < inputs.length; i++) {
+				inputs[i].onclick = function() {
+					if (id.value == "") {
+						id.previousSibling.innerHTML = "필수 입력 사항입니다.";
+						id.focus();
+					} else if (pwd.value == "") {
+						pwd.previousSibling.innerHTML = "필수 입력 사항입니다.";
+						pwd.focus();
+					} else if (pwdOk.value == "") {
+						pwdOk.previousSibling.innerHTML = "필수 입력 사항입니다.";
+						pwdOk.focus();
+					} else if (names.value == "") {
+						names.previousSibling.innerHTML = "필수 입력 사항입니다.";
+						names.focus();
+					} else if (hintOk.value == "") {
+						hintOk.previousSibling.innerHTML = "필수 입력 사항입니다.";
+						hintOk.focus();
+					}
+					/* else if(phone2.value == "" || phone3.value= ""){
+						phone2.parentElement.previousSibling.innerHTML ="필수 입력 사항입니다.";
+					} */
+				}
+
+				inputs[i].onkeydown = function() {
+					if (id.value != "") {
+						this.previousSibling.innerHTML = "";
+					} else if (pwd.value != "") {
+						this.previousSibling.innerHTML = "";
+					} else if (pwdOk.value != "") {
+						this.previousSibling.innerHTML = "";
+					} else if (names.value != "") {
+						this.previousSibling.innerHTML = "";
+					} else if (hintOk.value != "") {
+						this.previousSibling.innerHTML = "";
+					}
+				}
+			}
+
+		}
+	</script>
+
+
 
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.min.js"></script>
