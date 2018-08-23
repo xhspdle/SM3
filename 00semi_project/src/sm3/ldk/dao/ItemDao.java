@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import sm3.dbcp.DBConnection;
+import sm3.ldk.vo.ItemSizeVo;
 import sm3.ldk.vo.ItemVo;
 
 public class ItemDao {
@@ -41,15 +42,25 @@ public class ItemDao {
 			}
 		}
 	}
-	public int insert(ItemVo vo) {
+	public int insert(ItemVo vo,int color_num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		PreparedStatement pstmt2=null;
+		/*
+			item->item_size 트랜잭션 처리
+			만들어둔 ItemSizeDao 사용하려 했으나,
+			부모테이블(item)에서 커밋이 안돼서 
+			락킹 현상(참조하는 부모테이블의 기본키 생성이 커밋이 안됐기때문)이 발생...
+			con객체가 달라서 오토커밋 처리도 달라지게됨
+			그래서 여기서는 pstmt2를 만들어서, 트랜잭션 처리
+		 */
 		try {
 			con=DBConnection.getConn();
 			String sql="insert into sm3_item values(?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			con.setAutoCommit(false);
-			pstmt.setInt(1, getMaxNum()+1);
+			int item_num=getMaxNum()+1;
+			pstmt.setInt(1, item_num);
 			pstmt.setString(2, vo.getItem_name());
 			pstmt.setInt(3, vo.getCate_num());
 			pstmt.setString(4, vo.getItem_info());
@@ -57,8 +68,32 @@ public class ItemDao {
 			pstmt.setString(6, vo.getItem_orgimg());
 			pstmt.setString(7, vo.getItem_savimg());
 			int n=pstmt.executeUpdate();
+			//con.commit();
 			if(n>0) {
-				
+				String[] size_name= {"44 ~ 55","55반 ~ 66","66반 ~ 77","66반 ~ 77"};
+				String sql2="insert into sm3_item_size values(?,?,?,?,?)";
+				int maxNum=ItemSizeDao.getInstance().getMaxNum();
+				int nn=0;
+				for(int i=0;i<size_name.length;i++) {
+					pstmt2=con.prepareStatement(sql2);
+					pstmt2.setInt(1, maxNum+i+1);
+					pstmt2.setString(2, size_name[i]);
+					pstmt2.setInt(3, item_num);
+					pstmt2.setInt(4, color_num);
+					pstmt2.setInt(5, 0);
+					nn=pstmt2.executeUpdate();
+					if(nn<=0) {
+						con.rollback();
+						return -3;
+					}
+				}
+				if(nn>0) {
+					con.commit();
+					return nn;
+				}else {
+					con.rollback();
+					return -4;
+				}
 			}else {
 				con.rollback();
 				return -2;
@@ -69,6 +104,7 @@ public class ItemDao {
 		}finally {
 			try {
 				if(pstmt!=null) pstmt.close();
+				if(pstmt2!=null) pstmt2.close();
 				if(con!=null) con.close();
 			}catch(SQLException se) {
 				System.out.println(se.getMessage());

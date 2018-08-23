@@ -56,12 +56,11 @@ public class ItemColorController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<ItemColorVo> list=ItemColorDao.getInstance().list();
 		String ajax=request.getParameter("ajax");
-		System.out.println(ajax);//-------------
 		if(ajax!=null && ajax.equals("true")) {
 			JSONArray arr=new JSONArray();
 			for(ItemColorVo vo:list) {
 				JSONObject ob=new JSONObject();
-				ob.put("color_num", vo.getColor_num());
+				ob.put("color_num", String.valueOf(vo.getColor_num()));
 				ob.put("color_name", vo.getColor_name());
 				ob.put("color_code", vo.getColor_code());
 				arr.add(ob);

@@ -118,7 +118,7 @@ public class EventNoticeDao {
 			}
 		}
 	}
-	public EventNoticeVo getinfo(int en_num) {
+	public EventNoticeVo select(int en_num) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -194,7 +194,7 @@ public class EventNoticeDao {
 			}
 		}
 	}
-	public ArrayList<EventNoticeVo> list(){ //파일업로드한 리스트
+	public ArrayList<EventNoticeVo> list(){  //파일업로드한 리스트
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
@@ -312,7 +312,7 @@ public class EventNoticeDao {
 			}
 		}
 	}
-	//페이징처리..ㅎㅎ..
+
 	
 }
 	

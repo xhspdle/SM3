@@ -56,8 +56,14 @@ public class ItemController extends HttpServlet{
 		}
 		String item_orgimg=mr.getOriginalFileName("file1");
 		String item_savimg=mr.getFilesystemName("file1");
+		String scolor_num=mr.getParameter("color_num");
+		int color_num=1;//자바스크립트(ajax)가 작동하지 않아도 기본 컬러로 인서트 할 수 있도록
+		if(scolor_num!=null && !scolor_num.equals("")) {
+			color_num=Integer.parseInt(scolor_num);
+		}
 		int n=ItemDao.getInstance().insert(new ItemVo(0, item_name,
-				cate_num, item_info, item_price, item_orgimg, item_savimg));
+				cate_num, item_info, item_price,
+				item_orgimg, item_savimg),color_num);
 		if(n>0) {
 			request.setAttribute("msg", "상품 추가 성공!!");
 		}else {
@@ -133,8 +139,17 @@ public class ItemController extends HttpServlet{
 		if(sitem_price!=null && !sitem_price.equals("")) {
 			item_price=Integer.parseInt(sitem_price);
 		}
-		String item_orgimg=mr.getOriginalFileName("file1");
-		String item_savimg=mr.getFilesystemName("file1");
+		String sitem_orgimg=mr.getParameter("item_orgimg");
+		String sitem_savimg=mr.getParameter("item_savimg");
+		String item_orgimg="";
+		String item_savimg="";
+		if(sitem_orgimg!=null && !sitem_orgimg.equals("")) {
+			item_orgimg=sitem_orgimg;
+			item_savimg=sitem_savimg;
+		}else {
+			item_orgimg=mr.getOriginalFileName("file1");
+			item_savimg=mr.getFilesystemName("file1");
+		}
 		int n=ItemDao.getInstance().update(new ItemVo(item_num,
 				item_name, cate_num, item_info, item_price, item_orgimg, item_savimg));
 		if(n>0) {
