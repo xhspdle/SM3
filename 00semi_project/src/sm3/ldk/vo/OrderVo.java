@@ -1,7 +1,7 @@
 package sm3.ldk.vo;
 
 import java.sql.Date;
-
+//컬럼 수정해야댐
 public class OrderVo {
 	private int order_num;
 	private int size_num;
@@ -13,10 +13,17 @@ public class OrderVo {
 	private int order_pay;//결제금액
 	private String order_addr;
 	private Date order_date;
-	private String order_status;
+	private int order_status;
+	/*	주문상태 : 
+		1 배송중
+		2 배송완료
+		3 구매확정
+		4 취소
+		5 반품
+	 */
 	public OrderVo() {}
 	public OrderVo(int order_num, int size_num, int user_num, int order_cnt, int item_price, int order_total,
-			int order_point, int order_pay, String order_addr, Date order_date, String order_status) {
+			int order_point, int order_pay, String order_addr, Date order_date, int order_status) {
 		super();
 		this.order_num = order_num;
 		this.size_num = size_num;
@@ -90,10 +97,10 @@ public class OrderVo {
 	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
 	}
-	public String getOrder_status() {
+	public int getOrder_status() {
 		return order_status;
 	}
-	public void setOrder_status(String order_status) {
+	public void setOrder_status(int order_status) {
 		this.order_status = order_status;
 	}
 }
