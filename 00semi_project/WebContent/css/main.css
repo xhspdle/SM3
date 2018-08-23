@@ -325,3 +325,17 @@ a.btn{
 	width: 70%;
 	
 }
+
+#searchs{
+	width:30% !important;
+	display: inline-block;
+}
+.loginBox span:after{
+	display: block;
+	content:'';
+	
+}
+.spanVal{
+	color: #ff5d5d;
+	font-size: 11px;
+}

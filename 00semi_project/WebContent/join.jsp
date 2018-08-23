@@ -94,7 +94,7 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="id">아이디</label> <span></span><input id="id"
+																<label for="id">아이디</label> <span class="spanVal"></span><input id="id"
 																	type="text" name="id" class="form-control input-lg">
 															</div>
 														</div>
@@ -102,7 +102,7 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="pwd">비밀번호</label> <span></span><input
+																<label for="pwd">비밀번호</label> <span class="spanVal"></span><input
 																	id="pwd" name="pwd" type="password" value=""
 																	class="form-control input-lg">
 															</div>
@@ -112,7 +112,7 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="pwdOk">비밀번호 확인</label> <span></span><input
+																<label for="pwdOk">비밀번호 확인</label> <span class="spanVal"></span><input
 																	type="password" name="pwdOk"
 																	class="form-control input-lg" id="pwdOk">
 															</div>
@@ -121,7 +121,7 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="names">이름</label> <span></span><input
+																<label for="names">이름</label> <span class="spanVal"></span><input
 																	id="names" name="name" type="text"
 																	class="form-control input-lg">
 															</div>
@@ -132,10 +132,10 @@
 															<div class="col-md-12">
 																<label>비밀번호 힌트</label> <select
 																	class="form-control input-lg" name="pwdHint">
-																	<option>당신의 보물 1호는?</option>
-																	<option>당신의 취미는?</option>
-																	<option>당신의 생일은?</option>
-																	<option>당신이 좋아하는 음악은?</option>
+																	<option value="1">당신의 보물 1호는?</option>
+																	<option value="2">당신의 취미는?</option>
+																	<option value="3">당신의 생일은?</option>
+																	<option value="4">당신이 좋아하는 음악은?</option>
 																</select>
 															</div>
 														</div>
@@ -143,8 +143,8 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="hintOk">힌트 답 입력</label> <span></span><input
-																	type="password" name="hintOk"
+																<label for="hintOk">힌트 답 입력</label> <span class="spanVal"></span><input
+																	type="text" name="hintOk"
 																	class="form-control input-lg" id="hintOk">
 															</div>
 														</div>
@@ -152,9 +152,8 @@
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>핸드폰 번호</label> <span></span>
-																<div>
-																	<select id="phone1" name="phone[]"
+																<label>핸드폰 번호</label> 
+																	<span class="spanVal"></span><select id="phone1" name="phone[]"
 																		class="form-control input-lg">
 																		<option value="010">010</option>
 																		<option value="011">011</option>
@@ -166,20 +165,19 @@
 																		size="4" type="text" class="form-control input-lg">
 																	- <input id="phone3" name="phone[]" maxlength="4"
 																		size="4" type="text" class="form-control input-lg">
-																</div>
+																
 															</div>
 														</div>
 													</div>
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>주소</label> <span></span>
-																<div>
-																	<input type="text" id="sample3_postcode"
-																		placeholder="우편번호" class="form-control input-lg">
-																	<input type="button"
+																<label>주소</label> 
+																	<span class="spanVal"></span><input type="text" id="sample3_postcode"
+																		placeholder="우편번호" name ="addr[]" class="form-control input-lg">
+																	<a
 																		onclick="sample3_execDaumPostcode()"
-																		class="form-control input-lg" value="우편번호 찾기"><br>
+																		class="form-control input-lg" id="addSearch" style="width:20%; display: inline-block;">우편번호 찾기</a><br>
 																	<div id="wraps"
 																		style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
 																		<img
@@ -190,22 +188,24 @@
 																	</div>
 																	<input type="text" id="sample3_address"
 																		class="d_form large  form-control input-lg"
-																		placeholder="주소" name="addr">
-																</div>
+																		placeholder="기본주소" name="addr[]">
+																		<input type="text" 
+																		class="form-control input-lg"
+																		placeholder="상세주소" id="addr" name="addr[]">
+																
 															</div>
 														</div>
 													</div>
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="email1">이메일</label> <span></span>
-																<div>
-																	<input id="email1" name="email[]" maxlength="4"
+																<label for="email1">이메일</label>
+																	 <span class="spanVal"></span><input id="email1" name="email[]" 
 																		size="8" value="" type="text"
 																		class="form-control input-lg"> @ <input
-																		id="email2" name="email[]" maxlength="4" size="8"
+																		id="email2" name="email[]"size="8"
 																		value="" type="text" class="form-control input-lg">
-																</div>
+																
 															</div>
 														</div>
 													</div>
@@ -237,56 +237,87 @@
 
 	<!-- 로그인 유효성검사 -->
 	<script>
+		
 		var inputs = document.getElementsByTagName("input");
 		var id = document.getElementById("id");
 		var pwd = document.getElementById("pwd");
 		var names = document.getElementById("names");
 		var pwdOk = document.getElementById("pwdOk");
 		var hintOk = document.getElementById("hintOk");
+		var phone1 = document.getElementById("phone1");
 		var phone2 = document.getElementById("phone2");
 		var phone3 = document.getElementById("phone3");
+		var addr = document.getElementById("addr");
+		var addrNum = document.getElementById("sample3_postcode");
+		var addrBtn = document.getElementById("addSearch");
 		var email1 = document.getElementById("email1");
 		var email2 = document.getElementById("email2");
-
+		var spans = document.getElementsByClassName("spanVal");
+		
 		function joinCheck() {
 			for (var i = 0; i < inputs.length; i++) {
 				inputs[i].onclick = function() {
+					
 					if (id.value == "") {
-						id.previousSibling.innerHTML = "필수 입력 사항입니다.";
-						id.focus();
+						if(this.value == ""){
+							id.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+							id.focus();
+						} 
 					} else if (pwd.value == "") {
-						pwd.previousSibling.innerHTML = "필수 입력 사항입니다.";
-						pwd.focus();
+						if(this.value == ""){
+							pwd.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+							pwd.focus();
+						} 
 					} else if (pwdOk.value == "") {
-						pwdOk.previousSibling.innerHTML = "필수 입력 사항입니다.";
-						pwdOk.focus();
+						if(this.value == ""){
+							pwdOk.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+							pwdOk.focus();
+						} 
 					} else if (names.value == "") {
-						names.previousSibling.innerHTML = "필수 입력 사항입니다.";
-						names.focus();
+						if(this.value == ""){
+							names.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+							names.focus();
+						} 
 					} else if (hintOk.value == "") {
-						hintOk.previousSibling.innerHTML = "필수 입력 사항입니다.";
-						hintOk.focus();
+						if(this.value == ""){
+							hintOk.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+							if(this.value == "") hintOk.focus();
+						} 
+						
+					} else if (phone2.value == "") {
+						if(this.value == ""){
+							phone1.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+							if(this.value == "") phone2.focus();
+						} 
+					} else if (phone3.value == "") {
+						if(this.value == ""){
+							phone1.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+							if(this.value == "") phone3.focus();
+						} 
+					}else if (addr.value == "") {
+						if(this.value == ""){
+							addrNum.previousSibling.innerHTML = "*필수입력 사항 입니다.";
+							if(this.value == "") addr.focus();
+						} 
+					}else if (email1.value == "") {
+						if(this.value == ""){
+							email1.previousSibling.innerHTML = "*필수 입력 사항입니다";
+							if(this.value == "") email1.focus();
+						} 
+						
+					}else if (email2.value == "") {
+						if(this.value == ""){
+							email1.previousSibling.innerHTML = "필수 입력 사항입니다";
+							if(this.value == "") email2.focus();
+						} 
 					}
-					/* else if(phone2.value == "" || phone3.value= ""){
-						phone2.parentElement.previousSibling.innerHTML ="필수 입력 사항입니다.";
-					} */
 				}
-
 				inputs[i].onkeydown = function() {
-					if (id.value != "") {
-						this.previousSibling.innerHTML = "";
-					} else if (pwd.value != "") {
-						this.previousSibling.innerHTML = "";
-					} else if (pwdOk.value != "") {
-						this.previousSibling.innerHTML = "";
-					} else if (names.value != "") {
-						this.previousSibling.innerHTML = "";
-					} else if (hintOk.value != "") {
-						this.previousSibling.innerHTML = "";
+					for (var i = 0; i < spans.length ; i++) {
+						spans[i].innerHTML = "";
 					}
 				}
 			}
-
 		}
 	</script>
 
