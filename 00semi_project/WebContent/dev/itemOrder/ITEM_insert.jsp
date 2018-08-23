@@ -22,6 +22,28 @@
 	</select>
 	<input type="submit" value="입력">
 </form>	
+<script type="text/javascript">
+	var xhr=null;
+	function colorList(){
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=callback;
+		xhr.open('get','itemColor.do?cmd=list&ajax=true',true);//cmd=list?ajax=true 로 썼다가 낭패봄...ㅠㅠ
+		xhr.send();
+	}
+	function callback(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var txt=xhr.responseText;
+			var json=JSON.parse(txt);
+			var color_num=document.getElementsByName("color_num")[0];
+			for(var i=0;i<json.length;i++){
+				var option=document.createElement("option");
+				option.setAttribute("value", json[i].color_num);
+				option.text=json[i].color_name;
+				color_num.add(option);
+			}
+		}
+	}
+</script>
 	</c:when>
 	<c:when test="${param.do1=='update' }">
 <form method="post" action='<c:url value="/dev/itemOrder/item.do?cmd=update"/>'
@@ -37,25 +59,4 @@
 	</c:when>
 </c:choose>
 </body>
-<script type="text/javascript">
-	var xhr=null;
-	function colorList(){
-		xhr=new XMLHttpRequest();
-		xhr.onreadystatechange=callback;
-		xhr.open('get','itemColor.do?cmd=list?ajax=true',true);
-		xhr.send();
-	}
-	function callback(){
-		if(xhr.readyState==4 && xhr.status==200){
-			/*var txt=xhr.responseText;
-			var json=JSON.parse(txt);
-			var color_num=document.getElementsByName("color_num")[0];
-			for(var i=0;i<json.length;i++){
-				var option=document.createElement("option");
-				option.value=json[i].color_name;
-				color_num.add(option);
-			}*/
-		}
-	}
-</script>
 </html>

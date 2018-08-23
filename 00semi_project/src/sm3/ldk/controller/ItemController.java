@@ -56,8 +56,14 @@ public class ItemController extends HttpServlet{
 		}
 		String item_orgimg=mr.getOriginalFileName("file1");
 		String item_savimg=mr.getFilesystemName("file1");
+		String scolor_num=mr.getParameter("color_num");
+		int color_num=0;
+		if(scolor_num!=null && !scolor_num.equals("")) {
+			color_num=Integer.parseInt(scolor_num);
+		}
 		int n=ItemDao.getInstance().insert(new ItemVo(0, item_name,
-				cate_num, item_info, item_price, item_orgimg, item_savimg));
+				cate_num, item_info, item_price,
+				item_orgimg, item_savimg),color_num);
 		if(n>0) {
 			request.setAttribute("msg", "상품 추가 성공!!");
 		}else {

@@ -53,7 +53,8 @@ public class ItemSizeDao {
 			pstmt.setInt(3, vo.getItem_num());
 			pstmt.setInt(4, vo.getColor_num());
 			pstmt.setInt(5, vo.getSize_cnt());
-			return pstmt.executeUpdate();
+			int n=pstmt.executeUpdate();
+			return n;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
