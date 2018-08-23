@@ -25,10 +25,12 @@ public class EventNoticeController extends HttpServlet{
 			insert(request,response);
 		}else if(cmd!=null && cmd.equals("list")) {
 			list(request,response);
-//		}else if(cmd!=null && cmd.equals("delete")) {
-//			delete(request,response);
-//		}else if(cmd!=null && cmd.equals("update")) {
-//			update(request,response);
+		}else if(cmd!=null && cmd.equals("delete")) {
+			delete(request,response);
+		}else if(cmd!=null && cmd.equals("update")) {
+			update(request,response);
+		}else if(cmd!=null && cmd.equals("getinfo")) {
+			getinfo(request,response);
 		}
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
@@ -46,7 +48,7 @@ public class EventNoticeController extends HttpServlet{
 
 		String en_content=mr.getParameter("en_content");
 		
-		int n=EventNoticeDao.getInstance().insert(new EventNoticeVo(0, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
+		int n=EventNoticeDao.getInstance().insert(new EventNoticeVo(0, en_writer, en_title, en_content, null, en_orgimg, en_savimg,admin_num));
 		if(n>0) {
 			request.setAttribute("msg", "이벤트이미지 추가 성공");
 		}else {
@@ -58,7 +60,51 @@ public class EventNoticeController extends HttpServlet{
 		ArrayList<EventNoticeVo> list = EventNoticeDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher(arg0)
+			request.getRequestDispatcher("/dev/board/EN_list.jsp").forward(request, response);
 		}
 	}
-}
+	protected void delete(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		int en_num = Integer.parseInt(request.getParameter("en_num"));
+		int n = EventNoticeDao.getInstance().delete(en_num);
+		if(n>0) {
+			request.setAttribute("msg", "이미지삭제성공");
+		}else {
+			request.setAttribute("msg", "이미지 삭제 실패");
+		}
+		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
+	}
+	protected void update(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		String path=request.getServletContext().getRealPath("/images");	
+		MultipartRequest mr=new MultipartRequest(request,
+			path,
+			1024*1024*5,
+			"UTF-8",
+			new DefaultFileRenamePolicy());
+		int en_num = Integer.parseInt(mr.getParameter("en_num"));
+		String en_writer=mr.getParameter("en_writer");
+		String en_title=mr.getParameter("en_title");
+		String en_content=mr.getParameter("en_content");
+		String en_orgimg=mr.getOriginalFileName("file1");
+		String en_savimg=mr.getFilesystemName("file1");
+		int admin_num=Integer.parseInt(mr.getParameter("admin_num"));
+		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(en_num, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
+		if(n>0) {
+			request.setAttribute("msg", "이벤트공지 수정 성공");
+		}else {
+			request.setAttribute("msg", "이벤트공지 수정 실패");
+		}
+		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);		
+	 }
+	protected void getinfo(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		int en_num=Integer.parseInt(request.getParameter("en_num"));
+		EventNoticeVo vo = EventNoticeDao.getInstance().getinfo(en_num);
+		if(vo!=null) {
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("EN_imginput.jsp?cmd1=update").forward(request, response);
+		}else {
+			request.setAttribute("msg", "실패");
+			request.getRequestDispatcher("Event_msg.jsp").forward(request, response);
+		}
+	 }
+  }		
+

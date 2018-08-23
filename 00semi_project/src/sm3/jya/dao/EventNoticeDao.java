@@ -98,7 +98,7 @@ public class EventNoticeDao {
 		try {
 			con=DBConnection.getConn();
 			String sql="update sm3_event_notice set en_title=?,"
-					  +"en_content=?, en_orgimg=? en_savimg=? where en_num=?";
+					  +"en_content=?, en_orgimg=?, en_savimg=? where en_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEn_title());
 			pstmt.setString(2, vo.getEn_content());
@@ -113,6 +113,41 @@ public class EventNoticeDao {
 			try {
 				if(pstmt!=null) pstmt.close();
 				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public EventNoticeVo getinfo(int en_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con=DBConnection.getConn();
+			String sql = "select *from sm3_event_notice where en_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, en_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				String en_writer=rs.getString("en_writer");
+				String en_title=rs.getString("en_title");
+				String en_content=rs.getString("en_content");
+				Date en_date = rs.getDate("en_date");
+				String en_orgimg = rs.getString("en_orgimg");
+				String en_savimg = rs.getString("en_savimg");
+				int admin_num = rs.getInt("admin_num");
+				EventNoticeVo vo = new EventNoticeVo(en_num, en_writer, en_title, en_content,en_date, en_orgimg, en_savimg, admin_num);
+				return vo;
+			}
+			return null;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
 			}catch(SQLException se) {
 				System.out.println(se.getMessage());
 			}
@@ -156,6 +191,46 @@ public class EventNoticeDao {
 				if(con!=null)con.close();
 			}catch(SQLException e) {
 				System.out.println(e.getMessage());
+			}
+		}
+	}
+	public ArrayList<EventNoticeVo> list(){ //파일업로드한 리스트
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		ArrayList<EventNoticeVo> list = new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			String sql="select *from sm3_event_notice";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int en_num = rs.getInt("en_num");
+					String en_writer = rs.getString("en_writer");
+					String en_title = rs.getString("en_title");
+					String en_content = rs.getString("en_content");
+					Date en_date = rs.getDate("en_date");
+					String en_orgimg = rs.getString("en_orgimg");
+					String en_savimg = rs.getString("en_savimg");
+					int admin_num = rs.getInt("admin_num");
+					EventNoticeVo vo = new EventNoticeVo(en_num, en_writer, en_title, en_content,en_date, en_orgimg, en_savimg, admin_num);
+					list.add(vo);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
 			}
 		}
 	}
@@ -237,6 +312,8 @@ public class EventNoticeDao {
 			}
 		}
 	}
+	//페이징처리..ㅎㅎ..
+	
 }
 	
 	
