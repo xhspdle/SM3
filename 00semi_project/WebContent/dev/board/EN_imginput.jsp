@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>이미지등록</title>
 </head>
-<body>
+<body onload ="add()">
 <h1>이벤트 등록</h1>
 <c:choose>
 	<c:when test="${param.cmd1=='imginput'}">
@@ -50,11 +50,11 @@
 </tr>
 <tr>
 	<td>작성자</td>
-	<td><input type="text" name="en_writer" value=""></td>
+	<td><input type="text" name="en_writer" value="${vo.en_writer }"></td>
 </tr>
 <tr>
 	<td>제목</td>
-	<td><input type="text" name="en_title"></td>
+	<td><input type="text" name="en_title" value="${vo.en_title }"></td>
 </tr>
 <tr>
 	<td>글내용</td>
@@ -62,23 +62,25 @@
 </tr>
 <tr>
 	<td>첨부파일</td>
-	<td><input type="file" name="file1"></td>
+	<td><input type="file" name="file1" ></td>
 </tr>
+<tr>
+	<td>관리자번호</td>
+	<td><input type="text" name="admin_num" value="${vo.admin_num }"></td> 
+</tr>
+
 <tr>
 	<td colspan="2" align="center">
 		<input type="submit" value="확인">
 	</td>
 </tr>
-<tr>
-	<td>관리자번호</td>
-	<td><input type="text" name="admin_num"></td> 
-</tr>
-</table>			
+</table>	
 </form>
 <a href="<c:url value='/dev/board/EventNotice.do?cmd=list'/>">목록보기</a>
 <a href="<c:url value='/dev/board/EN_main.jsp'/>">메인으로</a>
 </c:when>
 </c:choose>
+
 </body>
 </html>
 
