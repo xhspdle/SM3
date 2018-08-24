@@ -89,13 +89,18 @@
 											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">회원가입</h4>
-												<form method="post" action="<c:url value='userControll.do?cmd=insert'/>"
-													method="post">
+												<form action="<c:url value='userControll.do?cmd=insert'/>"
+													method="post" name="joinForm">
 													<div class="row">
 														<div class="form-group">
-															<div class="col-md-12">
+															<div class="col-md-10">
 																<label for="id">아이디</label> <span class="spanVal"></span><input id="id"
 																	type="text" name="id" class="form-control input-lg">
+															</div>
+															<div class="col-md-2">
+																<a href="javascript:idcheck();" 
+																class="btn btn-primary pull-right mb-xl"
+																style="margin-top: 30px; margin-bottom:0;">중복체크</a>
 															</div>
 														</div>
 													</div>
@@ -108,7 +113,6 @@
 															</div>
 														</div>
 													</div>
-
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
@@ -253,6 +257,11 @@
 		var email1 = document.getElementById("email1");
 		var email2 = document.getElementById("email2");
 		var spans = document.getElementsByClassName("spanVal");
+		
+		function idCheck(){
+			document.joinForm.action = "<c:url value='userControll.do?cmd=idSearch'/>";
+			document.joinForm.submit;
+		}
 		
 		function joinCheck() {
 			for (var i = 0; i < inputs.length; i++) {

@@ -75,8 +75,11 @@
 	String[] phoneArray = phone.split("-");
 	String[] emailArray = email.split("@");
 %>
+<script>
+
+</script>
 </head>
-<body onload="joinCheck()">
+<body onload="updetCheck()">
 	<div class="body">
 		<header id="header"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
@@ -94,8 +97,7 @@
 											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">회원가입</h4>
-												<form method="post" action="<c:url value='userControll.do?cmd=update'/>"
-													method="post">
+												<form method="post" action="<c:url value='/userControll.do?cmd=update'/>">
 													<div class="row">
 														<div class="form-group">
 															<input id="num"
@@ -132,6 +134,28 @@
 																<label for="names">이름</label> <span class="spanVal"></span><input
 																	id="names" name="name" type="text"
 																	class="form-control input-lg" value="${param.user_name}">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label>비밀번호 힌트</label> <select
+																	class="form-control input-lg" id="hints"name="pwdHint">
+																	<option value="1">당신의 보물 1호는?</option>
+																	<option value="2">당신의 취미는?</option>
+																	<option value="3">당신의 생일은?</option>
+																	<option value="4">당신이 좋아하는 음악은?</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label for="hintOk">힌트 답 입력</label> <span class="spanVal"></span><input
+																	type="text" name="hintOk"
+																	class="form-control input-lg" id="hintOk" value="${param.hint_ok }">
 															</div>
 														</div>
 													</div>
@@ -215,7 +239,9 @@
 
 	<!-- 로그인 유효성검사 -->
 	<script>
-		
+		//미리 힌트 선택
+		var select = document.getElementById("hints");
+		var hintNum = ${hint_num+1};
 		var inputs = document.getElementsByTagName("input");
 		var id = document.getElementById("id");
 		var pwd = document.getElementById("pwd");
@@ -232,10 +258,10 @@
 		var email2 = document.getElementById("email2");
 		var spans = document.getElementsByClassName("spanVal");
 		
-		function joinCheck() {
+		function updetCheck() {
+			select[hintNum].selected = "selected";
 			for (var i = 0; i < inputs.length; i++) {
 				inputs[i].onclick = function() {
-					
 					if (id.value == "") {
 						if(this.value == ""){
 							id.previousSibling.innerHTML = "*필수 입력 사항입니다.";
