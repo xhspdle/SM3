@@ -33,7 +33,7 @@ public class UserController extends HttpServlet {
 		if (cmd.equals("list")) {
 			list(request, response);
 		}if (cmd.equals("update")) {
-			list(request, response);
+			update(request, response);
 		}
 	}
 
@@ -54,15 +54,12 @@ public class UserController extends HttpServlet {
 		String detailAddr = addr[2];
 		String phone = phoneArray[0] + "-" + phoneArray[1] + "-" + phoneArray[2];
 		String email = emailArray[0] + "@" + emailArray[1];
-		System.out.println(hintOk);
 		
 		if(pwd.equals("")) {
 			pwd = originPwd;
 		}
-		
-		
-		int n = dao.update(
-				new UserVo(0, id, pwd, name, email, phone, postAddr, basicAddr, detailAddr, null, pwdHint, hintOk));
+		System.out.println(pwd);
+		int n = dao.update(new UserVo(0, id, pwd, name, email, phone, postAddr, basicAddr, detailAddr, null, pwdHint, hintOk));
 		if (n > 0) {
 			request.setAttribute("msg", "수정성공쓰");
 		} else {
@@ -143,4 +140,15 @@ public class UserController extends HttpServlet {
 			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
 	}
+	
+	protected void getInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }
