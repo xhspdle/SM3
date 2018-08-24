@@ -325,10 +325,6 @@
 	var order_cnt = null;
 	window.onload = function(){
 		order_cnt = document.getElementsByName("order_cnt")[0];
-		//var minus = document.getElementById("minus");
-		//var plus = document.getElementById("plus");
-		//minus.setAttribute("onclick", "minus11()");
-		//plus.setAttribute("onclick", "plus11()");
 	}
 	function minus11(){
 		var cnt=parseInt(order_cnt.value);

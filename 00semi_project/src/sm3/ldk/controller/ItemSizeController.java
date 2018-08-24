@@ -51,7 +51,7 @@ public class ItemSizeController extends HttpServlet{
 			color_num=Integer.parseInt(scolor_num);
 		}
 		if(ssize_cnt!=null && !ssize_cnt.equals("")) {
-			size_num=Integer.parseInt(ssize_cnt);
+			size_cnt=Integer.parseInt(ssize_cnt);
 		}
 		int n=ItemSizeDao.getInstance().insert(new ItemSizeVo(size_num,
 				size_name, item_num, color_num, size_cnt));
