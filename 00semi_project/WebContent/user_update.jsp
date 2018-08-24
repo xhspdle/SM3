@@ -69,7 +69,12 @@
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
 <!-- api -->
-
+<%
+ 	String phone = request.getParameter("user_phone");
+ 	String email = request.getParameter("user_email");
+	String[] phoneArray = phone.split("-");
+	String[] emailArray = email.split("@");
+%>
 </head>
 <body onload="joinCheck()">
 	<div class="body">
@@ -89,13 +94,17 @@
 											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">회원가입</h4>
-												<form method="post" action="<c:url value='userControll.do?cmd=insert'/>"
+												<form method="post" action="<c:url value='userControll.do?cmd=update'/>"
 													method="post">
 													<div class="row">
 														<div class="form-group">
+															<input id="num"
+																	type="hidden" name="num" class="form-control input-lg" value="${param.user_num}">
+															<input id="originPwd"
+																	type="hidden" name="originPwd" class="form-control input-lg" value="${param.user_num}">
 															<div class="col-md-12">
 																<label for="id">아이디</label> <span class="spanVal"></span><input id="id"
-																	type="text" name="id" class="form-control input-lg">
+																	type="text" name="id" class="form-control input-lg" value="${param.user_id }" readonly="readonly">
 															</div>
 														</div>
 													</div>
@@ -108,7 +117,6 @@
 															</div>
 														</div>
 													</div>
-
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
@@ -123,29 +131,7 @@
 															<div class="col-md-12">
 																<label for="names">이름</label> <span class="spanVal"></span><input
 																	id="names" name="name" type="text"
-																	class="form-control input-lg">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="form-group">
-															<div class="col-md-12">
-																<label>비밀번호 힌트</label> <select
-																	class="form-control input-lg" name="pwdHint">
-																	<option value="1">당신의 보물 1호는?</option>
-																	<option value="2">당신의 취미는?</option>
-																	<option value="3">당신의 생일은?</option>
-																	<option value="4">당신이 좋아하는 음악은?</option>
-																</select>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="form-group">
-															<div class="col-md-12">
-																<label for="hintOk">힌트 답 입력</label> <span class="spanVal"></span><input
-																	type="text" name="hintOk"
-																	class="form-control input-lg" id="hintOk">
+																	class="form-control input-lg" value="${param.user_name}">
 															</div>
 														</div>
 													</div>
@@ -153,18 +139,12 @@
 														<div class="form-group">
 															<div class="col-md-12">
 																<label>핸드폰 번호</label> 
-																	<span class="spanVal"></span><select id="phone1" name="phone[]"
-																		class="form-control input-lg">
-																		<option value="010">010</option>
-																		<option value="011">011</option>
-																		<option value="016">016</option>
-																		<option value="017">017</option>
-																		<option value="018">018</option>
-																		<option value="019">019</option>
-																	</select> - <input id="phone2" name="phone[]" maxlength="4"
-																		size="4" type="text" class="form-control input-lg">
+																	<span class="spanVal"></span><input id="phone1" name="phone[]"
+																		size="4" class="form-control input-lg" value="<%=phoneArray[0] %>">
+																	- <input id="phone2" name="phone[]" maxlength="4"
+																		size="4" type="text" class="form-control input-lg" value="<%=phoneArray[1] %>">
 																	- <input id="phone3" name="phone[]" maxlength="4"
-																		size="4" type="text" class="form-control input-lg">
+																		size="4" type="text" class="form-control input-lg" value="<%=phoneArray[2] %>">
 																
 															</div>
 														</div>
@@ -174,7 +154,7 @@
 															<div class="col-md-12">
 																<label>주소</label> 
 																	<span class="spanVal"></span><input type="text" id="sample3_postcode"
-																		placeholder="우편번호" name ="addr[]" class="form-control input-lg">
+																		placeholder="우편번호" name ="addr[]" class="form-control input-lg" value="${param.user_post_addr}">
 																	<a
 																		onclick="sample3_execDaumPostcode()"
 																		class="form-control input-lg" id="addSearch" style="width:20%; display: inline-block;">우편번호 찾기</a><br>
@@ -188,11 +168,10 @@
 																	</div>
 																	<input type="text" id="sample3_address"
 																		class="d_form large  form-control input-lg"
-																		placeholder="기본주소" name="addr[]">
+																		placeholder="기본주소" name="addr[]" value="${param.user_basic_addr}">
 																		<input type="text" 
 																		class="form-control input-lg"
-																		placeholder="상세주소" id="addr" name="addr[]">
-																
+																		placeholder="상세주소" id="addr" name="addr[]" value="${param.user_detail_addr}">
 															</div>
 														</div>
 													</div>
@@ -201,17 +180,16 @@
 															<div class="col-md-12">
 																<label for="email1">이메일</label>
 																	 <span class="spanVal"></span><input id="email1" name="email[]" 
-																		size="8" value="" type="text"
-																		class="form-control input-lg"> @ <input
+																		size="8" type="text"
+																		class="form-control input-lg" value="<%=emailArray[0] %>"> @ <input
 																		id="email2" name="email[]"size="8"
-																		value="" type="text" class="form-control input-lg">
-																
+																		type="text" class="form-control input-lg" value="<%=emailArray[1] %>">
 															</div>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-6" style="margin-top: 40px">
-															<input type="submit" value="가입완료"
+															<input type="submit" value="수정완료"
 																class="btn btn-primary pull-right mb-xl"
 																data-loading-text="Loading...">
 														</div>
@@ -263,17 +241,7 @@
 							id.previousSibling.innerHTML = "*필수 입력 사항입니다.";
 							id.focus();
 						} 
-					} else if (pwd.value == "") {
-						if(this.value == ""){
-							pwd.previousSibling.innerHTML = "*필수 입력 사항입니다.";
-							pwd.focus();
-						} 
-					} else if (pwdOk.value == "") {
-						if(this.value == ""){
-							pwdOk.previousSibling.innerHTML = "*필수 입력 사항입니다.";
-							pwdOk.focus();
-						} 
-					} else if (names.value == "") {
+					}  else if (names.value == "") {
 						if(this.value == ""){
 							names.previousSibling.innerHTML = "*필수 입력 사항입니다.";
 							names.focus();
