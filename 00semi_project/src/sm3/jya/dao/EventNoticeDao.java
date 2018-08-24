@@ -161,7 +161,7 @@ public class EventNoticeDao {
 		try {
 			con=DBConnection.getConn();
 			if(keyword.equals("")) { //검색어 없으면 전체목록보여줌.
-				String sql="select NVL(count(num),0) cnt from sm3_event_notice";
+				String sql="select NVL(count(en_num),0) cnt from sm3_event_notice";
 				pstmt=con.prepareStatement(sql);
 				rs=pstmt.executeQuery();
 			}else {  //검색된게 있으면
@@ -171,7 +171,7 @@ public class EventNoticeDao {
 				}else {
 					searchCase=" like '%'||?||'%' "; //부분검색, 특정 단어나 글씨 검색.
 				}
-					String sql="select NVL(count(num),0) cnt from sm3_event_notice"
+					String sql="select NVL(count(en_num),0) cnt from sm3_event_notice"
 							+ "where" +search+searchCase;
 					pstmt=con.prepareStatement(sql);
 					pstmt.setString(1, keyword);
@@ -312,8 +312,6 @@ public class EventNoticeDao {
 			}
 		}
 	}
-
-	
 }
 	
 	
