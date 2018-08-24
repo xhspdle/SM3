@@ -113,15 +113,14 @@ public class AdminDao {
 			}
 		}
 	}
-	public int delete(String admin_id,String admin_pwd) {
+	public int delete(int admin_num) {//추후 admin_id랑 admin_pwd받아서 지우는걸로 수정
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="delete from sm3_admin where admin_id=? and admin_pwd=?";
+			String sql="delete from sm3_admin where admin_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, admin_id);
-			pstmt.setString(2, admin_pwd);
+			pstmt.setInt(1, admin_num);
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
@@ -177,7 +176,7 @@ public class AdminDao {
 				do {
 					int admin_num=rs.getInt("admin_num");
 					String admin_id=rs.getString("admin_id");
-					String admin_pwd=rs.getString("amdin_pwd");
+					String admin_pwd=rs.getString("admin_pwd");
 					AdminVo vo=new AdminVo(admin_num, admin_id, admin_pwd);
 					list.add(vo);
 				}while(rs.next());

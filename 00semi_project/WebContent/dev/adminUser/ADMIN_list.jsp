@@ -10,24 +10,26 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<table class="table table-hover">
-	<tr>
-		<th>관리자번호</th>
-		<th>관리자아이디</th>
-		<th>관리자비밀번호</th>
-		<th>수정</th>
-		<th>삭제</th>
-	</tr>
-	<c:forEach var="vo" items="${requestScope.list }">
-	<tr>
-		<td>${vo.admin_num }</td>
-		<td>${vo.admin_id }</td>
-		<td>${vo.admin_pwd }</td>
-		<td><a class="btn btn-link" href="<c:url value='/dev/adminUser/admin.do?cmd=select&admin_num=${vo.admin_num }'/>">수정</a></td>
-		<td><a class="btn btn-link" href="<c:url value='/dev/adminUser/admin.do?cmd=delete&admin_num=${vo.admin_num }'/>">삭제</a></td>
-	</tr>
-	</c:forEach>
-</table>
+<div class="container">
+	<table class="table table-hover">
+		<tr>
+			<th>관리자번호</th>
+			<th>관리자아이디</th>
+			<th>관리자비밀번호</th>
+			<th>수정</th>
+			<th>삭제</th>
+		</tr>
+		<c:forEach var="vo" items="${requestScope.list }">
+		<tr>
+			<td>${vo.admin_num }</td>
+			<td>${vo.admin_id }</td>
+			<td>${vo.admin_pwd }</td>
+			<td><a class="btn btn-light" href="<c:url value='/dev/adminUser/admin.do?cmd=select&admin_num=${vo.admin_num }'/>">수정</a></td>
+			<td><a class="btn btn-light" href="<c:url value='/dev/adminUser/admin.do?cmd=delete&admin_num=${vo.admin_num }'/>">삭제</a></td>
+		</tr>
+		</c:forEach>
+	</table>
+</div>
 </body>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
