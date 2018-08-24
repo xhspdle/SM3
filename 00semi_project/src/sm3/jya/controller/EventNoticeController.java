@@ -2,6 +2,7 @@ package sm3.jya.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +26,12 @@ public class EventNoticeController extends HttpServlet{
 			insert(request,response);
 		}else if(cmd!=null && cmd.equals("list")) {
 			list(request,response);
-//		}else if(cmd!=null && cmd.equals("delete")) {
-//			delete(request,response);
-//		}else if(cmd!=null && cmd.equals("update")) {
-//			update(request,response);
+		}else if(cmd!=null && cmd.equals("delete")) {
+			delete(request,response);
+		}else if(cmd!=null && cmd.equals("update")) {
+			update(request,response);
+		}else if(cmd!=null && cmd.equals("select")) {
+			select(request,response);
 		}
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
@@ -46,7 +49,7 @@ public class EventNoticeController extends HttpServlet{
 
 		String en_content=mr.getParameter("en_content");
 		
-		int n=EventNoticeDao.getInstance().insert(new EventNoticeVo(0, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
+		int n=EventNoticeDao.getInstance().insert(new EventNoticeVo(0, en_writer, en_title, en_content, null, en_orgimg, en_savimg,admin_num));
 		if(n>0) {
 			request.setAttribute("msg", "이벤트이미지 추가 성공");
 		}else {
@@ -55,10 +58,101 @@ public class EventNoticeController extends HttpServlet{
 		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request,response);
 	}
 	protected void list(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-		ArrayList<EventNoticeVo> list = EventNoticeDao.getInstance().list();
-		if(list!=null) {
-			request.setAttribute("list", list);
-			request.getRequestDispatcher(arg0)
+//		ArrayList<EventNoticeVo> list = EventNoticeDao.getInstance().list();
+//		if(list!=null) {
+//			request.setAttribute("list", list);
+//			request.getRequestDispatcher("/dev/board/EN_list.jsp").forward(request, response);
+//		}
+		String search=request.getParameter("search");
+		String keyword = request.getParameter("keyword");
+		if(keyword==null || keyword.equals("")) {
+			search="";
+			keyword="";
+		}
+		String spageNum=request.getParameter("pageNum");
+		int pageNum=1; //기본값
+		if(spageNum!=null) {
+			pageNum=Integer.parseInt(spageNum);
+		}
+		int startRow=(pageNum-1)*5+1; //페이지의 첫번째 글
+		int endRow=startRow+4; //마지막 글
+		EventNoticeDao dao = EventNoticeDao.getInstance();
+		ArrayList<EventNoticeVo> list1=dao.list(startRow, endRow, search, keyword);
+		//System.out.println("list:"+list1); //toString메소드 호출하는..
+		if(list1!=null) {
+			int pageCount=(int)Math.ceil(dao.getCount(search,keyword)/5.0); //전체페이지수
+			int startPage=((pageNum-1)/5*5)+1; //첫번째 페이지 번호
+			int endPage=startPage+4; //끝페이지
+			if(endPage>pageCount) {
+				endPage=pageCount;
+			}
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("pageCount", pageCount);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("search", search);
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("list", list1);
+			request.getRequestDispatcher("/dev/board/EN_list.jsp").forward(request, response);	
+		}else {
+			request.setAttribute("msg", "목록보기실패");
+			request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
 		}
 	}
-}
+	protected void delete(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		int en_num = Integer.parseInt(request.getParameter("en_num"));
+		int n = EventNoticeDao.getInstance().delete(en_num);
+		if(n>0) {
+			request.setAttribute("msg", "이미지삭제성공");
+		}else {
+			request.setAttribute("msg", "이미지 삭제 실패");
+		}
+		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
+	}
+	protected void update(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		String path=request.getServletContext().getRealPath("/images");	
+		MultipartRequest mr=new MultipartRequest(request,
+			path,
+			1024*1024*5,      
+			"UTF-8",
+			new DefaultFileRenamePolicy());
+		int en_num = Integer.parseInt(mr.getParameter("en_num"));
+		String en_writer=mr.getParameter("en_writer");
+		String en_title=mr.getParameter("en_title");            
+		String en_content=mr.getParameter("en_content");  
+		//String en_orgimg=mr.getOriginalFileName("file1");
+		//String en_savimg=mr.getFilesystemName("file1");
+		String sen_orgimg=mr.getParameter("en_orgimg"); //새로 업로드할 파일.수정할 때 바꿀 이미지
+		String sen_savimg=mr.getParameter("en_savimg");
+		String en_orgimg="";
+		String en_savimg="";
+		if(sen_orgimg!=null && !sen_orgimg.equals("")) {  //새로넣을 사진이 null이 아니고 공백이 아니면 즉 넣을게 있으면
+			en_orgimg=sen_orgimg;     /*여기다가 조건을 준 이유는 원래사진은 db에서 받아오고(dao,controller,db다 지나감) 새로저장할 사진은 multipartrequest에서 받는데 둘이 공통으로 지나다니는 부분이 controller이기 때문에.*/
+			en_savimg=sen_savimg;
+		}else {   
+		 en_orgimg=mr.getOriginalFileName("file1");  //이미지수정을 하지 않으면 원본 그대로
+		 en_savimg=mr.getFilesystemName("file1");
+		}
+		int admin_num=Integer.parseInt(mr.getParameter("admin_num"));
+		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(en_num, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
+		if(n>0) {
+			request.setAttribute("msg", "이벤트공지 수정 성공");
+		}else {
+			request.setAttribute("msg", "이벤트공지 수정 실패");
+		}
+		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);		
+	 }
+	protected void select(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		int en_num=Integer.parseInt(request.getParameter("en_num"));
+		EventNoticeVo vo = EventNoticeDao.getInstance().select(en_num);
+		if(vo!=null) {
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("EN_imginput.jsp?cmd1=update").forward(request, response);
+		}else {
+			request.setAttribute("msg", "실패");
+			request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
+		}
+	 }
+	
+  }		
+

@@ -45,4 +45,9 @@ public class ItemSizeVo {
 	public void setSize_cnt(int size_cnt) {
 		this.size_cnt = size_cnt;
 	}
+	@Override
+	public String toString() {
+		return "ItemSizeVo [size_num=" + size_num + ", size_name=" + size_name + ", item_num=" + item_num
+				+ ", color_num=" + color_num + ", size_cnt=" + size_cnt + "]";
+	}
 }

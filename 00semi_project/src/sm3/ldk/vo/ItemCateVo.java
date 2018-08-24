@@ -21,4 +21,8 @@ public class ItemCateVo {
 	public void setCate_name(String cate_name) {
 		this.cate_name = cate_name;
 	}
+	@Override
+	public String toString() {
+		return "ItemCateVo [cate_num=" + cate_num + ", cate_name=" + cate_name + "]";
+	}
 }

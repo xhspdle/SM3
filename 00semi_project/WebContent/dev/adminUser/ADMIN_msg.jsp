@@ -5,13 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>이벤트&공지</title>
+<title>Insert title here</title>
 </head>
 <body>
-<ul>
-<li><a href="<c:url value='/dev/board/EN_imginput.jsp?cmd1=imginput'/>">이벤트등록</a></li>
-<li><a href="<c:url value='/dev/board/EventNotice.do?cmd=list'/>">이벤트목록보기</a></li>
-</ul>
+<h1>${msg }</h1>
+<a href="<c:url value='/dev/adminUser/ADMIN_main.jsp'/>">관리자메인</a>
 </body>
 </html>
-
