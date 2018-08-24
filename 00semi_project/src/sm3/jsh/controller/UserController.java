@@ -140,4 +140,15 @@ public class UserController extends HttpServlet {
 			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
 	}
+	
+	protected void getInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }
