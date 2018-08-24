@@ -62,4 +62,10 @@ public class ItemVo {
 	public void setItem_savimg(String item_savimg) {
 		this.item_savimg = item_savimg;
 	}
+	@Override
+	public String toString() {
+		return "ItemVo [item_num=" + item_num + ", item_name=" + item_name + ", cate_num=" + cate_num + ", item_info="
+				+ item_info + ", item_price=" + item_price + ", item_orgimg=" + item_orgimg + ", item_savimg="
+				+ item_savimg + "]";
+	}
 }

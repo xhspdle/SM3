@@ -29,4 +29,8 @@ public class CartVo {
 	public void setOrder_cnt(int order_cnt) {
 		this.order_cnt = order_cnt;
 	}
+	@Override
+	public String toString() {
+		return "CartVo [user_num=" + user_num + ", item_num=" + item_num + ", order_cnt=" + order_cnt + "]";
+	}
 }

@@ -55,9 +55,9 @@
 	상품가격 <input type="text" name="item_price" value="${vo.item_price }"><br>
 	<img src="<c:url value='/DBImages/${vo.item_savimg }'/>" alt="기존사진"><br>
 	<input type="button" value="사진변경" onclick="showFile()"><br>
-	<div id="inputFile" style="display:none;">
+	<span id="inputFile" style="display:none;">
 	이미지 <input type="file" name="file1" onchange="imgChange()">
-	</div>
+	</span>
 	<input type="hidden" name="item_orgimg" value="${vo.item_orgimg }">
 	<input type="hidden" name="item_savimg" value="${vo.item_savimg }">
 	<input type="submit" value="수정">

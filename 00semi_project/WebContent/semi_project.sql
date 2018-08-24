@@ -171,7 +171,7 @@ CREATE TABLE SM3_QA
 	QA_TITLE varchar2(80) NOT NULL,
 	QA_CONTENT long,
 	QA_DATE date,
-	REF number,
+	REF2 number,
 	LEV number(3,0),
 	STEP number(3,0),
 	USER_NUM number,

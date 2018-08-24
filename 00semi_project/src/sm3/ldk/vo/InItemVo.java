@@ -55,4 +55,9 @@ public class InItemVo {
 	public void setIn_date(Date in_date) {
 		this.in_date = in_date;
 	}
+	@Override
+	public String toString() {
+		return "InItemVo [in_num=" + in_num + ", size_num=" + size_num + ", admin_num=" + admin_num + ", in_cnt="
+				+ in_cnt + ", in_cost=" + in_cost + ", in_date=" + in_date + "]";
+	}
 }

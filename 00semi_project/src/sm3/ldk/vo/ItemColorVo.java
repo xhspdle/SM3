@@ -29,4 +29,9 @@ public class ItemColorVo {
 	public void setColor_code(String color_code) {
 		this.color_code = color_code;
 	}
+	@Override
+	public String toString() {
+		return "ItemColorVo [color_num=" + color_num + ", color_name=" + color_name + ", color_code=" + color_code
+				+ "]";
+	}
 }
