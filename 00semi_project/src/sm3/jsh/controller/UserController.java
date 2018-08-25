@@ -3,6 +3,7 @@ package sm3.jsh.controller;
 import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletContext;
@@ -26,20 +27,31 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String cmd = request.getParameter("cmd");
-
+		
+		if (cmd == null || cmd.equals("")) {
+			list(request, response);
+		}
+		
+		
 		if (cmd.equals("insert")) {
 			insert(request, response);
-		}
-		if (cmd.equals("list")) {
+		}else if (cmd.equals("list")) {
 			list(request, response);
-		}if (cmd.equals("update")) {
+		}else if (cmd.equals("update")) {
 			update(request, response);
+		}else if (cmd.equals("getInfo")) {
+			getInfo(request, response);
+		}else if (cmd.equals("delete")) {
+			delete(request, response);
+		}else if(cmd.equals("idSearch")) {
+			idSearch(request, response);
 		}
 	}
 
 	protected void update(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UserDao dao = UserDao.getInstance();
+		int num = Integer.parseInt(request.getParameter("num"));
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String pwd = request.getParameter("pwd");
@@ -59,7 +71,7 @@ public class UserController extends HttpServlet {
 			pwd = originPwd;
 		}
 		System.out.println(pwd);
-		int n = dao.update(new UserVo(0, id, pwd, name, email, phone, postAddr, basicAddr, detailAddr, null, pwdHint, hintOk));
+		int n = dao.update(new UserVo(num, id, pwd, name, email, phone, postAddr, basicAddr, detailAddr, null, pwdHint, hintOk));
 		if (n > 0) {
 			request.setAttribute("msg", "수정성공쓰");
 		} else {
@@ -126,7 +138,6 @@ public class UserController extends HttpServlet {
 			if (pageCount < endPage) {
 				endPage = pageCount;
 			}
-			
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("pageCount", pageCount);
@@ -142,7 +153,46 @@ public class UserController extends HttpServlet {
 	}
 	
 	protected void getInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		int user_num = Integer.parseInt(request.getParameter("user_num"));
+		UserDao dao = UserDao.getInstance();
+		UserVo vo = dao.getinfo(user_num);
+		if(vo != null){
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("user_update.jsp").forward(request, response);
+		}
+	}
+	
+	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int user_num = Integer.parseInt(request.getParameter("user_num"));
+		UserDao dao = UserDao.getInstance();
+		int n = dao.delete(user_num);
+		if(n>0){
+			request.getRequestDispatcher("userControll.do?cmd=list").forward(request, response);
+		}
+	}
+	
+	protected void idSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("id");
+		UserDao dao = UserDao.getInstance();
+		ArrayList<String> idList = dao.idSearch();
+		boolean check = true; 
+		for (int i = 0; i <idList.size(); i++) {
+			String ids = idList.get(i);
+			if(ids.equals(id)) {
+				check = false;
+				break;
+			}
+		}
+	
+		if(check){
+			request.setAttribute("check", check);
+			request.setAttribute("idMsg", "사용가능한 아이디 입니다.");
+			
+		}else {
+			request.setAttribute("check", check);
+			request.setAttribute("idMsg", "사용불가능한 아이디 입니다.");
+		}
+		request.getRequestDispatcher("join.jsp").forward(request, response);
 	}
 	
 	

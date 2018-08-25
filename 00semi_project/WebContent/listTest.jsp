@@ -105,8 +105,8 @@
 														<td>${vo.user_name}</td>
 														<td>${vo.user_email}</td>
 														<td>${vo.user_regdate}</td>
-														<td><a href="<c:url value='user_update.jsp?user_num=${vo.user_num }&user_id=${vo.user_id }&user_pwd=${vo.user_pwd }&user_name=${vo.user_name}&user_email=${vo.user_email}&user_phone=${vo.user_phone}&user_post_addr=${vo.user_post_addr}&user_basic_addr=${vo.user_basic_addr}&user_detail_addr=${vo.user_detail_addr}&hint_num=${vo.hint_num}&hint_ok=${vo.hint_ok}'/>">수정</a></td>
-														<td>삭제</td>
+														<td><a href="<c:url value='userControll.do?cmd=getInfo&user_num=${vo.user_num}'/>">수정</a></td>
+														<td><a href="<c:url value='userControll.do?cmd=delete&user_num=${vo.user_num}'/>">삭제</a></td>
 													</tr>
 												</c:forEach>
 											</tbody>
