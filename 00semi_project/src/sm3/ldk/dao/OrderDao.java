@@ -9,10 +9,7 @@ import java.util.ArrayList;
 
 import sm3.dbcp.DBConnection;
 import sm3.ldk.vo.OrderVo;
-/*
- * 주문--> 배송지 주소API 사용...컬럼 수정 여기 수정 해야댐
- * 
- */
+
 public class OrderDao {
 	private static OrderDao instance=new OrderDao();
 	private OrderDao() {}
@@ -53,7 +50,7 @@ public class OrderDao {
 			String sql="insert into sm3_order values(?,?,?,?,?,?,?,?,?,?,?,?,?,sysdate,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, getMaxNum()+1);
-			pstmt.setInt(2, vo.getSize_num());
+			pstmt.setInt(2, vo.getSize_num());// FROM VIEW : SM3_ITEM_VIEW
 			pstmt.setInt(3, vo.getUser_num());
 			pstmt.setInt(4, vo.getOrder_cnt());
 			pstmt.setInt(5, vo.getItem_price());

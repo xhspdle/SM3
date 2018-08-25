@@ -31,5 +31,8 @@
 <h3>상품입고처리</h3>
 <a href="<c:url value='/dev/itemOrder/IN_ITEM_insert.jsp?do1=insert'/>">상품 입고</a><br>
 <a href="<c:url value='/dev/itemOrder/inItem.do?cmd=list'/>">입고 목록</a><br>
+<hr>
+<h3>상품뷰</h3>
+<a href="<c:url value='/dev/itemOrder/itemView.do?cmd=list'/>">상품목록</a><br>
 </body>
 </html>
