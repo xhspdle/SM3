@@ -52,7 +52,7 @@ if(search.equals("en_writer")){
 	selected3 = " selected=selected";
 }
 %>
-<form method="post" action="dev/board/EventNotice.do?cmd=list">
+<form method="post" action="<c:url value='/dev/board/EventNotice.do?cmd=list'/>">
 	<select name="search">
 		<option value="en_writer" <%=selected1 %>>글쓴이</option>
 		<option value="en_title" <%=selected2 %>>제목</option>
@@ -64,8 +64,8 @@ if(search.equals("en_writer")){
 <br/>
 <div>
 	<c:choose>
-		<c:when test="${startPage>5}">
-		<a href="dev/board/EventNotice.do?cmd=list&pageNum=${startPage-1 }&search=${param.search}&keyword=${param.keyword}">[이전]</a>
+		<c:when test="${startPage>3}">
+		<a href="<c:url value ='/dev/board/EventNotice.do?cmd=list&pageNum=${startPage-1 }&search=${param.search}&keyword=${param.keyword}'/>">[이전]</a>
 		</c:when>
 		<c:otherwise>
 		[이전]

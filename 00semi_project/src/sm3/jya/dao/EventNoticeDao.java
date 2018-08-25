@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import sm3.dbcp.DBConnection;
 import sm3.jya.vo.EventNoticeVo;
-import sm3.ldk.vo.ItemVo;
+
 
 public class EventNoticeDao {
 	//싱글톤패턴
@@ -171,8 +171,8 @@ public class EventNoticeDao {
 				}else {
 					searchCase=" like '%'||?||'%' "; //부분검색, 특정 단어나 글씨 검색.
 				}
-					String sql="select NVL(count(en_num),0) cnt from sm3_event_notice"
-							+ "where" +search+searchCase;
+					String sql="select NVL(count(en_num),0) cnt from sm3_event_notice "
+							+ "where " +search+searchCase;
 					pstmt=con.prepareStatement(sql);
 					pstmt.setString(1, keyword);
 					rs=pstmt.executeQuery();
@@ -243,16 +243,18 @@ public class EventNoticeDao {
 		try {
 			con=DBConnection.getConn();
 			if(search.equals("")) { //전체리스트
-			String sql = "select *from"
-					+
-					"("+ 
-					"select AA.*,ROWNUM RNUM FROM" + 
-					"("+ 
-					"    SELECT *FROM SM3_EVENT_NOTICE" + 
-					"    ORDER BY EN_NUM DESC" + 
-					")AA" + 
-					")"+
-					"where rnum>=? and rnum<=?";
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM sm3_event_notice" + 
+						"        ORDER BY EN_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -264,17 +266,19 @@ public class EventNoticeDao {
 					}else {
 						searchCase=" like '%'||?||'%' "; 
 					}
-					String sql="select *from"
-							+
-							"("+
-							"select AA.*,rownum rnum from"+
-							"("+
-							" select *from SM3_EVENT_NOTICE" +
-							" WHERE " +search+" "+searchCase+
-							" order by EN_NUM DESC" +
-							")AA" +
-							")" +
-							"WHERE RNUM<=? AND RNUM<=?";
+					String sql="SELECT *" + 
+							"FROM" + 
+							"(" + 
+							"    SELECT AA.*,ROWNUM RNUM" + 
+							"    FROM" + 
+							"    (" + 
+							"        SELECT *" + 
+							"        FROM sm3_event_notice" + 
+							"		 WHERE "+search+" "+searchCase+
+							"        ORDER BY en_num DESC" + 
+							"    )AA" + 
+							")" + 
+							"WHERE RNUM>=? AND RNUM<=?";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setString(1, keyword);
 					pstmt.setInt(2, startRow);

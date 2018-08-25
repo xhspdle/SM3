@@ -58,11 +58,6 @@ public class EventNoticeController extends HttpServlet{
 		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request,response);
 	}
 	protected void list(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-//		ArrayList<EventNoticeVo> list = EventNoticeDao.getInstance().list();
-//		if(list!=null) {
-//			request.setAttribute("list", list);
-//			request.getRequestDispatcher("/dev/board/EN_list.jsp").forward(request, response);
-//		}
 		String search=request.getParameter("search");
 		String keyword = request.getParameter("keyword");
 		if(keyword==null || keyword.equals("")) {
@@ -74,15 +69,15 @@ public class EventNoticeController extends HttpServlet{
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
-		int startRow=(pageNum-1)*5+1; //페이지의 첫번째 글
-		int endRow=startRow+4; //마지막 글
+		int startRow=(pageNum-1)*3+1; //페이지의 첫번째 글
+		int endRow=startRow+2; //마지막 글
 		EventNoticeDao dao = EventNoticeDao.getInstance();
 		ArrayList<EventNoticeVo> list1=dao.list(startRow, endRow, search, keyword);
 		//System.out.println("list:"+list1); //toString메소드 호출하는..
 		if(list1!=null) {
-			int pageCount=(int)Math.ceil(dao.getCount(search,keyword)/5.0); //전체페이지수
-			int startPage=((pageNum-1)/5*5)+1; //첫번째 페이지 번호
-			int endPage=startPage+4; //끝페이지
+			int pageCount=(int)Math.ceil(dao.getCount(search,keyword)/3.0); //전체페이지수
+			int startPage=((pageNum-1)/3*3)+1; //첫번째 페이지 번호
+			int endPage=startPage+2; //끝페이지
 			if(endPage>pageCount) {
 				endPage=pageCount;
 			}
@@ -120,8 +115,6 @@ public class EventNoticeController extends HttpServlet{
 		String en_writer=mr.getParameter("en_writer");
 		String en_title=mr.getParameter("en_title");            
 		String en_content=mr.getParameter("en_content");  
-		//String en_orgimg=mr.getOriginalFileName("file1");
-		//String en_savimg=mr.getFilesystemName("file1");
 		String sen_orgimg=mr.getParameter("en_orgimg"); //새로 업로드할 파일.수정할 때 바꿀 이미지
 		String sen_savimg=mr.getParameter("en_savimg");
 		String en_orgimg="";
@@ -153,6 +146,5 @@ public class EventNoticeController extends HttpServlet{
 			request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
 		}
 	 }
-	
   }		
 
