@@ -89,8 +89,10 @@
 									<label>Admin Managing</label>
 									<div class="toggle-content" style="display: none;">
 										<div class="list-group">
-										  <a href="<c:url value='/admin.jsp?page1=ADMIN_insert.jsp&do1=insert'/>" class="list-group-item">관리자추가</a>
-										  <a href="#" class="list-group-item">관리자목록</a>
+										  <a href="<c:url value='/admin.jsp?page1=ADMIN_insert.jsp&do1=insert'/>"
+										   class="list-group-item">관리자추가</a>
+										  <a href="<c:url value='/admin.do?cmd=list'/>"
+										   class="list-group-item">관리자목록</a>
 										</div>
 									</div>
 								</section>							

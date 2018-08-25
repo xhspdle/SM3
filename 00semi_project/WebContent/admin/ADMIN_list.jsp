@@ -24,8 +24,8 @@
 			<td>${vo.admin_num }</td>
 			<td>${vo.admin_id }</td>
 			<td>${vo.admin_pwd }</td>
-			<td><a class="btn btn-light" href="<c:url value='/dev/adminUser/admin.do?cmd=select&admin_num=${vo.admin_num }'/>">수정</a></td>
-			<td><a class="btn btn-light" href="<c:url value='/dev/adminUser/admin.do?cmd=delete&admin_num=${vo.admin_num }'/>">삭제</a></td>
+			<td><a class="btn btn-light" href="<c:url value='/admin.do?cmd=select&admin_num=${vo.admin_num }'/>">수정</a></td>
+			<td><a class="btn btn-light" href="<c:url value='/admin.do?cmd=delete&admin_num=${vo.admin_num }'/>">삭제</a></td>
 		</tr>
 		</c:forEach>
 	</table>
