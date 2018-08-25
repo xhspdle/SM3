@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import sm3.ldk.dao.AdminDao;
 import sm3.ldk.vo.AdminVo;
 
-@WebServlet("/dev/adminUser/admin.do")
+@WebServlet("/admin.do")
 public class AdminController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -40,17 +40,17 @@ public class AdminController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "관리자 등록 실패..");
 		}
-		request.getRequestDispatcher("ADMIN_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 	}
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<AdminVo> list=AdminDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("ADMIN_list.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패..");
-			request.getRequestDispatcher("ADMIN_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, 
@@ -66,7 +66,7 @@ public class AdminController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "관리자 삭제 실패..");
 		}
-		request.getRequestDispatcher("ADMIN_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -78,10 +78,10 @@ public class AdminController extends HttpServlet{
 		AdminVo vo=AdminDao.getInstance().select(admin_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("ADMIN_insert.jsp?do1=update").forward(request, response);;
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_insert.jsp?do1=update").forward(request, response);;
 		}else {
 			request.setAttribute("msg", "선택 실패..");
-			request.getRequestDispatcher("ADMIN_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	protected void update(HttpServletRequest request, 
@@ -99,6 +99,6 @@ public class AdminController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "관리자 수정 실패..");
 		}
-		request.getRequestDispatcher("ADMIN_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 	}
 }

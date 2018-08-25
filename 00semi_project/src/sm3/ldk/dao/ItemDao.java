@@ -70,7 +70,7 @@ public class ItemDao {
 			int n=pstmt.executeUpdate();
 			//con.commit();
 			if(n>0) {
-				String[] size_name= {"44 ~ 55","55반 ~ 66","66반 ~ 77","66반 ~ 77"};
+				String[] size_name= {"44 ~ 55","55반 ~ 66","66반 ~ 77","77반 ~ 88"};
 				String sql2="insert into sm3_item_size values(?,?,?,?,?)";
 				int maxNum=ItemSizeDao.getInstance().getMaxNum();
 				int nn=0;

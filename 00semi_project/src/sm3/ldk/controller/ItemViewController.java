@@ -42,11 +42,10 @@ public class ItemViewController extends HttpServlet{
 		if(sitem_num!=null && !sitem_num.equals("")) {
 			item_num=Integer.parseInt(sitem_num);
 		}
-		ItemViewVo vo=ItemViewDao.getInstance().select(item_num);
-		if(vo!=null) {
-			request.setAttribute("vo", vo);
-			//추후 수정
-			request.getRequestDispatcher("ITE_View_insert.jsp?do1=update").forward(request, response);
+		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select(item_num);
+		if(list!=null) {
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("ITEM_VIEW_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
 			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
