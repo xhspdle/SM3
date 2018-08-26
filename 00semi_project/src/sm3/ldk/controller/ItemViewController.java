@@ -51,4 +51,19 @@ public class ItemViewController extends HttpServlet{
 			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 		}
 	}
+	
+	//카테고리넘버 셀렉트 
+		protected void select_cate(HttpServletRequest request, 
+				HttpServletResponse response) throws ServletException, IOException {
+			int cate_num=Integer.parseInt(request.getParameter("cate_num"));
+			ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select_cate(cate_num);
+			
+			if(list!=null) {
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("item_list.jsp").forward(request, response);
+			}else {
+				request.setAttribute("msg", "아이템리스트소환실패");
+				request.getRequestDispatcher("test.jsp").forward(request, response);
+			}
+		}
 }

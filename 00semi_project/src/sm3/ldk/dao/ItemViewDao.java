@@ -116,6 +116,58 @@ public class ItemViewDao {
 			}
 		}
 	}
+	
+	public ArrayList<ItemViewVo> select_cate(int cate_num) {//카테번호로 셀렉트
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<ItemViewVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			String sql="select * from sm3_item_view where cate_num=? order by item_num";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, cate_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					cate_num=rs.getInt("cate_num");
+					String cate_name=rs.getString("cate_name");
+					int item_num = rs.getInt("item_num");
+					String item_name=rs.getString("item_name");
+					String item_info=rs.getString("item_info");
+					int item_price=rs.getInt("item_price");
+					String item_orgimg=rs.getString("item_orgimg");
+					String item_savimg=rs.getString("item_savimg");
+					int size_num=rs.getInt("size_num");
+					String size_name=rs.getString("size_name");
+					int size_cnt=rs.getInt("size_cnt");
+					int color_num=rs.getInt("color_num");
+					String color_name=rs.getString("color_name");
+					String color_code=rs.getString("color_code");
+					ItemViewVo vo=new ItemViewVo(cate_num, cate_name,
+							item_num, item_name, item_info, item_price,
+							item_orgimg, item_savimg, size_num, size_name,
+							size_cnt, color_num, color_name, color_code);
+					list.add(vo);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	
 	public ArrayList<ItemViewVo> list(){
 		Connection con=null;
 		PreparedStatement pstmt=null;

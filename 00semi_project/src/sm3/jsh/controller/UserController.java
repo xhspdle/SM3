@@ -176,14 +176,15 @@ public class UserController extends HttpServlet {
 		UserDao dao = UserDao.getInstance();
 		ArrayList<String> idList = dao.idSearch();
 		boolean check = true; 
-		for (int i = 0; i <idList.size(); i++) {
-			String ids = idList.get(i);
-			if(ids.equals(id)) {
-				check = false;
-				break;
+		if(idList !=null) {
+			for (int i = 0; i <idList.size(); i++) {
+				String ids = idList.get(i);
+				if(ids.equals(id)) {
+					check = false;
+					break;
+				}
 			}
 		}
-	
 		if(check){
 			request.setAttribute("check", check);
 			request.setAttribute("idMsg", "사용가능한 아이디 입니다.");

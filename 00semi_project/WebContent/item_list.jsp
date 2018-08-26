@@ -94,149 +94,25 @@
 			<section class="section mt-none section-footer">
 				<div class="container main_box">
 					<div class="row mt-lg">
+					<c:forEach var="vo" items="${list}" step="4">
 						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp"/>"><img
-								class="img-responsive" src="img/blog/blog-vintage-1.jpg"
+							<a href="<c:url value="item_detail.jsp?item_num=${vo.item_num}"/>"><img
+								class="img-responsive" src="<c:url value='images/${vo.item_savimg}'/>"
 								alt="Blog"></a>
 							<div class="recent-posts mt-md mb-lg">
 								<article class="post">
-									<h5>
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이</a>
+									<h5>	
+										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">${vo.item_name}</a>
 									</h5>
 									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>39,000 </span> <span><i
+										<span><i class="fa fa-tag"></i>${vo.item_price} </span> <span><i
 											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
 									</div>
 								</article>
 							</div>
 						</div>
-						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp"/>"><img
-								class="img-responsive" src="img/blog/blog-vintage-1.jpg"
-								alt="Blog"></a>
-							<div class="recent-posts mt-md mb-lg">
-								<article class="post">
-									<h5>
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이</a>
-									</h5>
-
-									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
-									</div>
-								</article>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp"/>"><img
-								class="img-responsive" src="img/blog/blog-vintage-1.jpg"
-								alt="Blog"></a>
-							<div class="recent-posts mt-md mb-lg">
-								<article class="post">
-									<h5>
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이</a>
-									</h5>
-
-									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
-									</div>
-								</article>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp"/>"><img
-								class="img-responsive" src="img/blog/blog-vintage-1.jpg"
-								alt="Blog"></a>
-							<div class="recent-posts mt-md mb-lg">
-								<article class="post">
-									<h5>
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이</a>
-									</h5>
-
-									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
-									</div>
-								</article>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp"/>"><img
-								class="img-responsive" src="img/blog/blog-vintage-1.jpg"
-								alt="Blog"></a>
-							<div class="recent-posts mt-md mb-lg">
-								<article class="post">
-									<h5>
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이</a>
-									</h5>
-
-									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
-									</div>
-								</article>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp"/>"><img
-								class="img-responsive" src="img/blog/blog-vintage-1.jpg"
-								alt="Blog"></a>
-							<div class="recent-posts mt-md mb-lg">
-								<article class="post">
-									<h5>
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이</a>
-									</h5>
-
-									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
-									</div>
-								</article>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp"/>"><img
-								class="img-responsive" src="img/blog/blog-vintage-1.jpg"
-								alt="Blog"></a>
-							<div class="recent-posts mt-md mb-lg">
-								<article class="post">
-									<h5>
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이</a>
-									</h5>
-
-									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
-									</div>
-								</article>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp"/>"><img
-								class="img-responsive" src="img/blog/blog-vintage-1.jpg"
-								alt="Blog"></a>
-							<div class="recent-posts mt-md mb-lg">
-								<article class="post">
-									<h5>
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">[OFST-06703]
-											허밍 그레이</a>
-									</h5>
-
-									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
-									</div>
-								</article>
-							</div>
-						</div>
+					
+					</c:forEach>
 					</div>
 					<p class="txtCenter">
 						<button type="button" class="btn btn-default mr-xs mb-sm">상품
