@@ -69,21 +69,23 @@
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
 <script>
+	
 	var xhr = null;
 	function itemList() {
 		xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = callback;
 		xhr.open('get', 'itemView.do?cmd=select_cate&cate_num=1', true);
 		xhr.send();
-
 	}
+	var cnt = 0 ;
+	var cnt2 = 8 ; //일단 두개씩 상품 불러오기위해...
 	function callback() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			var cnt = 8;
-			var txt = xhr.responseText;
+			var txt = xhr.responseText;	
 			var json = JSON.parse(txt);
 			var box = document.getElementsByClassName("mt-lg");
-			for (var i = 0 ; i < cnt ; i++) {
+			for (var i = cnt ; i < cnt2 ; i++) {
+				console.log(i);
 				if (i%4==0) {
 					var div = document.createElement("div");
 					div.className = "col-md-3";
@@ -91,7 +93,7 @@
 							+ "<img class='img-responsive' src='<c:url value='images/"+json.arr[i].item_orgimg+"'/>'alt='Blog'></a>"
 							+ "<div class='recent-posts mt-md mb-lg'>"
 							+ "<article class='post'>"
-							+ "<h5>" + json.arr[i].size_name +
+							+ "<h5>" + json.arr[i].size_num +
 							+ "<a class='text-dark' href='<c:url value='item_detail.jsp'/>'>"
 							+ json.arr[i].item_name
 							+ "</a>"
@@ -105,9 +107,9 @@
 							+ "</div>" + "</article>" + "</div>"
 					box[0].appendChild(div);
 				}
-
+				   ++cnt;
 			}
-			cnt += 8;
+			cnt2 += 8;
 		}
 	}
 </script>

@@ -74,6 +74,7 @@ public class ItemViewController extends HttpServlet{
 				ob.put("item_price",vo.getItem_price());
 				ob.put("item_orgimg",vo.getItem_orgimg());
 				ob.put("size_name",vo.getSize_name());
+				ob.put("size_num",vo.getSize_num());
 				arr.add(ob);
 			}
 			obj.put("arr", arr);
