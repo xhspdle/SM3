@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import sm3.ldk.dao.ItemViewDao;
 import sm3.ldk.vo.ItemViewVo;
 
-@WebServlet("/dev/itemOrder/itemView.do")
+@WebServlet("/itemView.do")
 public class ItemViewController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
