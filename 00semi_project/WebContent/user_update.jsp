@@ -1,3 +1,4 @@
+<%@page import="sm3.jsh.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -69,14 +70,20 @@
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
 <!-- api -->
+
+<!-- 배열넣어 줘야 하는 값 정리 -->
 <%
- 	String phone = request.getParameter("user_phone");
- 	String email = request.getParameter("user_email");
+	UserVo vo = (UserVo)request.getAttribute("vo");
+	String phone = vo.getUser_phone();
+	String email = vo.getUser_email();
 	String[] phoneArray = phone.split("-");
 	String[] emailArray = email.split("@");
 %>
+<script>
+
+</script>
 </head>
-<body onload="joinCheck()">
+<body onload="updetCheck()">
 	<div class="body">
 		<header id="header"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
@@ -94,17 +101,16 @@
 											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">회원가입</h4>
-												<form method="post" action="<c:url value='userControll.do?cmd=update'/>"
-													method="post">
+												<form method="post" action="<c:url value='/userControll.do?cmd=update'/>" onsubmit="return submitCheck()">
 													<div class="row">
 														<div class="form-group">
 															<input id="num"
-																	type="hidden" name="num" class="form-control input-lg" value="${param.user_num}">
+																	type="hidden" name="num" class="form-control input-lg" value="${vo.user_num}">
 															<input id="originPwd"
-																	type="hidden" name="originPwd" class="form-control input-lg" value="${param.user_num}">
+																	type="hidden" name="originPwd" class="form-control input-lg" value="${vo.user_pwd}">
 															<div class="col-md-12">
 																<label for="id">아이디</label> <span class="spanVal"></span><input id="id"
-																	type="text" name="id" class="form-control input-lg" value="${param.user_id }" readonly="readonly">
+																	type="text" name="id" class="form-control input-lg" value="${vo.user_id }" readonly="readonly">
 															</div>
 														</div>
 													</div>
@@ -131,7 +137,29 @@
 															<div class="col-md-12">
 																<label for="names">이름</label> <span class="spanVal"></span><input
 																	id="names" name="name" type="text"
-																	class="form-control input-lg" value="${param.user_name}">
+																	class="form-control input-lg" value="${vo.user_name}">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label>비밀번호 힌트</label> <select
+																	class="form-control input-lg" id="hints"name="pwdHint">
+																	<option value="1">당신의 보물 1호는?</option>
+																	<option value="2">당신의 취미는?</option>
+																	<option value="3">당신의 생일은?</option>
+																	<option value="4">당신이 좋아하는 음악은?</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label for="hintOk">힌트 답 입력</label> <span class="spanVal"></span><input
+																	type="text" name="hintOk"
+																	class="form-control input-lg" id="hintOk" value="${vo.hint_ok }">
 															</div>
 														</div>
 													</div>
@@ -145,7 +173,6 @@
 																		size="4" type="text" class="form-control input-lg" value="<%=phoneArray[1] %>">
 																	- <input id="phone3" name="phone[]" maxlength="4"
 																		size="4" type="text" class="form-control input-lg" value="<%=phoneArray[2] %>">
-																
 															</div>
 														</div>
 													</div>
@@ -154,7 +181,7 @@
 															<div class="col-md-12">
 																<label>주소</label> 
 																	<span class="spanVal"></span><input type="text" id="sample3_postcode"
-																		placeholder="우편번호" name ="addr[]" class="form-control input-lg" value="${param.user_post_addr}">
+																		placeholder="우편번호" name ="addr[]" class="form-control input-lg" value="${vo.user_post_addr}">
 																	<a
 																		onclick="sample3_execDaumPostcode()"
 																		class="form-control input-lg" id="addSearch" style="width:20%; display: inline-block;">우편번호 찾기</a><br>
@@ -168,10 +195,10 @@
 																	</div>
 																	<input type="text" id="sample3_address"
 																		class="d_form large  form-control input-lg"
-																		placeholder="기본주소" name="addr[]" value="${param.user_basic_addr}">
+																		placeholder="기본주소" name="addr[]" value="${vo.user_basic_addr}">
 																		<input type="text" 
 																		class="form-control input-lg"
-																		placeholder="상세주소" id="addr" name="addr[]" value="${param.user_detail_addr}">
+																		placeholder="상세주소" id="addr" name="addr[]" value="${vo.user_detail_addr}">
 															</div>
 														</div>
 													</div>
@@ -215,7 +242,9 @@
 
 	<!-- 로그인 유효성검사 -->
 	<script>
-		
+		//미리 힌트 선택
+		var select = document.getElementById("hints");
+		var hintNum = ${vo.hint_num-1};
 		var inputs = document.getElementsByTagName("input");
 		var id = document.getElementById("id");
 		var pwd = document.getElementById("pwd");
@@ -232,10 +261,30 @@
 		var email2 = document.getElementById("email2");
 		var spans = document.getElementsByClassName("spanVal");
 		
-		function joinCheck() {
+		
+		function submitCheck() {
+			/* 수정완료 버튼 클릭할때 처리 */
+			if (id.value == "" || pwd.value == "" || pwdOk.value == ""
+					|| name.value == "" || hintOk.value == ""
+					|| phone1.value == "" || phone2.value == ""
+					|| phone3.value == "" || addr.value == ""
+					|| email1.value == "" || email2.value == "") {
+				alert("필수 정보를 모두 기입해 주세요.");
+				return false;
+			}
+			/* 비밀번호 확인 값 서로 다를 때 처리 */
+			if(pwd.value != pwdOk.value){
+				alert("입력하신 비밀번호가 서로 다릅니다");
+				pwd.focus();
+				return false;
+			}
+			return true;
+		}
+		
+		function updetCheck() {
+			select[hintNum].selected = "selected";
 			for (var i = 0; i < inputs.length; i++) {
 				inputs[i].onclick = function() {
-					
 					if (id.value == "") {
 						if(this.value == ""){
 							id.previousSibling.innerHTML = "*필수 입력 사항입니다.";

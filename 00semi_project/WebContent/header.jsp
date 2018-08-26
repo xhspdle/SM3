@@ -45,7 +45,7 @@
 							<li><a href="index.html"> TOP </a></li>
 							<li><a href="index.html"> BOTTOM </a></li>
 						</ul></li>
-					<li class="dropdown"><a class="dropdown-toggle"
+						<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='item_list.jsp'/>"> OUTER </a>
 						<ul class="dropdown-menu">
 							<li><a href="index.html"> ALL </a></li>

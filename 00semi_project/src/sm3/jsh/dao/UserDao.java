@@ -63,7 +63,8 @@ public class UserDao {
 			}
 		}
 	}
-	public int getMaxNum() { 
+
+	public int getMaxNum() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -92,13 +93,13 @@ public class UserDao {
 			}
 		}
 	}
-	
+
 	public int update(UserVo vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConn();
-			String sql = "update SM3_USER set user_pwd= ?, user_name = ?, user_email = ?, user_phone = ?, user_post_addr=?, user_basic_addr=?, user_detail_addr=? ";
+			String sql = "update SM3_USER set user_pwd= ?, user_name = ?, user_email = ?, user_phone = ?, user_post_addr=?, user_basic_addr=?, user_detail_addr=?, hint_num = ?, hint_ok = ? where user_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getUser_pwd());
 			pstmt.setString(2, vo.getUser_name());
@@ -107,6 +108,9 @@ public class UserDao {
 			pstmt.setString(5, vo.getUser_post_addr());
 			pstmt.setString(6, vo.getUser_basic_addr());
 			pstmt.setString(7, vo.getUser_detail_addr());
+			pstmt.setInt(8, vo.getHint_num());
+			pstmt.setString(9, vo.getHint_ok());
+			pstmt.setInt(10, vo.getUser_num());
 			return pstmt.executeUpdate();
 		} catch (SQLException se) {
 			System.out.println(se.getMessage());
@@ -122,7 +126,30 @@ public class UserDao {
 			}
 		}
 	}
-	
+
+	public int delete(int num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBConnection.getConn();
+			String sql = "DELETE FROM SM3_USER WHERE USER_NUM = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			return pstmt.executeUpdate();
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
 
 	public int insert(UserVo vo) {
 		Connection con = null;
@@ -223,6 +250,87 @@ public class UserDao {
 				System.out.println(se.getMessage());
 			}
 		}
+	}
+
+	public UserVo getinfo(int num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getConn();
+			String sql = "SELECT * FROM SM3_USER WHERE USER_NUM = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int user_num = rs.getInt(1);
+				String user_id = rs.getNString(2);
+				String user_pwd = rs.getNString(3);
+				String user_name = rs.getNString(4);
+				String user_email = rs.getNString(5);
+				String user_phone = rs.getNString(6);
+				String user_post_addr = rs.getNString(7);
+				String user_basic_addr = rs.getNString(8);
+				String user_detail_addr = rs.getNString(9);
+				Date user_regdate = rs.getDate(10);
+				int hint_num = rs.getInt(11);
+				String hint_ok = rs.getNString(12);
+				return new UserVo(user_num, user_id, user_pwd, user_name, user_email, user_phone, user_post_addr,
+						user_basic_addr, user_detail_addr, user_regdate, hint_num, hint_ok);
+
+			}
+			return null;
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+
+	public ArrayList<String> idSearch() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<String> idList = new ArrayList<String>();
+		try {
+			con = DBConnection.getConn();
+			String sql = "SELECT USER_ID FROM SM3_USER";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				do {
+					String id = rs.getNString(1);
+					idList.add(id);
+				} while (rs.next());
+				return idList;
+			}
+			return null;
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+
 	}
 
 }

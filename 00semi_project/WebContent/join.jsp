@@ -89,13 +89,20 @@
 											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">회원가입</h4>
-												<form method="post" action="<c:url value='userControll.do?cmd=insert'/>"
-													method="post">
+												<form action="<c:url value='userControll.do?cmd=insert'/>"
+													method="post" name="joinForm"
+													onsubmit="return submitCheck()">
 													<div class="row">
 														<div class="form-group">
-															<div class="col-md-12">
-																<label for="id">아이디</label> <span class="spanVal"></span><input id="id"
-																	type="text" name="id" class="form-control input-lg">
+															<div class="col-md-10">
+																<label for="id">아이디</label> <span class="spanVal">${idMsg }</span><input
+																	id="id" type="text" name="id"
+																	class="form-control input-lg">
+															</div>
+															<div class="col-md-2">
+																<a href="javascript:idCheck();"
+																	class="btn btn-primary pull-right mb-xl"
+																	style="margin-top: 30px; margin-bottom: 0;">중복체크</a>
 															</div>
 														</div>
 													</div>
@@ -108,7 +115,6 @@
 															</div>
 														</div>
 													</div>
-
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
@@ -143,8 +149,8 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="hintOk">힌트 답 입력</label> <span class="spanVal"></span><input
-																	type="text" name="hintOk"
+																<label for="hintOk">힌트 답 입력</label> <span
+																	class="spanVal"></span><input type="text" name="hintOk"
 																	class="form-control input-lg" id="hintOk">
 															</div>
 														</div>
@@ -152,60 +158,58 @@
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>핸드폰 번호</label> 
-																	<span class="spanVal"></span><select id="phone1" name="phone[]"
-																		class="form-control input-lg">
-																		<option value="010">010</option>
-																		<option value="011">011</option>
-																		<option value="016">016</option>
-																		<option value="017">017</option>
-																		<option value="018">018</option>
-																		<option value="019">019</option>
-																	</select> - <input id="phone2" name="phone[]" maxlength="4"
-																		size="4" type="text" class="form-control input-lg">
-																	- <input id="phone3" name="phone[]" maxlength="4"
-																		size="4" type="text" class="form-control input-lg">
-																
+																<label>핸드폰 번호</label> <span class="spanVal"></span><select
+																	id="phone1" name="phone[]"
+																	class="form-control input-lg">
+																	<option value="010">010</option>
+																	<option value="011">011</option>
+																	<option value="016">016</option>
+																	<option value="017">017</option>
+																	<option value="018">018</option>
+																	<option value="019">019</option>
+																</select> - <input id="phone2" name="phone[]" maxlength="4"
+																	size="4" type="text" class="form-control input-lg">
+																- <input id="phone3" name="phone[]" maxlength="4"
+																	size="4" type="text" class="form-control input-lg">
+
 															</div>
 														</div>
 													</div>
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>주소</label> 
-																	<span class="spanVal"></span><input type="text" id="sample3_postcode"
-																		placeholder="우편번호" name ="addr[]" class="form-control input-lg">
-																	<a
-																		onclick="sample3_execDaumPostcode()"
-																		class="form-control input-lg" id="addSearch" style="width:20%; display: inline-block;">우편번호 찾기</a><br>
-																	<div id="wraps"
-																		style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
-																		<img
-																			src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png"
-																			id="btnFoldWrap"
-																			style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
-																			onclick="foldDaumPostcode()" alt="접기 버튼">
-																	</div>
-																	<input type="text" id="sample3_address"
-																		class="d_form large  form-control input-lg"
-																		placeholder="기본주소" name="addr[]">
-																		<input type="text" 
-																		class="form-control input-lg"
-																		placeholder="상세주소" id="addr" name="addr[]">
-																
+																<label>주소</label> <span class="spanVal"></span><input
+																	type="text" id="sample3_postcode" placeholder="우편번호"
+																	name="addr[]" class="form-control input-lg"> <a
+																	onclick="sample3_execDaumPostcode()"
+																	class="form-control input-lg" id="addSearch"
+																	style="width: 20%; display: inline-block;">우편번호 찾기</a><br>
+																<div id="wraps"
+																	style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
+																	<img
+																		src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png"
+																		id="btnFoldWrap"
+																		style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
+																		onclick="foldDaumPostcode()" alt="접기 버튼">
+																</div>
+																<input type="text" id="sample3_address"
+																	class="d_form large  form-control input-lg"
+																	placeholder="기본주소" name="addr[]"> <input
+																	type="text" class="form-control input-lg"
+																	placeholder="상세주소" id="addr" name="addr[]">
+
 															</div>
 														</div>
 													</div>
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="email1">이메일</label>
-																	 <span class="spanVal"></span><input id="email1" name="email[]" 
-																		size="8" value="" type="text"
-																		class="form-control input-lg"> @ <input
-																		id="email2" name="email[]"size="8"
-																		value="" type="text" class="form-control input-lg">
-																
+																<label for="email1">이메일</label> <span class="spanVal"></span><input
+																	id="email1" name="email[]" size="8" value=""
+																	type="text" class="form-control input-lg"> @ <input
+																	id="email2" name="email[]" size="8" value=""
+																	type="text" class="form-control input-lg">
+
 															</div>
 														</div>
 													</div>
@@ -220,9 +224,7 @@
 											</div>
 										</div>
 									</div>
-
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -235,9 +237,11 @@
 	</div>
 
 
-	<!-- 로그인 유효성검사 -->
+
 	<script>
-		
+		var checkId = "${param.id}";
+		var check = "${check}";
+
 		var inputs = document.getElementsByTagName("input");
 		var id = document.getElementById("id");
 		var pwd = document.getElementById("pwd");
@@ -254,66 +258,109 @@
 		var email2 = document.getElementById("email2");
 		var spans = document.getElementsByClassName("spanVal");
 		
+		
+		/* 가입완료 버튼 클릭할때 처리 */
+		function submitCheck() {
+			if (id.value == "" || pwd.value == "" || pwdOk.value == ""
+					|| name.value == "" || hintOk.value == ""
+					|| phone1.value == "" || phone2.value == ""
+					|| phone3.value == "" || addr.value == ""
+					|| email1.value == "" || email2.value == "") {
+				alert("필수 정보를 모두 기입해 주세요.");
+				return false;
+			}
+			
+			if(pwd.value != pwdOk.value){
+				alert("입력하신 비밀번호가 서로 다릅니다");
+				pwd.focus();
+				return false;
+			}
+			return true;
+		}
+		
+		/* 아이디 중복체크시 폼액션 위치 지정해주기 */
+		function idCheck() {
+			document.joinForm.action = "<c:url value='userControll.do?cmd=idSearch'/>";
+			document.joinForm.submit();
+		}
+
 		function joinCheck() {
+			/* 아이디 중복체크시 아이디값 유지 */
+			if (check == "true") {
+				id.value = checkId;
+			}
+
+			/* 로그인 유효성 검사 */
 			for (var i = 0; i < inputs.length; i++) {
 				inputs[i].onclick = function() {
-					
 					if (id.value == "") {
-						if(this.value == ""){
-							id.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+						if (this.value == "") {
+							id.previousSibling.innerHTML = "*아이디는 필수 입력 사항입니다.";
 							id.focus();
-						} 
-					} else if (pwd.value == "") {
-						if(this.value == ""){
-							pwd.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+						}
+					} else if(checkId ==""){
+						if (this.value == "") {
+							id.previousSibling.innerHTML = "*아이디 중복 검사를 해주세요";
+							id.focus();
+						}
+						
+					}else if (pwd.value == "") {
+						if (this.value == "") {
+							pwd.previousSibling.innerHTML = "*비밀번호는 필수 입력 사항입니다.";
 							pwd.focus();
-						} 
+						}
 					} else if (pwdOk.value == "") {
-						if(this.value == ""){
-							pwdOk.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+						if (this.value == "") {
+							pwdOk.previousSibling.innerHTML = "*비밀번호 검사는 필수 입력 사항입니다.";
 							pwdOk.focus();
-						} 
+						}
 					} else if (names.value == "") {
-						if(this.value == ""){
-							names.previousSibling.innerHTML = "*필수 입력 사항입니다.";
+						if (this.value == "") {
+							names.previousSibling.innerHTML = "*이름은 필수 입력 사항입니다.";
 							names.focus();
-						} 
+						}
 					} else if (hintOk.value == "") {
-						if(this.value == ""){
-							hintOk.previousSibling.innerHTML = "*필수 입력 사항입니다.";
-							if(this.value == "") hintOk.focus();
-						} 
-						
+						if (this.value == "") {
+							hintOk.previousSibling.innerHTML = "*힌트 답은 필수 입력 사항입니다.";
+							if (this.value == "")
+								hintOk.focus();
+						}
 					} else if (phone2.value == "") {
-						if(this.value == ""){
-							phone1.previousSibling.innerHTML = "*필수 입력 사항입니다.";
-							if(this.value == "") phone2.focus();
-						} 
+						if (this.value == "") {
+							phone1.previousSibling.innerHTML = "*전화번호는 필수 입력 사항입니다.";
+							if (this.value == "")
+								phone2.focus();
+						}
 					} else if (phone3.value == "") {
-						if(this.value == ""){
-							phone1.previousSibling.innerHTML = "*필수 입력 사항입니다.";
-							if(this.value == "") phone3.focus();
-						} 
-					}else if (addr.value == "") {
-						if(this.value == ""){
-							addrNum.previousSibling.innerHTML = "*필수입력 사항 입니다.";
-							if(this.value == "") addr.focus();
-						} 
-					}else if (email1.value == "") {
-						if(this.value == ""){
-							email1.previousSibling.innerHTML = "*필수 입력 사항입니다";
-							if(this.value == "") email1.focus();
-						} 
-						
-					}else if (email2.value == "") {
-						if(this.value == ""){
-							email1.previousSibling.innerHTML = "필수 입력 사항입니다";
-							if(this.value == "") email2.focus();
-						} 
+						if (this.value == "") {
+							phone1.previousSibling.innerHTML = "*전화번호는 필수 입력 사항입니다.";
+							if (this.value == "")
+								phone3.focus();
+						}
+					} else if (addr.value == "") {
+						if (this.value == "") {
+							addrNum.previousSibling.innerHTML = "*주소는 필수입력 사항 입니다.";
+							if (this.value == "")
+								addr.focus();
+						}
+					} else if (email1.value == "") {
+						if (this.value == "") {
+							email1.previousSibling.innerHTML = "*이메일은 필수 입력 사항입니다";
+							if (this.value == "")
+								email1.focus();
+						}
+
+					} else if (email2.value == "") {
+						if (this.value == "") {
+							email1.previousSibling.innerHTML = "이메일은 필수 입력 사항입니다";
+							if (this.value == "")
+								email2.focus();
+						}
 					}
 				}
+				/* 아무키나 눌렀을 때 필수 입력 문구 사라진다 */
 				inputs[i].onkeydown = function() {
-					for (var i = 0; i < spans.length ; i++) {
+					for (var i = 0; i < spans.length; i++) {
 						spans[i].innerHTML = "";
 					}
 				}
