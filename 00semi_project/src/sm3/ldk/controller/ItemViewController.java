@@ -1,6 +1,7 @@
 package sm3.ldk.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import sm3.jsh.vo.UserVo;
 import sm3.ldk.dao.ItemViewDao;
 import sm3.ldk.vo.ItemViewVo;
 
@@ -22,6 +27,8 @@ public class ItemViewController extends HttpServlet{
 			list(request,response);
 		}else if(cmd!=null && cmd.equals("select")) {
 			select(request,response);
+		}else if(cmd!=null && cmd.equals("select_cate")) {
+			select_cate(request,response);
 		}
 	}
 	protected void list(HttpServletRequest request, 
@@ -57,13 +64,29 @@ public class ItemViewController extends HttpServlet{
 				HttpServletResponse response) throws ServletException, IOException {
 			int cate_num=Integer.parseInt(request.getParameter("cate_num"));
 			ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select_cate(cate_num);
+			JSONObject obj = new JSONObject();
+			JSONArray arr = new JSONArray();
+			for(ItemViewVo vo : list) {
+				JSONObject ob = new JSONObject();
+				ob.put("cate_num",vo.getCate_num());
+				ob.put("item_num",vo.getItem_num());
+				ob.put("item_name",vo.getItem_name());
+				ob.put("item_price",vo.getItem_price());
+				ob.put("item_orgimg",vo.getItem_orgimg());
+				ob.put("size_name",vo.getSize_name());
+				arr.add(ob);
+			}
+			obj.put("arr", arr);
+			PrintWriter pw = response.getWriter();
+			pw.print(obj.toString());
+			pw.close();
 			
-			if(list!=null) {
+			/*if(list!=null) {
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("item_list.jsp").forward(request, response);
 			}else {
 				request.setAttribute("msg", "아이템리스트소환실패");
 				request.getRequestDispatcher("test.jsp").forward(request, response);
-			}
+			}*/
 		}
 }

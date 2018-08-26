@@ -46,7 +46,7 @@
 							<li><a href="index.html"> BOTTOM </a></li>
 						</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='itemView.do?cmd=select_cate&cate_num=1'/>"> OUTER </a>
+						href="<c:url value='item_list.jsp'/>"> OUTER </a>
 						<ul class="dropdown-menu">
 							<li><a href="index.html"> ALL </a></li>
 							<li><a href="index.html"> OUTER </a></li>

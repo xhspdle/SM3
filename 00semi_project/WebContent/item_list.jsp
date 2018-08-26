@@ -68,9 +68,52 @@
 
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
+<script>
+	var xhr = null;
+	function itemList() {
+		xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = callback;
+		xhr.open('get', 'itemView.do?cmd=select_cate&cate_num=1', true);
+		xhr.send();
+
+	}
+	function callback() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var cnt = 8;
+			var txt = xhr.responseText;
+			var json = JSON.parse(txt);
+			var box = document.getElementsByClassName("mt-lg");
+			for (var i = 0 ; i < cnt ; i++) {
+				if (i%4==0) {
+					var div = document.createElement("div");
+					div.className = "col-md-3";
+					div.innerHTML = "<a href='<c:url value='item_detail.jsp?item_num=${vo.item_num}'/>'>"
+							+ "<img class='img-responsive' src='<c:url value='images/"+json.arr[i].item_orgimg+"'/>'alt='Blog'></a>"
+							+ "<div class='recent-posts mt-md mb-lg'>"
+							+ "<article class='post'>"
+							+ "<h5>" + json.arr[i].size_name +
+							+ "<a class='text-dark' href='<c:url value='item_detail.jsp'/>'>"
+							+ json.arr[i].item_name
+							+ "</a>"
+							+ "</h5>"
+							+ "<div class='post-meta' class='item_info'>"
+							+ "<span><i class='fa fa-tag'></i>"
+							+ json.arr[i].item_price
+							
+							+ "</span>"
+							+ "<span><i class='fa fa-comments'></i> <a href='#'>500 Comments</a></span>"
+							+ "</div>" + "</article>" + "</div>"
+					box[0].appendChild(div);
+				}
+
+			}
+			cnt += 8;
+		}
+	}
+</script>
 
 </head>
-<body>
+<body onload="itemList()">
 	<div class="body">
 		<header id="header"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
@@ -93,30 +136,10 @@
 		<div role="sub" class="sub">
 			<section class="section mt-none section-footer">
 				<div class="container main_box">
-					<div class="row mt-lg">
-					<c:forEach var="vo" items="${list}" step="4">
-						<div class="col-md-3">
-							<a href="<c:url value="item_detail.jsp?item_num=${vo.item_num}"/>"><img
-								class="img-responsive" src="<c:url value='images/${vo.item_savimg}'/>"
-								alt="Blog"></a>
-							<div class="recent-posts mt-md mb-lg">
-								<article class="post">
-									<h5>	
-										<a class="text-dark" href="<c:url value="item_detail.jsp"/>">${vo.item_name}</a>
-									</h5>
-									<div class="post-meta" class="item_info">
-										<span><i class="fa fa-tag"></i>${vo.item_price} </span> <span><i
-											class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
-									</div>
-								</article>
-							</div>
-						</div>
-					
-					</c:forEach>
-					</div>
+					<div class="row mt-lg"></div>
 					<p class="txtCenter">
-						<button type="button" class="btn btn-default mr-xs mb-sm">상품
-							더보기</button>
+						<button onclick="itemList()" type="button"
+							class="btn btn-default mr-xs mb-sm">상품 더보기</button>
 					</p>
 				</div>
 			</section>

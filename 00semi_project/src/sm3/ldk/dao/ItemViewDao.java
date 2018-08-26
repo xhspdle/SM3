@@ -124,7 +124,7 @@ public class ItemViewDao {
 		ArrayList<ItemViewVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_item_view where cate_num=? order by item_num";
+			String sql="select * from sm3_item_view where cate_num=? order by size_num";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, cate_num);
 			rs=pstmt.executeQuery();
@@ -135,7 +135,7 @@ public class ItemViewDao {
 					int item_num = rs.getInt("item_num");
 					String item_name=rs.getString("item_name");
 					String item_info=rs.getString("item_info");
-					int item_price=rs.getInt("item_price");
+					int item_price=rs.getInt("item_price");	
 					String item_orgimg=rs.getString("item_orgimg");
 					String item_savimg=rs.getString("item_savimg");
 					int size_num=rs.getInt("size_num");
