@@ -1,3 +1,6 @@
+<%@page import="sm3.ldk.dao.ItemViewDao"%>
+<%@page import="sm3.ldk.vo.ItemViewVo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -68,7 +71,9 @@
 
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
-
+<% ArrayList<ItemViewVo> list = (ArrayList)request.getAttribute("list");
+   ItemViewVo vo= list.get(0);
+%>
 </head>
 <body>
 	<div class="body">
@@ -91,7 +96,7 @@
 						<div>
 							<div class="thumbnail">
 								<img alt="" class="img-responsive img-rounded"
-									src="img/products/product-7-2.jpg">
+									src="images/<%=vo.getItem_orgimg() %>">
 							</div>
 						</div>
 					</div>
@@ -99,7 +104,7 @@
 						<div class="summary entry-summary">
 							<!-- 제목 -->
 							<h1 class="mb-none">
-								<strong>[OFST-06703] 허밍 그레이</strong>
+								<strong><%=vo.getItem_name() %></strong>
 							</h1>
 							<!-- 리뷰순 -->
 							<div class="review_num">
@@ -112,7 +117,7 @@
 							</div>
 							<!-- 가격 -->
 							<p class="price">
-								<span class="amount">$22</span>
+								<span class="amount"><%=vo.getItem_price() %></span>
 							</p>
 							<div class="cboth de_color">
 								<a href="#"><span style="background-color: #101010;">1</span></a>
@@ -120,11 +125,7 @@
 								<a href="#"><span style="background-color: #244349;">3</span></a>
 							</div>
 							<!-- 상품설명 -->
-							<p class="taller">Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce
-								in hendrerit purus. Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce
-								in hendrerit purus.</p>
+							<p class="taller"><%=vo.getItem_info() %></p>
 
 							<form enctype="multipart/form-data" method="post" class="cart">
 								<div class="quantity">

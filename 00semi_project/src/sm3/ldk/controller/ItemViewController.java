@@ -31,6 +31,7 @@ public class ItemViewController extends HttpServlet{
 			select_cate(request,response);
 		}
 	}
+	
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().list();
@@ -42,6 +43,7 @@ public class ItemViewController extends HttpServlet{
 			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 		}
 	}
+	
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String sitem_num=request.getParameter("item_num");
@@ -52,10 +54,10 @@ public class ItemViewController extends HttpServlet{
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select(item_num);
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("ITEM_VIEW_list.jsp").forward(request, response);
+			request.getRequestDispatcher("item_detail.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
-			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
 	}
 	

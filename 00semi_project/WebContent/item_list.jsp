@@ -89,7 +89,7 @@
 				if (i%4==0) {
 					var div = document.createElement("div");
 					div.className = "col-md-3";
-					div.innerHTML = "<a href='<c:url value='item_detail.jsp?item_num=${vo.item_num}'/>'>"
+					div.innerHTML = "<a href='<c:url value='itemView.do?cmd=select&item_num="+json.arr[i].item_num+"'/>'>"
 							+ "<img class='img-responsive' src='<c:url value='images/"+json.arr[i].item_orgimg+"'/>'alt='Blog'></a>"
 							+ "<div class='recent-posts mt-md mb-lg'>"
 							+ "<article class='post'>"
