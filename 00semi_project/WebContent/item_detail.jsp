@@ -1,3 +1,6 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="sm3.ldk.dao.ItemViewDao"%>
 <%@page import="sm3.ldk.vo.ItemViewVo"%>
 <%@page import="java.util.ArrayList"%>
@@ -73,6 +76,9 @@
 <script src="vendor/modernizr/modernizr.min.js"></script>
 <% ArrayList<ItemViewVo> list = (ArrayList)request.getAttribute("list");
    ItemViewVo vo= list.get(0);
+   HashMap<Integer,String> list2 = (HashMap)request.getAttribute("list2");
+   Set<Integer> key = list2.keySet();
+   Iterator<String> color = 
 %>
 </head>
 <body>
@@ -117,7 +123,7 @@
 							</div>
 							<!-- 가격 -->
 							<p class="price">
-								<span class="amount"><%=vo.getItem_price() %></span>
+								<span class="amount"><%=vo.getItem_price() %>원</span>
 							</p>
 							<div class="cboth de_color">
 								<a href="#"><span style="background-color: #101010;">1</span></a>
@@ -126,7 +132,6 @@
 							</div>
 							<!-- 상품설명 -->
 							<p class="taller"><%=vo.getItem_info() %></p>
-
 							<form enctype="multipart/form-data" method="post" class="cart">
 								<div class="quantity">
 									<input type="button" class="minus" value="-"> <input

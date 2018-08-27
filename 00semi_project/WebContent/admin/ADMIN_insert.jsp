@@ -9,11 +9,11 @@
 	<div class="col-lg-9">
 		<section class="panel panel-admin">
 			<header class="panel-heading">
-				<h2 class="panel-title">관리자 관리</h2>
+				<h1 class="panel-title">관리자 관리</h1>
 			</header>
 			<div class="panel-body">
 			<form class="form-horizontal form-bordered" 
-				method="post" action='<c:url value="/admin.do?cmd=insert"/>'>
+				method="post" action='<c:url value="/admin/admin.do?cmd=insert"/>'>
 				<div class="form-group">
 					<label class="control-label col-md-3">관리자 추가</label>
 					<div class="col-md-6">
@@ -47,11 +47,11 @@
 	<div class="col-lg-9">
 		<section class="panel panel-admin">
 			<header class="panel-heading">
-				<h2 class="panel-title">관리자 관리</h2>
+				<h1 class="panel-title">관리자 관리</h1>
 			</header>
 			<div class="panel-body">
 			<form class="form-horizontal form-bordered" 
-				method="post" action='<c:url value="/admin.do?cmd=update"/>'>
+				method="post" action='<c:url value="/admin/admin.do?cmd=update"/>'>
 				<div class="form-group">
 					<label class="col-md-3 control-label" for="inputFocus">관리자 번호</label>
 					<div class="col-md-6">

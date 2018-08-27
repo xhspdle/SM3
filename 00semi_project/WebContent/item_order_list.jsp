@@ -91,7 +91,6 @@
 				<input type="hidden" name="user_num" value="${user_num }"><!-- 세션스코프에서받기 -->
 					<div class="row">
 						<div class="col-md-12">
-
 							<div class="featured-boxes">
 								<div class="row">
 									<div class="col-md-12">
@@ -111,7 +110,6 @@
 															</tr>
 														</thead>
 														<tbody>
-
 															<tr class="cart_table_item">
 																<td class="product-remove"><a
 																	title="Remove this item" class="remove" href="#"> <i
@@ -145,7 +143,6 @@
 																<td class="product-subtotal"><span class="amount" >$299</span>
 																</td>
 															</tr>
-											
 														</tbody>
 													</table>
 											</div>

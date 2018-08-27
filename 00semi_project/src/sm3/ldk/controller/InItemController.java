@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import sm3.ldk.dao.InItemDao;
 import sm3.ldk.vo.InItemVo;
 
-@WebServlet("/dev/itemOrder/inItem.do")
+@WebServlet("/admin/inItem.do")//여기까지 하다 말음
 public class InItemController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -28,6 +28,8 @@ public class InItemController extends HttpServlet{
 			update(request,response);
 		}else if(cmd!=null && cmd.equals("select")) {
 			select(request,response);
+		}else if(cmd!=null && cmd.equals("goInsert")) {
+			goInsert(request,response);
 		}
 	}
 	protected void insert(HttpServletRequest request, 
@@ -138,5 +140,11 @@ public class InItemController extends HttpServlet{
 			request.setAttribute("msg", "입고 수정 및 재고 반영 실패..");
 		}
 		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+	}
+	protected void goInsert(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		String do1=request.getParameter("do1");
+		request.getRequestDispatcher("../admin.jsp?page1=IN_ITEM_insert.jsp?do1=" + do1).forward(request, response);
+		//주의! page1=으로 넘긴 파라미터에 &로 파라미터 붙이는게 아니라, ?로 파라미터 붙여야함...(page1이 링크주소로 붙을거라서)
 	}
 }

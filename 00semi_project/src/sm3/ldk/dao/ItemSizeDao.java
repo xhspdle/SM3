@@ -139,6 +139,29 @@ public class ItemSizeDao {
 			}
 		}
 	}
+	public int updateColor(int color_num,int item_num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="update sm3_item_size set "
+					+ "color_num=? where item_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, color_num);
+			pstmt.setInt(2, item_num);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public ItemSizeVo select(int size_num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

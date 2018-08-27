@@ -339,4 +339,8 @@ a.btn{
 	color: #ff5d5d;
 	font-size: 11px;
 }
-
+ 
+ .col-md-6 .btn-aa{
+	margin: 0 !important; 
+ }
+ 

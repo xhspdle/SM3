@@ -132,11 +132,12 @@ public class ItemDao {
 			}
 		}
 	}
-	public int update(ItemVo vo) {
+	public int update(ItemVo vo,int color_num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			con.setAutoCommit(false);
 			String sql="update sm3_item set item_name=?,"
 					+ "cate_num=?,item_info=?,item_price=?,"
 					+ "item_orgimg=?,item_savimg=? where item_num=?";
@@ -148,7 +149,20 @@ public class ItemDao {
 			pstmt.setString(5, vo.getItem_orgimg());
 			pstmt.setString(6, vo.getItem_savimg());
 			pstmt.setInt(7, vo.getItem_num());
-			return pstmt.executeUpdate();
+			int n=pstmt.executeUpdate();
+			if(n>0) {
+				int nn=ItemSizeDao.getInstance().updateColor(color_num, vo.getItem_num());
+				if(nn>0) {
+					con.commit();
+					return nn;
+				}else {
+					con.rollback();
+					return -3;
+				}
+			}else {
+				con.rollback();
+				return -2;
+			}
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;

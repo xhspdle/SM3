@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2018-08-17 16:25:56</creation_date>
-			<updated_date>2018-08-24 11:11:14</updated_date>
+			<updated_date>2018-08-27 13:52:19</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -387,10 +387,10 @@
 			<binary>false</binary>
 			<args></args>
 			<char_semantics>false</char_semantics>
-			<description>글많이넣기 LONG</description>
+			<description>글많이넣기 LONG&#x0D;&#x0A;--&gt; 검색 안되는 등 제약 많아서 CLOB으로 변경</description>
 			<logical_name>글내용</logical_name>
 			<physical_name>EN_CONTENT</physical_name>
-			<type>long</type>
+			<type>clob</type>
 		</word>
 		<word>
 			<id>14</id>
@@ -2101,7 +2101,7 @@
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>long</type>
+					<type>clob</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
@@ -3425,7 +3425,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>37</word_id>
+					<word_id>36</word_id>
 					<id>47</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4434,7 +4434,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>36</word_id>
+					<word_id>37</word_id>
 					<id>68</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
