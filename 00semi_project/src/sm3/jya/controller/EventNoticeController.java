@@ -99,7 +99,11 @@ public class EventNoticeController extends HttpServlet{
 		}
 	}
 	protected void delete(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-		int en_num = Integer.parseInt(request.getParameter("en_num"));
+		String sen_num=request.getParameter("en_num");
+		int en_num=0;
+		if(sen_num!=null && !sen_num.equals("")) {
+			en_num=Integer.parseInt(sen_num);
+		}
 		int n = EventNoticeDao.getInstance().delete(en_num);
 		if(n>0) {
 			request.setAttribute("msg", "이미지삭제성공");
@@ -140,14 +144,18 @@ public class EventNoticeController extends HttpServlet{
 		request.getRequestDispatcher("test.jsp").forward(request, response);		
 	 }
 	protected void select(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-		int en_num=Integer.parseInt(request.getParameter("en_num"));
+		String sen_num=request.getParameter("en_num");
+		int en_num=0;
+		if(sen_num!=null && !sen_num.equals("")) {
+			en_num=Integer.parseInt(sen_num);
+		}
 		EventNoticeVo vo = EventNoticeDao.getInstance().select(en_num);
 		if(vo!=null) { 
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("EN_imginput.jsp?cmd1=update").forward(request, response);
+			request.getRequestDispatcher("community_event_detail.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "실패");
-			request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
 	 }
 	protected void getInfo(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{

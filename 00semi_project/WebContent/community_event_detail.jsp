@@ -86,31 +86,27 @@
 									<div class="col-sm-11">
 										<div class="post-content">
 											<h2 style="margin-top: 20px; text-align: center;">
-												추석연휴 프로모션
+												EVENT&NOTICE
 											</h2>
 											<div class="post-image single">
-						   						<img class="img-thumbnail" src="images/추석연휴.jpg"
-													alt="">
+						   						<img class="img-thumbnail" src="<c:url value='/images/${vo.en_savimg }'/>"
+													alt="Blog">
 											</div>
-
 
 											<div class="post-meta">
 												<span><i class="fa fa-user"></i> By <a href="#">John
 														Doe</a> </span>
 											</div>
-											<p class="qna_content">필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+											<p class="qna_content" >필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
+												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~
+												
+															
+											</p>
 
 
 										</div>
 																		
-				    <a href="<c:url value='/dev/board/EventNotice.do?cmd=select&en_num=${vo.en_num }'/>">수정</a>
+				    <a href="<c:url value='EventNotice.do?cmd=select&en_num=${vo.en_num }'/>">수정</a>
 					<a href="<c:url value='EventNotice.do?cmd=delete&en_num=${vo.en_num }'/>">삭제</a>
 									</div>
 								</div>
