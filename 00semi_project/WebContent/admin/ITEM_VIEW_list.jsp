@@ -28,7 +28,7 @@
 				<td>${vo.item_name }</td>
 				<td>
 				<button type="button" class="btn btn-default" 
-				style="background-color:${vo.color_code };">&nbsp&nbsp</button></td>
+				style="background-color:${vo.color_code };">&nbsp;&nbsp;</button></td>
 				<td>${vo.item_price }</td>
 				<td><img src='<c:url value="/DBImages/${vo.item_savimg }"/>' 
 				style="width:105px;height:140px;"></td>
