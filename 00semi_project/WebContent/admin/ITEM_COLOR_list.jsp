@@ -5,13 +5,13 @@
 <div class="container">
 	<div class="row">
 	<div class="col-lg-9">
-	<h2>관리자 목록</h2>
+	<h2>컬러 목록</h2>
 		<table class="table table-hover">
 			<thead>
 			<tr>
-				<th>관리자번호</th>
-				<th>관리자아이디</th>
-				<th>관리자비밀번호</th>
+				<th>컬러번호</th>
+				<th>컬러이름</th>
+				<th>컬러코드</th>
 				<th>수정</th>
 				<th>삭제</th>
 			</tr>
@@ -19,11 +19,11 @@
 			<tbody>
 			<c:forEach var="vo" items="${requestScope.list }">
 			<tr>
-				<td>${vo.admin_num }</td>
-				<td>${vo.admin_id }</td>
-				<td>${vo.admin_pwd }</td>
-				<td><a href="<c:url value='/admin/admin.do?cmd=select&admin_num=${vo.admin_num }'/>">수정</a></td>
-				<td><a href="<c:url value='/admin/admin.do?cmd=delete&admin_num=${vo.admin_num }'/>">삭제</a></td>
+				<td>${vo.color_num }</td>
+				<td>${vo.color_name }</td>
+				<td>${vo.color_code }</td>
+				<td><a href="<c:url value='/admin/itemColor.do?cmd=select&color_num=${vo.color_num }'/>">수정</a></td>
+				<td><a href="<c:url value='/admin/itemColor.do?cmd=delete&color_num=${vo.color_num }'/>">삭제</a></td>
 			</tr>
 			</c:forEach>
 			</tbody>

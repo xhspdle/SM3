@@ -1,4 +1,4 @@
-package sm3.ldk.controller;
+package sm3.ldk.controller.dev;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import sm3.ldk.dao.ItemSizeDao;
 import sm3.ldk.vo.ItemSizeVo;
 
-@WebServlet("/admin/itemSize.do")
+@WebServlet("/dev/itemOrder/itemSize.do")
 public class ItemSizeController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 

@@ -1,4 +1,4 @@
-package sm3.ldk.controller;
+package sm3.ldk.controller.dev;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ import org.json.simple.JSONObject;
 import sm3.ldk.dao.ItemColorDao;
 import sm3.ldk.vo.ItemColorVo;
 
-@WebServlet("/admin/itemColor.do")
+@WebServlet("/dev/itemOrder/itemColor.do")
 public class ItemColorController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -32,8 +32,6 @@ public class ItemColorController extends HttpServlet{
 			update(request,response);
 		}else if(cmd!=null && cmd.equals("select")) {
 			select(request,response);
-		}else if(cmd!=null && cmd.equals("goInsert")) {
-			goInsert(request,response);
 		}
 	}
 	protected void insert(HttpServletRequest request, 
@@ -52,7 +50,7 @@ public class ItemColorController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "컬러 추가 실패..");
 		}
-		request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 	}
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -75,10 +73,10 @@ public class ItemColorController extends HttpServlet{
 		}
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("../admin.jsp?page1=ITEM_COLOR_list.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_COLOR_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
-			request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, 
@@ -94,7 +92,7 @@ public class ItemColorController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "컬러 삭제 실패..");
 		}
-		request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -106,10 +104,10 @@ public class ItemColorController extends HttpServlet{
 		ItemColorVo vo=ItemColorDao.getInstance().select(color_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("../admin.jsp?page1=ITEM_COLOR_insert.jsp?do1=update").forward(request, response);
+			request.getRequestDispatcher("ITEM_COLOR_insert.jsp?do1=update").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
-			request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 		}
 	}
 	protected void update(HttpServletRequest request, 
@@ -128,12 +126,6 @@ public class ItemColorController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "컬러 수정 실패..");
 		}
-		request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
-	}
-	protected void goInsert(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		String do1=request.getParameter("do1");
-		request.getRequestDispatcher("../admin.jsp?page1=ITEM_COLOR_insert.jsp?do1=" + do1).forward(request, response);
-		//주의! page1=으로 넘긴 파라미터에 &로 파라미터 붙이는게 아니라, ?로 파라미터 붙여야함...(page1이 링크주소로 붙을거라서)
+		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 	}
 }

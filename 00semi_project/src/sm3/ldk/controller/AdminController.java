@@ -8,12 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import sm3.ldk.dao.AdminDao;
 import sm3.ldk.vo.AdminVo;
 
-@WebServlet("/admin.do")
+@WebServlet("/admin/admin.do")
 public class AdminController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -29,8 +28,8 @@ public class AdminController extends HttpServlet{
 			select(request,response);
 		}else if(cmd!=null && cmd.equals("update")) {
 			update(request,response);
-		}else if(cmd!=null && cmd.equals("login")) {
-			
+		}else if(cmd!=null && cmd.equals("goInsert")) {
+			goInsert(request,response);
 		}
 	}
 	protected void insert(HttpServletRequest request, 
@@ -43,17 +42,17 @@ public class AdminController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "관리자 등록 실패..");
 		}
-		request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 	}
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<AdminVo> list=AdminDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("admin.jsp?page1=ADMIN_list.jsp").forward(request, response);
+			request.getRequestDispatcher("../admin.jsp?page1=ADMIN_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패..");
-			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, 
@@ -69,7 +68,7 @@ public class AdminController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "관리자 삭제 실패..");
 		}
-		request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -81,10 +80,11 @@ public class AdminController extends HttpServlet{
 		AdminVo vo=AdminDao.getInstance().select(admin_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("admin.jsp?page1=ADMIN_insert.jsp?do1=update").forward(request, response);;
+			request.getRequestDispatcher("../admin.jsp?page1=ADMIN_insert.jsp?do1=update").forward(request, response);
+			//주의! page1=으로 넘긴 파라미터에 &로 파라미터 붙이는게 아니라, ?로 파라미터 붙여야함...(page1이 링크주소로 붙을거라서)
 		}else {
 			request.setAttribute("msg", "선택 실패..");
-			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	protected void update(HttpServletRequest request, 
@@ -102,18 +102,12 @@ public class AdminController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "관리자 수정 실패..");
 		}
-		request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 	}
-	protected void login(HttpServletRequest request, 
+	protected void goInsert(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		String admin_id=request.getParameter("admin_id");
-		String admin_pwd=request.getParameter("admin_pwd");
-		boolean loginOk=AdminDao.getInstance().login(new AdminVo(0, admin_id, admin_pwd));
-		if(loginOk) {
-			HttpSession session=request.getSession();
-			session.setAttribute("admin", arg1);
-		}else {
-			
-		}
+		String do1=request.getParameter("do1");
+		request.getRequestDispatcher("../admin.jsp?page1=ADMIN_insert.jsp?do1=" + do1).forward(request, response);
+		//주의! page1=으로 넘긴 파라미터에 &로 파라미터 붙이는게 아니라, ?로 파라미터 붙여야함...(page1이 링크주소로 붙을거라서)
 	}
 }
