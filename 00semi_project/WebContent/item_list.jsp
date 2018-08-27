@@ -69,12 +69,11 @@
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
 <script>
-	
 	var xhr = null;
 	function itemList() {
 		xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = callback;
-		xhr.open('get', 'itemView.do?cmd=select_cate&cate_num=1', true);
+		xhr.open('get', 'itemView.do?cmd=select_cate&cate_num=${param.cate_num}', true);
 		xhr.send();
 	}
 	var cnt = 0 ;
@@ -89,7 +88,7 @@
 				if (i%4==0) {
 					var div = document.createElement("div");
 					div.className = "col-md-3";
-					div.innerHTML = "<a href='<c:url value='itemView.do?cmd=select&item_num="+json.arr[i].item_num+"'/>'>"
+					div.innerHTML = "<a href='<c:url value='itemView.do?cmd=select&item_num="+json.arr[i].item_num+"&item_name="+json.arr[i].item_name+"'/>'>"
 							+ "<img class='img-responsive' src='<c:url value='images/"+json.arr[i].item_orgimg+"'/>'alt='Blog'></a>"
 							+ "<div class='recent-posts mt-md mb-lg'>"
 							+ "<article class='post'>"
