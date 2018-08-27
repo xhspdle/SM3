@@ -28,10 +28,11 @@ public class AdminLoginController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		String admin_id=request.getParameter("admin_id");
 		String admin_pwd=request.getParameter("admin_pwd");
-		String admin_id1=AdminDao.getInstance().login(new AdminVo(0, admin_id, admin_pwd));
-		if(admin_id1!=null && !admin_id1.equals("")) {
+		AdminVo vo=AdminDao.getInstance().login(new AdminVo(0, admin_id, admin_pwd));
+		if(vo!=null) {
 			HttpSession session=request.getSession();
-			session.setAttribute("admin_id", admin_id1);
+			session.setAttribute("admin_num", vo.getAdmin_num());//넘버도 저장하도록 수정
+			session.setAttribute("admin_id", vo.getAdmin_id());
 			response.sendRedirect(request.getContextPath() + "/admin.jsp");
 		}else {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
