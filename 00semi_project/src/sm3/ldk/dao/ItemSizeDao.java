@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import sm3.dbcp.DBConnection;
 import sm3.ldk.vo.ItemSizeVo;
 
-public class ItemSizeDao {
+public class ItemSizeDao {//사이즈번호 --> 재고번호
 	private static ItemSizeDao instance=new ItemSizeDao();
 	private ItemSizeDao() {}
 	public static ItemSizeDao getInstance() {

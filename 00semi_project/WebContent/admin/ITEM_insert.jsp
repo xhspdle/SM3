@@ -42,13 +42,15 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label">Image Upload</label>
 						<div class="col-md-6">
+						<img class="img-responsive" src=""
+							alt="이미지" id="oldimg1" style="display:none;">
 							<div class="fileupload fileupload-new">
 								<div class="uneditable-input">
 									<i class="fa fa-file fileupload-exists"></i>
 									<span class="fileupload-preview"></span>
 								</div>
 								<span class="btn btn-default btn-file btn-aa">
-									<input type="file" name="file1" id="fileupload">
+									<input type="file" name="file1" id="fileupload" onchange="imgChange()">
 								</span>
 							</div>
 						</div>
@@ -92,6 +94,13 @@
 				color_num.add(option);
 			}
 		}
+	}
+	function imgChange(){
+		var file=document.getElementsByName("file1")[0].value;
+		var fileName=file.split("\\");
+		var img=document.getElementById("oldimg1");
+		img.src="<%=application.getContextPath()%>/DBImages/" +fileName[2];
+		img.style.display="block";
 	}
 </script>
 	</c:when>

@@ -81,7 +81,6 @@
 				<div class="row">
 					<div class="col-md-3">
 						<aside class="sidebar">
-
 							<h4 class="heading-primary" style="text-align:center;">
 							<a href="<c:url value='/admin.jsp'/>">ADMIN-MENU</a></h4>
 							<hr class="short">
@@ -120,9 +119,12 @@
 									<label>Inventory Managing</label>
 									<div class="toggle-content" style="display: none;">
 										<div class="list-group">
-										  <a href="#" class="list-group-item">상품입고</a>
-										  <a href="#" class="list-group-item">입고목록</a>
-										  <a href="#" class="list-group-item">재고목록</a>
+										  <a href="<c:url value='/admin/inItem.do?cmd=goInsert&do1=insert'/>" 
+										  class="list-group-item">상품입고</a>
+										  <a href="<c:url value='/admin/inItem.do?cmd=list'/>" 
+										  class="list-group-item">입고목록</a>
+										  <a href="<c:url value='/itemView.do?cmd=list'/>" 
+										  class="list-group-item">재고목록</a>
 										</div>
 									</div>
 								</section>													
@@ -237,7 +239,6 @@
 
 							<h4 class="heading-primary">ADMIN</h4>
 							<p>admin page를 만들자아</p>
-
 						</aside>
 					</div>
 					<div class="col-md-9">

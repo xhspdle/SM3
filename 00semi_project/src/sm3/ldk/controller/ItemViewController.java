@@ -40,10 +40,10 @@ public class ItemViewController extends HttpServlet{
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("ITEM_VIEW_list.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ITEM_VIEW_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
-			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	
