@@ -53,11 +53,16 @@
 			<form class="form-horizontal form-bordered" 
 				method="post" action='<c:url value="/admin.do?cmd=update"/>'>
 				<div class="form-group">
-					<label class="control-label col-md-3">관리자 수정</label>
+					<label class="col-md-3 control-label" for="inputFocus">관리자 번호</label>
+					<div class="col-md-6">
+						<input class="form-control" type="text" readonly="readonly"
+							 name="admin_num" value="${vo.admin_num }">
+					</div>	
+				</div>
+				<div class="form-group">					
+					<label class="control-label col-md-3">수정 사항</label>
 					<div class="col-md-6">
 						<section class="form-group-vertical">
-							<input class="form-control" type="text" readonly="readonly"
-							 name="admin_num" value="${vo.admin_num }">
 							<div class="input-group input-group-icon">
 								<span class="input-group-addon">
 									<span class="icon"><i class="fa fa-user"></i></span>

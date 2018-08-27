@@ -162,6 +162,34 @@ public class AdminDao {
 			}
 		}
 	}
+	public boolean login(AdminVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="select * from sm3_admin where admin_id=? and amdin_pwd=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getAdmin_id());
+			pstmt.setString(2, vo.getAdmin_pwd());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+			return false;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return false;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public ArrayList<AdminVo> list() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
