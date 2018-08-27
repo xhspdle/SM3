@@ -316,6 +316,41 @@ public class EventNoticeDao {
 			}
 		}
 	}
+	public EventNoticeVo getInfo(int en_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con=DBConnection.getConn();
+			String sql = "select *from sm3_event_notice where en_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, en_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				String en_writer=rs.getString("en_writer");
+				String en_title=rs.getString("en_title");
+				String en_content=rs.getString("en_content");
+				Date en_date = rs.getDate("en_date");
+				String en_orgimg = rs.getString("en_orgimg");
+				String en_savimg = rs.getString("en_savimg");
+				int admin_num = rs.getInt("admin_num");
+				EventNoticeVo vo = new EventNoticeVo(en_num, en_writer, en_title, en_content,en_date, en_orgimg, en_savimg, admin_num);
+				return vo;
+			}
+			return null;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 }
 	
 	

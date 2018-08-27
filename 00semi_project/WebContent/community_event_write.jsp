@@ -65,7 +65,6 @@
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="css/main.css">
 
-
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
 
@@ -86,7 +85,7 @@
 								<div class="row">
 									<div class="col-md-12">
 											<h2 class="commTitle">게시글 작성</h2>
-										<form action="" id="submitReview" method="post"
+										<form action='<c:url value="EventNotice.do?cmd=insert"/>' id="submitReview" method="post"
 											enctype="multipart/form-data">
 											<div class="row">
 												<div class="form-group">
@@ -94,13 +93,13 @@
 														<!-- 리뷰제목입력란 -->
 														<label>작성자</label> <input type="text" value=""
 															data-msg-required="Please enter your name."
-															maxlength="100" class="form-control" name="title"
+															maxlength="100" class="form-control" name="en_writer"
 															id="title">
 													</div>
 													<div class="col-md-12">
 														<label>글 제목</label> <input type="text" value=""
 															data-msg-required="Please enter your name."
-															maxlength="100" class="form-control" name="title"
+															maxlength="100" class="form-control" name="en_title"
 															id="title">
 													</div>
 
@@ -109,7 +108,7 @@
 															<label>글내용</label>
 															<textarea maxlength="5000"
 																data-msg-required="Please enter your message." rows="10"
-																class="form-control" name="message" id="message"></textarea>
+																class="form-control" name="en_content" id="message"></textarea>
 														</div>
 													</div>
 
@@ -124,6 +123,7 @@
 												<div class="col-md-12">
 													<input type="submit" value="등록하기"
 														class="btn btn-primary" data-loading-text="Loading...">
+														<input type="hidden" name="admin_num" value="1">
 												</div>
 											</div>
 										</form>

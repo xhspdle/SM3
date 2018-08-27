@@ -27,10 +27,6 @@
 	<td><textarea rows="5" cols="50" name="en_content"></textarea></td>
 </tr>
 <tr>
-	<td>첨부파일</td>
-	<td><input type="file" name="file1"></td>
-</tr>
-<tr>
 	<td colspan="2" align="center">
 		<input type="submit" value="전송">
 		<input type="hidden" name="admin_num" value="1">

@@ -87,7 +87,7 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='community_event_list.jsp'/>"> COMMUNITY </a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value='community_event_list.jsp'/>">
+							<li><a href="<c:url value='EventNotice.do?cmd=list'/>">
 									EVENT&amp;NOTICE </a></li>
 							<li><a href="<c:url value='community_qna_list.jsp'/>">Q&amp;A</a></li>
 						</ul></li>
