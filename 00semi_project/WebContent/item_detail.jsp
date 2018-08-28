@@ -175,7 +175,7 @@
 									<input type="hidden" name="total_price" id="total_p">
 									<span>총 금액:</span> <span id="total_price"></span>
 								</p>
-							</form>
+							
 							<div class="product_meta">
 								<span class="posted_in">Categories: <a rel="tag" href="#"><%=vo.getCate_name()%></a>
 								</span>
@@ -186,7 +186,7 @@
 									href="<c:url value='cart.jsp'/>"
 									class="btn btn-primary btn-icon">장바구니</a>
 							</p>
-
+							</form>
 						</div>
 					</div>
 				</div>
