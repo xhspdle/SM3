@@ -161,19 +161,8 @@
 							</form>
 							<!-- input으로 해당 사이즈 선택 시 생성할거닷  -->
 							<div id="select_list_box">
-								<%-- <ul class="select_list">
-									<li class="item_name"><input type="hidden"
-										name="item_name">
-										<div><%=vo.getItem_name()%></div></li>
-									<li><input type="hidden" name="item_counts">
-										<div class="quantity">
-											<input type="button" class="minus" value="-"> <input
-												type="text" class="input-text qty text" title="Qty"
-												value="1" name="quantity" min="1" step="1"> <input
-												type="button" class="plus" value="+">
-										</div></li>
-									<li><input type="hidden" name="item_price"></li>
-								</ul> --%>
+								
+								
 							</div>
 
 
@@ -417,14 +406,36 @@
 	var n1 = 0;
 	var n2 = 0;
 	var n3 = 0;
+	var n4 = 0;
 		function select_list(){
-			++cnt;
+			
 			var select_box = document.getElementById("select_list_box");
 			var sel_list = document.getElementById("sel_list");
 			var total_price = document.getElementById("total_price");
 			var price = <%=vo.getItem_price()%>;
 			var sel_num = sel_list.options.selectedIndex;
-			if(sel_num = 0 ) return;
+			if(sel_num == 0 ) return;
+			if(sel_list.options[1].selected) ++n1;
+			if(sel_list.options[2].selected) ++n2;
+			if(sel_list.options[3].selected) ++n3;
+			if(sel_list.options[4].selected) ++n4;
+			if(n1>=2){
+				alert("이미 선택하신 사이즈 입니다");
+				return;
+			}
+			if(n2>=2){
+				alert("이미 선택하신 사이즈 입니다");
+				return;
+			}
+			if(n3>=2){
+				alert("이미 선택하신 사이즈 입니다");
+				return;
+			}
+			if(n4>=2){
+				alert("이미 선택하신 사이즈 입니다");
+				return;
+			}
+			++cnt;
 			total_price.innerHTML =  price * cnt + "원("+cnt+")개";
 			var ul= document.createElement("ul");
 			ul.className = "list_sel";
@@ -438,7 +449,6 @@
 					+ '</div></li>'
 					+ '<li class="it_price"><input type="hidden" name="item_price">'+price+'원</li>'
 					+ '<li><a title="Remove this item" class="remove" href="#none"> <i class="fa fa-times"></i></a></li>'
-					
 				select_box.appendChild(ul);
 				var plus = document.getElementsByClassName("plus");
 				var minus = document.getElementsByClassName("minus");
