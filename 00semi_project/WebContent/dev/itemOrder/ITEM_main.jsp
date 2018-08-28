@@ -33,6 +33,6 @@
 <a href="<c:url value='/dev/itemOrder/inItem.do?cmd=list'/>">입고 목록</a><br>
 <hr>
 <h3>상품뷰</h3>
-<a href="<c:url value='/dev/itemOrder/itemView.do?cmd=list'/>">상품목록</a><br>
+<a href="<c:url value='/itemView.do?cmd=list'/>">상품목록</a><br>
 </body>
 </html>
