@@ -132,6 +132,7 @@ public class QaDao {
 			String sql = "insert into sm3_qa values (?,?,?,?,sysdate,?,?,?,?,1)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardNum);
+			
 			pstmt.setString(2, user_name);
 			pstmt.setString(3, vo.getQa_title());
 			pstmt.setString(4, vo.getQa_content());
@@ -153,7 +154,15 @@ public class QaDao {
 		
 	}
 
-	public ArrayList<QaVo> Getlist(int startRow,int endRow) {
+	public ArrayList<QaVo> Getlist(int startRow,int endRow, String keyField,String keyWord) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+		con = DBConnection.getConn();
+		
+		
+		if(keyWord.equals("")) {
 		String sql="SELECT * FROM " +
 			    "(  " +
 				"	   SELECT AA.*,ROWNUM RNUM FROM "+
@@ -163,18 +172,41 @@ public class QaDao {
 				"	   )AA " +
 				")" +
 				" WHERE RNUM>=? AND RNUM<=?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			con = DBConnection.getConn();
+		
 			
 			pstmt = con.prepareStatement(sql);
 			//페이징처리
 			pstmt.setInt(1,startRow);
 			pstmt.setInt(2,endRow);
-			
 			rs = pstmt.executeQuery();
+		}else {
+			String searchCase="";
+			if(keyField.equals("qa_writer")) {//where절에 들어갈 검색방법을 결정하기 위한 조건문
+				searchCase=" =? ";
+			}else {
+				searchCase=" like '%'||?||'%' ";//외우셔야해요☆
+			}
+			String sql="SELECT *" + 
+					"FROM" + 
+					"(" + 
+					"    SELECT AA.*,ROWNUM RNUM" + 
+					"    FROM" + 
+					"    (" + 
+					"        SELECT *" + 
+					"        FROM sm3_qa" + 
+					"		 WHERE "+keyField+" "+searchCase+
+					"        ORDER BY qa_NUM DESC" + 
+					"    )AA" + 
+					")" + 
+					"WHERE RNUM>=? AND RNUM<=?";
+		
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, keyWord);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs=pstmt.executeQuery();
+		}
+			
 			ArrayList<QaVo> list = new ArrayList<>();
 			while (rs.next()) {
 				int qa_num = rs.getInt("qa_num");
@@ -182,6 +214,7 @@ public class QaDao {
 				String qa_writer = rs.getString("qa_writer");
 				String qa_title = rs.getString("qa_title");
 				String qa_content = rs.getString("qa_content");
+				
 				int ref = rs.getInt("ref");
 				int lev = rs.getInt("lev");
 				int step = rs.getInt("step");

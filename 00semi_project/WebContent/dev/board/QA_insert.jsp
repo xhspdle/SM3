@@ -18,11 +18,10 @@
 				<input type="hidden" name="step" value="${param.step }"/>
 				<input type="hidden" name="user_id" value="apple">	<!-- 유저아이디 -->
 				<input type="hidden" name="admin_id" value="test">	<!-- 관리자아이디 -->
-				작성자<input type="text" name="user_name" value="lee"><br>
+				작성자<input type="text" name="qa_writer" value="lee"><br>
 				<!--로그인하면 글작성할때  유저이름을 가져온다  -->
 				글제목<input type="text" name="qa_title"><br>
-				글내용<textarea rows="5" cols="50" name="qa_content" >
-				</textarea><br>	
+				글내용<textarea rows="5" cols="50" name="qa_content" ></textarea><br>	
 				<input type="submit" value="작성완료">		  		
 			</form >
      

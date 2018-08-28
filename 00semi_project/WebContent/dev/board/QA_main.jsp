@@ -9,6 +9,8 @@
 </head>
 <body>
 
+
+
 <ul>
 	<li><a href="QA_insert.jsp">글쓰기</a></li>
 	

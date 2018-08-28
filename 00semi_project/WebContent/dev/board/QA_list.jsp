@@ -6,9 +6,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Qa_list</title>
+<script type="text/javascript">
+
+function searchCheck(frm){
+    //검색
+   
+    if(frm.keyWord.value ==""){
+        alert("검색 단어를 입력하세요.");
+        frm.keyWord.focus();
+        return;
+    }
+    frm.submit();      
+}
+
+
+
+</script>
 </head>
 <body>
 			<table width="700" border="1">
+			
 			<tr>
 				<th>글번호</th>
 				<th>글쓴이</th>
@@ -38,11 +55,32 @@
 			<td>${vo.lev }</td>
 			<td>${vo.step }</td>
 		</tr>
-			
 			</c:forEach>
-			
+				<!--검색  -->
+				
+				
+		<tr>  
+        	<td colspan="7"> <br/>
+            <form  action="<c:url value='/dev/board/QA_board.do?cmd=list'/>" name="serach" method ="post">
+            <select name="keyField">
+                <option value="0"> ----선택----</option>
+                <option value="qa_writer">글쓴이</option>
+                <option value="qa_title">제목</option>
+                <option value="qa_content">내용</option>  
+            </select>
+            <input type="text" name="keyWord" />
+            <input type="button" value="검색" onclick="searchCheck(form)" />
+           
+            </form>
+           
+        </td>      
+    </tr>
 			
 			</table>
+						
+							
+			
+	<!--검색  -->		
 	<div>	
 	<!-- 이전 -->
  	<c:choose>

@@ -39,11 +39,12 @@ public class QaController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String snum = request.getParameter("qa_num");
-		String qa_writer = request.getParameter("user_name");
+		String qa_writer = request.getParameter("qa_writer");
 		String qa_title = request.getParameter("qa_title");
 		String qa_content = request.getParameter("qa_content");
 		String user_id = request.getParameter("user_id");
 		String admin_id = request.getParameter("admin_id");
+		
 		int qa_num = 0;
 		int ref = 0;
 		int lev = 0;
@@ -70,6 +71,16 @@ public class QaController extends HttpServlet {
 				//리스트
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String spageNum = request.getParameter("pageNum");
+		
+		/*검색*/
+		String keyField= request.getParameter("keyField");
+		String keyWord= request.getParameter("keyWord");
+		/*검색단어가없을때*/
+		if (keyWord==null  ||  keyWord.equals("")  ){
+			keyField="";
+			keyWord="";
+		}
+		
 		int pageNum = 1;
 		if (spageNum != null) {
 			pageNum = Integer.parseInt(spageNum);
@@ -80,14 +91,17 @@ public class QaController extends HttpServlet {
 		ArrayList<QaVo> list = new ArrayList<>();
 		QaDao qa = QaDao.getInstance();
 		
-		list = qa.Getlist(startRow, endRow);
+		list = qa.Getlist(startRow, endRow, keyField ,keyWord);
 		int pageCount=(int)Math.ceil(qa.getCount()/10.0);
-		
+		System.out.println("키워드"+keyWord);
+		System.out.println("키필드"+keyField);
 		int startPage=((pageNum-1)/10*10)+1;
 		int endPage=startPage+9;
 		if(endPage>pageCount) {
 			endPage=pageCount;
 		}
+		request.setAttribute("keyWord", keyWord);
+		request.setAttribute("keyField", keyField);
 		request.setAttribute("pageCount",pageCount);
 		request.setAttribute("startPage",startPage);
 		request.setAttribute("endPage",endPage);
