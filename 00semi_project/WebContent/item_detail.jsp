@@ -83,6 +83,10 @@
 	Iterator<Integer> keyList = set.iterator();
 %>
 </head>
+
+<!-- !!!!!!!!!!!!!!!!  해당 페이지 자동들여쓰기하지말아주세요  !!!!!!!!!!!!!!!!!! ---->
+
+
 <body>
 	<div class="body">
 		<header id="header"
@@ -139,6 +143,9 @@
 									}
 								%>
 							</div>
+							
+
+<!-- !!!!!!!!!!!!!!!!  해당 페이지 자동들여쓰기하지말아주세요  !!!!!!!!!!!!!!!!!! ---->
 
 
 							<!-- 가격 -->
@@ -156,19 +163,18 @@
 										<option>77반 ~ 88</option>
 								</select></span>
 							</p>
-							<form enctype="multipart/form-data" method="post" class="cart">
-
+							<!-- 폼시쟉~ -->
+							<form method="post" action="" class="cart">
+								
+								<div id="select_list_box">
+									<!-- 사이즈 셀렉할 경우 상품 리스트 자바스크립트로 뿌려주는 내용이 들어감.  -->
+								</div>
+							
+								<p class="price_box">
+									<input type="hidden" name="total_price" id="total_p">
+									<span>총 금액:</span> <span id="total_price"></span>
+								</p>
 							</form>
-							<!-- input으로 해당 사이즈 선택 시 생성할거닷  -->
-							<div id="select_list_box">
-								
-								
-							</div>
-
-
-							<p class="price_box">
-								<span>총 금액:</span> <span id="total_price"></span>
-							</p>
 							<div class="product_meta">
 								<span class="posted_in">Categories: <a rel="tag" href="#"><%=vo.getCate_name()%></a>
 								</span>
@@ -408,13 +414,14 @@
 	var n3 = 0;
 	var n4 = 0;
 		function select_list(){
-			
 			var select_box = document.getElementById("select_list_box");
 			var sel_list = document.getElementById("sel_list");
 			var total_price = document.getElementById("total_price");
 			var price = <%=vo.getItem_price()%>;
 			var sel_num = sel_list.options.selectedIndex;
 			if(sel_num == 0 ) return;
+			
+			/* 사이즈 중복 추가 오류방지 */
 			if(sel_list.options[1].selected) ++n1;
 			if(sel_list.options[2].selected) ++n2;
 			if(sel_list.options[3].selected) ++n3;
@@ -438,16 +445,17 @@
 			++cnt;
 			total_price.innerHTML =  price * cnt + "원("+cnt+")개";
 			var ul= document.createElement("ul");
+			var size_num = <%=vo.getSize_num()%>;
 			ul.className = "list_sel";
 			ul.innerHTML += 
 			'<li class="item_name">'+
-			'<input type="hidden" name="item_name">'+
+			'<input type="hidden" name="size_num" value="'+size_num+'">'+ //사이즈 넘버 
 			   '<p><%=vo.getItem_name()%></p><p>size: '+sel_list.value+'</p></li>'
-					+ '<li><input type="hidden" name="item_counts">'
+					+ '<li><input type="hidden" name="item_counts[]">' //상품 카운트
 					+ '<div class="quantity">'
 					+ '<input type="button" class="minus" value="-"><input type="text" class="input-text qty text" title="Qty" name="quantity" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
 					+ '</div></li>'
-					+ '<li class="it_price"><input type="hidden" name="item_price">'+price+'원</li>'
+					+ '<li class="it_price"><input type="hidden" name="item_price[]">'+price+'원</li>' //사이즈 갯수별 금액
 					+ '<li><a title="Remove this item" class="remove" href="#none"> <i class="fa fa-times"></i></a></li>'
 				select_box.appendChild(ul);
 				var plus = document.getElementsByClassName("plus");
@@ -456,7 +464,7 @@
 				var it_price = document.getElementsByClassName("it_price");
 				var remove = document.getElementsByClassName("remove");
 				var ul_box = document.getElementsByClassName("list_sel");
-				
+				var total_p = document.getElementById("total_p");
 				
 				//상품 수 증가할 때
 				for (var i = 0; i < plus.length; i++) {
@@ -465,6 +473,7 @@
 						this.parentElement.parentElement.nextSibling.innerHTML = price * this.previousSibling.value +"원";
 						++cnt;
 						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
+						total_p.value = price * cnt;
 					}
 				}
 				//상품 수 감소할 때
@@ -475,8 +484,8 @@
 							--cnt;
 						} 
 						this.parentElement.parentElement.nextSibling.innerHTML = price * this.nextSibling.value +"원";
-						
 						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
+						total_p.value = price * cnt;
 					}
 				}
 				//상품 목록 삭제했을 때
@@ -486,7 +495,7 @@
 						var a =this.parentElement.previousSibling.previousSibling.lastChild.lastChild.previousSibling.value;
 						cnt = cnt - a ;
 						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
-						return;
+						total_p.value = price * cnt;
 					}
 				}
 		}
