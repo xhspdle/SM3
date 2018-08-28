@@ -15,6 +15,9 @@
 	사이즈번호 <input type="text" name="size_num"><br>
 	주문수량 <input type="text" name="order_cnt"><br>
 	상품가격 <input type="text" name="item_price"><br>
+	사이즈번호 <input type="text" name="size_num"><br>
+	주문수량 <input type="text" name="order_cnt"><br>
+	상품가격 <input type="text" name="item_price"><br>
 	<input type="submit" value="입력">
 </form>	
 	</c:when>

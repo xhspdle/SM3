@@ -48,8 +48,13 @@ public class PurchaseDao {
 			con=DBConnection.getConn();
 			String sql="insert into sm3_purchase values(?)";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, getMaxNum()+1);
-			return pstmt.executeUpdate();
+			int pur_num=getMaxNum()+1;
+			pstmt.setInt(1, pur_num);
+			int n=pstmt.executeUpdate();
+			if(n>0) {
+				return pur_num;
+			}
+			return -2;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;

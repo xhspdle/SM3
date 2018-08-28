@@ -42,19 +42,30 @@ public class CartDao {
 			}
 		}
 	}
-	public int insert(CartVo vo) {
+	public int insert(ArrayList<CartVo> list) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="insert into sm3_cart values(?,?,?,?,?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, getMaxNum()+1);
-			pstmt.setInt(2, vo.getUser_num());
-			pstmt.setInt(3, vo.getSize_num());
-			pstmt.setInt(4, vo.getOrder_cnt());
-			pstmt.setInt(5, vo.getItem_price());
-			return pstmt.executeUpdate();
+			con.setAutoCommit(false);
+			int n=0;
+			int cart_num=getMaxNum()+1;
+			for(CartVo vo : list) {
+				String sql="insert into sm3_cart values(?,?,?,?,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, cart_num++);
+				pstmt.setInt(2, vo.getUser_num());
+				pstmt.setInt(3, vo.getSize_num());
+				pstmt.setInt(4, vo.getOrder_cnt());
+				pstmt.setInt(5, vo.getItem_price());
+				n=pstmt.executeUpdate();
+				if(n<=0) {
+					con.rollback();
+					return -2;
+				}
+			}
+			con.commit();
+			return n;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;

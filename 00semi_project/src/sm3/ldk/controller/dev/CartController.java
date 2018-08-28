@@ -33,33 +33,33 @@ public class CartController extends HttpServlet{
 	protected void insert(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String suser_num=request.getParameter("user_num");
-		String ssize_num=request.getParameter("size_num");
-		String sorder_cnt=request.getParameter("order_cnt");
-		String sitem_price=request.getParameter("item_price");
 		int user_num=0;
-		int size_num=0;
-		int order_cnt=0;
-		int item_price=0;
 		if(suser_num!=null && !suser_num.equals("")) {
 			user_num=Integer.parseInt(suser_num);
 		}
-		if(ssize_num!=null && !ssize_num.equals("")) {
-			size_num=Integer.parseInt(ssize_num);
-		}
-		if(sorder_cnt!=null && !sorder_cnt.equals("")){
-			order_cnt=Integer.parseInt(sorder_cnt);
-		}
-		if(sitem_price!=null && !sitem_price.equals("")) {
-			item_price=Integer.parseInt(sitem_price);
-		}
-		int n=CartDao.getInstance().insert(new CartVo(0, user_num,
-				size_num, order_cnt, item_price));
-		if(n>0) {
-			request.setAttribute("msg", "장바구니 담기 성공!!");
+		String[] ssize_num=request.getParameterValues("size_num");
+		String[] sorder_cnt=request.getParameterValues("order_cnt");
+		String[] sitem_price=request.getParameterValues("item_price");
+		if(ssize_num!=null) {
+			ArrayList<CartVo> list=new ArrayList<>();
+			for(int i=0;i<ssize_num.length;i++) {
+				int size_num=Integer.parseInt(ssize_num[i]);
+				int order_cnt=Integer.parseInt(sorder_cnt[i]);
+				int item_price=Integer.parseInt(sitem_price[i]);
+				list.add(new CartVo(0, user_num,
+						size_num, order_cnt, item_price));
+			}
+			int n=CartDao.getInstance().insert(list);
+			if(n>0) {
+				request.setAttribute("msg", "장바구니 담기 성공!!");
+			}else {
+				request.setAttribute("msg", "장바구니 담기 실패..");
+			}
+			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "장바구니 담기 실패..");
-		}
-		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+		}		
 	}
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {

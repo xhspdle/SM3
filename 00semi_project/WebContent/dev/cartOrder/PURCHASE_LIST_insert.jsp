@@ -11,7 +11,10 @@
 <c:choose>
 	<c:when test="${param.do1=='insert' }">
 <form method="post" action='<c:url value="/dev/cartOrder/purchase.do?cmd=insert"/>'>
-	구매번호 <input type="text" name="pur_num"><br>
+	<!-- 구매번호 <input type="text" name="pur_num"><br>  -->
+	사이즈번호 <input type="text" name="size_num"><br>
+	주문수량 <input type="text" name="order_cnt"><br>
+	상품가격 <input type="text" name="item_price"><br>
 	사이즈번호 <input type="text" name="size_num"><br>
 	주문수량 <input type="text" name="order_cnt"><br>
 	상품가격 <input type="text" name="item_price"><br>
