@@ -70,7 +70,21 @@
 <script src="vendor/modernizr/modernizr.min.js"></script>
 
 </head>
-<body>
+
+<%
+	Cookie[] cookList = request.getCookies();
+	String val1 = "";
+	if (cookList != null) {
+		for (Cookie cook : cookList) {
+			String name = cook.getName();
+			if (name.equals("user_id")) {
+				val1 = cook.getValue();
+			}
+		}
+	}
+%>
+
+<body onload="check()">
 	<div class="body">
 		<header id="header"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
@@ -86,14 +100,16 @@
 									<div class="col-sm-5 loginBox">
 										<div
 											class="featured-box featured-box-primary align-left mt-xlg"
-											style="height: 327px;">
+											style="height: 350px;">
 											<div class="box-content">
 												<h4 class="heading-primary text-uppercase mb-md">로그인</h4>
-												<form action="/" id="frmSignIn" method="post">
+												<form action="<c:url value="/userControll.do?cmd=login"/>"
+													id="frmSignIn" method="post">
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>아이디</label> <input type="text" value=""
+																<label for="user_id">아이디</label> <input id="user_id"
+																	type="text" value="<%=val1 %>" name="user_id"
 																	class="form-control input-lg">
 															</div>
 														</div>
@@ -101,17 +117,18 @@
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-															<label>비밀번호</label>
-																<input type="password" value=""
+																<label for="user_pwd">비밀번호</label> <input
+																	type="password" id="user_pwd" value="" name="user_pwd"
 																	class="form-control input-lg">
 															</div>
+															<p>${login_msg }</p>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-6">
 															<span class="remember-box checkbox"> <label
-																for="rememberme"> <input type="checkbox"
-																	id="rememberme" name="rememberme">아이디 저장
+																for="remember"> <input type="checkbox"
+																	id="remember" name="remember">아이디 저장
 															</label>
 															</span>
 														</div>
@@ -143,6 +160,14 @@
 			<jsp:include page="footer.jsp" />
 		</footer>
 	</div>
+
+	<script>
+	function check(){
+		var id = document.getElementById("user_id");
+		id.value = '<%=val1%>';
+	}
+	</script>
+
 
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.min.js"></script>
