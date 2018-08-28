@@ -147,7 +147,7 @@ public class PurchaseListDao {
 			}
 		}
 	}
-	public ArrayList<CartVo> list(){
+	public ArrayList<PurchaseListVo> list(){
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
