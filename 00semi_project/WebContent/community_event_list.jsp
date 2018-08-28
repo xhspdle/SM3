@@ -96,14 +96,14 @@
 											<c:forEach var="vo" items="${requestScope.list }">
 												<!-- 리스트 들어갈 위치  -->
 												<div class="col-md-4">
-													<a href="<c:url value='EventNotice.do?cmd=select&en_num=${vo.en_num }'/>"><img
+												<a href="<c:url value='community_event_detail.jsp?savimg=${vo.en_savimg }&en_num=${vo.en_num }'/>"><img
 														class="img-responsive" src="<c:url value='/images/${vo.en_savimg }'/>"
 														alt="Blog"></a>  
 
 													<div class="recent-posts mt-md mb-lg">
 														<article class="post">
 														<h5>
-														  <class="text-dark" value='community_event_detail.jsp?cmd=select&en_title=${vo.en_title}'/>${vo.en_title}
+														  <class="text-dark" value="en_title"/>${vo.en_title}
 														</h5>    
 															<div class="post-meta">
 																<span>EVENT </span> <span>${vo.en_date }</span>
