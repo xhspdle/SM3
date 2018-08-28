@@ -41,19 +41,30 @@ public class PurchaseListDao {
 			}
 		}
 	}
-	public int insert(PurchaseListVo vo) {
+	public int insert(ArrayList<PurchaseListVo> list) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="insert into sm3_purchase_list values(?,?,?,?,?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, getMaxNum()+1);
-			pstmt.setInt(2, vo.getPur_num());
-			pstmt.setInt(3, vo.getSize_num());
-			pstmt.setInt(4, vo.getOrder_cnt());
-			pstmt.setInt(5, vo.getItem_price());
-			return pstmt.executeUpdate();
+			con.setAutoCommit(false);
+			int n=0;
+			int pl_num=getMaxNum()+1;
+			for(PurchaseListVo vo : list) {
+				String sql="insert into sm3_purchase_list values(?,?,?,?,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pl_num++);
+				pstmt.setInt(2, vo.getPur_num());
+				pstmt.setInt(3, vo.getSize_num());
+				pstmt.setInt(4, vo.getOrder_cnt());
+				pstmt.setInt(5, vo.getItem_price());
+				n=pstmt.executeUpdate();
+				if(n<=0) {
+					con.rollback();
+					return -2;
+				}
+			}
+			con.commit();
+			return n; 
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
@@ -154,7 +165,7 @@ public class PurchaseListDao {
 		ArrayList<PurchaseListVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_cart";
+			String sql="select * from sm3_purchase_list";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {

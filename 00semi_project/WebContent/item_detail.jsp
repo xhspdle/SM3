@@ -164,7 +164,7 @@
 								</select></span>
 							</p>
 							<!-- 폼시쟉~ -->
-							<form method="post" action="" class="cart" name="orderList">
+							<form method="post" action="<c:url value='/purchase.do?cmd=insert'/>" class="cart" name="orderList">
 								<!-- 세션에 담긴 유저 넘버도 보내주도록 -->
 								<input type="hidden" name="user_num" value="${sessionScope.user_num }">
 								<div id="select_list_box">
@@ -416,7 +416,7 @@
 	
 		/* submit 자바스크립트로 주소 변경해주기 */
 		function submit_change(){
-			document.orderList.action = " "; //보낼주소
+			document.orderList.action = "cart.do?cmd=insert"; //보낼주소
 			document.orderList.submit();
 		}
 	
@@ -462,9 +462,9 @@
 			   '<p><%=vo.getItem_name()%></p><p>size: '+sel_list.value+'</p></li>'
 					+ '<li><input type="hidden">' //상품 카운트
 					+ '<div class="quantity">'
-					+ '<input type="button" class="minus" value="-"><input type="text" class="input-text qty text" title="Qty" name="item_cnt" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
+					+ '<input type="button" class="minus" value="-"><input type="text" class="input-text qty text" title="Qty" name="order_cnt" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
 					+ '</div></li>'
-					+ '<li class="it_price"><input type="hidden" name="item_price">'+price+'원</li>' //사이즈 갯수별 금액
+					+ '<li class="it_price"><input type="hidden" name="item_price" value="'+price +'">'+price+'원</li>' //사이즈 갯수별 금액
 					+ '<li><a title="Remove this item" class="remove" href="#none"> <i class="fa fa-times"></i></a></li>'
 				select_box.appendChild(ul);
 				var plus = document.getElementsByClassName("plus");
@@ -479,7 +479,8 @@
 				for (var i = 0; i < plus.length; i++) {
 					plus[i].onclick = function(){
 						++this.previousSibling.value;
-						this.parentElement.parentElement.nextSibling.innerHTML = price * this.previousSibling.value +"원";
+						var item_price = price * this.previousSibling.value;
+						this.parentElement.parentElement.nextSibling.innerHTML = "<input type='hidden' name='item_price' value='"+item_price+" '>" +item_price+"원";
 						++cnt;
 						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
 						total_p.value = price * cnt;
@@ -491,8 +492,9 @@
 						if(this.nextSibling.value>1){
 							--this.nextSibling.value;
 							--cnt;
-						} 
-						this.parentElement.parentElement.nextSibling.innerHTML = price * this.nextSibling.value +"원";
+						}
+						var item_price = price * this.nextSibling.value
+						this.parentElement.parentElement.nextSibling.innerHTML = "<input type='hidden' name='item_price' value='"+item_price+" '>"+item_price +"원";
 						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
 						total_p.value = price * cnt;
 					}

@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import sm3.dbcp.DBConnection;
-import sm3.ldk.vo.PurchaseVo;
+import sm3.ldk.vo.CartViewVo;
 
-public class PurchaseDao {
-	private static PurchaseDao instance=new PurchaseDao();
-	private PurchaseDao() {}
-	public static PurchaseDao getInstance() {
+public class CartViewDao {
+	private static CartViewDao instance=new CartViewDao();
+	private CartViewDao() {}
+	public static CartViewDao getInstance() {
 		return instance;
 	}
 	public int getMaxNum() {
@@ -21,13 +21,13 @@ public class PurchaseDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(max(pur_num),0) maxnum from sm3_purchase";
+			String sql="select NVL(max(cart_num),0) maxnum from sm3_cart_view";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt("maxnum");
 			}
-			return 0;
+			return -1;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
@@ -41,67 +41,93 @@ public class PurchaseDao {
 			}
 		}
 	}
-	public int insert() {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		try {
-			con=DBConnection.getConn();
-			String sql="insert into sm3_purchase values(?)";
-			pstmt=con.prepareStatement(sql);
-			int pur_num=getMaxNum()+1;
-			pstmt.setInt(1, pur_num);
-			int n=pstmt.executeUpdate();
-			if(n>0) {
-				return pur_num;
-			}
-			return -2;
-		}catch(SQLException se) {
-			System.out.println(se.getMessage());
-			return -1;
-		}finally {
-			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
-				System.out.println(se.getMessage());
-			}
-		}
-	}
-	public int delete(int pur_num) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		try {
-			con=DBConnection.getConn();
-			String sql="delete from sm3_purchase where pur_num=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, pur_num);
-			return pstmt.executeUpdate();
-		}catch(SQLException se) {
-			System.out.println(se.getMessage());
-			return -1;
-		}finally {
-			try {
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(SQLException se) {
-				System.out.println(se.getMessage());
-			}
-		}
-	}
-	public ArrayList<PurchaseVo> list(){
+	public int getCount() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ArrayList<PurchaseVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_purchase";
+			String sql="select NVL(count(cart_num),0) cnt from sm3_cart_view";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+			return -1;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public CartViewVo select(int cart_num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="select * from sm3_cart_view where cart_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, cart_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int user_num=rs.getInt("user_num");
+				int size_num=rs.getInt("size_num");
+				int order_cnt=rs.getInt("order_cnt");
+				int item_price=rs.getInt("item_price");
+				String item_savimg=rs.getString("item_savimg");
+				String item_name=rs.getString("item_name");
+				String color_name=rs.getString("color_name");
+				CartViewVo vo=new CartViewVo(cart_num, user_num, size_num,
+						order_cnt, item_price, item_savimg,
+						item_name, color_name);
+				return vo;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}	
+	public ArrayList<CartViewVo> list(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<CartViewVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			String sql="select * from sm3_cart_view";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				do {
-					int pur_num=rs.getInt("pur_num");
-					PurchaseVo vo=new PurchaseVo(pur_num);
+					int cart_num=rs.getInt("cart_num");
+					int user_num=rs.getInt("user_num");
+					int size_num=rs.getInt("size_num");
+					int order_cnt=rs.getInt("order_cnt");
+					int item_price=rs.getInt("item_price");
+					String item_savimg=rs.getString("item_savimg");
+					String item_name=rs.getString("item_name");
+					String color_name=rs.getString("color_name");
+					CartViewVo vo=new CartViewVo(cart_num, user_num, size_num,
+							order_cnt, item_price, item_savimg,
+							item_name, color_name);
 					list.add(vo);
 				}while(rs.next());
 				return list;

@@ -1,4 +1,4 @@
-package sm3.ldk.controller.dev;
+package sm3.ldk.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import sm3.ldk.dao.PurchaseDao;
 import sm3.ldk.dao.PurchaseListDao;
+import sm3.ldk.dao.PurchaseViewDao;
 import sm3.ldk.vo.PurchaseListVo;
+import sm3.ldk.vo.PurchaseViewVo;
 
 
-@WebServlet("/dev/cartOrder/purchase.do")
+@WebServlet("/purchase.do")
 public class PurchaseController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -44,22 +46,29 @@ public class PurchaseController extends HttpServlet{
 			if(pur_num>0) {
 				ArrayList<PurchaseListVo> list=new ArrayList<>();
 				for(int i=0;i<ssize_num.length;i++) {
-					int size_num=Integer.parseInt(ssize_num[i]);
-					int order_cnt=Integer.parseInt(sorder_cnt[i]);
-					int item_price=Integer.parseInt(sitem_price[i]);
+					int size_num=Integer.parseInt(ssize_num[i].trim());
+					int order_cnt=Integer.parseInt(sorder_cnt[i].trim());
+					int item_price=Integer.parseInt(sitem_price[i].trim());
 					list.add(new PurchaseListVo(0, pur_num,
 							size_num, order_cnt, item_price));
 				}
 				int n=PurchaseListDao.getInstance().insert(list);
 				if(n>0) {
-					request.setAttribute("msg", "구매목록 추가 성공!!");
+					ArrayList<PurchaseViewVo> list1=PurchaseViewDao.getInstance().select(pur_num);
+					if(list1!=null) {
+						request.setAttribute("list", list1);
+						request.getRequestDispatcher("item_order_list.jsp").forward(request, response);
+					}else {
+						request.setAttribute("msg", "구매목록 추가 성공!! but, 구매목록 불러오기 실패 ");
+					}
 				}else {
 					request.setAttribute("msg", "구매목록 추가 실패..");
+					request.getRequestDispatcher("msg.jsp").forward(request, response);
 				}
-				request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+				
 			}else {
 				request.setAttribute("msg", "구매목록 추가 실패..");
-				request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+				request.getRequestDispatcher("msg.jsp").forward(request, response);
 			}
 		}
 	}

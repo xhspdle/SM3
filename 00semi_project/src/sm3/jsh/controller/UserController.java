@@ -9,9 +9,12 @@ import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.sun.glass.ui.Application;
 
@@ -45,6 +48,10 @@ public class UserController extends HttpServlet {
 			delete(request, response);
 		}else if(cmd.equals("idSearch")) {
 			idSearch(request, response);
+		}else if(cmd.equals("login")) {
+			login(request, response);
+		}else if(cmd.equals("logout")) {
+			logout(request, response);
 		}
 	}
 
@@ -198,7 +205,52 @@ public class UserController extends HttpServlet {
 	
 	
 	
-	
+	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String user_id = request.getParameter("user_id");
+		String user_pwd = request.getParameter("user_pwd");
+		String remember = request.getParameter("remember");
+		ArrayList<UserVo> list = UserDao.getInstance().allView();
+		HttpSession session = request.getSession();
+		boolean n = false;
+		int user_num = 0;
+		for(UserVo vo: list) {
+			if(user_id.equals(vo.getUser_id()) && user_pwd.equals(vo.getUser_pwd())){
+				user_num = vo.getUser_num();
+				n= true;
+			}
+		}
+		if(n) {
+			session.setAttribute("user_id", user_id);
+			session.setAttribute("user_pwd", user_pwd);
+			session.setAttribute("user_num", user_num);
+			response.sendRedirect(request.getContextPath()+"/index.jsp");
+		}else {
+			request.setAttribute("login_msg", "아이디 비밀번호를 다시 확인해 주세요");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}
+		//쿠키처리
+		if (remember== null) {
+			Cookie cook = new Cookie("user_id", user_id);
+			cook.setMaxAge(0);//종료
+			response.addCookie(cook);
+			Cookie cook2 = new Cookie("user_pwd", user_pwd);
+			cook2.setMaxAge(0);
+			response.addCookie(cook2);
+		}else{
+			Cookie cook = new Cookie("user_id", user_id);
+			cook.setMaxAge(60 * 60 * 24 * 30);//한달
+			response.addCookie(cook);
+			Cookie cook2 = new Cookie("user_pwd", user_pwd);
+			cook2.setMaxAge(60 * 60 * 24 * 30);
+			response.addCookie(cook2);
+		}
+		
+	}
+	protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		response.sendRedirect(request.getContextPath()+"/index.jsp");
+	}
 	
 	
 	

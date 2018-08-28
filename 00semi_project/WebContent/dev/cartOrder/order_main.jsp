@@ -14,5 +14,9 @@
 <a href="<c:url value='/dev/cartOrder/CART_insert.jsp?do1=insert'/>">장바구니insert</a><br>
 <a href="<c:url value='/dev/cartOrder/cart.do?cmd=list'/>">장바구니list</a><br>
 <hr>
+<h3>구매목록</h3>
+<a href="<c:url value='/dev/cartOrder/PURCHASE_LIST_insert.jsp?do1=insert'/>">구매목록insert</a><br>
+<a href="<c:url value='/dev/cartOrder/purchase.do?cmd=list'/>">구매목록list</a><br>
+<hr>
 </body>
 </html>
