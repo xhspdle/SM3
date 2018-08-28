@@ -170,6 +170,7 @@ public class ItemViewDao {
 	}
 	
 	
+
 	public HashMap<Integer, String> select_color(String item_name) {//컬러넘버 셀렉트
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -177,14 +178,14 @@ public class ItemViewDao {
 		HashMap<Integer, String> list=new HashMap<Integer, String>();
 		try {
 			con=DBConnection.getConn();
-			String sql="SELECT DISTINCT ITEM_NUM,COLOR_CODE FROM SM3_ITEM_VIEW WHERE ITEM_NAME LIKE '%'||?||'%'";
+			String sql="SELECT DISTINCT ITEM_NUM, COLOR_CODE FROM SM3_ITEM_VIEW WHERE ITEM_NAME LIKE '%'||?||'%'";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, item_name);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				do {
-					int item_num = rs.getInt("1");
-					String color_code=rs.getString("2");
+					int item_num = rs.getInt(1);
+					String color_code=rs.getString(2);
 					list.put(item_num, color_code);
 				}while(rs.next());
 				return list;
@@ -204,6 +205,7 @@ public class ItemViewDao {
 			}
 		}
 	}
+	
 	
 	
 	public ArrayList<ItemViewVo> list(){
