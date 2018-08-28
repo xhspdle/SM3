@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,10 +109,10 @@
 														</tr>
 													</thead>
 													<tbody>
-
+													<c:forEach var="vo" items="${requestScope.list }">
 														<tr class="cart_table_item">
 															<td class="product-remove"><a
-																title="Remove this item" class="remove" href="#"> <i
+																title="Remove this item" class="remove" href="#none"> <i
 																	class="fa fa-times"></i>
 															</a></td>
 															<td class="product-thumbnail"><a
@@ -135,13 +136,14 @@
 																			value="1" name="order_cnt" min="1" step="1"> 
 
 																			<input
-																			type="button" class="plus" value="+" id="plus" onclick="plus11()">
+																			type="button" class="plus" value="+" id="plus">
 																	</div>
 
 																</td>
 															<td class="product-subtotal"><span class="amount">$299</span>
 															</td>
 														</tr>
+													</c:forEach>
 														<tr>
 															<td class="actions" colspan="6">
 																<div class="actions-continue">
@@ -249,7 +251,7 @@
 
 </body>
 <script type="text/javascript">
-	var order_cnt = null;
+/*	var order_cnt = null;
 	window.onload = function(){
 		order_cnt = document.getElementsByName("order_cnt")[0];
 	}
@@ -266,5 +268,7 @@
 		cnt += 1;
 		order_cnt.value = cnt;
 	}
+*/
+*
 </script>
 </html>
