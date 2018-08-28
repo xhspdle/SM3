@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import sm3.dbcp.DBConnection;
 import sm3.ldk.vo.ItemViewVo;
@@ -167,6 +168,45 @@ public class ItemViewDao {
 			}
 		}
 	}
+	
+	
+
+	public HashMap<Integer, String> select_color(String item_name) {//컬러넘버 셀렉트
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		HashMap<Integer, String> list=new HashMap<Integer, String>();
+		try {
+			con=DBConnection.getConn();
+			String sql="SELECT DISTINCT ITEM_NUM, COLOR_CODE FROM SM3_ITEM_VIEW WHERE ITEM_NAME LIKE '%'||?||'%'";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, item_name);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int item_num = rs.getInt(1);
+					String color_code=rs.getString(2);
+					list.put(item_num, color_code);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	
+	
 	
 	public ArrayList<ItemViewVo> list(){
 		Connection con=null;

@@ -82,58 +82,102 @@
 					<div class="row mt-lg">
 						<div class="col-md-12">
 							<h2 class="commTitle">EVENT&NOTICE</h2>
-							<a href="<c:url value='community_event_write.jsp'/>" class="btn pull-right btn-primary btn-md"> 글쓰기 <i
-								class="fa fa-angle-right ml-xs"></i>
-							</a>
+							<c:if test="${!empty admin_num }">
+								<a href="<c:url value='community_event_write.jsp?cmd1=insert'/>"
+									class="btn pull-right btn-primary btn-md"> 글쓰기 <i
+									class="fa fa-angle-right ml-xs"></i>
+								</a>
+							</c:if>
 							<div class="featured-boxes">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="recent-posts mb-xl main_box">
-											<div class="col-md-4">
-												<a href="<c:url value='community_event_detail.jsp'/>"><img
-													class="img-responsive" src="img/blog/blog-vintage-1.jpg"
-													alt="Blog"></a>
 
-												<div class="recent-posts mt-md mb-lg">
-													<article class="post">
+											<c:forEach var="vo" items="${requestScope.list }">
+												<!-- 리스트 들어갈 위치  -->
+												<div class="col-md-4">
+													<a href="<c:url value='EventNotice.do?cmd=select&en_num=${vo.en_num }'/>"><img
+														class="img-responsive" src="<c:url value='/images/${vo.en_savimg }'/>"
+														alt="Blog"></a>  
+
+													<div class="recent-posts mt-md mb-lg">
+														<article class="post">
 														<h5>
-															<a class="text-dark"
-																href="<c:url value='event_list_detail.jsp'/>">이달의
-																이벤트 공지</a>
-														</h5>
-														<div class="post-meta">
-															<span>EVENT </span> <span>2018-08-30</span>
-														</div>
-													</article>
+														  <class="text-dark" value='community_event_detail.jsp?cmd=select&en_title=${vo.en_title}'/>${vo.en_title}
+														</h5>    
+															<div class="post-meta">
+																<span>EVENT </span> <span>${vo.en_date }</span>
+															</div>
+														</article>
+													</div>
 												</div>
-											</div>
-											<div class="col-md-4">
-												<a href="#"><img class="img-responsive"
-													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
-												<div class="recent-posts mt-md mb-lg">
-													<article class="post">
-														<h5>
-															<a class="text-dark" href="blog-post.html">이달의 이벤트 공지</a>
-														</h5>
-														<div class="post-meta">
-															<span>EVENT </span> <span>2018-08-30</span>
-														</div>
-													</article>
-												</div>
-											</div>
-											<div class="col-md-4">
-												<a href="#"><img class="img-responsive"
-													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
-												<div class="recent-posts mt-md mb-lg">
-													<article class="post">
-														<h5>
-															<a class="text-dark" href="blog-post.html">이달의 이벤트 공지</a>
-														</h5>
-														<div class="post-meta">
-															<span>EVENT </span> <span>2018-08-30</span>
-														</div>
-													</article>
-												</div>
+
+											</c:forEach>
+											<!-- 페이징 처리랑 검색 폼-->
+
+											<%
+												//선택항목을 눌러서 검색어를 입력하는데 선택항목이 고정되게 해준다.
+												String search = request.getParameter("search");
+												if (search == null) {
+													search = "";
+												}
+												String selected1 = "";
+												String selected2 = "";
+												String selected3 = "";
+												if (search.equals("en_writer")) {
+													selected1 = "selected=selected";
+												} else if (search.equals("en_title")) {
+													selected2 = " selected=selected";
+												} else if (search.equals("en_content")) {
+													selected3 = " selected=selected";
+												}
+											%>
+											<form method="post"
+												action="<c:url value='EventNotice.do?cmd=list'/>">
+												<select name="search">
+													<option value="en_writer" <%=selected1%>>글쓴이</option>
+													<option value="en_title" <%=selected2%>>제목</option>
+													<option value="en_content" <%=selected3%>>내용</option>
+												</select> <input type="text" name="keyword" value="${param.keyword }">
+												<input type="submit" value="찾기">
+											</form>
+											<br />
+											<div>
+												<c:choose>
+													<c:when test="${startPage>3}">
+														<a
+															href="<c:url value ='EventNotice.do?cmd=list&pageNum=${startPage-1 }&search=${param.search}&keyword=${param.keyword}'/>">[이전]</a>
+													</c:when>
+													<c:otherwise>
+													[이전]
+													</c:otherwise>
+												</c:choose>
+
+												<c:forEach var="i" begin="${startPage }" end="${endPage }">
+													<c:choose>
+														<c:when test="${i==pageNum }">
+															<a
+																href="<c:url value='EventNotice.do?cmd=list&pageNum=${i }&search=${param.search}&keyword=${param.keyword }'/>">
+																<span style="color: red">[${i }]</span>
+															</a>
+														</c:when>
+														<c:otherwise>
+															<a
+																href="<c:url value='EventNotice.do?cmd=list&pageNum=${i }&search=${param.search}&keyword=${param.keyword }'/>">
+																<span style="color: blue">[${i }]</span>
+															</a>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+												<c:choose>
+													<c:when test="${endPage<pageCount }">
+														<a
+															href="<c:url value='EventNotice.do?cmd=list&pageNum=${endPage+1 }&search=${param.search}&keyword=${param.keyword}'/>">[다음]</a>
+													</c:when>
+													<c:otherwise>
+													[다음]
+													</c:otherwise>
+												</c:choose>
 											</div>
 										</div>
 									</div>

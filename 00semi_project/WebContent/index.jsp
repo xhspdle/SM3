@@ -106,7 +106,7 @@
 								</h2>
 								<div class="row">
 									<div class="owl-carousel owl-theme mb-none"
-										data-plugin-options="{'items': 1, 'animateOut': 'fadeOut', 'autoplay': true, 'autoplayTimeout': 3000}"}" >
+										data-plugin-options="{'items': 1, 'animateOut': 'fadeOut', 'autoplay': true, 'autoplayTimeout': 3000}" >
 										<div>
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"

@@ -162,6 +162,38 @@ public class AdminDao {
 			}
 		}
 	}
+	public AdminVo login(AdminVo vo) {//리턴타입 String에서 다 담아서 보낼 수 있도록 AdminVo로 수정
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="select * from sm3_admin where admin_id=? and admin_pwd=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getAdmin_id());
+			pstmt.setString(2, vo.getAdmin_pwd());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int admin_num=rs.getInt("admin_num");
+				String admin_id=rs.getString("admin_id");
+				String admin_pwd=rs.getString("admin_pwd");
+				AdminVo voo=new AdminVo(admin_num, admin_id, admin_pwd);
+				return voo;
+			}
+			return null;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public ArrayList<AdminVo> list() {
 		Connection con=null;
 		PreparedStatement pstmt=null;

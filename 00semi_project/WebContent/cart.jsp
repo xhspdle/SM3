@@ -127,14 +127,18 @@
 															<td class="product-color"><span class="amount">red</span>
 															</td>
 															<td class="product-quantity">
-																<div class="quantity">
-																	<input type="button" class="minus" value="-"> <input
-																		type="text" class="input-text qty text" title="Qty"
-																		value="1" name="quantity" min="1" step="1"> <input
-																		type="button" class="plus" value="+">
-																</div>
+																	<div class="quantity">
+																		<input type="button" class="minus" value="-" id="minus" onclick="minus11()"> 
 
-															</td>
+																		<input
+																			type="text" class="input-text qty text" title="Qty"
+																			value="1" name="order_cnt" min="1" step="1"> 
+
+																			<input
+																			type="button" class="plus" value="+" id="plus" onclick="plus11()">
+																	</div>
+
+																</td>
 															<td class="product-subtotal"><span class="amount">$299</span>
 															</td>
 														</tr>
@@ -244,4 +248,23 @@
 		 -->
 
 </body>
+<script type="text/javascript">
+	var order_cnt = null;
+	window.onload = function(){
+		order_cnt = document.getElementsByName("order_cnt")[0];
+	}
+	function minus11(){
+		var cnt=parseInt(order_cnt.value);
+		if(cnt<=0){
+			return;
+		}
+		cnt -= 1;
+		order_cnt.value = cnt;
+	}
+	function plus11(){
+		var cnt=parseInt(order_cnt.value);
+		cnt += 1;
+		order_cnt.value = cnt;
+	}
+</script>
 </html>

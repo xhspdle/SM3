@@ -3,6 +3,7 @@ package sm3.ldk.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,9 +20,11 @@ import sm3.ldk.vo.ItemViewVo;
 
 @WebServlet("/itemView.do")
 public class ItemViewController extends HttpServlet{
+	
 	@Override
 	protected void service(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String cmd=request.getParameter("cmd");
 		if(cmd!=null && cmd.equals("list")) {
 			list(request,response);
@@ -37,29 +40,38 @@ public class ItemViewController extends HttpServlet{
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("ITEM_VIEW_list.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ITEM_VIEW_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
-			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String sitem_num=request.getParameter("item_num");
+		String item_nameVal=request.getParameter("item_name");
+		String item_name= item_nameVal.substring(0, 5);
+		
 		int item_num=0;
 		if(sitem_num!=null && !sitem_num.equals("")) {
 			item_num=Integer.parseInt(sitem_num);
 		}
+		
+		//상품정보 리스트
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select(item_num);
-		if(list!=null) {
+		HashMap<Integer, String> list2=ItemViewDao.getInstance().select_color(item_name);
+		if(list!=null && list2 != null) {
 			request.setAttribute("list", list);
+			request.setAttribute("list2", list2);
 			request.getRequestDispatcher("item_detail.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
 	}
+	
+
 	
 	//카테고리넘버 셀렉트 
 		protected void select_cate(HttpServletRequest request, 
@@ -80,16 +92,9 @@ public class ItemViewController extends HttpServlet{
 				arr.add(ob);
 			}
 			obj.put("arr", arr);
+			response.setContentType("text/plain;charset=utf-8");
 			PrintWriter pw = response.getWriter();
 			pw.print(obj.toString());
 			pw.close();
-			
-			/*if(list!=null) {
-				request.setAttribute("list", list);
-				request.getRequestDispatcher("item_list.jsp").forward(request, response);
-			}else {
-				request.setAttribute("msg", "아이템리스트소환실패");
-				request.getRequestDispatcher("test.jsp").forward(request, response);
-			}*/
 		}
 }

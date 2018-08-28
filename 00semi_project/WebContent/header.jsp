@@ -40,13 +40,13 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='item_list.jsp'/>"> NEW </a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value='item_list.jsp'/>"> ALL </a></li>
+							<li><a href="<c:url value='item_list.jsp?cate_num=1'/>"> ALL </a></li>
 							<li><a href="index.html"> OUTER </a></li>
 							<li><a href="index.html"> TOP </a></li>
 							<li><a href="index.html"> BOTTOM </a></li>
 						</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='item_list.jsp'/>"> OUTER </a>
+						href="<c:url value='item_list.jsp?cate_num=1'/>"> OUTER </a>
 						<ul class="dropdown-menu">
 							<li><a href="index.html"> ALL </a></li>
 							<li><a href="index.html"> OUTER </a></li>
@@ -54,7 +54,7 @@
 							<li><a href="index.html"> BOTTOM </a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='item_list.jsp'/>"> TOP </a>
+						href="<c:url value='item_list.jsp?cate_num=2'/>"> TOP </a>
 						<ul class="dropdown-menu">
 							<li><a href="index.html"> ALL </a></li>
 							<li><a href="index.html"> OUTER </a></li>
@@ -62,7 +62,7 @@
 							<li><a href="index.html"> BOTTOM </a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='item_list.jsp'/>"> BOTTOM </a>
+						href="<c:url value='item_list.jsp?cate_num=3'/>"> BOTTOM </a>
 						<ul class="dropdown-menu">
 							<li><a href="index.html"> ALL </a></li>
 							<li><a href="index.html"> OUTER </a></li>
@@ -87,7 +87,7 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='community_event_list.jsp'/>"> COMMUNITY </a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value='community_event_list.jsp'/>">
+							<li><a href="<c:url value='EventNotice.do?cmd=list'/>">
 									EVENT&amp;NOTICE </a></li>
 							<li><a href="<c:url value='community_qna_list.jsp'/>">Q&amp;A</a></li>
 						</ul></li>

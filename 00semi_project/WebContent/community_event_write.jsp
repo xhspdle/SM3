@@ -65,18 +65,21 @@
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="css/main.css">
 
-
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
 
 </head>
 <body>
+<c:choose>
+<c:when test="${param.cmd1=='insert' }">
 	<div class="body">
 		<header id="header"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
 			<jsp:include page="header.jsp" />
 		</header>
 		<div role="sub" class="sub commBox">
+	
+		
 			<section class="section mt-none section-footer">
 				<div class="container main_box">
 					<div class="row mt-lg">
@@ -86,21 +89,21 @@
 								<div class="row">
 									<div class="col-md-12">
 											<h2 class="commTitle">게시글 작성</h2>
-										<form action="" id="submitReview" method="post"
+										<form action='<c:url value="EventNotice.do?cmd=insert"/>' id="submitReview" method="post"
 											enctype="multipart/form-data">
 											<div class="row">
 												<div class="form-group">
-													<div class="col-md-12">
 														<!-- 리뷰제목입력란 -->
+													<div class="col-md-12">
 														<label>작성자</label> <input type="text" value=""
 															data-msg-required="Please enter your name."
-															maxlength="100" class="form-control" name="title"
-															id="title">
+															maxlength="100" class="form-control" name="en_writer"
+															id="en_writer">
 													</div>
 													<div class="col-md-12">
-														<label>글 제목</label> <input type="text" value=""
+														<label>글제목</label> <input type="text" value=""
 															data-msg-required="Please enter your name."
-															maxlength="100" class="form-control" name="title"
+															maxlength="100" class="form-control" name="en_title"
 															id="title">
 													</div>
 
@@ -109,38 +112,156 @@
 															<label>글내용</label>
 															<textarea maxlength="5000"
 																data-msg-required="Please enter your message." rows="10"
-																class="form-control" name="message" id="message"></textarea>
+																class="form-control" name="en_content" id="message"></textarea>
 														</div>
 													</div>
-
+													
+													<div class="form-group">
 													<div class="col-md-12">
-														<label>파일 업로드</label> <input type="file" name="file1"
-															class="form-control">
+														<label>파일 업로드</label> 
+														<div class="col-md-12">
+														<img class="img-responsive" src=""
+															alt="이미지" id="img1" style="display:none;">
+															<div class="fileupload fileupload-new">
+																<div class="uneditable-input">
+																	<i class="fa fa-file fileupload-exists"></i>
+																	<span class="fileupload-preview"></span>
+																</div>
+															<span class="btn btn-default btn-file btn-aa">
+																<input type="file" name="file1" id="fileupload" onchange="Change1()">
+															</span>
+														</div>
+													   </div>
 													</div>
 												</div>
 											</div>
-
+										</div>
 											<div class="row">
 												<div class="col-md-12">
 													<input type="submit" value="등록하기"
 														class="btn btn-primary" data-loading-text="Loading...">
+														<input type="hidden" name="admin_num" value="${sessionScope.admin_num }">
 												</div>
 											</div>
 										</form>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
+		<script type="text/javascript">
+		function Change1(){   //이미지 변경 사진을 누르면 바뀌는것.
+		var file=document.getElementsByName("file1")[0].value; //바꿀사진의 요소를 빼온다.
+		var fileName=file.split("\\"); //c://java//~~ 이것처럼 주소를 쪼개준다.
+		var img=document.getElementById("img1"); 
+		img.src="<%=application.getContextPath()%>/images/" +fileName[2]; //쪼개진 주소에서 3번째 요소를 빼온다. 사진의 이름이 담긴
+		img.style.display="block";
+		}
+		</script>
 		<footer class="short" id="footer">
 			<jsp:include page="footer.jsp" />
 		</footer>
 	</div>
-
+	</c:when>
+	<c:when test="${param.cmd1=='update' }">
+	<div class="container" style="margin-top:10%;">
+		<div class="row">
+		<div class="col-md-12">
+			<section class="panel panel-admin">
+				<header class="panel-heading">
+				 <h2 class="commTitle">게시글 수정</h2>	
+				</header>
+				<form action='<c:url value="/EventNotice.do?cmd=update"/>' id="submitReview" method="post"
+												enctype="multipart/form-data">
+												<div class="row">
+													<div class="form-group">
+														
+															<!-- 리뷰제목입력란 -->
+														<div class="col-md-12">
+															<label>글번호</label> <input type="text" 
+																maxlength="100" class="form-control" 
+																id="en_num" readonly="readonly" name="en_num" value="${vo.en_num }">
+														</div>
+														<div class="col-md-12">
+															<label>작성자</label> <input type="text" 
+																maxlength="100" class="form-control" name="en_writer"
+																id="en_writer" value="${vo.en_writer }">
+														</div>
+														<div class="col-md-12">
+															<label>글제목</label> <input type="text" 
+																maxlength="100" class="form-control" name="en_title"
+																id="en_title" value="${vo.en_title }">
+														</div>
+														<div class="form-group">
+															<div class="col-md-12">
+																<label>글내용</label>
+																<textarea maxlength="5000"
+																	data-msg-required="Please enter your message." rows="10"
+																	class="form-control" name="en_content" id="message">${vo.en_content }</textarea>
+															</div>
+														</div>
+													<div class="form-group">
+							<label class="col-md-3 control-label" for="img_btn"></label>
+							<div class="col-md-12">
+								<button type="button" class="btn btn-warning" id="img_btn" 
+								onclick="showFile()">사진변경</button>
+							</div>
+						</div> 
+						<div class="form-group" id="inputFile" style="display:none;">
+							<label>이미지 업로드</label>
+							<div class="col-md-12">
+								<img class="img-responsive" src="<c:url value='/images/${vo.en_savimg }'/>"
+								alt="기존이미지" id="img1">
+								<div class="fileupload fileupload-new">
+									<div class="uneditable-input">
+										<i class="fa fa-file fileupload-exists"></i>
+										<span class="fileupload-preview"></span>
+									</div>
+									<span class="btn btn-default btn-file btn-aa">
+										<input type="file" name="file1" id="fileupload" onchange="Change1()">
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>  
+			</form>
+			<div class="form-group">
+			<label class="col-md-3 control-label"></label>
+							<div class="col-md-12">
+							<button type="submit" class="btn btn-primary btn-block">수정확인</button>
+							<input type="hidden" name="admin_num" value="${sessionScope.admin_num }">
+							</div>
+						</div>	
+						<input type="hidden" name="en_orgimg" value="${vo.en_orgimg }">
+						<input type="hidden" name="en_savimg" value="${vo.en_savimg }">
+				</section>
+				</div>
+				</div>
+				</div>
+				<script>
+		function showFile(){  
+			var inputFile=document.getElementById("inputFile");
+			inputFile.style.display="block";
+			var hidden1=document.getElementsByName("en_orgimg")[0];
+			var hidden2=document.getElementsByName("en_savimg")[0];
+			hidden1.setAttribute("disabled","disabled"); //파일을 보내지 않는다.(원래사진은). *원래사진은..db에서  받고, 새로운 사진은 controller에서 받고.
+			hidden2.setAttribute("disabled","disabled"); //그래서 mvc패턴 흐름을
+			}
+		function Change1(){   //이미지 변경 사진을 누르면 바뀌는것.
+			var file=document.getElementsByName("file1")[0].value; //바꿀사진의 요소를 빼온다.
+			var fileName=file.split("\\"); //c://java//~~ 이것처럼 주소를 쪼개준다.
+			var img=document.getElementById("img1"); 
+			img.src="<%=application.getContextPath()%>/images/" +fileName[2]; //쪼개진 주소에서 3번째 요소를 빼온다. 사진의 이름이 담긴
+			img.style.display="block";
+			}
+		</script>
+	</c:when>
+</c:choose>
+	
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/jquery.appear/jquery.appear.min.js"></script>
@@ -171,18 +292,6 @@
 
 	<!-- Theme Initialization Files -->
 	<script src="js/theme.init.js"></script>
-
-	<!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information.
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		
-			ga('create', 'UA-12345678-1', 'auto');
-			ga('send', 'pageview');
-		</script>
-		 -->
 
 </body>
 </html>

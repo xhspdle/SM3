@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import sm3.dbcp.DBConnection;
 import sm3.ldk.vo.ItemSizeVo;
 
-public class ItemSizeDao {
+public class ItemSizeDao {//사이즈번호 --> 재고번호
 	private static ItemSizeDao instance=new ItemSizeDao();
 	private ItemSizeDao() {}
 	public static ItemSizeDao getInstance() {
@@ -126,6 +126,29 @@ public class ItemSizeDao {
 			pstmt.setInt(3, vo.getColor_num());
 			pstmt.setInt(4, vo.getSize_cnt());
 			pstmt.setInt(5, vo.getSize_num());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public int updateColor(int color_num,int item_num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="update sm3_item_size set "
+					+ "color_num=? where item_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, color_num);
+			pstmt.setInt(2, item_num);
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());

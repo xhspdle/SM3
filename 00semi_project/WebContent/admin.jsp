@@ -16,8 +16,8 @@
 <meta name="author" content="okler.net">
 
 <!-- Favicon -->
-<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="shortcut icon" href="<c:url value='/img/favicon.ico'/>" type="image/x-icon" />
+<link rel="apple-touch-icon" href="<c:url value='/img/apple-touch-icon.png'/>">
 
 <!-- Mobile Metas -->
 <meta name="viewport"
@@ -31,67 +31,67 @@
 	rel="stylesheet">
 
 <!-- Vendor CSS -->
-<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<c:url value='/vendor/bootstrap/css/bootstrap.min.css'/>">
 
 <link rel="stylesheet"
-	href="vendor/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="vendor/animate/animate.min.css">
+	href="<c:url value='/vendor/font-awesome/css/font-awesome.min.css'/>">
+<link rel="stylesheet" href="<c:url value='/vendor/animate/animate.min.css'/>">
 <link rel="stylesheet"
-	href="vendor/simple-line-icons/css/simple-line-icons.min.css">
+	href="<c:url value='/vendor/simple-line-icons/css/simple-line-icons.min.css'/>">
 <link rel="stylesheet"
-	href="vendor/owl.carousel/assets/owl.carousel.min.css">
+	href="<c:url value='/vendor/owl.carousel/assets/owl.carousel.min.css'/>">
 <link rel="stylesheet"
-	href="vendor/owl.carousel/assets/owl.theme.default.min.css">
+	href="<c:url value='/vendor/owl.carousel/assets/owl.theme.default.min.css'/>">
 <link rel="stylesheet"
-	href="vendor/magnific-popup/magnific-popup.min.css">
+	href="<c:url value='/vendor/magnific-popup/magnific-popup.min.css'/>">
 
 <!-- Theme CSS -->
-<link rel="stylesheet" href="css/theme.css">
-<link rel="stylesheet" href="css/theme-elements.css">
-<link rel="stylesheet" href="css/theme-blog.css">
-<link rel="stylesheet" href="css/theme-shop.css">
+<link rel="stylesheet" href="<c:url value='/css/theme.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/theme-elements.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/theme-blog.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/theme-shop.css'/>">
 
 <!-- Current Page CSS -->
-<link rel="stylesheet" href="vendor/rs-plugin/css/settings.css">
-<link rel="stylesheet" href="vendor/rs-plugin/css/layers.css">
-<link rel="stylesheet" href="vendor/rs-plugin/css/navigation.css">
+<link rel="stylesheet" href="<c:url value='/vendor/rs-plugin/css/settings.css'/>">
+<link rel="stylesheet" href="<c:url value='/vendor/rs-plugin/css/layers.css'/>">
+<link rel="stylesheet" href="<c:url value='/vendor/rs-plugin/css/navigation.css'/>">
 <link rel="stylesheet"
-	href="vendor/circle-flip-slideshow/css/component.css">
+	href="<c:url value='/vendor/circle-flip-slideshow/css/component.css'/>">
 
 <!-- Skin CSS -->
-<link rel="stylesheet" href="css/skins/default.css">
+<link rel="stylesheet" href="<c:url value='/css/skins/default.css'/>">
 
 <!-- Theme Custom CSS -->
-<link rel="stylesheet" href="css/custom.css">
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="<c:url value='/css/custom.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/main.css'/>">
 
 
 <!-- Head Libs -->
-<script src="vendor/modernizr/modernizr.min.js"></script>
+<script src="<c:url value='/vendor/modernizr/modernizr.min.js'/>"></script>
 
 </head>
 <body>
 	<div class="body">
 		<header id="header"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
-			<jsp:include page="header.jsp" />
+			<jsp:include page="/header.jsp" />
 		</header>
 		<div role="sub" class="sub">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3">
 						<aside class="sidebar">
-
-							<h4 class="heading-primary" style="text-align:center;">ADMIN-MENU</h4>
+							<h4 class="heading-primary" style="text-align:center;">
+							<a href="<c:url value='/admin.jsp'/>">ADMIN-MENU</a></h4>
 							<hr class="short">
 							<div class="toggle toggle-primary" data-plugin-toggle="">
 								<section class="toggle">
 									<label>Admin Managing</label>
 									<div class="toggle-content" style="display: none;">
 										<div class="list-group">
-										  <a href="<c:url value='/admin.jsp?page1=ADMIN_insert.jsp&do1=insert'/>"
+										  <a href="<c:url value='/admin/admin.do?cmd=goInsert&do1=insert'/>"
 										   class="list-group-item">관리자추가</a>
-										  <a href="<c:url value='/admin.do?cmd=list'/>"
+										  <a href="<c:url value='/admin/admin.do?cmd=list'/>"
 										   class="list-group-item">관리자목록</a>
 										</div>
 									</div>
@@ -100,12 +100,18 @@
 									<label>Item Managing</label>
 									<div class="toggle-content" style="display: none;">
 										<div class="list-group">
-										  <a href="#" class="list-group-item">분류추가</a>
-										  <a href="#" class="list-group-item">분류목록</a>
-										  <a href="#" class="list-group-item">컬러추가</a>
-										  <a href="#" class="list-group-item">컬러목록</a>
-										  <a href="#" class="list-group-item">상품등록</a>
-										  <a href="#" class="list-group-item">상품목록</a>
+										  <a href="<c:url value='/admin/itemCate.do?cmd=goInsert&do1=insert'/>" 
+										  class="list-group-item">분류추가</a>
+										  <a href="<c:url value='/admin/itemCate.do?cmd=list'/>" 
+										  class="list-group-item">분류목록</a>
+										  <a href="<c:url value='/admin/itemColor.do?cmd=goInsert&do1=insert'/>" 
+										  class="list-group-item">컬러추가</a>
+										  <a href="<c:url value='/admin/itemColor.do?cmd=list'/>" 
+										  class="list-group-item">컬러목록</a>
+										  <a href="<c:url value='/admin/item.do?cmd=goInsert&do1=insert'/>" 
+										  class="list-group-item">상품추가</a>
+										  <a href="<c:url value='/admin/item.do?cmd=list'/>" 
+										  class="list-group-item">상품목록</a>
 										</div>
 									</div>
 								</section>													
@@ -113,9 +119,12 @@
 									<label>Inventory Managing</label>
 									<div class="toggle-content" style="display: none;">
 										<div class="list-group">
-										  <a href="#" class="list-group-item">상품입고</a>
-										  <a href="#" class="list-group-item">입고목록</a>
-										  <a href="#" class="list-group-item">재고목록</a>
+										  <a href="<c:url value='/admin/inItem.do?cmd=goInsert&do1=insert'/>" 
+										  class="list-group-item">상품입고</a>
+										  <a href="<c:url value='/admin/inItem.do?cmd=list'/>" 
+										  class="list-group-item">입고목록</a>
+										  <a href="<c:url value='/itemView.do?cmd=list'/>" 
+										  class="list-group-item">재고목록</a>
 										</div>
 									</div>
 								</section>													
@@ -230,54 +239,58 @@
 
 							<h4 class="heading-primary">ADMIN</h4>
 							<p>admin page를 만들자아</p>
-
 						</aside>
 					</div>
 					<div class="col-md-9">
 						<c:set var="pageName" value="${param.page1 }"/>
-						<c:if test="${empty pageName}">
-							<c:set var="pageName" value="welcome.jsp"/>
-						</c:if>
-						<jsp:include page="/admin/${pageName }"/>
+						<c:choose>
+							<c:when test="${empty pageName}">
+								<c:set var="pageName" value="adminLogin.jsp"/>
+								<jsp:include page="/${pageName }"/>
+							</c:when>
+							<c:otherwise>
+								<jsp:include page="/admin/${pageName }"/>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
 		</div>
 		<footer class="short" id="footer">
-			<jsp:include page="footer.jsp" />
+			<jsp:include page="/footer.jsp" />
 		</footer>
 	</div>
 
 	<!-- Vendor -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/jquery.appear/jquery.appear.min.js"></script>
-	<script src="vendor/jquery.easing/jquery.easing.min.js"></script>
-	<script src="vendor/jquery-cookie/jquery-cookie.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="vendor/common/common.min.js"></script>
-	<script src="vendor/jquery.validation/jquery.validation.min.js"></script>
-	<script src="vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
-	<script src="vendor/jquery.gmap/jquery.gmap.min.js"></script>
-	<script src="vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
-	<script src="vendor/isotope/jquery.isotope.min.js"></script>
-	<script src="vendor/owl.carousel/owl.carousel.min.js"></script>
-	<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-	<script src="vendor/vide/vide.min.js"></script>
+	<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
+	<script src="<c:url value='/vendor/jquery.appear/jquery.appear.min.js'/>"></script>
+	<script src="<c:url value='/vendor/jquery.easing/jquery.easing.min.js'/>"></script>
+	<script src="<c:url value='/vendor/jquery-cookie/jquery-cookie.min.js'/>"></script>
+	<script src="<c:url value='/vendor/bootstrap/js/bootstrap.min.js'/>"></script>
+	<script src="<c:url value='/vendor/common/common.min.js'/>"></script>
+	<script src="<c:url value='/vendor/jquery.validation/jquery.validation.min.js'/>"></script>
+	<script src="<c:url value='/vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.min.js'/>"></script>
+	<script src="<c:url value='/vendor/jquery.gmap/jquery.gmap.min.js'/>"></script>
+	<script src="<c:url value='/vendor/jquery.lazyload/jquery.lazyload.min.js'/>"></script>
+	<script src="<c:url value='/vendor/isotope/jquery.isotope.min.js'/>"></script>
+	<script src="<c:url value='/vendor/owl.carousel/owl.carousel.min.js'/>"></script>
+	<script src="<c:url value='/vendor/magnific-popup/jquery.magnific-popup.min.js'/>"></script>
+	<script src="<c:url value='/vendor/vide/vide.min.js'/>"></script>
 
 	<!-- Theme Base, Components and Settings -->
-	<script src="js/theme.js"></script>
+	<script src="<c:url value='/js/theme.js'/>"></script>
 
 	<!-- Current Page Vendor and Views -->
-	<script src="vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-	<script src="vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-	<script src="vendor/circle-flip-slideshow/js/jquery.flipshow.min.js"></script>
-	<script src="js/views/view.home.js"></script>
+	<script src="<c:url value='/vendor/rs-plugin/js/jquery.themepunch.tools.min.js'/>"></script>
+	<script src="<c:url value='/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js'/>"></script>
+	<script src="<c:url value='/vendor/circle-flip-slideshow/js/jquery.flipshow.min.js'/>"></script>
+	<script src="<c:url value='/js/views/view.home.js'/>"></script>
 
 	<!-- Theme Custom -->
-	<script src="js/custom.js"></script>
+	<script src="<c:url value='/js/custom.js'/>"></script>
 
 	<!-- Theme Initialization Files -->
-	<script src="js/theme.init.js"></script>
+	<script src="<c:url value='/js/theme.init.js'/>"></script>
 
 	<!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information.
 		<script>

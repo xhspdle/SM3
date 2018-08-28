@@ -97,5 +97,4 @@ public class EventNoticeVo {
 				+ ", en_content=" + en_content + ", en_date=" + en_date + ", en_orgimg=" + en_orgimg + ", en_savimg="
 				+ en_savimg + ", admin_num=" + admin_num + "]";
 	}
-	
 }
