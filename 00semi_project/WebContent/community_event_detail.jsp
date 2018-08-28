@@ -89,7 +89,7 @@
 												EVENT&NOTICE
 											</h2>
 											<div class="post-image single">
-						   						<img class="img-thumbnail" src="<c:url value='/images/${vo.en_savimg }'/>"
+						   						<img class="img-thumbnail" src="<c:url value='/images/${vo.en_orgimg }'/>"
 													alt="Blog">
 											</div>
 
@@ -98,16 +98,15 @@
 														Doe</a> </span>
 											</div>
 											<p class="qna_content" >필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~
-												
-															
+													
 											</p>
 
 
 										</div>
 																		
-				    <a href="<c:url value='EventNotice.do?cmd=select&en_num=${vo.en_num }'/>">수정</a>
+				    <a href="<c:url value='community_event_write.jsp?cmd1=update'/>">수정</a>
 					<a href="<c:url value='EventNotice.do?cmd=delete&en_num=${vo.en_num }'/>">삭제</a>
+				
 									</div>
 								</div>
 

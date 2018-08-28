@@ -93,19 +93,12 @@
 											enctype="multipart/form-data">
 											<div class="row">
 												<div class="form-group">
-													
 														<!-- 리뷰제목입력란 -->
-													<div class="col-md-12">
-														<label>글번호</label> <input type="text" value=""
-															data-msg-required="Please enter your name."
-															maxlength="100" class="form-control" name="en_title"
-															id="title">
-													</div>
 													<div class="col-md-12">
 														<label>작성자</label> <input type="text" value=""
 															data-msg-required="Please enter your name."
 															maxlength="100" class="form-control" name="en_writer"
-															id="title">
+															id="en_writer">
 													</div>
 													<div class="col-md-12">
 														<label>글제목</label> <input type="text" value=""
@@ -128,14 +121,14 @@
 														<label>파일 업로드</label> 
 														<div class="col-md-12">
 														<img class="img-responsive" src=""
-															alt="이미지" id="oldimg1" style="display:none;">
+															alt="이미지" id="img1" style="display:none;">
 															<div class="fileupload fileupload-new">
 																<div class="uneditable-input">
 																	<i class="fa fa-file fileupload-exists"></i>
 																	<span class="fileupload-preview"></span>
 																</div>
 															<span class="btn btn-default btn-file btn-aa">
-																<input type="file" name="file1" id="fileupload" onchange="Change()">
+																<input type="file" name="file1" id="fileupload" onchange="Change1()">
 															</span>
 														</div>
 													   </div>
@@ -147,19 +140,27 @@
 												<div class="col-md-12">
 													<input type="submit" value="등록하기"
 														class="btn btn-primary" data-loading-text="Loading...">
-														<input type="hidden" name="admin_num" value="1">
+														<input type="hidden" name="admin_num" value="${sessionScope.admin_num }">
 												</div>
 											</div>
 										</form>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
+		<script type="text/javascript">
+		function Change1(){   //이미지 변경 사진을 누르면 바뀌는것.
+		var file=document.getElementsByName("file1")[0].value; //바꿀사진의 요소를 빼온다.
+		var fileName=file.split("\\"); //c://java//~~ 이것처럼 주소를 쪼개준다.
+		var img=document.getElementById("img1"); 
+		img.src="<%=application.getContextPath()%>/images/" +fileName[2]; //쪼개진 주소에서 3번째 요소를 빼온다. 사진의 이름이 담긴
+		img.style.display="block";
+		}
+		</script>
 		<footer class="short" id="footer">
 			<jsp:include page="footer.jsp" />
 		</footer>
@@ -171,7 +172,7 @@
 		<div class="col-md-12">
 			<section class="panel panel-admin">
 				<header class="panel-heading">
-					<h1 class="panel-title">상품 수정</h1>
+				 <h2 class="commTitle">게시글 수정</h2>	
 				</header>
 				<form action='<c:url value="EventNotice.do?cmd=update"/>' id="submitReview" method="post"
 												enctype="multipart/form-data">
@@ -183,7 +184,7 @@
 															<label>글번호</label> <input type="text" value=""
 																data-msg-required="Please enter your name."
 																maxlength="100" class="form-control" name="en_num"
-																id="title" readonly="readonly" name="en_num" value="${vo.en_num }">
+																id="en_num" readonly="readonly" name="en_num" value="${vo.en_num }">
 														</div>
 														<div class="col-md-12">
 															<label>작성자</label> <input type="text" value=""
@@ -197,7 +198,6 @@
 																maxlength="100" class="form-control" name="en_title"
 																id="en_title" name="en_title" value="${vo.en_title }">
 														</div>
-	
 														<div class="form-group">
 															<div class="col-md-12">
 																<label>글내용</label>
@@ -217,7 +217,7 @@
 							<label>이미지 업로드</label>
 							<div class="col-md-12">
 								<img class="img-responsive" src="<c:url value='/images/${vo.en_savimg }'/>"
-								alt="기존이미지" id="img">
+								alt="기존이미지" id="img1">
 								<div class="fileupload fileupload-new">
 									<div class="uneditable-input">
 										<i class="fa fa-file fileupload-exists"></i>
@@ -230,7 +230,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>  
 			</form>
 			<div class="form-group">
 			<label class="col-md-3 control-label"></label>

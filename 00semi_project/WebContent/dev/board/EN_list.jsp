@@ -27,12 +27,12 @@
 					style="width: 120px; height: 120px;" id="img">
 				<br>
 				<br>
-제목<input type="text" name="en_title" value="${vo.en_title }">
+					제목<input type="text" name="en_title" value="${vo.en_title }">
 				<br>
-내용<input type="text" name="en_content"
+					내용<input type="text" name="en_content"
 					style="width: 170px; height: 50px;" value="${vo.en_content }">
 				<br>
-날짜<input type="text" name="날짜" value="${vo.en_date }">
+					날짜<input type="text" name="날짜" value="${vo.en_date }">
 				<br>
 
 				<a

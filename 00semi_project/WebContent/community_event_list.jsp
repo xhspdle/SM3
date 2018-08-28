@@ -82,15 +82,16 @@
 					<div class="row mt-lg">
 						<div class="col-md-12">
 							<h2 class="commTitle">EVENT&NOTICE</h2>
-							<a href="<c:url value='community_event_write.jsp'/>"
-								class="btn pull-right btn-primary btn-md"> 글쓰기 <i
-								class="fa fa-angle-right ml-xs"></i>
-							</a>
+							<c:if test="${!empty admin_num }">
+								<a href="<c:url value='community_event_write.jsp?cmd1=insert'/>"
+									class="btn pull-right btn-primary btn-md"> 글쓰기 <i
+									class="fa fa-angle-right ml-xs"></i>
+								</a>
+							</c:if>
 							<div class="featured-boxes">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="recent-posts mb-xl main_box">
-
 
 											<c:forEach var="vo" items="${requestScope.list }">
 												<!-- 리스트 들어갈 위치  -->
@@ -101,11 +102,9 @@
 
 													<div class="recent-posts mt-md mb-lg">
 														<article class="post">
-															<h5>
-																<a class="text-dark"
-																	href="<c:url value='community_event_detail.jsp?cmd=select&en_num=${vo.en_num }'/>">${vo.en_title}</a>
-															</h5>
-														    
+														<h5>
+														  <class="text-dark" value='community_event_detail.jsp?cmd=select&en_title=${vo.en_title}'/>${vo.en_title}
+														</h5>    
 															<div class="post-meta">
 																<span>EVENT </span> <span>${vo.en_date }</span>
 															</div>
@@ -114,7 +113,6 @@
 												</div>
 
 											</c:forEach>
-
 											<!-- 페이징 처리랑 검색 폼-->
 
 											<%
@@ -181,7 +179,6 @@
 													</c:otherwise>
 												</c:choose>
 											</div>
-
 										</div>
 									</div>
 								</div>

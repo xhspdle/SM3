@@ -33,9 +33,9 @@ public class EventNoticeController extends HttpServlet{
 			update(request,response);
 		}else if(cmd!=null && cmd.equals("select")) {
 			select(request,response);
-		}else if(cmd!=null && cmd.equals("getInfo")) {
-			getInfo(request,response);
-		}
+		}//else if(cmd!=null && cmd.equals("getInfo")) {
+//			getInfo(request,response);
+//		}
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String path=request.getServletContext().getRealPath("/images");	
@@ -58,7 +58,7 @@ public class EventNoticeController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "이벤트이미지 추가 실패");
 		}
-		request.getRequestDispatcher("test.jsp").forward(request,response);
+		request.getRequestDispatcher("community_event_list.jsp").forward(request,response);
 	}
 	protected void list(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String search=request.getParameter("search");
@@ -94,8 +94,8 @@ public class EventNoticeController extends HttpServlet{
 			request.getRequestDispatcher("community_event_list.jsp").forward(request, response);
 			request.setAttribute("msg", "목록보기 성공");
 		}else {
-			request.setAttribute("msg", "목록보기실패");
-			request.getRequestDispatcher("test.jsp").forward(request, response);
+			request.setAttribute("list", list1);
+			request.getRequestDispatcher("community_event_list.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
@@ -110,7 +110,7 @@ public class EventNoticeController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "이미지 삭제 실패");
 		}
-		request.getRequestDispatcher("test.jsp").forward(request, response);
+		request.getRequestDispatcher("community_event_list.jsp").forward(request, response);
 	}
 	protected void update(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String path=request.getServletContext().getRealPath("/images");	
@@ -158,16 +158,16 @@ public class EventNoticeController extends HttpServlet{
 			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
 	 }
-	protected void getInfo(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-		int en_num=Integer.parseInt(request.getParameter("en_num"));
-		EventNoticeVo vo = EventNoticeDao.getInstance().getInfo(en_num);
-		if(vo!=null) {
-			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("community_event_detail.jsp").forward(request, response);
-		}else {
-			request.setAttribute("msg", "상세보기실패");
-			request.getRequestDispatcher("test.jsp").forward(request, response);
-		}
-	 }
+//	protected void getInfo(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+//		int en_num=Integer.parseInt(request.getParameter("en_num"));
+//		EventNoticeVo vo = EventNoticeDao.getInstance().getInfo(en_num);
+//		if(vo!=null) {
+//			request.setAttribute("vo", vo);
+//			request.getRequestDispatcher("community_event_detail.jsp").forward(request, response);
+//		}else {
+//			request.setAttribute("msg", "상세보기실패");
+//			request.getRequestDispatcher("test.jsp").forward(request, response);
+//		}
+//	 }
   }		
 
