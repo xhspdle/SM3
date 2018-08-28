@@ -474,3 +474,9 @@ p.taller {
 	color: #444;
 	font-weight: bold;
 }
+
+a.cart-btn{
+	float:none;
+	margin: 0;
+	margin-right: 10px;
+}
