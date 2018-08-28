@@ -40,10 +40,10 @@ public class ItemViewController extends HttpServlet{
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("ITEM_VIEW_list.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ITEM_VIEW_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
-			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	
@@ -57,11 +57,11 @@ public class ItemViewController extends HttpServlet{
 		if(sitem_num!=null && !sitem_num.equals("")) {
 			item_num=Integer.parseInt(sitem_num);
 		}
+		
 		//상품정보 리스트
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select(item_num);
 		HashMap<Integer, String> list2=ItemViewDao.getInstance().select_color(item_name);
-	
-		if(list!=null) {
+		if(list!=null && list2 != null) {
 			request.setAttribute("list", list);
 			request.setAttribute("list2", list2);
 			request.getRequestDispatcher("item_detail.jsp").forward(request, response);
@@ -69,10 +69,6 @@ public class ItemViewController extends HttpServlet{
 			request.setAttribute("msg", "선택실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
-		
-		
-		
-		
 	}
 	
 

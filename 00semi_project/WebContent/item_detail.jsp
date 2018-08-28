@@ -74,11 +74,13 @@
 
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
-<% ArrayList<ItemViewVo> list = (ArrayList)request.getAttribute("list");
-   ItemViewVo vo= list.get(0);
-   HashMap<Integer,String> list2 = (HashMap)request.getAttribute("list2");
-   Set<Integer> key = list2.keySet();
-   Iterator<String> color = 
+<%
+	String path = application.getContextPath();
+	ArrayList<ItemViewVo> list = (ArrayList) request.getAttribute("list");
+	ItemViewVo vo = list.get(0);
+	HashMap<Integer, String> list2 = (HashMap) request.getAttribute("list2");
+	Set<Integer> set = list2.keySet();
+	Iterator<Integer> keyList = set.iterator();
 %>
 </head>
 <body>
@@ -102,7 +104,7 @@
 						<div>
 							<div class="thumbnail">
 								<img alt="" class="img-responsive img-rounded"
-									src="images/<%=vo.getItem_orgimg() %>">
+									src="DBImages/<%=vo.getItem_orgimg()%>">
 							</div>
 						</div>
 					</div>
@@ -110,7 +112,7 @@
 						<div class="summary entry-summary">
 							<!-- 제목 -->
 							<h1 class="mb-none">
-								<strong><%=vo.getItem_name() %></strong>
+								<strong><%=vo.getItem_name()%></strong>
 							</h1>
 							<!-- 리뷰순 -->
 							<div class="review_num">
@@ -121,34 +123,74 @@
 								<span style="width: 100%"><strong class="rating">5.00</strong>
 									out of 5</span>
 							</div>
-							<!-- 가격 -->
-							<p class="price">
-								<span class="amount"><%=vo.getItem_price() %>원</span>
-							</p>
+							<!-- 상품정보 -->
+							<p class="taller"><%=vo.getItem_info()%></p>
+
+							<!-- 컬러 -->
 							<div class="cboth de_color">
-								<a href="#"><span style="background-color: #101010;">1</span></a>
-								<a href="#"><span style="background-color: #282c38;">2</span></a>
-								<a href="#"><span style="background-color: #244349;">3</span></a>
+								<%
+									while (keyList.hasNext()) {
+										int key = keyList.next();
+								%>
+								<a
+									href="<%=path%>/itemView.do?cmd=select&item_num=<%=key%>&item_name=<%=vo.getItem_name()%>"><span
+									style="background-color:<%=list2.get(key)%>;">1</span></a>
+								<%
+									}
+								%>
 							</div>
-							<!-- 상품설명 -->
-							<p class="taller"><%=vo.getItem_info() %></p>
+
+
+							<!-- 가격 -->
+							<p class="price order-line">
+								<span class="left-side">가격</span><span class="amount"><%=vo.getItem_price()%>원</span>
+							</p>
+							<!-- 사이즈선택 -->
+							<p class="size_select order-line">
+								<span class="left-side">사이즈</span><span class="amount"> <select
+									id="sel_list" onchange="select_list()">
+										<option value="0">사이즈를 선택해주세요</option>
+										<option>44 ~ 55</option>
+										<option>55반 ~ 66</option>
+										<option>66반 ~ 77</option>
+										<option>77반 ~ 88</option>
+								</select></span>
+							</p>
 							<form enctype="multipart/form-data" method="post" class="cart">
-								<div class="quantity">
-									<input type="button" class="minus" value="-"> <input
-										type="text" class="input-text qty text" title="Qty" value="1"
-										name="quantity" min="1" step="1"> <input type="button"
-										class="plus" value="+">
-								</div>
+
+							</form>
+							<!-- input으로 해당 사이즈 선택 시 생성할거닷  -->
+							<div id="select_list_box">
+								<%-- <ul class="select_list">
+									<li class="item_name"><input type="hidden"
+										name="item_name">
+										<div><%=vo.getItem_name()%></div></li>
+									<li><input type="hidden" name="item_counts">
+										<div class="quantity">
+											<input type="button" class="minus" value="-"> <input
+												type="text" class="input-text qty text" title="Qty"
+												value="1" name="quantity" min="1" step="1"> <input
+												type="button" class="plus" value="+">
+										</div></li>
+									<li><input type="hidden" name="item_price"></li>
+								</ul> --%>
+							</div>
+
+
+							<p class="price_box">
+								<span>총 금액:</span> <span id="total_price"></span>
+							</p>
+							<div class="product_meta">
+								<span class="posted_in">Categories: <a rel="tag" href="#"><%=vo.getCate_name()%></a>
+								</span>
+							</div>
+							<p style="overflow: hidden; clear: both; padding-right: 10px;">
 								<a href="<c:url value='item_order_list.jsp'/>"
 									class="btn btn-primary btn-icon">주문하기</a> <a
 									href="<c:url value='cart.jsp'/>"
 									class="btn btn-primary btn-icon">장바구니</a>
-							</form>
-							<div class="product_meta">
-								<span class="posted_in">Categories: <a rel="tag" href="#">Accessories</a>,
-									<a rel="tag" href="#">Bags</a>.
-								</span>
-							</div>
+							</p>
+
 						</div>
 					</div>
 				</div>
@@ -168,11 +210,11 @@
 										<tbody>
 											<tr>
 												<th>Size:</th>
-												<td>Unique</td>
+												<td>44~55, 55~66, 66~77, 77~88</td>
 											</tr>
 											<tr>
-												<th>Colors</th>
-												<td>Red, Blue</td>
+												<th>정보</th>
+												<td><%=vo.getItem_info()%></td>
 											</tr>
 										</tbody>
 									</table>
@@ -369,7 +411,78 @@
 			<jsp:include page="footer.jsp" />
 		</footer>
 	</div>
-
+	<script>
+	//엉엉유유ㅠㅇ어유유ㅠ
+	var cnt = 0;
+	var n1 = 0;
+	var n2 = 0;
+	var n3 = 0;
+		function select_list(){
+			++cnt;
+			var select_box = document.getElementById("select_list_box");
+			var sel_list = document.getElementById("sel_list");
+			var total_price = document.getElementById("total_price");
+			var price = <%=vo.getItem_price()%>;
+			var sel_num = sel_list.options.selectedIndex;
+			if(sel_num = 0 ) return;
+			total_price.innerHTML =  price * cnt + "원("+cnt+")개";
+			var ul= document.createElement("ul");
+			ul.className = "list_sel";
+			ul.innerHTML += 
+			'<li class="item_name">'+
+			'<input type="hidden" name="item_name">'+
+			   '<p><%=vo.getItem_name()%></p><p>size: '+sel_list.value+'</p></li>'
+					+ '<li><input type="hidden" name="item_counts">'
+					+ '<div class="quantity">'
+					+ '<input type="button" class="minus" value="-"><input type="text" class="input-text qty text" title="Qty" name="quantity" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
+					+ '</div></li>'
+					+ '<li class="it_price"><input type="hidden" name="item_price">'+price+'원</li>'
+					+ '<li><a title="Remove this item" class="remove" href="#none"> <i class="fa fa-times"></i></a></li>'
+					
+				select_box.appendChild(ul);
+				var plus = document.getElementsByClassName("plus");
+				var minus = document.getElementsByClassName("minus");
+				var qty = document.getElementsByClassName("qty");
+				var it_price = document.getElementsByClassName("it_price");
+				var remove = document.getElementsByClassName("remove");
+				var ul_box = document.getElementsByClassName("list_sel");
+				
+				
+				//상품 수 증가할 때
+				for (var i = 0; i < plus.length; i++) {
+					plus[i].onclick = function(){
+						++this.previousSibling.value;
+						this.parentElement.parentElement.nextSibling.innerHTML = price * this.previousSibling.value +"원";
+						++cnt;
+						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
+					}
+				}
+				//상품 수 감소할 때
+				for (var i = 0; i < minus.length; i++) {
+					minus[i].onclick = function(){
+						if(this.nextSibling.value>1){
+							--this.nextSibling.value;
+							--cnt;
+						} 
+						this.parentElement.parentElement.nextSibling.innerHTML = price * this.nextSibling.value +"원";
+						
+						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
+					}
+				}
+				//상품 목록 삭제했을 때
+				for (var i = 0; i < remove.length; i++) {
+					remove[i].onclick = function(){
+						this.parentElement.parentElement.remove();
+						var a =this.parentElement.previousSibling.previousSibling.lastChild.lastChild.previousSibling.value;
+						cnt = cnt - a ;
+						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
+						return;
+					}
+				}
+		}
+	
+		
+	</script>
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/jquery.appear/jquery.appear.min.js"></script>

@@ -119,9 +119,12 @@
 									<label>Inventory Managing</label>
 									<div class="toggle-content" style="display: none;">
 										<div class="list-group">
-										  <a href="<c:url value='/admin/inItem.do?cmd=goInsert&do1=insert'/>" class="list-group-item">상품입고</a>
-										  <a href="<c:url value='/admin/inItem.do?cmd=list'/>" class="list-group-item">입고목록</a>
-										  <a href="<c:url value='/itemView.do?cmd=list'/>" class="list-group-item">재고목록</a>
+										  <a href="<c:url value='/admin/inItem.do?cmd=goInsert&do1=insert'/>" 
+										  class="list-group-item">상품입고</a>
+										  <a href="<c:url value='/admin/inItem.do?cmd=list'/>" 
+										  class="list-group-item">입고목록</a>
+										  <a href="<c:url value='/itemView.do?cmd=list'/>" 
+										  class="list-group-item">재고목록</a>
 										</div>
 									</div>
 								</section>													

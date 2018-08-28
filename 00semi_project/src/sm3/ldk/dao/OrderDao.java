@@ -47,22 +47,18 @@ public class OrderDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="insert into sm3_order values(?,?,?,?,?,?,?,?,?,?,?,?,?,sysdate,?)";
+			String sql="insert into sm3_order values(?,?,?,?,?,?,?,?,?,sysdate,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, getMaxNum()+1);
-			pstmt.setInt(2, vo.getSize_num());// FROM VIEW : SM3_ITEM_VIEW
-			pstmt.setInt(3, vo.getUser_num());
-			pstmt.setInt(4, vo.getOrder_cnt());
-			pstmt.setInt(5, vo.getItem_price());
-			pstmt.setInt(6, vo.getOrder_total());
-			pstmt.setInt(7, vo.getOrder_point());
-			pstmt.setInt(8, vo.getOrder_pay());
-			pstmt.setString(9, vo.getOrder_recipient());
-			pstmt.setString(10, vo.getOrder_post_addr());
-			pstmt.setString(11, vo.getOrder_basic_addr());
-			pstmt.setString(12, vo.getOrder_detail_addr());
-			pstmt.setString(13, vo.getOrder_phone());
-			pstmt.setInt(14, vo.getOrder_status());
+			pstmt.setInt(2, vo.getCart_num());
+			pstmt.setInt(3, vo.getOrder_point());
+			pstmt.setInt(4, vo.getOrder_pay());
+			pstmt.setString(5, vo.getOrder_recipient());
+			pstmt.setString(6, vo.getOrder_post_addr());
+			pstmt.setString(7, vo.getOrder_basic_addr());
+			pstmt.setString(8, vo.getOrder_detail_addr());
+			pstmt.setString(9, vo.getOrder_phone());
+			pstmt.setInt(10, vo.getOrder_status());
 			/*	주문상태 : 
 			1 배송중
 			2 배송완료
@@ -109,27 +105,22 @@ public class OrderDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="update sm3_order set size_num=?,user_num=?,"
-					+ "order_cnt=?,item_price=?,order_total=?,"
+			String sql="update sm3_order set cart_num=?,"
 					+ "order_point=?,order_pay=?,"
 					+ "order_recipient=?,"
 					+ "order_post_addr=?,oder_basic_addr=?,order_detail_addr=?,"
-					+ "order_phone=?,order_status=? where color_num=?";
+					+ "order_phone=?,order_status=? where order_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, vo.getSize_num());
-			pstmt.setInt(2, vo.getUser_num());
-			pstmt.setInt(3, vo.getOrder_cnt());
-			pstmt.setInt(4, vo.getItem_price());
-			pstmt.setInt(5, vo.getOrder_total());
-			pstmt.setInt(6, vo.getOrder_point());
-			pstmt.setInt(7, vo.getOrder_pay());
-			pstmt.setString(8, vo.getOrder_recipient());
-			pstmt.setString(9, vo.getOrder_post_addr());
-			pstmt.setString(10, vo.getOrder_basic_addr());
-			pstmt.setString(11, vo.getOrder_detail_addr());
-			pstmt.setString(12, vo.getOrder_phone());
-			pstmt.setInt(13, vo.getOrder_status());
-			pstmt.setInt(14, vo.getOrder_num());
+			pstmt.setInt(1, vo.getCart_num());
+			pstmt.setInt(2, vo.getOrder_point());
+			pstmt.setInt(3, vo.getOrder_pay());
+			pstmt.setString(4, vo.getOrder_recipient());
+			pstmt.setString(5, vo.getOrder_post_addr());
+			pstmt.setString(6, vo.getOrder_basic_addr());
+			pstmt.setString(7, vo.getOrder_detail_addr());
+			pstmt.setString(8, vo.getOrder_phone());
+			pstmt.setInt(9, vo.getOrder_status());
+			pstmt.setInt(10, vo.getOrder_num());
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
@@ -154,11 +145,7 @@ public class OrderDao {
 			pstmt.setInt(1, order_num);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				int size_num=rs.getInt("size_num");
-				int user_num=rs.getInt("user_num");
-				int order_cnt=rs.getInt("order_cnt");
-				int item_price=rs.getInt("item_price");
-				int order_total=rs.getInt("order_total");
+				int cart_num=rs.getInt("cart_num");
 				int order_point=rs.getInt("order_point");
 				int order_pay=rs.getInt("order_pay");
 				String order_recipient=rs.getString("order_recipient");
@@ -168,10 +155,10 @@ public class OrderDao {
 				String order_phone=rs.getString("order_phone");
 				Date order_date=rs.getDate("order_date");
 				int order_status=rs.getInt("order_status");
-				OrderVo vo=new OrderVo(order_num, size_num, user_num,
-						order_cnt, item_price, order_total, order_point, order_pay,
-						order_recipient, order_post_addr, order_basic_addr,
-						order_detail_addr, order_phone, order_date, order_status);
+				OrderVo vo=new OrderVo(order_num, cart_num,
+						order_point, order_pay, order_recipient,
+						order_post_addr, order_basic_addr, order_detail_addr,
+						order_phone, order_date, order_status);
 				return vo;
 			}
 			return null;
@@ -201,11 +188,7 @@ public class OrderDao {
 			if(rs.next()) {
 				do {
 					int order_num=rs.getInt("order_num");
-					int size_num=rs.getInt("size_num");
-					int user_num=rs.getInt("user_num");
-					int order_cnt=rs.getInt("order_cnt");
-					int item_price=rs.getInt("item_price");
-					int order_total=rs.getInt("order_total");
+					int cart_num=rs.getInt("cart_num");
 					int order_point=rs.getInt("order_point");
 					int order_pay=rs.getInt("order_pay");
 					String order_recipient=rs.getString("order_recipient");
@@ -215,10 +198,10 @@ public class OrderDao {
 					String order_phone=rs.getString("order_phone");
 					Date order_date=rs.getDate("order_date");
 					int order_status=rs.getInt("order_status");
-					OrderVo vo=new OrderVo(order_num, size_num, user_num,
-							order_cnt, item_price, order_total, order_point, order_pay,
-							order_recipient, order_post_addr, order_basic_addr,
-							order_detail_addr, order_phone, order_date, order_status);
+					OrderVo vo=new OrderVo(order_num, cart_num,
+							order_point, order_pay, order_recipient,
+							order_post_addr, order_basic_addr, order_detail_addr,
+							order_phone, order_date, order_status);
 					list.add(vo);
 				}while(rs.next());
 				return list;

@@ -162,7 +162,7 @@ public class AdminDao {
 			}
 		}
 	}
-	public String login(AdminVo vo) {
+	public AdminVo login(AdminVo vo) {//리턴타입 String에서 다 담아서 보낼 수 있도록 AdminVo로 수정
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -174,7 +174,11 @@ public class AdminDao {
 			pstmt.setString(2, vo.getAdmin_pwd());
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				return rs.getString("admin_id");
+				int admin_num=rs.getInt("admin_num");
+				String admin_id=rs.getString("admin_id");
+				String admin_pwd=rs.getString("admin_pwd");
+				AdminVo voo=new AdminVo(admin_num, admin_id, admin_pwd);
+				return voo;
 			}
 			return null;
 		}catch(SQLException se) {

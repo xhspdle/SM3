@@ -1,6 +1,7 @@
 package sm3.ldk.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import sm3.ldk.dao.ItemSizeDao;
 import sm3.ldk.vo.ItemSizeVo;
@@ -65,6 +69,20 @@ public class ItemSizeController extends HttpServlet{
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<ItemSizeVo> list=ItemSizeDao.getInstance().list();
+		String ajax=request.getParameter("ajax");
+		if(ajax!=null && ajax.equals("true")) {
+			JSONArray arr=new JSONArray();
+			for(ItemSizeVo vo:list) {
+				JSONObject ob=new JSONObject();
+				ob.put("size_num", String.valueOf(vo.getSize_num()));
+				arr.add(ob);
+			}
+			response.setContentType("text/plain;charset=utf-8");
+			PrintWriter pw=response.getWriter();
+			pw.println(arr.toString());
+			pw.close();
+			return;
+		}
 		if(list!=null) {
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("ITEM_SIZE_list.jsp").forward(request, response);
