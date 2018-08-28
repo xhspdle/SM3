@@ -165,7 +165,8 @@
 							</p>
 							<!-- 폼시쟉~ -->
 							<form method="post" action="" class="cart">
-								
+								<!-- 세션에 담긴 유저 넘버도 보내주도록 -->
+								<input type="hidden" name="user_num" value="${sessionScope.user_num }">
 								<div id="select_list_box">
 									<!-- 사이즈 셀렉할 경우 상품 리스트 자바스크립트로 뿌려주는 내용이 들어감.  -->
 								</div>
@@ -451,11 +452,11 @@
 			'<li class="item_name">'+
 			'<input type="hidden" name="size_num" value="'+size_num+'">'+ //사이즈 넘버 
 			   '<p><%=vo.getItem_name()%></p><p>size: '+sel_list.value+'</p></li>'
-					+ '<li><input type="hidden" name="item_counts[]">' //상품 카운트
+					+ '<li><input type="hidden">' //상품 카운트
 					+ '<div class="quantity">'
-					+ '<input type="button" class="minus" value="-"><input type="text" class="input-text qty text" title="Qty" name="quantity" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
+					+ '<input type="button" class="minus" value="-"><input type="text" class="input-text qty text" title="Qty" name="item_cnt" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
 					+ '</div></li>'
-					+ '<li class="it_price"><input type="hidden" name="item_price[]">'+price+'원</li>' //사이즈 갯수별 금액
+					+ '<li class="it_price"><input type="hidden" name="item_price">'+price+'원</li>' //사이즈 갯수별 금액
 					+ '<li><a title="Remove this item" class="remove" href="#none"> <i class="fa fa-times"></i></a></li>'
 				select_box.appendChild(ul);
 				var plus = document.getElementsByClassName("plus");

@@ -151,7 +151,7 @@ public class PurchaseListDao {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ArrayList<CartVo> list=new ArrayList<>();
+		ArrayList<PurchaseListVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
 			String sql="select * from sm3_cart";
@@ -159,12 +159,12 @@ public class PurchaseListDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				do {
-					int cart_num=rs.getInt("cart_num");
-					int user_num=rs.getInt("user_num");
+					int pl_num=rs.getInt("pl_num");
+					int pur_num=rs.getInt("pur_num");
 					int size_num=rs.getInt("size_num");
 					int order_cnt=rs.getInt("order_cnt");
 					int item_price=rs.getInt("item_price");
-					CartVo vo=new CartVo(cart_num, user_num,
+					PurchaseListVo vo=new PurchaseListVo(pl_num, pur_num,
 							size_num, order_cnt, item_price);
 					list.add(vo);
 				}while(rs.next());
