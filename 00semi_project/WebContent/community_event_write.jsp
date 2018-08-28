@@ -174,36 +174,33 @@
 				<header class="panel-heading">
 				 <h2 class="commTitle">게시글 수정</h2>	
 				</header>
-				<form action='<c:url value="EventNotice.do?cmd=update"/>' id="submitReview" method="post"
+				<form action='<c:url value="/EventNotice.do?cmd=update"/>' id="submitReview" method="post"
 												enctype="multipart/form-data">
 												<div class="row">
 													<div class="form-group">
 														
 															<!-- 리뷰제목입력란 -->
 														<div class="col-md-12">
-															<label>글번호</label> <input type="text" value=""
-																data-msg-required="Please enter your name."
-																maxlength="100" class="form-control" name="en_num"
+															<label>글번호</label> <input type="text" 
+																maxlength="100" class="form-control" 
 																id="en_num" readonly="readonly" name="en_num" value="${vo.en_num }">
 														</div>
 														<div class="col-md-12">
-															<label>작성자</label> <input type="text" value=""
-																data-msg-required="Please enter your name."
+															<label>작성자</label> <input type="text" 
 																maxlength="100" class="form-control" name="en_writer"
-																id="en_writer" name="en_writer" value="${vo.en_writer }">
+																id="en_writer" value="${vo.en_writer }">
 														</div>
 														<div class="col-md-12">
-															<label>글제목</label> <input type="text" value=""
-																data-msg-required="Please enter your name."
+															<label>글제목</label> <input type="text" 
 																maxlength="100" class="form-control" name="en_title"
-																id="en_title" name="en_title" value="${vo.en_title }">
+																id="en_title" value="${vo.en_title }">
 														</div>
 														<div class="form-group">
 															<div class="col-md-12">
 																<label>글내용</label>
 																<textarea maxlength="5000"
 																	data-msg-required="Please enter your message." rows="10"
-																	class="form-control" name="en_content" id="message" value="${vo.en_content }"></textarea>
+																	class="form-control" name="en_content" id="message">${vo.en_content }</textarea>
 															</div>
 														</div>
 													<div class="form-group">
@@ -212,7 +209,7 @@
 								<button type="button" class="btn btn-warning" id="img_btn" 
 								onclick="showFile()">사진변경</button>
 							</div>
-						</div>
+						</div> 
 						<div class="form-group" id="inputFile" style="display:none;">
 							<label>이미지 업로드</label>
 							<div class="col-md-12">
@@ -224,7 +221,7 @@
 										<span class="fileupload-preview"></span>
 									</div>
 									<span class="btn btn-default btn-file btn-aa">
-										<input type="file" name="file1" id="fileupload" onchange="Change()">
+										<input type="file" name="file1" id="fileupload" onchange="Change1()">
 									</span>
 								</div>
 							</div>
@@ -236,6 +233,7 @@
 			<label class="col-md-3 control-label"></label>
 							<div class="col-md-12">
 							<button type="submit" class="btn btn-primary btn-block">수정확인</button>
+							<input type="hidden" name="admin_num" value="${sessionScope.admin_num }">
 							</div>
 						</div>	
 						<input type="hidden" name="en_orgimg" value="${vo.en_orgimg }">
@@ -253,12 +251,13 @@
 			hidden1.setAttribute("disabled","disabled"); //파일을 보내지 않는다.(원래사진은). *원래사진은..db에서  받고, 새로운 사진은 controller에서 받고.
 			hidden2.setAttribute("disabled","disabled"); //그래서 mvc패턴 흐름을
 			}
-		function Change(){   //이미지 변경 사진을 누르면 바뀌는것.
-			var file=document.getElementsByTagName("file1")[0].value; //바꿀사진의 요소를 빼온다.
+		function Change1(){   //이미지 변경 사진을 누르면 바뀌는것.
+			var file=document.getElementsByName("file1")[0].value; //바꿀사진의 요소를 빼온다.
 			var fileName=file.split("\\"); //c://java//~~ 이것처럼 주소를 쪼개준다.
-			var img=document.getElementsByTagName("img")[0]; 
+			var img=document.getElementById("img1"); 
 			img.src="<%=application.getContextPath()%>/images/" +fileName[2]; //쪼개진 주소에서 3번째 요소를 빼온다. 사진의 이름이 담긴
-		}
+			img.style.display="block";
+			}
 		</script>
 	</c:when>
 </c:choose>

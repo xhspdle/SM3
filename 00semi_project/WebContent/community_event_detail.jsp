@@ -89,7 +89,7 @@
 												EVENT&NOTICE
 											</h2>
 											<div class="post-image single">
-						   						<img class="img-thumbnail" src="<c:url value='/images/${vo.en_orgimg }'/>"
+						   						<img class="img-thumbnail" src="<c:url value='/images/${vo.en_savimg }'/>"
 													alt="Blog">
 											</div>
 
@@ -100,11 +100,10 @@
 											<p class="qna_content" >필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
 													
 											</p>
-
-
 										</div>
 																		
-				    <a href="<c:url value='community_event_write.jsp?cmd1=update'/>">수정</a>
+				    <a href="<c:url value='EventNotice.do?cmd=select&en_num=${vo.en_num }&doup=true'/>">수정</a>
+				   <!--목록에 있는이미지를 select로 받고, doup이라는 변수를 하나 더 만들어서 write.jsp의 값을 미리 입력된값으로 나오게 하기. -->
 					<a href="<c:url value='EventNotice.do?cmd=delete&en_num=${vo.en_num }'/>">삭제</a>
 				
 									</div>

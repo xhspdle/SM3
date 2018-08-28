@@ -138,6 +138,7 @@ public class EventNoticeController extends HttpServlet{
 		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(en_num, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
 		if(n>0) {
 			request.setAttribute("msg", "이벤트공지 수정 성공");
+			request.getRequestDispatcher("community_event_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "이벤트공지 수정 실패");
 		}
@@ -150,9 +151,16 @@ public class EventNoticeController extends HttpServlet{
 			en_num=Integer.parseInt(sen_num);
 		}
 		EventNoticeVo vo = EventNoticeDao.getInstance().select(en_num);
-		if(vo!=null) { 
-			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("community_event_detail.jsp").forward(request, response);
+		if(vo!=null) {  //조건을 두개를 준다.
+			String doup=request.getParameter("doup");  //
+			if(doup!=null && doup.equals("true")) {
+				request.setAttribute("vo", vo);
+				//System.out.println(vo.toString()); 문자열을 찍어본다.
+				request.getRequestDispatcher("community_event_write.jsp?cmd1=update").forward(request, response);
+			}else {
+				request.setAttribute("vo", vo);
+				request.getRequestDispatcher("community_event_detail.jsp").forward(request, response);
+			}
 		}else {
 			request.setAttribute("msg", "실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
