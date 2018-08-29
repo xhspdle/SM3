@@ -87,8 +87,10 @@
 					</div>
 				</div>
 				<form method="post" action="<c:url value='/dev/itemOrder/order.do?cmd=insert'/>">
-				<input type="hidden" name="item_price" value="${vo.size_num }">
+				<input type="hidden" name="pur_num" value="${vo.pur_num }">
 				<input type="hidden" name="user_num" value="${user_num }"><!-- 세션스코프에서받기 -->
+				<input type="hidden" name="order_total" id="tt_price" value="">
+				<input type="hidden" name="order_pay" id="tt_pay" value="">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="featured-boxes">
@@ -111,6 +113,7 @@
 														</thead>
 														<tbody>
 														<c:forEach var="vo" items="${requestScope.list }">
+														<c:set var="pur_num" value="${vo.pur_num }"/>
 															<tr class="cart_table_item">
 																<td class="product-remove"><a
 																	title="Remove this item" class="remove" href="#none"> <i
@@ -131,17 +134,14 @@
 																<td class="product-quantity">
 																	<div class="quantity">
 																		<%-- <input type="button" class="minus" value="-" id="minus" onclick="minus11()"> --%>
-
 																		<input
 																			type="text" class="input-text qty text" title="Qty"
 																			value="${vo.order_cnt }" name="order_cnt" min="1" step="1" readonly="readonly"> 
-
 																			<%-- <input
 																			type="button" class="plus" value="+" id="plus" onclick="plus11()">--%>
 																	</div>
-
 																</td>
-																<td class="product-subtotal"><span class="amount" >${vo.order_cnt * vo.item_price }원</span>
+																<td class="product-subtotal"><span class="it_price" >${vo.order_cnt * vo.item_price }원</span>
 																</td>
 															</tr>
 															</c:forEach>
@@ -237,21 +237,18 @@
 										<h4 class="heading-primary text-uppercase mb-md">결제 예정 금액</h4>
 										<table class="cart-totals">
 											<tbody>
-												<tr class="shipping">
-													<th>배송정보</th>
-													<td>기본 배송(2500원)<input type="hidden"
-														value="free_shipping" id="shipping_method"
-														name="shipping_method">
-													</td>
+												<tr class="total">
+													<th><strong>총금액</strong></th>
+													<td><strong><span class="amount" id="total_price"></span></strong></td>
 												</tr>
 												<tr class="total">
 													<th><strong>적립금할인</strong></th>
-													<td><input type="text" size="5"> (사용할 금액을
+													<td><input type="text" size="5" name="order_point" onkeyup="calPay()" value=""> (사용할 금액을
 														입력해주세요)</td>
 												</tr>
 												<tr class="total">
-													<th><strong>총금액</strong></th>
-													<td><strong><span class="amount">$431</span></strong></td>
+													<th><strong>결제금액</strong></th>
+													<td><strong><span class="amount" id="total_pay"></span></strong></td>
 												</tr>
 											</tbody>
 										</table>
@@ -261,9 +258,12 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="actions-continue">
+										<a class="btn pull-right btn-primary btn-lg" 
+										href="<c:url value='/purchase.do?cmd=delete&pur_num=${pur_num }'/>">구매취소</a>
 										<button type="submit" class="btn pull-right btn-primary btn-lg">
 											구매하기 <i class="fa fa-angle-right ml-xs"></i>
 										</button>
+										<!-- 여기서 배치프로그램 : 사용자가 구매목록만 등록시키고 실제로 구매단계로 안넘어갈경우, 구매목록 지워주기 -->
 									</div>
 								</div>
 							</div>
@@ -320,27 +320,32 @@
 		 -->
 
 </body>
-<%-- 
 <script type="text/javascript">
-	var order_cnt = null;
 	window.onload = function(){
-		order_cnt = document.getElementsByName("order_cnt")[0];
+		var it_price = document.getElementsByClassName("it_price");
+		setTimeout(function() {
+			var total=0;
+			for(var i=0;i<it_price.length;i++){
+				total += parseInt(it_price[i].innerHTML);
+			}
+			document.getElementById("total_price").innerHTML= total +"원";
+			document.getElementById("tt_price").value= total;
+		}, 100)
 	}
-	function minus11(){
-		var cnt=parseInt(order_cnt.value);
-		if(cnt<=0){
+	function calPay(){
+		var total_price=document.getElementById("total_price").innerHTML;
+		var order_point=document.getElementsByName("order_point")[0].value;
+		console.log('total_price: '+ total_price);
+		console.log('order_point: '+ order_point);
+		if(order_point=='' || order_point==null){
+			document.getElementById("total_pay").innerHTML="";
 			return;
 		}
-		cnt -= 1;
-		order_cnt.value = cnt;
-	}
-	function plus11(){
-		var cnt=parseInt(order_cnt.value);
-		cnt += 1;
-		order_cnt.value = cnt;
+		var total1= parseInt(total_price) - parseInt(order_point)
+		document.getElementById("total_pay").innerHTML= total1 + "원";
+		document.getElementById("tt_pay").value=total1;
 	}
 </script>
---%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     // 우편번호 찾기 찾기 화면을 넣을 element
