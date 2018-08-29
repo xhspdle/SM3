@@ -97,10 +97,12 @@
 												<span><i class="fa fa-user"></i> By <a href="#">John
 														Doe</a> </span>
 											</div>
-											<p class="qna_content" >필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-											</p>
-										</div>
-																		
+											<div class="col-md-12">
+												<div class="jumbotron">
+													<p>${param.en_content }</p>
+												</div>
+											</div>
+										</div>								
 				    <a href="<c:url value='EventNotice.do?cmd=select&en_num=${param.en_num }'/>">수정</a>
 				   <!--목록에 있는이미지를 select로 받고, doup이라는 변수를 하나 더 만들어서 write.jsp의 값을 미리 입력된값으로 나오게 하기.
 				   <a href="<c:url value='EventNotice.do?cmd=select&en_num=${vo.en_num }&doup=true'/>">수정</a>
