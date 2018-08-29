@@ -83,8 +83,9 @@ public class ItemViewController extends HttpServlet{
 		ReviewDao dao = ReviewDao.getInstance();
 		ArrayList<ReviewVo> review_list = dao.list(startRow, endRow, search, keyword, item_name);
 		System.out.println(review_list);
+		if(review_list==null) review_list = new ArrayList<ReviewVo>();
 		//리퀘스트스코프에 져장
-		if(list!=null && list2 != null && review_list != null) {
+		if(list!=null && list2 != null) {
 			int pageCount = (int)(Math.ceil(dao.getCount(search, keyword) / 10.0));
 			System.out.println(pageCount);
 			int startPage = ((pageNum - 1) / 3 * 3) + 1;
@@ -92,7 +93,6 @@ public class ItemViewController extends HttpServlet{
 			if (pageCount < endPage) {
 				endPage = pageCount;
 			}
-			
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("pageCount", pageCount);
@@ -105,7 +105,6 @@ public class ItemViewController extends HttpServlet{
 			
 			request.getRequestDispatcher("item_detail.jsp").forward(request, response);
 		}else {
-			
 			request.setAttribute("msg", "선택실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}

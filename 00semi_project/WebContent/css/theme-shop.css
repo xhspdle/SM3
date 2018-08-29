@@ -401,13 +401,13 @@ Theme Version:	5.7.2
 	top: 0;
 }
 
-.shop .star-rating span:before {
+/* .shop .star-rating span:before {
 	content: "SSSSS";
 	left: 0;
 	position: absolute;
 	top: 0;
 }
-
+ */
 .shop .summary .price {
 	color: #444;
 	font-size: 2em;

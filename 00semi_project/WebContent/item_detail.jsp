@@ -218,13 +218,19 @@
 									
 									<!-- 리뷰리스트 들어갈 곳 -->
 									<ul class="comments">
-										
 										<c:forEach var="vo" items="${review_list }">
 											<li>
 												<div class="comment">
 													<!-- 리뷰포토 사진 삽입 -->
 													<div class="img-thumbnail">
-														<img class="avatar" alt="" src="DBimages/${vo.review_orgimg}">
+														<c:choose>
+															<c:when test="${vo.review_orgimg == null}">
+																<img class="avatar" alt="" src="DBImages/<%=vo.getItem_orgimg()%>">
+															</c:when>
+															<c:otherwise>
+																<img class="avatar" alt="" src="DBImages/${vo.review_orgimg}">
+															</c:otherwise>
+														</c:choose>
 													</div>
 													<div class="comment-block">
 														<div class="comment-arrow"></div>
@@ -232,10 +238,21 @@
 														<span class="comment-by"> <strong>${vo.user_id}</strong>
 															<span class="pull-right"> <!-- 평점준	 정도 -->
 																<div title="Rated 5.00 out of 5" class="star-rating">
-																	<span style="width: 100%"><strong class="rating">${vo.review_rating}.00</strong>
-																		out of 5</span>
+																	<span class="stars">sssss</span>
 																</div>
-														</span>
+															</span>
+															<script>
+																var star_count = '${vo.review_rating}';
+																if(star_count == 4){
+																	$('.star-rating').toggleClass('star4');
+																}else if(star_count == 3){
+																	$('.star-rating').toggleClass('star3');
+																}else if(star_count == 2){
+																	$('.star-rating').toggleClass('star2');
+																}else if(star_count == 1){
+																	$('.star-rating').toggleClass('star1');
+																}
+															</script>
 														</span>
 														<!-- 리뷰 내용 -->
 														<p>${vo.review_content}</p>
@@ -701,7 +718,9 @@
 			var a = this.firstChild.nodeValue;
 			review_rating.value = '5' ;
 		}
-  
+		
+		/* 리뷰 목록 평점 수 계산 */
+  		
   
 			
 				
