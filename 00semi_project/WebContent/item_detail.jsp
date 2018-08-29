@@ -215,7 +215,9 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="productReviews">
-									<!-- 리뷰게시판 -->
+									
+									
+									<!-- 리뷰리스트 들어갈 곳 -->
 									<ul class="comments">
 										<li>
 											<div class="comment">
@@ -248,8 +250,10 @@
 											</div>
 										</li>
 									</ul>
+									
+									
 									<hr class="tall">
-									<h4 class="heading-primary">Add a review</h4>
+									<h4 class="heading-primary">리뷰 남기기</h4>
 									<div class="row">
 										<div class="col-md-12">
 											<form action="" id="submitReview" method="post"
@@ -258,13 +262,15 @@
 													<div class="form-group">
 														<div class="col-md-6">
 															<!-- 리뷰제목입력란 -->
-															<label>Your name *</label> <input type="text" value=""
+															<input type="hidden" name="item_name" value="<%=vo.getItem_name()%>">
+															<input type="hidden" name="item_name" value="${sessionScope.user_num }">
+															<label>아이디</label> <input type="text" value="${sessionScope.user_id}"
 																data-msg-required="Please enter your name."
 																maxlength="100" class="form-control" name="title"
 																id="title">
 														</div>
 														<div class="col-md-6">
-															<label>Your email address *</label> <input type="file"
+															<label>후기 사진 추가</label> <input type="file"
 																name="file1" class="form-control">
 														</div>
 													</div>
@@ -272,16 +278,16 @@
 												<div class="row">
 													<div class="form-group">
 														<div class="col-md-12">
-															<label>Review *</label>
-															<textarea maxlength="5000"
+															<label>리뷰 내용(최대300자)</label>
+															<textarea maxlength="400"
 																data-msg-required="Please enter your message." rows="10"
-																class="form-control" name="message" id="message"></textarea>
+																class="form-control" name="contents" id="message"></textarea>
 														</div>
 													</div>
 												</div>
 												<div class="row">
 													<div class="col-md-12">
-														<input type="submit" value="Submit Review"
+														<input type="submit" value="등록하기"
 															class="btn btn-primary" data-loading-text="Loading...">
 													</div>
 												</div>
