@@ -106,5 +106,30 @@ public class OrderListViewDao {
 			}
 		}
 	}
+	public ArrayList<OrderListViewVo> list(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		ArrayList<OrderListViewVo> list = new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			String sql="select *from sm3_orderlist_view";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int order_num1=rs.getInt("order_num");
+					int order_status=rs.getInt("order_status");
+					int order_pay=rs.getInt("order_pay");
+					int order_cnt=rs.getInt("order_cnt");
+					String item_info=rs.getString("item_info");
+					String item_savimg=rs.getString("item_savimg");
+					OrderListViewVo vo = new OrderListViewVo(order_num,order_status,order_pay,order_)
+				}while(rs.next());
+			}
+			
+			
+		}
+	}
 
 }

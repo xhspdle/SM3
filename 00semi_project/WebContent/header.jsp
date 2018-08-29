@@ -86,7 +86,7 @@
 							<li><a href="<c:url value='/mypage_pay_list.jsp'/>">주문배송조회</a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/community_event_list.jsp'/>"> COMMUNITY </a>
+						href="<c:url value='/EventNotice.do?cmd=list'/>"> COMMUNITY </a>
 						<ul class="dropdown-menu">
 							<li><a href="<c:url value='/EventNotice.do?cmd=list'/>">
 									EVENT&amp;NOTICE </a></li>
