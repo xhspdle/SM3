@@ -117,6 +117,7 @@ public class CartController extends HttpServlet{
 		}	
 		int n=CartDao.getInstance().delete(user_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "장바구니 비우기 성공!!");
 		}else {
 			request.setAttribute("msg", "장바구니 비우기 실패..");
@@ -169,6 +170,7 @@ public class CartController extends HttpServlet{
 		int n=CartDao.getInstance().update(new CartVo(cart_num, user_num,
 				size_num, order_cnt, item_price));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "장바구니 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "장바구니 수정 실패..");

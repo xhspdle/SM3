@@ -88,34 +88,34 @@
 				</header>
 				<form action='<c:url value="EventNotice.do?cmd=update"/>' id="submitReview" method="post"
 												enctype="multipart/form-data">
-												<div class="row">
-													<div class="form-group">
-														
-															<!-- 리뷰제목입력란 -->
-														<div class="col-md-12">
-															<label>글번호</label> <input type="text" 
-																maxlength="100" class="form-control" 
-																id="en_num" readonly="readonly" name="en_num" value="${vo.en_num }">
-														</div>
-														<div class="col-md-12">
-															<label>작성자</label> <input type="text" 
-																maxlength="100" class="form-control" name="en_writer"
-																id="en_writer" value="${vo.en_writer }">
-														</div>
-														<div class="col-md-12">
-															<label>글제목</label> <input type="text" 
-																maxlength="100" class="form-control" name="en_title"
-																id="en_title" value="${vo.en_title }">
-														</div>
-														<div class="form-group">
-															<div class="col-md-12">
-																<label>글내용</label>
-																<textarea maxlength="5000"
-																	data-msg-required="Please enter your message." rows="10"
-																	class="form-control" name="en_content" id="message">${vo.en_content }</textarea>
-															</div>
-														</div>
-													<div class="form-group">
+						<div class="row">
+							<div class="form-group">
+								
+									<!-- 리뷰제목입력란 -->
+								<div class="col-md-12">
+									<label>글번호</label> <input type="text" 
+										maxlength="100" class="form-control" 
+										id="en_num" readonly="readonly" name="en_num" value="${vo.en_num }">
+								</div>
+								<div class="col-md-12">
+									<label>작성자</label> <input type="text" 
+										maxlength="100" class="form-control" name="en_writer"
+										id="en_writer" value="${vo.en_writer }">
+								</div>
+								<div class="col-md-12">
+									<label>글제목</label> <input type="text" 
+										maxlength="100" class="form-control" name="en_title"
+										id="en_title" value="${vo.en_title }">
+								</div>
+								<div class="form-group">
+									<div class="col-md-12">
+										<label>글내용</label>
+										<textarea maxlength="5000"
+											data-msg-required="Please enter your message." rows="10"
+											class="form-control" name="en_content" id="message">${vo.en_content }</textarea>
+									</div>
+								</div>
+							<div class="form-group">
 							<label class="col-md-3 control-label" for="img_btn"></label>
 							<div class="col-md-12">
 								<button type="button" class="btn btn-warning" id="img_btn" 
@@ -139,8 +139,7 @@
 							</div>
 						</div>
 					</div>
-				</div>  
-			</form>
+				</div>
 			<div class="form-group">
 			<label class="col-md-3 control-label"></label>
 							<div class="col-md-12">
@@ -149,7 +148,8 @@
 							</div>
 						</div>	
 						<input type="hidden" name="en_orgimg" value="${vo.en_orgimg }">
-						<input type="hidden" name="en_savimg" value="${vo.en_savimg }">
+						<input type="hidden" name="en_savimg" value="${vo.en_savimg }">  
+			</form>
 				</section>
 				</div>
 				</div>

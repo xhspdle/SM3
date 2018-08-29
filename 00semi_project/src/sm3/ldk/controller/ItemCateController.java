@@ -37,6 +37,7 @@ public class ItemCateController extends HttpServlet{
 		String cate_name=request.getParameter("cate_name");
 		int n=ItemCateDao.getInstance().insert(cate_name);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "카테고리 추가 성공!!");
 		}else {
 			request.setAttribute("msg", "카테고리 추가 실패..");
@@ -63,6 +64,7 @@ public class ItemCateController extends HttpServlet{
 		}
 		int n=ItemCateDao.getInstance().delete(cate_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "카테고리 삭제 성공!!");
 		}else {
 			request.setAttribute("msg", "카테고리 삭제 실패..");
@@ -95,6 +97,7 @@ public class ItemCateController extends HttpServlet{
 		String cate_name=request.getParameter("cate_name");
 		int n=ItemCateDao.getInstance().update(new ItemCateVo(cate_num, cate_name));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "카테고리 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "카테고리 수정 실패..");

@@ -57,6 +57,7 @@ public class InItemController extends HttpServlet{
 		int n=InItemDao.getInstance().insert(new InItemVo(0,
 				size_num, admin_num, in_cnt, in_cost, null));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "상품 입고 및 재고 반영 성공!!");
 		}else {
 			request.setAttribute("msg", "상품 입고 및 재고 반영 실패..");
@@ -83,6 +84,7 @@ public class InItemController extends HttpServlet{
 		}	
 		int n=InItemDao.getInstance().delete(in_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "입고 삭제 및 재고 반영 성공!!");
 		}else {
 			request.setAttribute("msg", "입고 삭제 및 재고 반영 실패..");
@@ -135,6 +137,7 @@ public class InItemController extends HttpServlet{
 		int n=InItemDao.getInstance().update(new InItemVo(in_num,
 				size_num, admin_num, in_cnt, in_cost, null));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "입고 수정 및 재고 반영 성공!!");
 		}else {
 			request.setAttribute("msg", "입고 수정 및 재고 반영 실패..");

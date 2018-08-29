@@ -86,7 +86,7 @@
 						<hr class="tall">
 					</div>
 				</div>
-				<form method="post" action="<c:url value='/dev/itemOrder/order.do?cmd=insert'/>">
+				<form method="post" action="<c:url value='/order.do?cmd=insert'/>">
 				<input type="hidden" name="pur_num" value="${vo.pur_num }">
 				<input type="hidden" name="user_num" value="${user_num }"><!-- 세션스코프에서받기 -->
 				<input type="hidden" name="order_total" id="tt_price" value="">

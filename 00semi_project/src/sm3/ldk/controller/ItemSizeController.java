@@ -60,6 +60,7 @@ public class ItemSizeController extends HttpServlet{
 		int n=ItemSizeDao.getInstance().insert(new ItemSizeVo(size_num,
 				size_name, item_num, color_num, size_cnt));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "사이즈 추가 성공!!");
 		}else {
 			request.setAttribute("msg", "사이즈 추가 실패..");
@@ -100,6 +101,7 @@ public class ItemSizeController extends HttpServlet{
 		}	
 		int n=ItemSizeDao.getInstance().delete(size_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "사이즈 삭제 성공!!");
 		}else {
 			request.setAttribute("msg", "사이즈 삭제 실패..");
@@ -148,6 +150,7 @@ public class ItemSizeController extends HttpServlet{
 		int n=ItemSizeDao.getInstance().updateInfo(new ItemSizeVo(size_num,
 				size_name, item_num, color_num, size_cnt));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "사이즈 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "사이즈 수정 실패..");
