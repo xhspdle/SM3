@@ -238,7 +238,7 @@
 														<span class="comment-by"> <strong>${vo.user_id}</strong>
 															<span class="pull-right"> <!-- 평점준	 정도 -->
 																<div title="Rated 5.00 out of 5" class="star-rating">
-																	<span class="stars">sssss</span>
+																	<span class="stars">ssss</span>
 																</div>
 															</span>
 															<script>
