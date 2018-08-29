@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import sm3.dbcp.DBConnection;
 import sm3.jsh.vo.ReviewVo;
-import sm3.jsh.vo.UserVo;
 
 public class ReviewDao {
 	// ΩÃ±€≈Ê∆–≈œ
@@ -23,7 +22,7 @@ public class ReviewDao {
 		}
 
 		
-		public ArrayList<ReviewVo> list(int startRow, int endRow, String search, String keyword) {
+		public ArrayList<ReviewVo> list(int startRow, int endRow, String search, String keyword, String item_search) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -31,11 +30,16 @@ public class ReviewDao {
 			try {
 				con = DBConnection.getConn();
 				if (search.equals("")) {
-					String sql = "SELECT * FROM " + "(SELECT AA.*, ROWNUM RNUM FROM "
-							+ "(SELECT * FROM SM3_REVIEW ORDER BY REVIEW_NUM DESC)AA) " + "WHERE RNUM >= ? AND RNUM <= ?";
+					String sql = 
+							"SELECT * FROM "
+							+ "(SELECT AA.*, ROWNUM RNUM FROM "
+							+ "(SELECT RV.REVIEW_NUM, RV.REVIEW_ITEM, RV.REVIEW_ORGIMG, RV.REVIEW_SAVIMG, RV.REVIEW_RATING, RV.REVIEW_CONTENT, RV.REVIEW_DATE, US.USER_ID "
+							+ "FROM SM3_REVIEW RV, SM3_USER US WHERE RV.USER_NUM = US.USER_NUM AND RV.REVIEW_ITEM LIKE '%'||?||'%' ORDER BY RV.REVIEW_NUM DESC)AA) "
+							+ "WHERE RNUM >= ? AND RNUM <= ?";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, startRow);
-					pstmt.setInt(2, endRow);
+					pstmt.setString(1, item_search);
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, endRow);
 					rs = pstmt.executeQuery();
 				} else {
 					String searchCase = "";
@@ -44,12 +48,17 @@ public class ReviewDao {
 					} else {
 						searchCase = "like '%'||?||'%'";
 					}
-					String sql = "SELECT * FROM " + "(SELECT AA.*, ROWNUM RNUM FROM " + "(SELECT * FROM SM3_REVIEW WHERE "
-							+ search + "" + searchCase + " ORDER BY REVIEW_NUM DESC)AA)" + "WHERE RNUM >= ? AND RNUM <= ?";
+					String sql=
+							"SELECT * FROM "
+							+ "(SELECT AA.*, ROWNUM RNUM FROM "
+							+ "(SELECT RV.REVIEW_NUM, RV.REVIEW_ITEM, RV.REVIEW_ORGIMG, RV.REVIEW_SAVIMG, RV.REVIEW_RATING, RV.REVIEW_CONTENT, RV.REVIEW_DATE, US.USER_ID "
+							+ "FROM SM3_REVIEW RV, SM3_USER US WHERE RV.USER_NUM = US.USER_NUM AND RV.REVIEW_ITEM LIKE '%'||?||'%' AND "+ search +""+ searchCase +"ORDER BY RV.REVIEW_NUM DESC)AA)"
+							+ "WHERE RNUM >= ? AND RNUM <= ?";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, keyword);
-					pstmt.setInt(2, startRow);
-					pstmt.setInt(3, endRow);
+					pstmt.setString(1, item_search);
+					pstmt.setString(2, keyword);
+					pstmt.setInt(3, startRow);
+					pstmt.setInt(4, endRow);
 					rs = pstmt.executeQuery();
 				}
 				if (rs.next()) {
@@ -61,9 +70,8 @@ public class ReviewDao {
 						int review_rating = rs.getInt(5);
 						String review_content = rs.getString(6);
 						Date review_date = rs.getDate(7);
-						int order_num = rs.getInt(8);
-						int user_num = rs.getInt(9);
-						list.add(new ReviewVo(review_num, review_item, review_orgimg, review_savimg, review_rating, review_content, review_date, order_num, user_num));
+						String user_id = rs.getString(8);
+						list.add(new ReviewVo(review_num, review_item, review_orgimg, review_savimg, review_rating, review_content, review_date, user_id));
 					} while (rs.next());
 					return list;
 				} else {

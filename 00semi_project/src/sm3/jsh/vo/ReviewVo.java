@@ -15,6 +15,8 @@ public class ReviewVo {
 	private int order_num; // 주문번호
 	private int user_num; // 유저번호
 	
+	private String user_id; //유저아이디추가
+	
 	public ReviewVo() {
 		
 	}
@@ -30,6 +32,18 @@ public class ReviewVo {
 		this.review_date = review_date;
 		this.order_num = order_num;
 		this.user_num = user_num;
+	}
+	
+	public ReviewVo(int review_num, String review_item, String review_orgimg, String review_savimg, int review_rating,
+			String review_content, Date review_date, String user_id) {
+		this.review_num = review_num;
+		this.review_item = review_item;
+		this.review_orgimg = review_orgimg;
+		this.review_savimg = review_savimg;
+		this.review_rating = review_rating;
+		this.review_content = review_content;
+		this.review_date = review_date;
+		this.user_id = user_id;
 	}
 	
 	public int getReview_num() {
@@ -86,4 +100,13 @@ public class ReviewVo {
 	public void setUser_num(int user_num) {
 		this.user_num = user_num;
 	}
+	//유저아이디 추가
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	
+	
 }

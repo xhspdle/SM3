@@ -216,39 +216,33 @@
 								</div>
 								<div class="tab-pane" id="productReviews">
 									
-									
 									<!-- 리뷰리스트 들어갈 곳 -->
 									<ul class="comments">
-										<li>
-											<div class="comment">
-												<!-- 리뷰포토 사진 삽입 -->
-												<div class="img-thumbnail">
-													<img class="avatar" alt="" src="img/avatars/avatar-2.jpg">
+										
+										<c:forEach var="vo" items="${review_list }">
+											<li>
+												<div class="comment">
+													<!-- 리뷰포토 사진 삽입 -->
+													<div class="img-thumbnail">
+														<img class="avatar" alt="" src="DBimages/${vo.review_orgimg}">
+													</div>
+													<div class="comment-block">
+														<div class="comment-arrow"></div>
+														<!-- 리뷰작성자 -->
+														<span class="comment-by"> <strong>${vo.user_id}</strong>
+															<span class="pull-right"> <!-- 평점준	 정도 -->
+																<div title="Rated 5.00 out of 5" class="star-rating">
+																	<span style="width: 100%"><strong class="rating">${vo.review_rating}.00</strong>
+																		out of 5</span>
+																</div>
+														</span>
+														</span>
+														<!-- 리뷰 내용 -->
+														<p>${vo.review_content}</p>
+													</div>
 												</div>
-												<div class="comment-block">
-													<div class="comment-arrow"></div>
-													<!-- 리뷰작성자 -->
-													<span class="comment-by"> <strong>John Doe</strong>
-														<span class="pull-right"> <!-- 평점준	 정도 -->
-															<div title="Rated 5.00 out of 5" class="star-rating">
-																<span style="width: 100%"><strong class="rating">5.00</strong>
-																	out of 5</span>
-															</div>
-													</span>
-													</span>
-													<!-- 리뷰 내용 -->
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing
-														elit. Nam viverra euismod odio, gravida pellentesque urna
-														varius vitae, gravida pellentesque urna varius vitae.
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-														Nam viverra euismod odio, gravida pellentesque urna varius
-														vitae. Sed dui lorem, adipiscing in adipiscing et,
-														interdum nec metus. Mauris ultricies, justo eu convallis
-														placerat, felis enim ornare nisi, vitae mattis nulla ante
-														id dui.</p>
-												</div>
-											</div>
-										</li>
+											</li>
+										</c:forEach>
 									</ul>
 									
 									

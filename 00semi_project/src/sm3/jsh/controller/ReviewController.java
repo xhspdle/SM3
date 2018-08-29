@@ -60,11 +60,6 @@ public class ReviewController extends HttpServlet {
 		if(muser_num !=null && !muser_num.equals("")) {
 			user_num=Integer.parseInt(muser_num);
 		}
-		System.out.println(review_item);
-		System.out.println(review_rating);
-		System.out.println(review_orgimg);
-		System.out.println(order_num);
-		System.out.println(user_num);
 		
 		int n = ReviewDao.getInstance().insert(new ReviewVo(0, review_item, review_orgimg, review_savimg, review_rating, review_content, null, order_num, user_num));
 		if(n>0) {
@@ -76,6 +71,7 @@ public class ReviewController extends HttpServlet {
 		}
 	}
 	
+	//ItemViewController에 보내놓음
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mpageNum = request.getParameter("pageNum");
 		int pageNum = 1;
@@ -84,17 +80,14 @@ public class ReviewController extends HttpServlet {
 		}
 		String search = request.getParameter("search");
 		String keyword = request.getParameter("keyword");
-		
 		if (keyword == null || keyword.equals("")) {
 			search = "";
 			keyword = "";
 		}
-
 		int endRow = 10 * pageNum;
 		int startRow = endRow - 9;
-
 		ReviewDao dao = ReviewDao.getInstance();
-		ArrayList<ReviewVo> list = dao.list(startRow, endRow, search, keyword);
+		ArrayList<ReviewVo> list = dao.list(startRow, endRow, search, keyword ,search);
 		System.out.println(list);
 		if (list != null) {
 			int pageCount = (int)(Math.ceil(dao.getCount(search, keyword) / 10.0));
@@ -111,7 +104,7 @@ public class ReviewController extends HttpServlet {
 			request.setAttribute("search", search);
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("listTest.jsp").forward(request, response);
+			request.getRequestDispatcher("item_detail.jsp").forward(request, response);
 		} else {
 			request.setAttribute("msg", "리스트소환실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
