@@ -65,7 +65,6 @@ public class PurchaseController extends HttpServlet{
 					request.setAttribute("msg", "구매목록 추가 실패..");
 					request.getRequestDispatcher("msg.jsp").forward(request, response);
 				}
-				
 			}else {
 				request.setAttribute("msg", "구매목록 추가 실패..");
 				request.getRequestDispatcher("msg.jsp").forward(request, response);
@@ -80,7 +79,7 @@ public class PurchaseController extends HttpServlet{
 			request.getRequestDispatcher("PURCHASE_LIST_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
-			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("msg.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, 
@@ -96,7 +95,7 @@ public class PurchaseController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "구매목록 삭제 실패..");
 		}
-		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("msg.jsp").forward(request, response);
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -111,7 +110,7 @@ public class PurchaseController extends HttpServlet{
 			request.getRequestDispatcher("PURCHASE_LIST_insert.jsp?do1=update").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
-			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("msg.jsp").forward(request, response);
 		}
 	}
 	protected void update(HttpServletRequest request, 
@@ -148,6 +147,6 @@ public class PurchaseController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "구매목록 수정 실패..");
 		}
-		request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("msg.jsp").forward(request, response);
 	}
 }

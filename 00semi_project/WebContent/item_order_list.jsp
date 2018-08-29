@@ -113,7 +113,7 @@
 														<c:forEach var="vo" items="${requestScope.list }">
 															<tr class="cart_table_item">
 																<td class="product-remove"><a
-																	title="Remove this item" class="remove" href="#"> <i
+																	title="Remove this item" class="remove" href="#none"> <i
 																		class="fa fa-times"></i>
 																</a></td>
 																<td class="product-thumbnail"><a
@@ -320,6 +320,7 @@
 		 -->
 
 </body>
+<%-- 
 <script type="text/javascript">
 	var order_cnt = null;
 	window.onload = function(){
@@ -339,6 +340,7 @@
 		order_cnt.value = cnt;
 	}
 </script>
+--%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     // 우편번호 찾기 찾기 화면을 넣을 element

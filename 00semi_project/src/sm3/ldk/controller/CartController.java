@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sm3.ldk.dao.CartDao;
+import sm3.ldk.dao.CartViewDao;
+import sm3.ldk.vo.CartViewVo;
 import sm3.ldk.vo.CartVo;
 
 @WebServlet("/cart.do")
@@ -51,11 +53,17 @@ public class CartController extends HttpServlet{
 			}
 			int n=CartDao.getInstance().insert(list);
 			if(n>0) {
-				request.setAttribute("msg", "장바구니 담기 성공!!");
+				ArrayList<CartViewVo> list1=CartViewDao.getInstance().select(user_num);
+				if(list1!=null) {
+					request.setAttribute("list", list1);
+					request.getRequestDispatcher("cart.jsp").forward(request, response);
+				}else {
+					
+				}
 			}else {
 				request.setAttribute("msg", "장바구니 담기 실패..");
+				request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 			}
-			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "장바구니 담기 실패..");
 			request.getRequestDispatcher("ITEM_msg.jsp").forward(request, response);

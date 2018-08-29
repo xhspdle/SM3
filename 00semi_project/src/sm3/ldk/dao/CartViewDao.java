@@ -67,28 +67,32 @@ public class CartViewDao {
 			}
 		}
 	}
-	public CartViewVo select(int cart_num) {
+	public ArrayList<CartViewVo> select(int user_num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
+		ArrayList<CartViewVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_cart_view where cart_num=?";
+			String sql="select * from sm3_cart_view where user_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, cart_num);
+			pstmt.setInt(1, user_num);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				int user_num=rs.getInt("user_num");
-				int size_num=rs.getInt("size_num");
-				int order_cnt=rs.getInt("order_cnt");
-				int item_price=rs.getInt("item_price");
-				String item_savimg=rs.getString("item_savimg");
-				String item_name=rs.getString("item_name");
-				String color_name=rs.getString("color_name");
-				CartViewVo vo=new CartViewVo(cart_num, user_num, size_num,
-						order_cnt, item_price, item_savimg,
-						item_name, color_name);
-				return vo;
+				do {
+					int cart_num=rs.getInt("cart_num");
+					int size_num=rs.getInt("size_num");
+					int order_cnt=rs.getInt("order_cnt");
+					int item_price=rs.getInt("item_price");
+					String item_savimg=rs.getString("item_savimg");
+					String item_name=rs.getString("item_name");
+					String color_name=rs.getString("color_name");
+					CartViewVo vo=new CartViewVo(cart_num, user_num, size_num,
+							order_cnt, item_price, item_savimg,
+							item_name, color_name);
+					list.add(vo);
+				}while(rs.next());
+				return list;
 			}else {
 				return null;
 			}

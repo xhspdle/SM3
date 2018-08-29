@@ -118,14 +118,14 @@
 															<td class="product-thumbnail"><a
 																href="shop-product-sidebar.html"> <img width="100"
 																	height="100" alt="" class="img-responsive"
-																	src="img/products/product-1.jpg">
+																	src="<c:url value='/DBImages/${vo.item_savimg }'/>">
 															</a></td>
 															<td class="product-name"><a
-																href="shop-product-sidebar.html">Photo Camera</a></td>
+																href="shop-product-sidebar.html">${vo.item_name }</a></td>
 
-															<td class="product-price"><span class="amount">30000원</span>
+															<td class="product-price"><span class="amount">${vo.item_price }</span>
 															</td>
-															<td class="product-color"><span class="amount">red</span>
+															<td class="product-color"><span class="amount">${vo.color_name }</span>
 															</td>
 															<td class="product-quantity">
 																	<div class="quantity">
@@ -133,14 +133,14 @@
 
 																		<input
 																			type="text" class="input-text qty text" title="Qty"
-																			value="1" name="order_cnt" min="1" step="1"> 
+																			value="${vo.order_cnt }" name="order_cnt" min="1" step="1"> 
 
 																			<input
 																			type="button" class="plus" value="+" id="plus">
 																	</div>
 
 																</td>
-															<td class="product-subtotal"><span class="amount">$299</span>
+															<td class="product-subtotal"><span class="amount">${vo.order_cnt * vo.item_price }원</span>
 															</td>
 														</tr>
 													</c:forEach>
@@ -250,25 +250,25 @@
 		 -->
 
 </body>
-<script type="text/javascript">
-/*	var order_cnt = null;
-	window.onload = function(){
-		order_cnt = document.getElementsByName("order_cnt")[0];
+<%-- 
+<script type="text/javascript">	
+var order_cnt = null;
+window.onload = function(){
+	order_cnt = document.getElementsByName("order_cnt")[0];
+}
+function minus11(){
+	var cnt=parseInt(order_cnt.value);
+	if(cnt<=0){
+		return;
 	}
-	function minus11(){
-		var cnt=parseInt(order_cnt.value);
-		if(cnt<=0){
-			return;
-		}
-		cnt -= 1;
-		order_cnt.value = cnt;
-	}
-	function plus11(){
-		var cnt=parseInt(order_cnt.value);
-		cnt += 1;
-		order_cnt.value = cnt;
-	}
-*/
-*
+	cnt -= 1;
+	order_cnt.value = cnt;
+}
+function plus11(){
+	var cnt=parseInt(order_cnt.value);
+	cnt += 1;
+	order_cnt.value = cnt;
+}
 </script>
+--%>
 </html>
