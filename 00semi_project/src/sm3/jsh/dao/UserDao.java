@@ -297,6 +297,54 @@ public class UserDao {
 		}
 	}
 
+	public ArrayList<UserVo> allView(){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<UserVo> list = new ArrayList<UserVo>();
+		try {
+			con = DBConnection.getConn();
+			String sql = "SELECT * FROM SM3_USER";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				do {
+					int user_num = rs.getInt(1);
+					String user_id = rs.getNString(2);
+					String user_pwd = rs.getNString(3);
+					String user_name = rs.getNString(4);
+					String user_email = rs.getNString(5);
+					String user_phone = rs.getNString(6);
+					String user_post_addr = rs.getNString(7);
+					String user_basic_addr = rs.getNString(8);
+					String user_detail_addr = rs.getNString(9);
+					Date user_regdate = rs.getDate(10);
+					int hint_num = rs.getInt(11);
+					String hint_ok = rs.getNString(12);
+					list.add(new UserVo(user_num, user_id, user_pwd, user_name, user_email, user_phone, user_post_addr,
+							user_basic_addr, user_detail_addr, user_regdate, hint_num, hint_ok));
+				} while (rs.next());
+				return list;
+			}
+			return null;
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	
+	
 	public ArrayList<String> idSearch() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
