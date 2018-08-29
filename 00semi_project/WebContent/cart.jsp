@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +78,7 @@
 		</header>
 
 		<div role="main" class="main shop">
-
+			<form method="post" action="<c:url value='/purchase.do?cmd=insert'/>">
 			<div class="container" style="margin-top: 80px;">
 				<div class="row">
 					<div class="col-md-12">
@@ -87,72 +88,73 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-
+						
 						<div class="featured-boxes">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="featured-box featured-box-primary align-left mt-sm"
 										style="">
 										<div class="box-content">
-											<form method="post" action="">
-												<table class="shop_table cart">
-													<thead>
-														<tr>
-															<th class="product-remove">&nbsp;</th>
-															<th class="product-thumbnail">&nbsp;</th>
-															<th class="product-name">Product</th>
-															<th class="product-price">가격</th>
-															<th class="product-color">색상</th>
-															<th class="product-quantity">수량</th>
-															<th class="product-subtotal">Total</th>
-														</tr>
-													</thead>
-													<tbody>
+											<table class="shop_table cart">
+												<thead>
+													<tr>
+														<th class="product-remove">&nbsp;</th>
+														<th class="product-thumbnail">&nbsp;</th>
+														<th class="product-name">Product</th>
+														<th class="product-price">가격</th>
+														<th class="product-color">색상</th>
+														<th class="product-quantity">수량</th>
+														<th class="product-subtotal">Total</th>
+														<th class="product">수정</th>
+													</tr>
+												</thead>
+												<tbody>
+												<c:set var="i" value="-1"/>
+												<c:forEach var="vo" items="${requestScope.list }">
+													<tr class="cart_table_item">
+														<td class="product-remove"><a
+															title="Remove this item" class="remove" href="javascript:delCart(${vo.cart_num })"> <i
+																class="fa fa-times"></i>
+														</a></td>
+														<td class="product-thumbnail"><a
+															href="shop-product-sidebar.html"> <img width="100"
+																height="100" alt="" class="img-responsive"
+																src="<c:url value='/DBImages/${vo.item_savimg }'/>">
+														</a></td>
+														<td class="product-name"><a
+															href="shop-product-sidebar.html">${vo.item_name }</a></td>
 
-														<tr class="cart_table_item">
-															<td class="product-remove"><a
-																title="Remove this item" class="remove" href="#"> <i
-																	class="fa fa-times"></i>
-															</a></td>
-															<td class="product-thumbnail"><a
-																href="shop-product-sidebar.html"> <img width="100"
-																	height="100" alt="" class="img-responsive"
-																	src="img/products/product-1.jpg">
-															</a></td>
-															<td class="product-name"><a
-																href="shop-product-sidebar.html">Photo Camera</a></td>
-
-															<td class="product-price"><span class="amount">30000원</span>
-															</td>
-															<td class="product-color"><span class="amount">red</span>
-															</td>
-															<td class="product-quantity">
-																	<div class="quantity">
-																		<input type="button" class="minus" value="-" id="minus" onclick="minus11()"> 
-
-																		<input
-																			type="text" class="input-text qty text" title="Qty"
-																			value="1" name="order_cnt" min="1" step="1"> 
-
-																			<input
-																			type="button" class="plus" value="+" id="plus" onclick="plus11()">
-																	</div>
-
-																</td>
-															<td class="product-subtotal"><span class="amount">$299</span>
-															</td>
-														</tr>
-														<tr>
-															<td class="actions" colspan="6">
-																<div class="actions-continue">
-																	<input type="submit" value="장바구니 저장"
-																		name="update_cart" class="btn btn-default">
-																</div>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</form>
+														<td class="product-price"><span class="amount">${vo.item_price }</span>
+														<input type="hidden" value="${vo.item_price }" name="item_price">
+														</td>
+														<td class="product-color"><span class="amount">${vo.color_name }</span>
+														</td>
+														<td class="product-quantity">
+														<div class="quantity">
+															<input type="button" class="minus" value="-"><input
+																type="text" class="input-text qty text" title="Qty"
+																value="${vo.order_cnt }" name="order_cnt" min="1" step="1"><input
+																type="button" class="plus" value="+">
+														</div>
+														</td>
+														<td class="product-subtotal"><span class="it_price">${vo.order_cnt * vo.item_price }원</span>
+														</td>
+														<td class="product-subtotal"><span class="amount"><a class="btn btn-default" 
+														href="javascript:cartUpdate(${vo.cart_num },${i = i + 1 })">수정</a></span>
+														</td>
+													</tr>
+													<input type="hidden" name="size_num" value="${vo.size_num }">
+												</c:forEach>
+												<%--<tr>
+														<td class="actions" colspan="8">
+															<div class="actions-continue">
+																<input type="submit" value="장바구니 저장"
+																	name="update_cart" class="btn btn-default">
+															</div>
+														</td>
+													</tr>--%>
+												</tbody>
+											</table>
 										</div>
 									</div>
 								</div>
@@ -174,9 +176,9 @@
 													name="shipping_method">
 												</td>
 											</tr>
-											<tr class="total">
+											<tr class="amount">
 												<th><strong>총금액</strong></th>
-												<td><strong><span class="amount">$431</span></strong></td>
+												<td><strong><span class="amount" id="total_price"></span></strong></td>
 											</tr>
 										</tbody>
 									</table>
@@ -197,12 +199,35 @@
 				</div>
 
 			</div>
-
+			</form>
 		</div>
 		<footer class="short" id="footer">
 			<jsp:include page="footer.jsp" />
 		</footer>
 	</div>
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">장바구니 수정</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modalMsg"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.min.js"></script>
@@ -246,25 +271,127 @@
 			ga('send', 'pageview');
 		</script>
 		 -->
-
 </body>
+<%-- 
+<script type="text/javascript">	
+var order_cnt = null;
+window.onload = function(){
+	order_cnt = document.getElementsByName("order_cnt")[0];
+}
+function minus11(){
+	var cnt=parseInt(order_cnt.value);
+	if(cnt<=0){
+		return;
+	}
+	cnt -= 1;
+	order_cnt.value = cnt;
+}
+function plus11(){
+	var cnt=parseInt(order_cnt.value);
+	cnt += 1;
+	order_cnt.value = cnt;
+}
+</script>
+--%>
 <script type="text/javascript">
-	var order_cnt = null;
 	window.onload = function(){
-		order_cnt = document.getElementsByName("order_cnt")[0];
-	}
-	function minus11(){
-		var cnt=parseInt(order_cnt.value);
-		if(cnt<=0){
-			return;
+		var plus = document.getElementsByClassName("plus");
+		var minus = document.getElementsByClassName("minus");
+		var qty = document.getElementsByClassName("qty");
+		var it_price = document.getElementsByClassName("it_price");
+		var remove = document.getElementsByClassName("remove");
+		
+		//상품 수 증가할 때
+		for (var i = 0; i < plus.length; i++) {
+			plus[i].onclick = function(){
+				var price = 
+					this.parentElement.parentElement.previousElementSibling.previousElementSibling.firstElementChild.innerHTML;
+				++this.previousSibling.value;
+				var cnt=this.previousSibling.value;
+				var item_price = price * this.previousSibling.value;
+				this.parentElement.parentElement.nextElementSibling.firstElementChild.innerHTML = item_price+"원";
+				var total=0;
+				for(var i=0;i<it_price.length;i++){
+					total += parseInt(it_price[i].innerHTML);
+				}
+				document.getElementById("total_price").innerHTML= total +"원";
+			}
 		}
-		cnt -= 1;
-		order_cnt.value = cnt;
+		//상품 수 감소할 때
+		for (var i = 0; i < minus.length; i++) {
+			minus[i].onclick = function(){
+				var price = 
+					this.parentElement.parentElement.previousElementSibling.previousElementSibling.firstElementChild.innerHTML;
+				var cnt=this.previousSibling.value;
+				if(this.nextSibling.value>1){
+					--this.nextSibling.value;
+					--cnt;
+				}
+				var item_price = price * this.nextSibling.value
+				this.parentElement.parentElement.nextElementSibling.firstElementChild.innerHTML = item_price +"원";
+				var total=0;
+				for(var i=0;i<it_price.length;i++){
+					total += parseInt(it_price[i].innerHTML);
+				}
+				document.getElementById("total_price").innerHTML= total +"원";
+			}
+		}
+		//상품 목록 삭제했을 때
+		for (var i = 0; i < remove.length; i++) {
+			remove[i].onclick = function(){
+				this.parentElement.parentElement.remove();
+				//ajax으로 cartController가서 delete해줘야댐
+				var total=0;
+				for(var i=0;i<it_price.length;i++){
+					total += parseInt(it_price[i].innerHTML);
+				}
+				document.getElementById("total_price").innerHTML= total +"원";
+			}
+		}
+		setTimeout(function() {
+			var total=0;
+			for(var i=0;i<it_price.length;i++){
+				total += parseInt(it_price[i].innerHTML);
+			}
+			document.getElementById("total_price").innerHTML= total +"원";
+		}, 100)
 	}
-	function plus11(){
-		var cnt=parseInt(order_cnt.value);
-		cnt += 1;
-		order_cnt.value = cnt;
+	var xhr=null;
+	function cartUpdate(cart_num,i){
+		var order_cnt=document.getElementsByName("order_cnt")[i].value;
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=callback;
+		xhr.open('get','cart.do?cmd=cntUpdate&cart_num=' + cart_num +
+				'&order_cnt=' + order_cnt,true);
+		xhr.send();
+	}
+	function callback(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var txt=xhr.responseText;
+			var json=JSON.parse(txt);
+			var modalMsg=document.getElementById("modalMsg");
+			modalMsg.innerHTML=json.msg;
+			$('#myModal').modal('show');//모달 띄우기
+		}
+	}
+	var xhr2=null
+	function delCart(cart_num){
+		xhr2=new XMLHttpRequest();
+		xhr2.onreadystatechange=callback2;
+		xhr2.open('get', 'cart.do?cmd=numDelete&cart_num=' + cart_num, true);
+		xhr2.send();
+	}
+	function callback2(){
+		if(xhr2.readyState==4 && xhr2.status==200){
+			var txt=xhr2.responseText;
+			var json=JSON.parse(txt);
+			var modalMsg=document.getElementById("modalMsg");
+			modalMsg.innerHTML=json.msg;
+			$('#myModal').modal('show');
+			setTimeout(function() {//새로고침 해야됨...ㅠㅠ배열에 붙여준 넘버링 꼬임
+				location.href="cart.do?cmd=userCart";
+			}, 1500)
+		}
 	}
 </script>
 </html>

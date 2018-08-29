@@ -9,7 +9,7 @@
 </head>
 <body>
 <ul>
-<li><a href="<c:url value='/dev/board/EN_imginput.jsp?cmd1=imginput'/>">이벤트등록</a></li>
+<li><a href="<c:url value='community_event_write.jsp'/>">이벤트등록</a></li>
 <li><a href="<c:url value='/dev/board/EventNotice.do?cmd=list'/>">이벤트목록보기</a></li>
 </ul>
 </body>

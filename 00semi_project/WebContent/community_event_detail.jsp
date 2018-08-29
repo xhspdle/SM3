@@ -86,29 +86,29 @@
 									<div class="col-sm-11">
 										<div class="post-content">
 											<h2 style="margin-top: 20px; text-align: center;">
-												<a href="blog-post.html">물품 반품 요청시 확인</a>
+												EVENT&NOTICE
 											</h2>
 											<div class="post-image single">
-												<img class="img-thumbnail" src="img/blog/blog-image-2.jpg"
-													alt="">
+						   						<img class="img-thumbnail" src="<c:url value='/images/${param.savimg }'/>"
+													alt="Blog">
 											</div>
-
 
 											<div class="post-meta">
 												<span><i class="fa fa-user"></i> By <a href="#">John
 														Doe</a> </span>
 											</div>
-											<p class="qna_content">필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~</p>
-
-
-										</div>
+											<div class="col-md-12">
+												<div class="jumbotron">
+													<p>${param.en_content }</p>
+												</div>
+											</div>
+										</div>								
+				    <a href="<c:url value='EventNotice.do?cmd=select&en_num=${param.en_num }'/>">수정</a>
+				   <!--목록에 있는이미지를 select로 받고, doup이라는 변수를 하나 더 만들어서 write.jsp의 값을 미리 입력된값으로 나오게 하기.
+				   <a href="<c:url value='EventNotice.do?cmd=select&en_num=${vo.en_num }&doup=true'/>">수정</a>
+				    -->
+					<a href="<c:url value='EventNotice.do?cmd=delete&en_num=${param.en_num }'/>">삭제</a>
+				
 									</div>
 								</div>
 
@@ -122,7 +122,6 @@
 			<jsp:include page="footer.jsp" />
 		</footer>
 	</div>
-
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/jquery.appear/jquery.appear.min.js"></script>

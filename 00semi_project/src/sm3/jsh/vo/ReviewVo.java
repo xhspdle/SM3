@@ -3,34 +3,60 @@ package sm3.jsh.vo;
 import java.sql.Date;
 
 //상품리뷰테이블 vo
+
 public class ReviewVo {
 	private int review_num; // 리뷰번호
+	private String review_item; // 아이템이름
 	private String review_orgimg; // 원본사진
-	private String review_saving; // 저장사진
+	private String review_savimg; // 저장사진
 	private int review_rating; // 리뷰평점
-	private int review_content; // 리뷰내용
+	private String review_content; // 리뷰내용
 	private Date review_date; // 작성일
 	private int order_num; // 주문번호
 	private int user_num; // 유저번호
 	
-	public ReviewVo() {}
+	private String user_id; //유저아이디추가
 	
-	public ReviewVo(int review_num, String review_orgimg, String review_saving, int review_rating, int review_content,
-			Date review_date, int order_num, int user_num) {
+	public ReviewVo() {
+		
+	}
+	
+	public ReviewVo(int review_num, String review_item, String review_orgimg, String review_savimg, int review_rating,
+			String review_content, Date review_date, int order_num, int user_num) {
 		this.review_num = review_num;
+		this.review_item = review_item;
 		this.review_orgimg = review_orgimg;
-		this.review_saving = review_saving;
+		this.review_savimg = review_savimg;
 		this.review_rating = review_rating;
 		this.review_content = review_content;
 		this.review_date = review_date;
 		this.order_num = order_num;
 		this.user_num = user_num;
 	}
+	
+	public ReviewVo(int review_num, String review_item, String review_orgimg, String review_savimg, int review_rating,
+			String review_content, Date review_date, String user_id) {
+		this.review_num = review_num;
+		this.review_item = review_item;
+		this.review_orgimg = review_orgimg;
+		this.review_savimg = review_savimg;
+		this.review_rating = review_rating;
+		this.review_content = review_content;
+		this.review_date = review_date;
+		this.user_id = user_id;
+	}
+	
 	public int getReview_num() {
 		return review_num;
 	}
 	public void setReview_num(int review_num) {
 		this.review_num = review_num;
+	}
+	public String getReview_item() {
+		return review_item;
+	}
+	public void setReview_item(String review_item) {
+		this.review_item = review_item;
 	}
 	public String getReview_orgimg() {
 		return review_orgimg;
@@ -39,10 +65,10 @@ public class ReviewVo {
 		this.review_orgimg = review_orgimg;
 	}
 	public String getReview_saving() {
-		return review_saving;
+		return review_savimg;
 	}
 	public void setReview_saving(String review_saving) {
-		this.review_saving = review_saving;
+		this.review_savimg = review_saving;
 	}
 	public int getReview_rating() {
 		return review_rating;
@@ -50,10 +76,10 @@ public class ReviewVo {
 	public void setReview_rating(int review_rating) {
 		this.review_rating = review_rating;
 	}
-	public int getReview_content() {
+	public String getReview_content() {
 		return review_content;
 	}
-	public void setReview_content(int review_content) {
+	public void setReview_content(String review_content) {
 		this.review_content = review_content;
 	}
 	public Date getReview_date() {
@@ -74,5 +100,13 @@ public class ReviewVo {
 	public void setUser_num(int user_num) {
 		this.user_num = user_num;
 	}
+	//유저아이디 추가
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	
 	
 }

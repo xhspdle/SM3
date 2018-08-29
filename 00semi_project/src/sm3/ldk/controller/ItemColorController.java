@@ -48,6 +48,7 @@ public class ItemColorController extends HttpServlet{
 		int n=ItemColorDao.getInstance().insert(new ItemColorVo(color_num,
 				color_name, color_code));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "컬러 추가 성공!!");
 		}else {
 			request.setAttribute("msg", "컬러 추가 실패..");
@@ -90,6 +91,7 @@ public class ItemColorController extends HttpServlet{
 		}	
 		int n=ItemColorDao.getInstance().delete(color_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "컬러 삭제 성공!!");
 		}else {
 			request.setAttribute("msg", "컬러 삭제 실패..");
@@ -124,6 +126,7 @@ public class ItemColorController extends HttpServlet{
 		int n=ItemColorDao.getInstance().update(new ItemColorVo(color_num,
 				color_name, color_code));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "컬러 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "컬러 수정 실패..");

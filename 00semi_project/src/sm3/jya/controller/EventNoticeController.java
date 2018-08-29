@@ -1,6 +1,7 @@
 package sm3.jya.controller;
 
 import java.io.IOException;
+import java.sql.Clob;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -16,7 +17,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import sm3.jya.dao.EventNoticeDao;
 import sm3.jya.vo.EventNoticeVo;
 
-@WebServlet("/dev/board/EventNotice.do")
+@WebServlet("/EventNotice.do")
 public class EventNoticeController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
@@ -32,7 +33,9 @@ public class EventNoticeController extends HttpServlet{
 			update(request,response);
 		}else if(cmd!=null && cmd.equals("select")) {
 			select(request,response);
-		}
+		}//else if(cmd!=null && cmd.equals("getInfo")) {
+//			getInfo(request,response);
+//		}
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String path=request.getServletContext().getRealPath("/images");	
@@ -46,7 +49,7 @@ public class EventNoticeController extends HttpServlet{
 		String en_orgimg=mr.getOriginalFileName("file1");
 		String en_savimg=mr.getFilesystemName("file1");
 		int admin_num=Integer.parseInt(mr.getParameter("admin_num"));
-
+	
 		String en_content=mr.getParameter("en_content");
 		
 		int n=EventNoticeDao.getInstance().insert(new EventNoticeVo(0, en_writer, en_title, en_content, null, en_orgimg, en_savimg,admin_num));
@@ -55,7 +58,7 @@ public class EventNoticeController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "이벤트이미지 추가 실패");
 		}
-		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request,response);
+		request.getRequestDispatcher("community_event_list.jsp").forward(request,response);
 	}
 	protected void list(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String search=request.getParameter("search");
@@ -69,13 +72,13 @@ public class EventNoticeController extends HttpServlet{
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
-		int startRow=(pageNum-1)*3+1; //페이지의 첫번째 글
-		int endRow=startRow+2; //마지막 글
+		int startRow=(pageNum-1)*9+1; //페이지의 첫번째 글
+		int endRow=startRow+8; //마지막 글
 		EventNoticeDao dao = EventNoticeDao.getInstance();
 		ArrayList<EventNoticeVo> list1=dao.list(startRow, endRow, search, keyword);
 		//System.out.println("list:"+list1); //toString메소드 호출하는..
 		if(list1!=null) {
-			int pageCount=(int)Math.ceil(dao.getCount(search,keyword)/3.0); //전체페이지수
+			int pageCount=(int)Math.ceil(dao.getCount(search,keyword)/9.0); //전체페이지수
 			int startPage=((pageNum-1)/3*3)+1; //첫번째 페이지 번호
 			int endPage=startPage+2; //끝페이지
 			if(endPage>pageCount) {
@@ -88,21 +91,26 @@ public class EventNoticeController extends HttpServlet{
 			request.setAttribute("search", search);
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("list", list1);
-			request.getRequestDispatcher("/dev/board/EN_list.jsp").forward(request, response);	
+			request.getRequestDispatcher("community_event_list.jsp").forward(request, response);
+			request.setAttribute("msg", "목록보기 성공");
 		}else {
-			request.setAttribute("msg", "목록보기실패");
-			request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
+			request.setAttribute("list", list1);
+			request.getRequestDispatcher("community_event_list.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-		int en_num = Integer.parseInt(request.getParameter("en_num"));
+		String sen_num=request.getParameter("en_num");
+		int en_num=0;
+		if(sen_num!=null && !sen_num.equals("")) {
+			en_num=Integer.parseInt(sen_num);
+		}
 		int n = EventNoticeDao.getInstance().delete(en_num);
 		if(n>0) {
 			request.setAttribute("msg", "이미지삭제성공");
 		}else {
 			request.setAttribute("msg", "이미지 삭제 실패");
 		}
-		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
+		request.getRequestDispatcher("community_event_list.jsp").forward(request, response);
 	}
 	protected void update(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String path=request.getServletContext().getRealPath("/images");	
@@ -130,21 +138,37 @@ public class EventNoticeController extends HttpServlet{
 		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(en_num, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
 		if(n>0) {
 			request.setAttribute("msg", "이벤트공지 수정 성공");
+			request.getRequestDispatcher("community_event_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "이벤트공지 수정 실패");
 		}
-		request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);		
+		request.getRequestDispatcher("test.jsp").forward(request, response);		
 	 }
 	protected void select(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-		int en_num=Integer.parseInt(request.getParameter("en_num"));
+		String sen_num=request.getParameter("en_num");
+		int en_num=0;
+		if(sen_num!=null && !sen_num.equals("")) {
+			en_num=Integer.parseInt(sen_num);
+		}
 		EventNoticeVo vo = EventNoticeDao.getInstance().select(en_num);
-		if(vo!=null) {
+		if(vo!=null) { 
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("EN_imginput.jsp?cmd1=update").forward(request, response);
+			request.getRequestDispatcher("community_event_update.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "실패");
-			request.getRequestDispatcher("/dev/board/Event_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
 	 }
+//	protected void getInfo(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+//		int en_num=Integer.parseInt(request.getParameter("en_num"));
+//		EventNoticeVo vo = EventNoticeDao.getInstance().getInfo(en_num);
+//		if(vo!=null) {
+//			request.setAttribute("vo", vo);
+//			request.getRequestDispatcher("community_event_detail.jsp").forward(request, response);
+//		}else {
+//			request.setAttribute("msg", "상세보기실패");
+//			request.getRequestDispatcher("test.jsp").forward(request, response);
+//		}
+//	 }
   }		
 
