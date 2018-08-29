@@ -92,6 +92,7 @@ public class PurchaseController extends HttpServlet{
 		}	
 		int n=PurchaseListDao.getInstance().delete(pur_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "구매목록 삭제 성공!!");
 		}else {
 			request.setAttribute("msg", "구매목록 삭제 실패..");
@@ -144,6 +145,7 @@ public class PurchaseController extends HttpServlet{
 		int n=PurchaseListDao.getInstance().update(new PurchaseListVo(pl_num, pur_num,
 				size_num, order_cnt, item_price));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "구매목록 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "구매목록 수정 실패..");
