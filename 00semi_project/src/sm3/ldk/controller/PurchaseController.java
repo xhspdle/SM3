@@ -60,6 +60,7 @@ public class PurchaseController extends HttpServlet{
 						request.getRequestDispatcher("item_order_list.jsp").forward(request, response);
 					}else {
 						request.setAttribute("msg", "구매목록 추가 성공!! but, 구매목록 불러오기 실패 ");
+						request.getRequestDispatcher("msg.jsp").forward(request, response);
 					}
 				}else {
 					request.setAttribute("msg", "구매목록 추가 실패..");
