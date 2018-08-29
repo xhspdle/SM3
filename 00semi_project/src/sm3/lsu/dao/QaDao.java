@@ -129,7 +129,7 @@ public class QaDao {
 				user_num = rs.getInt("user_num");
 			}
 			// 글번호, 작성자, 글제목,글내용,sysdate,부모글번호,그룹,등록순서,유저번호,관리자번호
-			String sql = "insert into sm3_qa values (?,?,?,?,sysdate,?,?,?,?,1)";
+			String sql = "insert into sm3_qa values (?,?,?,?,sysdate,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardNum);
 			
@@ -140,8 +140,16 @@ public class QaDao {
 			pstmt.setInt(5, ref);
 			pstmt.setInt(6, lev);
 			pstmt.setInt(7, step);
-			pstmt.setInt(8, user_num);
-			// pstmt.setInt(9, vo.getAdmin_num());
+			if(user_num ==0) {
+			  pstmt.setInt(8, 0);
+			  pstmt.setInt(9, vo.getAdmin_num());
+			}else {
+			 pstmt.setInt(8, user_num);
+			 pstmt.setInt(9, 0);
+			}
+				
+			
+		    
 
 			int n = pstmt.executeUpdate();
 			// QaVo vo = new QaVo(qa_num, qa_writer, qa_title, qa_content, qa_date, ref,
@@ -150,8 +158,15 @@ public class QaDao {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return -1;
+		}finally {
+			try {
+				if(rs != null)rs.close();
+				if (pstmt != null)pstmt.close();
+				if (con != null)con.close();		
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
 		}
-		
 	}
 
 	public ArrayList<QaVo> Getlist(int startRow,int endRow, String keyField,String keyWord) {
@@ -292,11 +307,20 @@ public class QaDao {
 			String sql = "delete from sm3_qa where qa_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, qa_num);
-			pstmt.executeUpdate();
+			int n =pstmt.executeUpdate();
 			System.out.println("delete num값" + qa_num);
+			return n;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return -1;
+		}finally {
+			try {
+				if (pstmt != null)pstmt.close();
+				if (con != null)con.close();		
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
 		}
-		return qa_num;
+		
 	}
 }

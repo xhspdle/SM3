@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sm3.lsu.dao.QaCommDao;
 import sm3.lsu.dao.QaDao;
+import sm3.lsu.vo.QaCommVo;
 import sm3.lsu.vo.QaVo;
 
 @WebServlet("/dev/board/QA_board.do")
@@ -127,6 +129,13 @@ public class QaController extends HttpServlet {
 		QaVo vo = qa.detail(qa_num);
 		System.out.println(vo.getQa_num());
 		System.out.println(vo.getQa_content());
+		
+		//  댓글정보
+	    QaCommDao qa1= QaCommDao.getInstance(); 
+	    ArrayList<QaCommVo> list=qa1.Cmmdetail(qa_num);
+	    	System.out.println("디테일넘버"+qa_num);
+		
+		request.setAttribute("list", list);
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("QA_detail.jsp").forward(request, response);
 		;

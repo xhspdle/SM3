@@ -48,6 +48,7 @@ function searchCheck(frm){
 					[re]
 					</c:if>
 			<a href="<c:url value='/dev/board/QA_board.do?cmd=detail&qa_num=${vo.qa_num }'/>">${vo.qa_title}</a></td>  
+			
 						
 			<%-- <td><a href="/dev/board/QA_board.do?cmd=delete&qa_num=${vo.qa_num}">삭제</a></td>--%>
 			<td><a href="<c:url value='/dev/board/QA_board.do?cmd=delete&qa_num=${vo.qa_num}'/>">삭제</a></td>
