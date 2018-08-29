@@ -204,7 +204,6 @@ public class UserController extends HttpServlet {
 	}
 	
 	
-	
 	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user_id = request.getParameter("user_id");
 		String user_pwd = request.getParameter("user_pwd");
