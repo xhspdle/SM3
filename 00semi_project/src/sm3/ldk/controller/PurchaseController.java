@@ -108,38 +108,64 @@ public class PurchaseController extends HttpServlet{
 	}
 	protected void delete(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		Object admin_num=session.getAttribute("admin_num");
 		String spur_num=request.getParameter("pur_num");
 		int pur_num=0;
 		if(spur_num!=null && !spur_num.equals("")) {
 			pur_num=Integer.parseInt(spur_num);
 		}	
 		int n=PurchaseListDao.getInstance().delete(pur_num);
-		if(n>0) {
-			request.setAttribute("success", "성공!");
-			request.setAttribute("msg", "구매목록 삭제 성공!!");
+		if(admin_num!=null) {
+			if(n>0) {
+				request.setAttribute("success", "성공!");
+				request.setAttribute("msg", "구매목록 삭제 성공!!");
+			}else {
+				request.setAttribute("msg", "구매목록 삭제 실패..");
+			}
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}else {
-			request.setAttribute("msg", "구매목록 삭제 실패..");
+			if(n>0) {
+				request.setAttribute("success", "성공!");
+				request.setAttribute("msg", "구매목록 삭제 성공!!");
+			}else {
+				request.setAttribute("msg", "구매목록 삭제 실패..");
+			}
+			request.getRequestDispatcher("msg.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("msg.jsp").forward(request, response);
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		Object admin_num=session.getAttribute("admin_num");
 		String spl_num=request.getParameter("pl_num");
 		int pl_num=0;
 		if(spl_num!=null && !spl_num.equals("")) {
 			pl_num=Integer.parseInt(spl_num);
 		}	
 		PurchaseListVo vo=PurchaseListDao.getInstance().select(pl_num);
-		if(vo!=null) {
-			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("PURCHASE_LIST_insert.jsp?do1=update").forward(request, response);
+		if(admin_num!=null) {
+			if(vo!=null) {
+				request.setAttribute("vo", vo);
+				request.getRequestDispatcher("admin.jsp?page1=PURCHASE_LIST_insert.jsp?do1=update").forward(request, response);
+			}else {
+				request.setAttribute("msg", "선택실패");
+				request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+			}
 		}else {
-			request.setAttribute("msg", "선택실패");
-			request.getRequestDispatcher("msg.jsp").forward(request, response);
+			if(vo!=null) {
+				request.setAttribute("vo", vo);
+				request.getRequestDispatcher("PURCHASE_LIST_insert.jsp?do1=update").forward(request, response);
+			}else {
+				request.setAttribute("msg", "선택실패");
+				request.getRequestDispatcher("msg.jsp").forward(request, response);
+			}
 		}
 	}
 	protected void update(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		Object admin_num=session.getAttribute("admin_num");
 		String spl_num=request.getParameter("pl_num");
 		String spur_num=request.getParameter("pur_num");
 		String ssize_num=request.getParameter("size_num");
@@ -167,12 +193,22 @@ public class PurchaseController extends HttpServlet{
 		}
 		int n=PurchaseListDao.getInstance().update(new PurchaseListVo(pl_num, pur_num,
 				size_num, order_cnt, item_price));
-		if(n>0) {
-			request.setAttribute("success", "성공!");
-			request.setAttribute("msg", "구매목록 수정 성공!!");
+		if(admin_num!=null) {
+			if(n>0) {
+				request.setAttribute("success", "성공!");
+				request.setAttribute("msg", "구매목록 수정 성공!!");
+			}else {
+				request.setAttribute("msg", "구매목록 수정 실패..");
+			}
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}else {
-			request.setAttribute("msg", "구매목록 수정 실패..");
+			if(n>0) {
+				request.setAttribute("success", "성공!");
+				request.setAttribute("msg", "구매목록 수정 성공!!");
+			}else {
+				request.setAttribute("msg", "구매목록 수정 실패..");
+			}
+			request.getRequestDispatcher("msg.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("msg.jsp").forward(request, response);
 	}
 }

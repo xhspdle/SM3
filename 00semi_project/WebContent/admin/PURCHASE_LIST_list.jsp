@@ -24,8 +24,8 @@
 			<td>${vo.size_num }</td>
 			<td>${vo.order_cnt }</td>
 			<td>${vo.item_price }</td>
-			<td><a href="<c:url value='/dev/cartOrder/purchase.do?cmd=select&pl_num=${vo.pl_num }'/>">수정</a></td>
-			<td><a href="<c:url value='/dev/cartOrder/purchase.do?cmd=delete&pur_num=${vo.pur_num }'/>">삭제</a></td>
+			<td><a href="<c:url value='/purchase.do?cmd=select&pl_num=${vo.pl_num }'/>">수정</a></td>
+			<td><a href="<c:url value='/purchase.do?cmd=delete&pur_num=${vo.pur_num }'/>">삭제</a></td>
 		</tr>
 		</c:forEach>
 		</tbody>

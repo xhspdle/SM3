@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import sm3.dbcp.DBConnection;
+import sm3.ldk.vo.OrderVo;
 import sm3.ldk.vo.PurchaseListVo;
 
 public class PurchaseListDao {
@@ -103,15 +104,41 @@ public class PurchaseListDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			con.setAutoCommit(false);
 			String sql="update sm3_purchase_list set pur_num=?,"
 					+ "size_num=?,order_cnt=?,item_price=? where pl_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, vo.getPur_num());
+			int pur_num=vo.getPur_num();
+			pstmt.setInt(1, pur_num);
 			pstmt.setInt(2, vo.getSize_num());
 			pstmt.setInt(3, vo.getOrder_cnt());
 			pstmt.setInt(4, vo.getItem_price());
 			pstmt.setInt(5, vo.getPl_num());
-			return pstmt.executeUpdate();
+			int n=pstmt.executeUpdate();
+			if(n>0) {
+				con.commit();
+				ArrayList<PurchaseListVo> list=purNumList(pur_num);
+				int order_total=0;
+				if(list!=null) {
+					for(PurchaseListVo voo:list) {
+						order_total += voo.getItem_price()*voo.getOrder_cnt();
+					}
+					int nn=OrderDao.getInstance().updateTotal(con, order_total,pur_num);
+					if(nn>0) {
+						con.commit();
+						return nn;
+					}else {
+						con.rollback();
+						return -4;
+					}
+				}else {
+					con.rollback();
+					return -3;
+				}
+			}else {
+				con.rollback();
+				return -2;
+			}
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;

@@ -164,6 +164,56 @@ public class OrderDao {
 			}
 		}
 	}
+	public int updateTotal(Connection con,int order_total,int pur_num) {
+		PreparedStatement pstmt=null;
+		try {
+			String sql="update sm3_order set "
+					+ "order_total=?,order_pay=? "
+					+ "where pur_num=?";
+			pstmt=con.prepareStatement(sql);
+			int order_point=selectOrderPoint(con, pur_num);
+			if(order_point<0) {
+				return -1;
+			}
+			int order_pay=order_total-order_point;
+			pstmt.setInt(1, order_total);
+			pstmt.setInt(2, order_pay);
+			pstmt.setInt(3, pur_num);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public int selectOrderPoint(Connection con,int pur_num) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			String sql="select order_point from sm3_order where pur_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, pur_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("order_point");
+			}
+			return -1;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public OrderVo select(int order_num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
