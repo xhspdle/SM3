@@ -34,6 +34,7 @@ public class ReviewController extends HttpServlet {
 
 	protected void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path=request.getServletContext().getRealPath("/DBImages");
+		int item_num = Integer.parseInt(request.getParameter("item_num"));
 		MultipartRequest mr=new MultipartRequest(request,
 				path,
 				1024*1024*10,
@@ -66,7 +67,7 @@ public class ReviewController extends HttpServlet {
 		int n = ReviewDao.getInstance().insert(new ReviewVo(0, review_item, review_orgimg, review_savimg, review_rating, review_content, null, order_num, user_num));
 		if(n>0) {
 			request.setAttribute("msg", "리뷰등록성공");
-			request.getRequestDispatcher("test.jsp").forward(request, response);
+			request.getRequestDispatcher("itemView.do?cmd=select&item_num"+item_num+"&item_name="+review_item).forward(request, response);
 		}else {
 			request.setAttribute("msg", "리뷰등록실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
