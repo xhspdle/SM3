@@ -4,9 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <c:choose>
 	<c:when test="${param.do1=='insert' }">
-<div class="container" style="margin-top:10%;">
+<div>
 	<div class="row">
-	<div class="col-lg-9">
 		<section class="panel panel-admin">
 			<header class="panel-heading">
 				<h1 class="panel-title">주문 추가</h1>
@@ -105,16 +104,14 @@
 			</div>
 		</section>
 	</div>
-	</div>
 </div>		
 	</c:when>
 	<c:when test="${param.do1=='update' }">
-<div class="container" style="margin-top:10%;">
+<div>
 	<div class="row">
-	<div class="col-lg-9">
 		<section class="panel panel-admin">
 			<header class="panel-heading">
-				<h1 class="panel-title">주문 수정</h1>
+				<h1 class="panel-title">주문 상세/수정</h1>
 			</header>
 			<div class="panel-body">
 			<form class="form-horizontal form-bordered" 
@@ -167,7 +164,7 @@
 							<input type="text" class="form-control" id="order_recipient" 
 							name="order_recipient" value="${vo.order_recipient }">
 						</div>
-					</div>
+					</div> 
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="order_post_addr">배송지우편번호</label>
 						<div class="col-md-6">
@@ -195,6 +192,8 @@
 							<input type="text" class="form-control" id="order_phone" 
 							value="${vo.order_phone }" readonly="readonly">
 						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-md-3 control-label" for="">번호수정</label>
 						<div class="col-md-2">
 							<input type="text" class="form-control" id="order_phone" 
@@ -207,6 +206,13 @@
 						<div class="col-md-2">
 							<input type="text" class="form-control" id="order_phone" 
 							name="order_phone">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="order_date">주문날짜</label>
+						<div class="col-md-6">
+							<input type="text" class="form-control" id="order_date" 
+							name="order_date" value="${vo.order_date }" readonly="readonly">
 						</div>
 					</div>
 					<div class="form-group">
@@ -233,7 +239,6 @@
 			</form>
 			</div>
 		</section>
-	</div>
 	</div>
 </div>	
 	</c:when>

@@ -8,7 +8,7 @@
 			<div class="col-md-9">
 				<div class="featured-boxes">
 					<div class="row">
-						<div class="col-sm-5 loginBox">
+						<div class="col-sm-8 loginBox">
 							<div
 								class="featured-box featured-box-primary align-left mt-xlg"
 								style="height: 327px;">

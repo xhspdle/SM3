@@ -72,6 +72,8 @@ body a {
 	.container {
 		width: 1260px !important;
 	}
+
+	
 }
 
 @media ( min-width : 992px) {
@@ -557,7 +559,3 @@ ul.comments .comment-block{
 	overflow: hidden;
 }
 
-.adminContainer{
-	width:1700px !important;
-	
-}

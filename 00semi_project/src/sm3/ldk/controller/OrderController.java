@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import sm3.ldk.dao.OrderDao;
 import sm3.ldk.vo.OrderVo;
@@ -85,24 +86,36 @@ public class OrderController extends HttpServlet{
 			request.getRequestDispatcher("admin.jsp?page1=ORDER_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "주문 목록 불러오기 실패..");
-			request.getRequestDispatcher("admin/ADMIN_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		Object admin_num=session.getAttribute("admin_num");
 		String sorder_num=request.getParameter("order_num");
 		int order_num=0;
 		if(sorder_num!=null && !sorder_num.equals("")) {
 			order_num=Integer.parseInt(sorder_num);
 		}
 		int n=OrderDao.getInstance().delete(order_num);
-		if(n>0) {
-			request.setAttribute("success", "성공!");
-			request.setAttribute("msg", "주문 삭제 성공!!");
+		if(admin_num!=null) {
+			if(n>0) {
+				request.setAttribute("success", "성공!");
+				request.setAttribute("msg", "주문 삭제 성공!!");
+			}else {
+				request.setAttribute("msg", "주문 삭제 실패..");
+			}
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}else {
-			request.setAttribute("msg", "주문 삭제 실패..");
+			if(n>0) {
+				request.setAttribute("success", "성공!");
+				request.setAttribute("msg", "주문 삭제 성공!!");
+			}else {
+				request.setAttribute("msg", "주문 삭제 실패..");
+			}
+			request.getRequestDispatcher("msg.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("msg.jsp").forward(request, response);
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -117,7 +130,7 @@ public class OrderController extends HttpServlet{
 			request.getRequestDispatcher("admin.jsp?page1=ORDER_insert.jsp?do1=update").forward(request, response);
 		}else {
 			request.setAttribute("msg", "주문 선택 실패..");
-			request.getRequestDispatcher("admin/ADMIN_msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	protected void update(HttpServletRequest request, 
