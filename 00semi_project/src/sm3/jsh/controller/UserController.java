@@ -161,11 +161,17 @@ public class UserController extends HttpServlet {
 	
 	protected void getInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int user_num = Integer.parseInt(request.getParameter("user_num"));
+		String user_pwd = request.getParameter("pwd");
+		HttpSession session = request.getSession();
+		String in_pwd = (String)session.getAttribute("user_pwd");
 		UserDao dao = UserDao.getInstance();
 		UserVo vo = dao.getinfo(user_num);
-		if(vo != null){
+		if(user_pwd == in_pwd){
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("user_update.jsp").forward(request, response);
+		}else {
+			request.setAttribute("msg", "비밀번호가 틀립니다.");
+			request.getRequestDispatcher("user_pwdOk.jsp").forward(request, response);
 		}
 	}
 	
