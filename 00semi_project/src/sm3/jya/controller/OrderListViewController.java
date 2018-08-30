@@ -31,7 +31,7 @@ public class OrderListViewController extends HttpServlet{
 		ArrayList<OrderListViewVo> list=OrderListViewDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("dev/orderlist/Orderlist.jsp").forward(request, response);
+			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
 			request.getRequestDispatcher("msg.jsp").forward(request, response);
@@ -47,7 +47,7 @@ public class OrderListViewController extends HttpServlet{
 		ArrayList<OrderListViewVo> vo=OrderListViewDao.getInstance().select(order_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("PURCHASE_LIST_insert.jsp?do1=update").forward(request, response);
+			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");
 			request.getRequestDispatcher("msg.jsp").forward(request, response);

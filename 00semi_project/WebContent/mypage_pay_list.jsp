@@ -103,16 +103,15 @@
 									<tbody>
 									
 										<!--orderlist.jsp끼워넣기. -->
-										<tr class="group">
-										<c:forEach var="vo" items="${requestScope.list }">
 										
+										<c:forEach var="vo" items="${requestScope.list }">
+										<tr class="group">
 											<td><span class="thm ordernum2">${vo.order_num }</span></td>
 											<td class="product">
 												<div>
 													<div class="thmb">
 														<div class="img_center">
 															<a href="" target="_blank">
-															<!--<a href="<c:url value='mypage_pay_list.jsp?savimg=${vo.en_savimg }&en_num=${vo.en_num }&en_content=${vo.en_content }'/>">-->
 															<img src='<c:url value="/DBImages/${vo.item_savimg }"/>'
 		 													style="width:105px;height:100px;" id="img1" ></a>
 														</div>
@@ -126,11 +125,11 @@
 												</div>
 											</td>
 											<td class="money"><em class="thm">${vo.order_pay }</em>원<br>
-												<span>(1개)</span></td>
+												<span>(${vo.order_cnt }개)</span></td>
 											<td class="" rowspan="1">
 												<div class="send">
 													<div class="sum">
-														<em class="thm">2,500</em>원
+														무료배송
 													</div>
 													<div class=""
 														style="max-width: 200px; display: none; z-index: 100">
@@ -160,8 +159,8 @@
 													<td class="bg_point state">주문내역없음<br></td>
 												</c:otherwise>
 											</c:choose>
-										</c:forEach>
 										</tr>
+										</c:forEach>
 										<!--  -->
 									</tbody>
 								</table>
