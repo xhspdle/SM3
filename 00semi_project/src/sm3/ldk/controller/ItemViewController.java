@@ -63,6 +63,7 @@ public class ItemViewController extends HttpServlet{
 		}
 		//상품정보 리스트
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select(item_num);
+		ItemViewVo vo = list.get(0);
 		HashMap<Integer, String> list2=ItemViewDao.getInstance().select_color(item_name);
 		
 		//리뷰 리스트
@@ -99,6 +100,7 @@ public class ItemViewController extends HttpServlet{
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("search", search);
 			request.setAttribute("keyword", keyword);
+			request.setAttribute("vo", vo);
 			request.setAttribute("list", list);
 			request.setAttribute("list2", list2);
 			request.setAttribute("review_list", review_list);

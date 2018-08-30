@@ -535,8 +535,29 @@ blockquote .footer {
 	margin-bottom: 5px;
 }
 
-.carousel-inner>.item>img{
+.carousel-inner>.item>img {
 	display: inline-block;
 	width: 100% !important;
 	height: 100%;
+}
+
+.comment_box {
+	float: left;
+}
+
+.comment_update {
+	float: right;
+	margin-right: 10px !important;
+}
+
+.review_box .star-rating {
+	margin-bottom: 0;
+}
+ul.comments .comment-block{
+	overflow: hidden;
+}
+
+.adminContainer{
+	width:1700px !important;
+	
 }

@@ -108,7 +108,7 @@
 						<div>
 							<div class="thumbnail">
 								<img alt="" class="img-responsive img-rounded"
-									src="DBImages/<%=vo.getItem_orgimg()%>">
+									src="DBImages/${vo.getItem_orgimg()}">
 							</div>
 						</div>
 					</div>
@@ -116,7 +116,7 @@
 						<div class="summary entry-summary">
 							<!-- 제목 -->
 							<h1 class="mb-none">
-								<strong><%=vo.getItem_name()%></strong>
+								<strong>${vo.getItem_name()}></strong>
 							</h1>
 							<!-- 리뷰순 -->
 							<div class="review_num">
@@ -128,7 +128,7 @@
 									out of 5</span>
 							</div>
 							<!-- 상품정보 -->
-							<p class="taller"><%=vo.getItem_info()%></p>
+							<p class="taller">${vo.getItem_info()}</p>
 
 							<!-- 컬러 -->
 							<div class="cboth de_color">
@@ -137,7 +137,7 @@
 										int key = keyList.next();
 								%>
 								<a
-									href="<%=path%>/itemView.do?cmd=select&item_num=<%=key%>&item_name=<%=vo.getItem_name()%>"><span
+									href="<%=path%>/itemView.do?cmd=select&item_num=<%=key%>&item_name=${vo.getItem_name()}"><span
 									style="background-color:<%=list2.get(key)%>;">1</span></a>
 								<%
 									}
@@ -150,7 +150,7 @@
 
 							<!-- 가격 -->
 							<p class="price order-line">
-								<span class="left-side">가격</span><span class="amount"><%=vo.getItem_price()%>원</span>
+								<span class="left-side">가격</span><span class="amount">${vo.getItem_price()}원</span>
 							</p>
 							<!-- 사이즈선택 -->
 							<p class="size_select order-line">
@@ -177,7 +177,7 @@
 								</p>
 							
 							<div class="product_meta">
-								<span class="posted_in">Categories: <a rel="tag" href="#"><%=vo.getCate_name()%></a>
+								<span class="posted_in">Categories: <a rel="tag" href="#">${vo.getCate_name()}</a>
 								</span>
 							</div>
 							<!-- submit 버튼 -->
@@ -209,7 +209,7 @@
 											</tr>
 											<tr>
 												<th>정보</th>
-												<td><%=vo.getItem_info()%></td>
+												<td>${vo.getItem_info()}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -217,7 +217,7 @@
 								<div class="tab-pane" id="productReviews">
 									
 									<!-- 리뷰리스트 들어갈 곳 -->
-									<ul class="comments">
+									<ul class="comments review_box">
 										<c:forEach var="vo" items="${review_list }">
 											<li>
 												<div class="comment">
@@ -225,7 +225,7 @@
 													<div class="img-thumbnail">
 														<c:choose>
 															<c:when test="${vo.review_orgimg == null}">
-																<img class="avatar" alt="" src="DBImages/<%=vo.getItem_orgimg()%>">
+																<img class="avatar" alt="" src="DBImages/${vo.getItem_orgimg()}">
 															</c:when>
 															<c:otherwise>
 																<img class="avatar" alt="" src="DBImages/${vo.review_orgimg}">
@@ -235,7 +235,7 @@
 													<div class="comment-block">
 														<div class="comment-arrow"></div>
 														<!-- 리뷰작성자 -->
-														<span class="comment-by"> <strong>${vo.user_id}</strong>
+														<span class="comment-by"> <strong style="font-size:18px;">${vo.user_id}</strong> [${vo.review_item } 구매]  ${vo.review_date }
 															<span class="pull-right"> <!-- 평점준	 정도 -->
 																<div title="Rated 5.00 out of 5" class="star-rating">
 																	<c:choose>
@@ -262,7 +262,7 @@
 														<!-- 리뷰 내용 -->
 														<div class="comment_box">${vo.review_content}</div>
 															<c:if test="${sessionScope.user_id == vo.user_id}">
-															<p class="comment_update"><a href="#">삭제</a><a href="#">수정</a></p>
+																<p class="comment_update"><a href="#">삭제</a></p>
 															</c:if>	
 													</div>
 												</div>
@@ -270,7 +270,45 @@
 										</c:forEach>
 									</ul>
 									
+									 <!-- 리뷰리스트 페이징처리 -->
 									
+											<div class="col-md-12" style="text-align: center;">
+										<ul class="pagination pull-center">
+											<c:choose>
+												<c:when test="${startPage > 3 }">
+													<li><a
+														href="<c:url value='/itemView.do?cmd=select&pageNum=${startPage-1}&search=${search}&keyword=${keyword}'/>"><i
+															class="fa fa-chevron-left"></i></a></li>
+												</c:when>
+												<c:otherwise>
+													<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+												</c:otherwise>
+											</c:choose>
+											<c:forEach var="i" begin="${startPage}" end="${endPage}">
+												<c:choose>
+													<c:when test="${i == pageNum}">
+														<li class="active"><a
+															href="<c:url value='/itemView.do?cmd=select&pageNum=${i}&search=${search}&keyword=${keyword}'/>">${i}</a></li>
+													</c:when>
+													<c:otherwise>
+														<li><a
+															href="<c:url value='/itemView.do?cmd=select&pageNum=${i}&search=${search}&keyword=${keyword}'/>">${i}</a></li>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+											<c:choose>
+												<c:when test="${endPage < pageCount}">
+													<li><a
+														href="<c:url value='/itemView.do?cmd=select&pageNum=${endPage+1}&search=${search}&keyword=${keyword}'/>"><i
+															class="fa fa-chevron-left"></i></a></li>
+												</c:when>
+												<c:otherwise>
+													<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+												</c:otherwise>
+											</c:choose>
+										</ul>
+									</div>
+
 									<hr class="tall">
 									<!-- 리뷰남기기 -->
 									<h4 class="heading-primary">리뷰 남기기</h4>
@@ -487,7 +525,7 @@
 			var select_box = document.getElementById("select_list_box");
 			var sel_list = document.getElementById("sel_list");
 			var total_price = document.getElementById("total_price");
-			var price = <%=vo.getItem_price()%>;
+			var price = '${vo.getItem_price()}';
 			var sel_num = sel_list.options.selectedIndex;
 			if(sel_num == 0 ) return;
 			
