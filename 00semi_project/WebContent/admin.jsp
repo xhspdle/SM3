@@ -141,7 +141,8 @@
 									<label>Sales Report</label>
 									<div class="toggle-content" style="display: none;">
 										<div class="list-group">
-										  <a href="#" class="list-group-item">매출총이익</a>
+										  <a href="<c:url value='admin.jsp?page1=SALES_grossProfit.jsp'/>" 
+										  class="list-group-item">매출총이익</a>
 										  <a href="#" class="list-group-item">기간별판매량</a>
 										  <a href="#" class="list-group-item">제품별판매량</a>
 										</div>

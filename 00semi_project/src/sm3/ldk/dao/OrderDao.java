@@ -107,6 +107,39 @@ public class OrderDao {
 			}
 		}
 	}
+	public int insertTest(OrderVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="insert into sm3_order values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, getMaxNum()+1);
+			pstmt.setInt(2, vo.getUser_num());
+			pstmt.setInt(3, vo.getPur_num());
+			pstmt.setInt(4, vo.getOrder_total());
+			pstmt.setInt(5, vo.getOrder_point());
+			pstmt.setInt(6, vo.getOrder_pay());
+			pstmt.setString(7, vo.getOrder_recipient());
+			pstmt.setString(8, vo.getOrder_post_addr());
+			pstmt.setString(9, vo.getOrder_basic_addr());
+			pstmt.setString(10, vo.getOrder_detail_addr());
+			pstmt.setString(11, vo.getOrder_phone());
+			pstmt.setDate(12, vo.getOrder_date());
+			pstmt.setInt(13, vo.getOrder_status());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int delete(int order_num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

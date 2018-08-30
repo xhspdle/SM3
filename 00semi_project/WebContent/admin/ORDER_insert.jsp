@@ -186,15 +186,18 @@
 							name="order_detail_addr" value="${vo.order_detail_addr }">
 						</div>
 					</div>
+					<%-- 
 					<div class="form-group">
-						<label class="col-md-3 control-label" for="order_phone">받는사람폰번호</label>
+						<label class="col-md-3 control-label" for="order_phone1">받는사람폰번호</label>
 						<div class="col-md-6">
-							<input type="text" class="form-control" id="order_phone" 
+							<input type="text" class="form-control" id="order_phone1" 
 							value="${vo.order_phone }" readonly="readonly">
 						</div>
 					</div>
+					--%>
+					<input type="hidden" class="form-control" id="order_phone1" value="${vo.order_phone }">
 					<div class="form-group">
-						<label class="col-md-3 control-label" for="">번호수정</label>
+						<label class="col-md-3 control-label" for="">받는사람폰번호</label>
 						<div class="col-md-2">
 							<input type="text" class="form-control" id="order_phone" 
 							name="order_phone">
@@ -240,6 +243,16 @@
 			</div>
 		</section>
 	</div>
-</div>	
+</div>
+<script>
+	setTimeout(function() {
+		var order_phone1=document.getElementById("order_phone1").value;
+		var order_phone=document.getElementsByName("order_phone");
+		var phones=order_phone1.split("-");
+		for(var i=0;i<order_phone.length;i++){
+			order_phone[i].value=phones[i];
+		}
+	}, 500);
+</script>
 	</c:when>
 </c:choose>
