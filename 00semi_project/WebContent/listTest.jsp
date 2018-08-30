@@ -115,7 +115,7 @@
 									<div class="col-md-12" style="text-align: center;">
 										<ul class="pagination pull-center">
 											<c:choose>
-												<c:when test="${startPage > 3 }">
+												<c:when test="${startPage > 10 }">
 													<li><a
 														href="<c:url value='userControll.do?cmd=list&pageNum=${startPage-1}&search=${search}&keyword=${keyword}'/>"><i
 															class="fa fa-chevron-left"></i></a></li>

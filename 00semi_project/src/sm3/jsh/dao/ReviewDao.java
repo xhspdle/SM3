@@ -95,16 +95,40 @@ public class ReviewDao {
 		}
 		
 		
-
-		public int getCount(String search, String keyword) {
+		public int delete(int num) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			try {
+				con = DBConnection.getConn();
+				String sql = "DELETE FROM SM3_REVIEW WHERE REVIEW_NUM = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				return pstmt.executeUpdate();
+			} catch (SQLException se) {
+				System.out.println(se.getMessage());
+				return -1;
+			} finally {
+				try {
+					if (pstmt != null)
+						pstmt.close();
+					if (con != null)
+						con.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+		
+		public int getCount(String search, String keyword, String item_search) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			try {
 				con = DBConnection.getConn();
 				if (search.equals("")) {
-					String sql = "SELECT NVL(COUNT(REVIEW_NUM),0) FROM SM3_REVIEW";
+					String sql = "SELECT NVL(COUNT(REVIEW_NUM),0) FROM SM3_REVIEW WHERE REVIEW_ITEM LIKE '%'||?||'%'";
 					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, item_search);
 					rs = pstmt.executeQuery();
 				} else {
 					String searchCase = "";
@@ -113,8 +137,10 @@ public class ReviewDao {
 					} else {
 						searchCase = "like '%'||?||'%'";
 					}
-					String sql = "SELECT NVL(COUNT(REVIEW_NUM),0) " + search + " " + searchCase + " FROM SM3_REVIEW";
+					String sql = "SELECT NVL(COUNT(REVIEW_NUM),0) FROM SM3_REVIEW WHERE REVIEW_ITEM LIKE '%'||?||'%' AND" + search + " " + searchCase;
 					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, item_search);
+					pstmt.setString(2, keyword);
 					rs = pstmt.executeQuery();
 				}
 				if (rs.next()) {

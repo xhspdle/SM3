@@ -63,7 +63,6 @@ public class ItemViewController extends HttpServlet{
 		}
 		//상품정보 리스트
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select(item_num);
-		ItemViewVo vo = list.get(0);
 		HashMap<Integer, String> list2=ItemViewDao.getInstance().select_color(item_name);
 		
 		//리뷰 리스트
@@ -87,7 +86,7 @@ public class ItemViewController extends HttpServlet{
 		if(review_list==null) review_list = new ArrayList<ReviewVo>();
 		//리퀘스트스코프에 져장
 		if(list!=null && list2 != null) {
-			int pageCount = (int)(Math.ceil(dao.getCount(search, keyword) / 10.0));
+			int pageCount = (int)(Math.ceil(dao.getCount(search, keyword, item_name) / 10.0));
 			System.out.println(pageCount);
 			int startPage = ((pageNum - 1) / 3 * 3) + 1;
 			int endPage = startPage + 2;
@@ -100,7 +99,6 @@ public class ItemViewController extends HttpServlet{
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("search", search);
 			request.setAttribute("keyword", keyword);
-			request.setAttribute("vo", vo);
 			request.setAttribute("list", list);
 			request.setAttribute("list2", list2);
 			request.setAttribute("review_list", review_list);

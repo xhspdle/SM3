@@ -18,7 +18,7 @@ import sm3.jsh.vo.ReviewVo;
 import sm3.jsh.vo.UserVo;
 
 
-@WebServlet("/ReviewControll.do")
+@WebServlet("/reviewControll.do")
 public class ReviewController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -27,6 +27,8 @@ public class ReviewController extends HttpServlet {
 			insert(request,response);
 		}else if(cmd.equals("list")) {
 			list(request,response);
+		}else if(cmd.equals("delete")) {
+			delete(request,response);
 		}
 	}
 
@@ -73,41 +75,16 @@ public class ReviewController extends HttpServlet {
 	
 	//ItemViewController에 보내놓음
 	protected void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mpageNum = request.getParameter("pageNum");
-		int pageNum = 1;
-		if (mpageNum != null) {
-			pageNum = Integer.parseInt(mpageNum);
-		}
-		String search = request.getParameter("search");
-		String keyword = request.getParameter("keyword");
-		if (keyword == null || keyword.equals("")) {
-			search = "";
-			keyword = "";
-		}
-		int endRow = 10 * pageNum;
-		int startRow = endRow - 9;
-		ReviewDao dao = ReviewDao.getInstance();
-		ArrayList<ReviewVo> list = dao.list(startRow, endRow, search, keyword ,search);
-		System.out.println(list);
-		if (list != null) {
-			int pageCount = (int)(Math.ceil(dao.getCount(search, keyword) / 10.0));
-			System.out.println(pageCount);
-			int startPage = ((pageNum - 1) / 3 * 3) + 1;
-			int endPage = startPage + 2;
-			if (pageCount < endPage) {
-				endPage = pageCount;
-			}
-			request.setAttribute("startPage", startPage);
-			request.setAttribute("endPage", endPage);
-			request.setAttribute("pageCount", pageCount);
-			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("search", search);
-			request.setAttribute("keyword", keyword);
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("item_detail.jsp").forward(request, response);
-		} else {
-			request.setAttribute("msg", "리스트소환실패");
-			request.getRequestDispatcher("test.jsp").forward(request, response);
+	
+	}
+	
+	protected void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int review_num = Integer.parseInt(request.getParameter("review_num"));
+		String item_num = request.getParameter("item_num");
+		String item_name = request.getParameter("item_name");
+		int n = ReviewDao.getInstance().delete(review_num);
+		if(n>0) {
+			request.getRequestDispatcher("itemView.do?cmd=select&item_num"+item_num+"&item_name="+item_name).forward(request, response);
 		}
 	}
 	
