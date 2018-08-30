@@ -83,14 +83,13 @@
 					<div class="col-md-12">
 						<div class="featured-box featured-box-primary align-left mt-xlg">
 							<div class="box-content">
-							<p style="float:left; font-size:18px; color: #555;">주문내역</p>
+								<p style="float: left; font-size: 18px; color: #555;">주문내역</p>
 								<p class="day_list">
-										<a href="#" class="btn">최근 1달</a>
-										<a href="#" class="btn">최근 3달</a>
-										<a href="#" class="btn">전체</a>
-									</p>
+									<a href="#" class="btn">최근 1달</a> <a href="#" class="btn">최근
+										3달</a> <a href="#" class="btn">전체</a>
+								</p>
 								<table class="table">
-									
+
 									<thead>
 										<tr>
 											<th scope="col"><strong>상품주문번호</strong></th>
@@ -101,74 +100,107 @@
 										</tr>
 									</thead>
 									<tbody>
-									
+
 										<!--orderlist.jsp끼워넣기. -->
-										
+
 										<c:forEach var="vo" items="${requestScope.list }">
-										<tr class="group">
-											<td><span class="thm ordernum2">${vo.order_num }</span></td>
-											<td class="product">
-												<div>
-													<div class="thmb">
-														<div class="img_center">
-															<a href="" target="_blank">
-															<img src='<c:url value="/DBImages/${vo.item_savimg }"/>'
-		 													style="width:105px;height:100px;" id="img1" ></a>
+											<tr class="group">
+												<td><span class="thm ordernum2">${vo.order_num }</span></td>
+												<td class="product">
+													<div>
+														<div class="thmb">
+															<div class="img_center">
+																<a href="" target="_blank"> <img
+																	src='<c:url value="/DBImages/${vo.item_savimg }"/>'
+																	style="width: 105px; height: 100px;" id="img1"></a> <br>
+																${vo.item_info }
+															</div>
+														</div>
+														<dl>
+															<dt>
+																<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
+																	target="_blank">${vo.item_name }</a>
+															</dt>
+														</dl>
+													</div>
+												</td>
+												<td class="money"><em class="thm">${vo.order_pay }</em>원<br>
+													<span>(${vo.order_cnt }개)</span></td>
+												<td class="" rowspan="1">
+													<div class="send">
+														<div class="sum">무료배송</div>
+														<div class=""
+															style="max-width: 200px; display: none; z-index: 100">
+															<div class="ly_cont"></div>
+															<div class="edge_cen"></div>
 														</div>
 													</div>
-													<dl>
-														<dt>
-															<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
-																target="_blank">${vo.item_name }</a>
-														</dt>
-													</dl>
-												</div>
-											</td>
-											<td class="money"><em class="thm">${vo.order_pay }</em>원<br>
-												<span>(${vo.order_cnt }개)</span></td>
-											<td class="" rowspan="1">
-												<div class="send">
-													<div class="sum">
-														무료배송
-													</div>
-													<div class=""
-														style="max-width: 200px; display: none; z-index: 100">
-														<div class="ly_cont"></div>
-														<div class="edge_cen"></div>
-													</div>
-												</div>
-											</td>
-											
-											<c:choose>
-												<c:when test="${vo.order_status=='1' }">
-										 			<td class="bg_point state">배송중<br></td>
-												</c:when>
-												<c:when test="${vo.order_status=='2' }">
-													<td class="bg_point state">배송완료<br></td>
-												</c:when>
-												<c:when test="${vo.order_status=='3' }">
-													<td class="bg_point state">구매확정<br></td>
-												</c:when>
-												<c:when test="${vo.order_status=='4' }">
-													<td class="bg_point state">취소<br></td>
-												</c:when>
-												<c:when test="${vo.order_status=='5' }">
-													<td class="bg_point state">반송<br></td>
-												</c:when>
-												<c:otherwise>
-													<td class="bg_point state">주문내역없음<br></td>
-												</c:otherwise>
-											</c:choose>
-										</tr>
+												</td>
+
+												<c:choose>
+													<c:when test="${vo.order_status=='1' }">
+														<td class="bg_point state">배송중<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='2' }">
+														<td class="bg_point state">배송완료<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='3' }">
+														<td class="bg_point state">구매확정<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='4' }">
+														<td class="bg_point state">취소<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='5' }">
+														<td class="bg_point state">반송<br></td>
+													</c:when>
+													<c:otherwise>
+														<td class="bg_point state">주문내역없음<br></td>
+													</c:otherwise>
+												</c:choose>
+											</tr>
 										</c:forEach>
+
 										<!--  -->
 									</tbody>
 								</table>
 							</div>
+
 						</div>
+						<div>
+							<c:choose>
+								<c:when test="${startPage>10}">
+									<a
+										href="<c:url value = 'orderlist.do?cmd=list&pageNum=${startPage-1 }'/>">[이전]</a>
+								</c:when>
+								<c:otherwise>
+								[이전]
+								</c:otherwise>
+							</c:choose>
 
-
-
+							<c:forEach var="i" begin="${startPage }" end="${endPage }">
+								<c:choose>
+									<c:when test="${i==pageNum }">
+										<a href="<c:url value='orderlist.do?cmd=list&pageNum=${i }'/>">
+											<span style="color: red">[${i }]</span>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='orderlist.do?cmd=list&pageNum=${i }'/>">
+											<span style="color: blue">[${i }]</span>
+										</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${endPage<pageCount }">
+									<a
+										href="<c:url value='orderlist.do?cmd=list&pageNum=${endPage+1 }'/>"></a>
+								</c:when>
+								<c:otherwise>
+								[다음]
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</div>
 				</div>
 			</div>
