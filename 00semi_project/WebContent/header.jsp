@@ -90,7 +90,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="<c:url value='/EventNotice.do?cmd=list'/>">
 									EVENT&amp;NOTICE </a></li>
-							<li><a href="<c:url value='/community_qna_list.jsp'/>">Q&amp;A</a></li>
+							<li><a href="<c:url value='/QA_board.do?cmd=list'/>">Q&amp;A</a></li>
 						</ul></li>	
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/cart.do?cmd=userCart'/>"> CART </a></li>

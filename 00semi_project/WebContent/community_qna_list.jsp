@@ -102,7 +102,7 @@ function searchCheck(frm){
 					<div class="row mt-lg">
 						<div class="col-md-12">
 							<h2 class="commTitle">QNA</h2>
-								<a href="<c:url value='community_event_write.jsp'/>" class="btn pull-right btn-primary btn-md"> 글쓰기 <i
+								<a href="<c:url value='community_qna_write.jsp'/>" class="btn pull-right btn-primary btn-md"> 글쓰기 <i
 								class="fa fa-angle-right ml-xs"></i>
 							</a>
 							<div class="featured-boxes">
