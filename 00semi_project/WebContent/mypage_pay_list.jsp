@@ -96,6 +96,7 @@
 											<th scope="col"><strong>상품주문번호</strong></th>
 											<th scope="col">상품정보</th>
 											<th scope="col">상품금액(수량)</th>
+											<th scope="col">배송비</th>
 											<th scope="col" class="bg_point">진행상태</th>
 										</tr>
 									</thead>
@@ -103,30 +104,28 @@
 									
 										<!--orderlist.jsp끼워넣기. -->
 										<tr class="group">
-										<c:forEach var="vo" items="${requestScope.list }"> 
+										<c:forEach var="vo" items="${requestScope.list }">
 										
-											<td><span class="thm ordernum2">2018073088503591</span></td>
+											<td><span class="thm ordernum2">${vo.order_num }</span></td>
 											<td class="product">
 												<div>
 													<div class="thmb">
 														<div class="img_center">
-															<a href="" target="_blank"><img
-																src="https://order.pay.naver.com/proxy/phinf/shop1/20180512_71/wnsdkadlrj_15261290280296QFQU_JPEG/49435328655598750_619657460.jpg?type=m80"
-																alt="탁상용 선풍기 미니 사무실 책상용 소형 저소음 USB 테이블 원룸 작은"></a>
+															<a href="" target="_blank">
+															<!--<a href="<c:url value='mypage_pay_list.jsp?savimg=${vo.en_savimg }&en_num=${vo.en_num }&en_content=${vo.en_content }'/>">-->
+															<img src='<c:url value="/DBImages/${vo.item_savimg }"/>'
+		 													style="width:105px;height:100px;" id="img1" ></a>
 														</div>
 													</div>
 													<dl>
 														<dt>
 															<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
-																target="_blank">탁상용 선풍기 미니 사무실 책상용 소형 저소음 USB 테이블 원룸
-																작은</a>
+																target="_blank">${vo.item_name }</a>
 														</dt>
-														<dd>색상: 화이트, 사이즈: M</dd>
-														<dd class="shp_toggle"></dd>
 													</dl>
 												</div>
 											</td>
-											<td class="money"><em class="thm">34,900</em>원<br>
+											<td class="money"><em class="thm">${vo.order_pay }</em>원<br>
 												<span>(1개)</span></td>
 											<td class="" rowspan="1">
 												<div class="send">
@@ -136,14 +135,32 @@
 													<div class=""
 														style="max-width: 200px; display: none; z-index: 100">
 														<div class="ly_cont"></div>
-														<a href="#" class=""><span class="blind">닫기</span></a>
 														<div class="edge_cen"></div>
 													</div>
 												</div>
 											</td>
-											<td class="bg_point state">구매확정<br>
-											</td>
-											</c:forEach>
+											
+											<c:choose>
+												<c:when test="${vo.order_status=='1' }">
+										 			<td class="bg_point state">배송중<br></td>
+												</c:when>
+												<c:when test="${vo.order_status=='2' }">
+													<td class="bg_point state">배송완료<br></td>
+												</c:when>
+												<c:when test="${vo.order_status=='3' }">
+													<td class="bg_point state">구매확정<br></td>
+												</c:when>
+												<c:when test="${vo.order_status=='4' }">
+													<td class="bg_point state">취소<br></td>
+												</c:when>
+												<c:when test="${vo.order_status=='5' }">
+													<td class="bg_point state">반송<br></td>
+												</c:when>
+												<c:otherwise>
+													<td class="bg_point state">주문내역없음<br></td>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
 										</tr>
 										<!--  -->
 									</tbody>
