@@ -238,22 +238,30 @@
 														<span class="comment-by"> <strong>${vo.user_id}</strong>
 															<span class="pull-right"> <!-- 평점준	 정도 -->
 																<div title="Rated 5.00 out of 5" class="star-rating">
-																	<span class="stars">ssss</span>
+																	<c:choose>
+																		<c:when test="${vo.review_rating == 5}">
+																				<span class="stars">sssss</span>
+																		</c:when>
+																		<c:when test="${vo.review_rating == 4}">
+																				<span class="stars">ssss</span>
+																		</c:when>
+																		<c:when test="${vo.review_rating == 3}">
+																				<span class="stars">sss</span>
+																		</c:when>
+																		<c:when test="${vo.review_rating == 2}">
+																				<span class="stars">ss</span>
+																		</c:when>
+																		<c:when test="${vo.review_rating == 1}">
+																				<span class="stars">s</span>
+																		</c:when>
+																	</c:choose>
 																</div>
 															</span>
-															<script>
-																var star_count = '${vo.review_rating}';
-																if(star_count == 4){
-																	$('.star-rating').toggleClass('star4');
-																}else if(star_count == 3){
-																	$('.star-rating').toggleClass('star3');
-																}else if(star_count == 2){
-																	$('.star-rating').toggleClass('star2');
-																}else if(star_count == 1){
-																	$('.star-rating').toggleClass('star1');
-																}
-															</script>
 														</span>
+														
+														<c:if test="${sessionScope.user_id == vo.user_id}">
+															<a href="#">삭제</a>
+														</c:if>	
 														<!-- 리뷰 내용 -->
 														<p>${vo.review_content}</p>
 													</div>
