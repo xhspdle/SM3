@@ -115,7 +115,7 @@ public class QaCommDao {
 				int comm_num=rs.getInt("comm_num");
 				String comm_writer=rs.getString("comm_writer");
 				String comm_content=rs.getString("comm_content");
-				System.out.println("ÄÚ¸àÆ®"+comm_content);
+			
 				Date comm_date=rs.getDate("comm_date");			 
 				qa_num=rs.getInt("qa_num");
 				int user_num=rs.getInt("user_num");
@@ -138,7 +138,34 @@ public class QaCommDao {
 				}
 		 }
 	}
+	public int delete (int comm_num) {
+		Connection con=null;
+		PreparedStatement pstmt =null;
+		try {
+		con=DBConnection.getConn();
+		
+		String sql="delete from sm3_qa_comm where comm_num=?";
+		pstmt=con.prepareStatement(sql);
+		
+		pstmt.setInt(1, comm_num);
+		int n=pstmt.executeUpdate();
+		return n;
+		
+	}catch(SQLException se) {
+		System.out.println(se.getMessage());
+		return -1;
+	}finally {
+		try {
+			if(pstmt != null)pstmt.close();
+			if(con != null) con.close();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+		}
+	}
+	}
 }
+
+
 
 
 

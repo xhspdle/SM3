@@ -85,22 +85,29 @@
 							<div class="featured-boxes">
 								<div class="row">
 									<div class="col-md-12">
-										<form action="" id="submitReview" method="post"
-											enctype="multipart/form-data">
+									
+									
+										<form action="<c:url value='/QA_board.do?cmd=insert'/>" id="submitReview" method="post">
 											<div class="row">
 												<div class="form-group">
 													<div class="col-md-12">
 														<h2 class="commTitle">게시글 작성</h2>
 														<!-- 리뷰제목입력란 -->
-														<label>작성자</label> <input type="text" value=""
+														<input type="hidden" name="qa_num" value="${param.qa_num }">
+														<input type="hidden" name="ref" value="${param.ref}" />
+														<input type="hidden" name="lev" value="${param.lev }"/>
+														<input type="hidden" name="step" value="${param.step }"/>
+														<input type="hidden" name="user_id" value="apple">	<!-- 유저아이디 -->
+														<input type="hidden" name="admin_id" value="test">	<!-- 관리자아이디 -->
+														<label>작성자</label> <input type="text" value="lee" 
 															data-msg-required="Please enter your name."
-															maxlength="100" class="form-control" name="title"
+															maxlength="100" class="form-control" name="qa_writer"
 															id="title">
 													</div>
 													<div class="col-md-12">
 														<label>글 제목</label> <input type="text" value=""
 															data-msg-required="Please enter your name."
-															maxlength="100" class="form-control" name="title"
+															maxlength="100" class="form-control" name="qa_title"
 															id="title">
 													</div>
 													<div class="form-group">
@@ -108,7 +115,7 @@
 															<label>글내용</label>
 															<textarea maxlength="5000"
 																data-msg-required="Please enter your message." rows="10"
-																class="form-control" name="message" id="message"></textarea>
+																class="form-control" name="qa_content" id="message"></textarea>
 														</div>
 													</div>
 												</div>
@@ -120,6 +127,9 @@
 												</div>
 											</div>
 										</form>
+										
+										
+										
 									</div>
 								</div>
 							</div>
