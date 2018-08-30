@@ -82,10 +82,10 @@ public class OrderController extends HttpServlet{
 		ArrayList<OrderVo> list=OrderDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("dev/cartOrder/ORDER_list.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ORDER_list.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "주문 목록 불러오기 실패..");
-			request.getRequestDispatcher("msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin/ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, 
@@ -114,10 +114,10 @@ public class OrderController extends HttpServlet{
 		OrderVo vo=OrderDao.getInstance().select(order_num);
 		if(vo!=null) {
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("dev/cartOrder/ORDER_insert.jsp?do1=update").forward(request, response);
+			request.getRequestDispatcher("admin.jsp?page1=ORDER_insert.jsp?do1=update").forward(request, response);
 		}else {
 			request.setAttribute("msg", "주문 선택 실패..");
-			request.getRequestDispatcher("msg.jsp").forward(request, response);
+			request.getRequestDispatcher("admin/ADMIN_msg.jsp").forward(request, response);
 		}
 	}
 	protected void update(HttpServletRequest request, 
@@ -172,6 +172,6 @@ public class OrderController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "주문 수정 실패..");
 		}
-		request.getRequestDispatcher("msg.jsp").forward(request, response);
+		request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
 	}
 }

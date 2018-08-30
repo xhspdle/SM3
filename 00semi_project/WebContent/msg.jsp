@@ -80,7 +80,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
-						<div id="myCarousel" class="carousel slide order_slide" data-ride="carousel">
+						<div id="myCarousel" class="carousel slide" data-ride="carousel">
 						  <!-- Indicators -->
 						  <ol class="carousel-indicators">
 						    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -91,7 +91,7 @@
 						  <!-- Wrapper for slides -->
 						  <div class="carousel-inner">
 						    <div class="item active">
-						      <img style="width:100%; height:700px;" src="<c:url value='/etc/successMsg1.jpg'/>" alt="성공1">
+						      <img src="<c:url value='/etc/successMsg1.jpg'/>" alt="성공1" style="margin:auto;">
 						      <div class="carousel-caption">
 						        <h3>ServerMsg</h3>
 						        <h1>${msg }</h1>
@@ -99,7 +99,7 @@
 						    </div>
 						
 						    <div class="item">
-						      <img style="width:100%; height:700px;" src="<c:url value='/etc/successMsg2.jpg'/>" alt="성공2">
+						      <img src="<c:url value='/etc/successMsg2.jpg'/>" alt="성공2" style="margin:auto;">
 						      <div class="carousel-caption">
 						        <h3>ServerMsg</h3>
 						        <h1>${msg }</h1>
@@ -111,7 +111,7 @@
 						  <!-- Wrapper for slides -->
 						  <div class="carousel-inner">
 						    <div class="item active">
-						      <img style="width:100%; height:750px;" src="<c:url value='/etc/failMsg1.png'/>" alt="실패1">
+						      <img src="<c:url value='/etc/failMsg1.png'/>" alt="실패1" style="margin:auto;">
 						      <div class="carousel-caption">
 						        <h3>ServerMsg</h3>
 						        <h1>${msg }</h1>
@@ -119,7 +119,7 @@
 						    </div>
 						
 						    <div class="item">
-						      <img style="width:100%; height:750px;" src="<c:url value='/etc/failMsg2.jpg'/>" alt="실패2">
+						      <img src="<c:url value='/etc/failMsg2.jpg'/>" alt="실패2" style="margin:auto;">
 						      <div class="carousel-caption">
 						        <h3>ServerMsg</h3>
 						        <h1>${msg }</h1>
