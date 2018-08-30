@@ -83,7 +83,7 @@
 							<li><a href="<c:url value='/userControll.do?cmd=getInfo&user_num=${sessionScope.user_num }'/>">정보수정</a></li>
 							<li><a href="<c:url value='/cart.do?cmd=userCart'/>">장바구니</a></li>
 							<li><a href="<c:url value='/mypage_mypage.jsp'/>">마이페이지</a></li>
-							<li><a href="<c:url value='/orderlist.do?cmd=listUser'/>">주문배송조회</a></li>
+							<li><a href="<c:url value='/orderlist.do?cmd=listUser&user_num=${sessionScope.user_num }'/>">주문배송조회</a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/EventNotice.do?cmd=list'/>"> COMMUNITY </a>
