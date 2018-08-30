@@ -150,6 +150,48 @@ public class OrderListViewDao {
 			}
 		}
 	}
+		public ArrayList<OrderListViewVo> listUser(int user_num){
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs = null;
+			ArrayList<OrderListViewVo> list = new ArrayList<>();
+			try {
+				con=DBConnection.getConn();
+				String sql="select *from sm3_orderlist_view where user_num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, user_num);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					do {
+						int order_num1=rs.getInt("order_num");
+						//int user_num=rs.getInt("user_num");
+						int pur_num=rs.getInt("pur_num");
+						String item_name=rs.getString("item_name");
+						String item_savimg=rs.getString("item_savimg");
+						String item_info=rs.getString("item_info");
+						int order_cnt=rs.getInt("order_cnt");
+						int order_pay=rs.getInt("order_pay");
+						int order_status=rs.getInt("order_status");
+						OrderListViewVo vo = new OrderListViewVo(order_num1,user_num,pur_num,item_name,item_savimg,item_info,order_cnt,order_pay,order_status);
+						list.add(vo);
+					}while(rs.next());
+					return list;
+				}else {
+					return null;
+				}
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+				return null;
+			}finally {
+				try {
+					if(rs!=null)rs.close();
+					if(pstmt!=null)pstmt.close();
+					if(con!=null)con.close();
+				}catch(SQLException se) {
+					System.out.println(se.getMessage());
+				}
+		  }
+	}
 //	public int delete(int order_num) {
 //		Connection con=null;
 //		PreparedStatement pstmt=null;

@@ -136,7 +136,7 @@ public class EventNoticeController extends HttpServlet{
 		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(en_num, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
 		if(n>0) {
 			request.setAttribute("msg", "이벤트공지 수정 성공");
-			request.getRequestDispatcher("en_").forward(request, response);
+			request.getRequestDispatcher("EventNotice.do?cmd=list").forward(request, response);
 		}else {
 			request.setAttribute("msg", "이벤트공지 수정 실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
@@ -152,7 +152,7 @@ public class EventNoticeController extends HttpServlet{
 		EventNoticeVo vo = EventNoticeDao.getInstance().select(en_num);
 		if(vo!=null) { 
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("EventNotice.do?cmd=list").forward(request, response);
+			request.getRequestDispatcher("community_event_update.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
