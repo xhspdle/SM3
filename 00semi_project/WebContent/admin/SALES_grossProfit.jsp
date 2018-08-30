@@ -23,14 +23,60 @@
 	window.onload = function(){
 		xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=callback;
-		xhr.open('get', 'saleReport.do?cmd=test', true);
+		xhr.open('get', 'saleReport.do?cmd=month', true);
 		xhr.send();
 	}
 	function callback(){
 		if(xhr.readyState==4 && xhr.status==200){
-			alert("success");
+			var txt=xhr.responseText;
+			var json1=JSON.parse(txt);
+			var chart = bb.generate({
+				  data: {
+				    json: [
+				    	json1[0],
+				    	json1[1],
+				    	json1[2],
+				    	json1[3],
+				    	json1[4],
+				    	json1[5]
+				    ],
+				    keys: {
+				    	x: "x1",
+				    	xFormat: "%Y-%m",
+				    	value: ["grossCost", "grossSale", "orderCnt", "inCnt"]
+				    },
+				    type: "bar",
+				    types: {
+					    orderCnt: "spline",
+					    inCnt: "line",
+					    grossCost: "bar",
+					    grossSale: "bar"
+				    },
+				    groups: [
+				      [
+				        "grossCost",
+				        "grossSale"
+				      ]
+				    ],
+				    axes: {
+				    	grossSale: "y",
+				    	inCnt: "y2"
+				    }
+				  },
+				  axis: {
+					x: {
+						type: "category"
+					},
+					y2: {
+						show: true
+					}
+				  },
+				  bindto: "#CombinationChart"
+				});
 		}
 	}
+	
+	<%-- 
 	var chart = bb.generate({
 		  data: {
 			x: "x",
@@ -67,4 +113,5 @@
 		  },
 		  bindto: "#CombinationChart"
 		});
+	--%>
 </script>

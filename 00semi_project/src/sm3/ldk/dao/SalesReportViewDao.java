@@ -253,9 +253,11 @@ public class SalesReportViewDao {
 			if(month==2) {
 				endDay="28";
 			}
+			String startDate=String.valueOf(year) + "/" + String.valueOf(month) + "/1";
+			String endDate=String.valueOf(year) + "/" + String.valueOf(month) + "/" + endDay;
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, String.valueOf(year) + "/" + String.valueOf(month) + "/1");
-			pstmt.setString(2, String.valueOf(year) + "/" + String.valueOf(month) + "/" + endDay);
+			pstmt.setString(1, startDate);
+			pstmt.setString(2, endDate);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt("sum");
@@ -301,6 +303,100 @@ public class SalesReportViewDao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, String.valueOf(year) + "/" + String.valueOf(month) + "/1");
 			pstmt.setString(2, String.valueOf(year) + "/" + String.valueOf(month) + "/" + endDay);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("sum");
+			}else {
+				return -1;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public int orderCntMonth(int year,int month){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="select sum(order_cnt) sum from sm3_sales_report_view where order_date between ? and ?";
+			int month1[]= {1,3,5,7,8,10,12};
+			int month2[]= {4,6,9,11};
+			String endDay="";
+			for(int i=0;i<month1.length;i++) {
+				if(month==month1[i]) {
+					endDay="31";
+				}
+			}
+			for(int i=0;i<month2.length;i++) {
+				if(month==month2[i]) {
+					endDay="30";
+				}
+			}
+			if(month==2) {
+				endDay="28";
+			}
+			String startDate=String.valueOf(year) + "/" + String.valueOf(month) + "/1";
+			String endDate=String.valueOf(year) + "/" + String.valueOf(month) + "/" + endDay;
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, startDate);
+			pstmt.setString(2, endDate);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("sum");
+			}else {
+				return -1;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}	
+	public int inCntMonth(int year,int month){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="select sum(in_cnt) sum from sm3_sales_report_view where order_date between ? and ?";
+			int month1[]= {1,3,5,7,8,10,12};
+			int month2[]= {4,6,9,11};
+			String endDay="";
+			for(int i=0;i<month1.length;i++) {
+				if(month==month1[i]) {
+					endDay="31";
+				}
+			}
+			for(int i=0;i<month2.length;i++) {
+				if(month==month2[i]) {
+					endDay="30";
+				}
+			}
+			if(month==2) {
+				endDay="28";
+			}
+			String startDate=String.valueOf(year) + "/" + String.valueOf(month) + "/1";
+			String endDate=String.valueOf(year) + "/" + String.valueOf(month) + "/" + endDay;
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, startDate);
+			pstmt.setString(2, endDate);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt("sum");
