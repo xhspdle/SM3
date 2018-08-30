@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table width="700" border="1">
+<table width="1000" border="1">
 	<tr>
 		<th>주문번호</th>
 		<th>유저번호</th>

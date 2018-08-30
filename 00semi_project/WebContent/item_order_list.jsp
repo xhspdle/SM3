@@ -87,7 +87,6 @@
 					</div>
 				</div>
 				<form method="post" action="<c:url value='/order.do?cmd=insert'/>">
-				<input type="hidden" name="pur_num" value="${vo.pur_num }">
 				<input type="hidden" name="user_num" value="${user_num }"><!-- 세션스코프에서받기 -->
 				<input type="hidden" name="order_total" id="tt_price" value="">
 				<input type="hidden" name="order_pay" id="tt_pay" value="">
@@ -114,6 +113,7 @@
 														<tbody>
 														<c:forEach var="vo" items="${requestScope.list }">
 														<c:set var="pur_num" value="${vo.pur_num }"/>
+														<input type="hidden" name="pur_num" value="${vo.pur_num }">
 															<tr class="cart_table_item">
 																<td class="product-remove"><a
 																	title="Remove this item" class="remove" href="#none"> <i

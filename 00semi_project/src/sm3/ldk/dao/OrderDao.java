@@ -22,7 +22,7 @@ public class OrderDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(max(order_num_num),0) maxnum from sm3_order";
+			String sql="select NVL(max(order_num),0) maxnum from sm3_order";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -48,7 +48,7 @@ public class OrderDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(count(order_num_num),0) cnt from sm3_order";
+			String sql="select NVL(count(order_num),0) cnt from sm3_order";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -136,7 +136,7 @@ public class OrderDao {
 			String sql="update sm3_order set user_num=?,pur_num=?,"
 					+ "order_total=?,order_point=?,order_pay=?,"
 					+ "order_recipient=?,"
-					+ "order_post_addr=?,oder_basic_addr=?,order_detail_addr=?,"
+					+ "order_post_addr=?,order_basic_addr=?,order_detail_addr=?,"
 					+ "order_phone=?,order_status=? where order_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, vo.getUser_num());

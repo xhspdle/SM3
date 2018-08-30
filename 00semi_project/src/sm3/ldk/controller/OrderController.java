@@ -1,6 +1,7 @@
 package sm3.ldk.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -33,7 +34,7 @@ public class OrderController extends HttpServlet{
 	protected void insert(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String suser_num=request.getParameter("user_num");
-		String spur_num=request.getParameter("spur_num");
+		String spur_num=request.getParameter("pur_num");
 		String sorder_total=request.getParameter("order_total");
 		String sorder_point=request.getParameter("order_point");
 		String sorder_pay=request.getParameter("order_pay");
@@ -83,20 +84,94 @@ public class OrderController extends HttpServlet{
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("dev/cartOrder/ORDER_list.jsp").forward(request, response);
 		}else {
-			request.setAttribute("msg", "주문 목록 불러오기 실패");
+			request.setAttribute("msg", "주문 목록 불러오기 실패..");
 			request.getRequestDispatcher("msg.jsp").forward(request, response);
 		}
 	}
 	protected void delete(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		
+		String sorder_num=request.getParameter("order_num");
+		int order_num=0;
+		if(sorder_num!=null && !sorder_num.equals("")) {
+			order_num=Integer.parseInt(sorder_num);
+		}
+		int n=OrderDao.getInstance().delete(order_num);
+		if(n>0) {
+			request.setAttribute("success", "성공!");
+			request.setAttribute("msg", "주문 삭제 성공!!");
+		}else {
+			request.setAttribute("msg", "주문 삭제 실패..");
+		}
+		request.getRequestDispatcher("msg.jsp").forward(request, response);
 	}
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		
+		String sorder_num=request.getParameter("order_num");
+		int order_num=0;
+		if(sorder_num!=null && !sorder_num.equals("")) {
+			order_num=Integer.parseInt(sorder_num);
+		}
+		OrderVo vo=OrderDao.getInstance().select(order_num);
+		if(vo!=null) {
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("dev/cartOrder/ORDER_insert.jsp?do1=update").forward(request, response);
+		}else {
+			request.setAttribute("msg", "주문 선택 실패..");
+			request.getRequestDispatcher("msg.jsp").forward(request, response);
+		}
 	}
 	protected void update(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		
+		String sorder_num=request.getParameter("order_num");
+		String suser_num=request.getParameter("user_num");
+		String spur_num=request.getParameter("pur_num");
+		String sorder_total=request.getParameter("order_total");
+		String sorder_point=request.getParameter("order_point");
+		String sorder_pay=request.getParameter("order_pay");
+		int order_num=0;
+		int user_num=0;
+		int pur_num=0;
+		int order_total=0;
+		int order_point=0;
+		int order_pay=0;
+		if(sorder_num!=null && !sorder_num.equals("")) {
+			order_num=Integer.parseInt(sorder_num);
+		}
+		if(suser_num!=null && !suser_num.equals("")) {
+			user_num=Integer.parseInt(suser_num);
+		}
+		if(spur_num!=null && !spur_num.equals("")) {
+			pur_num=Integer.parseInt(spur_num);
+		}
+		if(sorder_total!=null && !sorder_total.equals("")) {
+			order_total=Integer.parseInt(sorder_total);
+		}
+		if(sorder_point!=null && !sorder_point.equals("")) {
+			order_point=Integer.parseInt(sorder_point);
+		}
+		if(sorder_pay!=null && !sorder_total.equals("")) {
+			order_pay=Integer.parseInt(sorder_pay);
+		}
+		String order_recipient=request.getParameter("order_recipient");
+		String order_post_addr=request.getParameter("order_post_addr");
+		String order_basic_addr=request.getParameter("order_basic_addr");
+		String order_detail_addr=request.getParameter("order_detail_addr");
+		String order_phone=request.getParameter("order_phone");
+		String sorder_status=request.getParameter("order_status");
+		int order_status=0;
+		if(sorder_status!=null && !sorder_status.equals("")) {
+			order_status=Integer.parseInt(sorder_status);
+		}
+		int n=OrderDao.getInstance().update(new OrderVo(order_num, user_num, pur_num,
+				order_total, order_point, order_pay, order_recipient,
+				order_post_addr, order_basic_addr, order_detail_addr,
+				order_phone, null, order_status));
+		if(n>0) {
+			request.setAttribute("success", "성공!");
+			request.setAttribute("msg", "주문 수정 성공!!");
+		}else {
+			request.setAttribute("msg", "주문 수정 실패..");
+		}
+		request.getRequestDispatcher("msg.jsp").forward(request, response);
 	}
 }
