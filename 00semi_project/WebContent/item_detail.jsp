@@ -259,11 +259,11 @@
 															</span>
 														</span>
 														
-														<c:if test="${sessionScope.user_id == vo.user_id}">
-															<a href="#">삭제</a>
-														</c:if>	
 														<!-- 리뷰 내용 -->
-														<p>${vo.review_content}</p>
+														<div class="comment_box">${vo.review_content}</div>
+															<c:if test="${sessionScope.user_id == vo.user_id}">
+															<p class="comment_update"><a href="#">삭제</a><a href="#">수정</a></p>
+															</c:if>	
 													</div>
 												</div>
 											</li>
