@@ -122,18 +122,19 @@ function searchCheck(frm){
 											<c:forEach var="vo" items="${requestScope.list }">
 												<tr>
 													<td>${vo.qa_num }</td>
+													<td>
 													<c:if test="${vo.lev>0 }">
 												<c:forEach var="i" begin="1" end="${vo.lev }">
-												&nbsp;&nbsp;
+													&nbsp;&nbsp;
 													</c:forEach>
 														[re]
 														</c:if>
-													<td><a href="<c:url value='/QA_board.do?cmd=detail&qa_num=${vo.qa_num }'/>">${vo.qa_title}</a></td>
+													<a href="<c:url value='/QA_board.do?cmd=detail&qa_num=${vo.qa_num }'/>">${vo.qa_title}</a></td>
 													<td>${vo.qa_writer }</td>
 													<td><a href="<c:url value='/QA_board.do?cmd=delete&qa_num=${vo.qa_num}'/>">삭제</a></td>
 												</tr>
 											</c:forEach>
-											<tr>  
+		<tr>  
         	<td colspan="7"> <br/>
             <form  action="<c:url value='/QA_board.do?cmd=list'/>" name="serach" method ="post">
             <select name="keyField">
@@ -189,8 +190,8 @@ function searchCheck(frm){
 		</c:otherwise>
 	</c:choose> 
 	</div>	
-											</tbody>
-										</table>
+											
+									
 									</div>
 
 								</div>
