@@ -101,7 +101,7 @@
 																	id="user_num" name="user_num" type="hidden" value="${user_num }"
 																	class="form-control input-lg">
 																<input
-																	id="pwd" name="pwd" type="password" value=""
+																	id="pwd" name="user_pwd" type="password" value=""
 																	class="form-control input-lg">
 															</div>
 															<div class="col-md-12" style="text-align: center;">

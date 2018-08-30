@@ -161,12 +161,16 @@ public class UserController extends HttpServlet {
 	
 	protected void getInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int user_num = Integer.parseInt(request.getParameter("user_num"));
-		String user_pwd = request.getParameter("pwd");
+		String user_pwd = request.getParameter("user_pwd");
 		HttpSession session = request.getSession();
 		String in_pwd = (String)session.getAttribute("user_pwd");
 		UserDao dao = UserDao.getInstance();
 		UserVo vo = dao.getinfo(user_num);
-		if(user_pwd == in_pwd){
+		System.out.println(user_pwd);
+		System.out.println(in_pwd);
+		if(user_pwd.equals(in_pwd)){
+			System.out.println(user_pwd);
+			System.out.println(in_pwd);
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("user_update.jsp").forward(request, response);
 		}else {

@@ -431,7 +431,7 @@ p.taller {
 
 .list_sel li:last-child {
 	width: 10%;
-	padding-top: 7px;
+	padding-top: 13px;
 }
 
 .list_sel li:nth-child(2) {
