@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table width="700" height="70" border="1">
+	<table width="900" height="70" border="1">
 		<tr>
 			<th>주문번호</th>
 			<th>이미지</th>
@@ -18,6 +18,7 @@
 			<th>주문처리상태</th>
 		</tr>
 	<c:forEach var="vo" items="${requestScope.list }">	
+		<tr>
 		<td>${vo.order_num }</td>
 		<td><img src='<c:url value="/DBImages/${vo.item_savimg }"/>'
 		 style="width:105px;height:100px;" id="img1"></td>
@@ -47,6 +48,7 @@
 				</c:otherwise>
 			</c:choose>
 		</td>
+		</tr>
 	  </c:forEach>
 	</table>
 </body>
