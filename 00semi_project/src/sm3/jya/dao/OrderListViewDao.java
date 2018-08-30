@@ -291,7 +291,7 @@ public class OrderListViewDao {
 						" from" +
 						" (" +
 						" select *" +
-						" sm3_orderlist_view" +
+						" from sm3_orderlist_view" +
 						" order by order_num desc" +
 						" )aa" +
 						")" +
@@ -314,9 +314,9 @@ public class OrderListViewDao {
 						"    FROM" + 
 						"    (" + 
 						"        SELECT *" + 
-						"        FROM sm3_event_notice" + 
+						"        FROM sm3_orderlist_view" + 
 						"		 WHERE "+search+" "+searchCase+
-						"        ORDER BY en_num DESC" + 
+						"        ORDER BY order_num DESC" + 
 						"    )AA" + 
 						")" + 
 						"WHERE RNUM>=? AND RNUM<=?";
