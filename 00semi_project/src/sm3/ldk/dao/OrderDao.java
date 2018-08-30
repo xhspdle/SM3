@@ -22,11 +22,37 @@ public class OrderDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(max(order_num_num),0) maxnum from sm3_order";
+			String sql="select NVL(max(order_num),0) maxnum from sm3_order";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt("maxnum");
+			}
+			return 0;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public int getCount() {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="select NVL(count(order_num),0) cnt from sm3_order";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
 			}
 			return 0;
 		}catch(SQLException se) {
@@ -110,7 +136,7 @@ public class OrderDao {
 			String sql="update sm3_order set user_num=?,pur_num=?,"
 					+ "order_total=?,order_point=?,order_pay=?,"
 					+ "order_recipient=?,"
-					+ "order_post_addr=?,oder_basic_addr=?,order_detail_addr=?,"
+					+ "order_post_addr=?,order_basic_addr=?,order_detail_addr=?,"
 					+ "order_phone=?,order_status=? where order_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, vo.getUser_num());

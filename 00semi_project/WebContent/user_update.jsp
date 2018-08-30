@@ -225,9 +225,7 @@
 											</div>
 										</div>
 									</div>
-
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -264,7 +262,7 @@
 		
 		function submitCheck() {
 			/* 수정완료 버튼 클릭할때 처리 */
-			if (id.value == "" || pwd.value == "" || pwdOk.value == ""
+			if (id.value == "" 
 					|| name.value == "" || hintOk.value == ""
 					|| phone1.value == "" || phone2.value == ""
 					|| phone3.value == "" || addr.value == ""

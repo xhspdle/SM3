@@ -38,6 +38,7 @@ public class AdminController extends HttpServlet{
 		String admin_pwd=request.getParameter("admin_pwd");
 		int n=AdminDao.getInstance().insert(new AdminVo(0, admin_id, admin_pwd));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "관리자 등록 성공!!");
 		}else {
 			request.setAttribute("msg", "관리자 등록 실패..");
@@ -64,6 +65,7 @@ public class AdminController extends HttpServlet{
 		}
 		int n=AdminDao.getInstance().delete(admin_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "관리자 삭제 성공!!");
 		}else {
 			request.setAttribute("msg", "관리자 삭제 실패..");
@@ -98,6 +100,7 @@ public class AdminController extends HttpServlet{
 		String admin_pwd=request.getParameter("admin_pwd");
 		int n=AdminDao.getInstance().update(new AdminVo(admin_num, admin_id, admin_pwd));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "관리자 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "관리자 수정 실패..");

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import sm3.ldk.dao.PurchaseDao;
 import sm3.ldk.dao.PurchaseListDao;
@@ -32,6 +33,8 @@ public class PurchaseController extends HttpServlet{
 			update(request,response);
 		}else if(cmd!=null && cmd.equals("select")) {
 			select(request,response);
+		}else if(cmd!=null && cmd.equals("purNumList")) {
+			purNumList(request,response);
 		}
 	}
 	protected void insert(HttpServletRequest request, 
@@ -60,6 +63,7 @@ public class PurchaseController extends HttpServlet{
 						request.getRequestDispatcher("item_order_list.jsp").forward(request, response);
 					}else {
 						request.setAttribute("msg", "구매목록 추가 성공!! but, 구매목록 불러오기 실패 ");
+						request.getRequestDispatcher("msg.jsp").forward(request, response);
 					}
 				}else {
 					request.setAttribute("msg", "구매목록 추가 실패..");
@@ -82,6 +86,26 @@ public class PurchaseController extends HttpServlet{
 			request.getRequestDispatcher("msg.jsp").forward(request, response);
 		}
 	}
+	protected void purNumList(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		Object admin_num=session.getAttribute("admin_num");
+		String spur_num=request.getParameter("pur_num");
+		int pur_num=0;
+		if(spur_num!=null && !spur_num.equals("")) {
+			pur_num=Integer.parseInt(spur_num);
+		}
+		ArrayList<PurchaseListVo> list=PurchaseListDao.getInstance().purNumList(pur_num);
+		if(admin_num!=null) {
+			if(list!=null) {
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("admin.jsp?page1=PURCHASE_LIST_list.jsp").forward(request, response);
+			}else {
+				request.setAttribute("msg", "목록 불러오기 실패");
+				request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+			}
+		}
+	}
 	protected void delete(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String spur_num=request.getParameter("pur_num");
@@ -91,6 +115,7 @@ public class PurchaseController extends HttpServlet{
 		}	
 		int n=PurchaseListDao.getInstance().delete(pur_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "구매목록 삭제 성공!!");
 		}else {
 			request.setAttribute("msg", "구매목록 삭제 실패..");
@@ -143,6 +168,7 @@ public class PurchaseController extends HttpServlet{
 		int n=PurchaseListDao.getInstance().update(new PurchaseListVo(pl_num, pur_num,
 				size_num, order_cnt, item_price));
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "구매목록 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "구매목록 수정 실패..");

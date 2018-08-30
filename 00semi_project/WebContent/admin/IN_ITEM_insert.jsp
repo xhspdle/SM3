@@ -4,9 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <c:choose>
 	<c:when test="${param.do1=='insert' }">
-<div class="container" style="margin-top:10%;">
+<div style="margin-top:10%;">
 	<div class="row">
-	<div class="col-lg-9">
 		<section class="panel panel-admin">
 			<header class="panel-heading">
 				<h1 class="panel-title">상품 입고</h1>
@@ -47,7 +46,6 @@
 			</div>
 		</section>
 	</div>
-	</div>
 </div>
 <script>
 	var xhr=null;
@@ -77,9 +75,8 @@
 </script>	
 	</c:when>
 	<c:when test="${param.do1=='update' }">
-<div class="container" style="margin-top:10%;">
+<div style="margin-top:10%;">
 	<div class="row">
-	<div class="col-lg-9">
 		<section class="panel panel-admin">
 			<header class="panel-heading">
 				<h1 class="panel-title">입고 수정</h1>
@@ -143,7 +140,6 @@
 			</form>
 			</div>
 		</section>
-	</div>
 	</div>
 </div>
 <script>

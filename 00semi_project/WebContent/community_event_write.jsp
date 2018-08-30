@@ -111,7 +111,8 @@
 															<label>글내용</label>
 															<textarea maxlength="5000"
 																data-msg-required="Please enter your message." rows="10"
-																class="form-control" name="en_content" id="message"></textarea>
+																class="form-control" name="en_content" id="message"
+																value='community_event_detail.jsp?en_content=${vo.en_num }'></textarea>
 														</div>
 													</div>
 													

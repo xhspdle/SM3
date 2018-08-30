@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import sm3.jsh.dao.ReviewDao;
+import sm3.jsh.vo.ReviewVo;
 import sm3.jsh.vo.UserVo;
 import sm3.ldk.dao.ItemViewDao;
 import sm3.ldk.vo.ItemViewVo;
@@ -47,6 +49,8 @@ public class ItemViewController extends HttpServlet{
 		}
 	}
 	
+	
+	
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String sitem_num=request.getParameter("item_num");
@@ -57,13 +61,50 @@ public class ItemViewController extends HttpServlet{
 		if(sitem_num!=null && !sitem_num.equals("")) {
 			item_num=Integer.parseInt(sitem_num);
 		}
-		
 		//상품정보 리스트
 		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select(item_num);
+		ItemViewVo vo = list.get(0);
 		HashMap<Integer, String> list2=ItemViewDao.getInstance().select_color(item_name);
+		
+		//리뷰 리스트
+		
+		String mpageNum = request.getParameter("pageNum");
+		int pageNum = 1;
+		if (mpageNum != null) {
+			pageNum = Integer.parseInt(mpageNum);
+		}
+		String search = request.getParameter("search");
+		String keyword = request.getParameter("keyword");
+		if (keyword == null || keyword.equals("")) {
+			search = "";
+			keyword = "";
+		}
+		int endRow = 10 * pageNum;
+		int startRow = endRow - 9;
+		ReviewDao dao = ReviewDao.getInstance();
+		ArrayList<ReviewVo> review_list = dao.list(startRow, endRow, search, keyword, item_name);
+		System.out.println(review_list);
+		if(review_list==null) review_list = new ArrayList<ReviewVo>();
+		//리퀘스트스코프에 져장
 		if(list!=null && list2 != null) {
+			int pageCount = (int)(Math.ceil(dao.getCount(search, keyword) / 10.0));
+			System.out.println(pageCount);
+			int startPage = ((pageNum - 1) / 3 * 3) + 1;
+			int endPage = startPage + 2;
+			if (pageCount < endPage) {
+				endPage = pageCount;
+			}
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("pageCount", pageCount);
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("search", search);
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("vo", vo);
 			request.setAttribute("list", list);
 			request.setAttribute("list2", list2);
+			request.setAttribute("review_list", review_list);
+			
 			request.getRequestDispatcher("item_detail.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "선택실패");

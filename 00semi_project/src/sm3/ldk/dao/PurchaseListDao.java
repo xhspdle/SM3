@@ -196,4 +196,42 @@ public class PurchaseListDao {
 			}
 		}
 	}
+	public ArrayList<PurchaseListVo> purNumList(int pur_num){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<PurchaseListVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			String sql="select * from sm3_purchase_list where pur_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, pur_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int pl_num=rs.getInt("pl_num");
+					int size_num=rs.getInt("size_num");
+					int order_cnt=rs.getInt("order_cnt");
+					int item_price=rs.getInt("item_price");
+					PurchaseListVo vo=new PurchaseListVo(pl_num, pur_num,
+							size_num, order_cnt, item_price);
+					list.add(vo);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 }

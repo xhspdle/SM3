@@ -77,7 +77,7 @@
 			<jsp:include page="/header.jsp" />
 		</header>
 		<div role="sub" class="sub">
-			<div class="container">
+			<div class="container adminContainer">
 				<div class="row">
 					<div class="col-md-3">
 						<aside class="sidebar">
@@ -125,6 +125,15 @@
 										  class="list-group-item">입고목록</a>
 										  <a href="<c:url value='/itemView.do?cmd=list'/>" 
 										  class="list-group-item">재고목록</a>
+										</div>
+									</div>
+								</section>													
+								<section class="toggle">
+									<label>Sales Managing</label>
+									<div class="toggle-content" style="display: none;">
+										<div class="list-group">
+										  <a href="<c:url value='/order.do?cmd=list'/>" 
+										  class="list-group-item">주문목록</a>
 										</div>
 									</div>
 								</section>													

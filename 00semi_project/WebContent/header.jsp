@@ -7,7 +7,7 @@
 			<div class="header-column header-column-center">
 				<div class="header-logo">
 					<h1>
-						<a href="index.jsp"> Something Like </a>
+						<a href="<c:url value='/index.jsp'/>"> Something Like </a>
 					</h1>
 				</div>
 				<div class="header-search hidden-xs">
@@ -80,20 +80,20 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/mypage_mypage.jsp'/>"> MYPAGE</a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value='/mypage_update.jsp?user_num=${sessionScope.user_num }'/>">정보수정</a></li>
-							<li><a href="<c:url value='/cart.jsp'/>">장바구니</a></li>
+							<li><a href="<c:url value='/userControll.do?cmd=getInfo&user_num=${sessionScope.user_num }'/>">정보수정</a></li>
+							<li><a href="<c:url value='/cart.do?cmd=userCart'/>">장바구니</a></li>
 							<li><a href="<c:url value='/mypage_mypage.jsp'/>">마이페이지</a></li>
 							<li><a href="<c:url value='/mypage_pay_list.jsp'/>">주문배송조회</a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/community_event_list.jsp'/>"> COMMUNITY </a>
+						href="<c:url value='/EventNotice.do?cmd=list'/>"> COMMUNITY </a>
 						<ul class="dropdown-menu">
 							<li><a href="<c:url value='/EventNotice.do?cmd=list'/>">
 									EVENT&amp;NOTICE </a></li>
 							<li><a href="<c:url value='/community_qna_list.jsp'/>">Q&amp;A</a></li>
 						</ul></li>	
 					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/cart.jsp'/>"> CART </a></li>
+						href="<c:url value='/cart.do?cmd=userCart'/>"> CART </a></li>
 					<c:choose>
 						<c:when test="${user_id != null }">
 							<li class="dropdown"><a class="dropdown-toggle"

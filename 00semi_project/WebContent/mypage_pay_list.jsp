@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,19 +83,28 @@
 					<div class="col-md-12">
 						<div class="featured-box featured-box-primary align-left mt-xlg">
 							<div class="box-content">
+							<p style="float:left; font-size:18px; color: #555;">주문내역</p>
+								<p class="day_list">
+										<a href="#" class="btn">최근 1달</a>
+										<a href="#" class="btn">최근 3달</a>
+										<a href="#" class="btn">전체</a>
+									</p>
 								<table class="table">
-									<caption>주문내역</caption>
+									
 									<thead>
 										<tr>
 											<th scope="col"><strong>상품주문번호</strong></th>
 											<th scope="col">상품정보</th>
 											<th scope="col">상품금액(수량)</th>
-											<th scope="col" class="bg_point">배송비</th>
 											<th scope="col" class="bg_point">진행상태</th>
 										</tr>
 									</thead>
 									<tbody>
+									
+										<!--orderlist.jsp끼워넣기. -->
 										<tr class="group">
+										<c:forEach var="vo" items="${requestScope.list }"> 
+										
 											<td><span class="thm ordernum2">2018073088503591</span></td>
 											<td class="product">
 												<div>
@@ -107,7 +117,7 @@
 													</div>
 													<dl>
 														<dt>
-															<strong>[스마트스토어] 모아두아</strong> <a href="#"
+															<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
 																target="_blank">탁상용 선풍기 미니 사무실 책상용 소형 저소음 USB 테이블 원룸
 																작은</a>
 														</dt>
@@ -133,82 +143,16 @@
 											</td>
 											<td class="bg_point state">구매확정<br>
 											</td>
+											</c:forEach>
+										</tr>
+										<!--  -->
+									</tbody>
+								</table>
+							</div>
+						</div>
 
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<div class="featured-box featured-box-primary align-left mt-xlg">
-							<div class="box-content">
-								<table class="table">
-									<caption>배송지 정보</caption>
-									<thead class="blind">
-										<tr>
-											<th scope="col">배송지 정보</th>
-											<th scope="col">배송지 정보입력</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr class="gap">
-											<th scope="row">수령인</th>
-											<td>진수현</td>
-										</tr>
-										<tr>
-											<th scope="row">연락처</th>
-											<td><span class="tel">010-4234-6618</span> <span></span></td>
-										</tr>
-										<tr>
-											<th scope="row">배송지</th>
-											<td class="address">06953<br> 서울시 구구구 등촌동 샤브샤브짱
-											<br> 샤브샤브먹고싶어
-											</td>
-										</tr>
-										<tr class="gap3">
-											<th scope="row">배송메모</th>
-											<td>빨리배송해주세요~</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<div class="col-sm-12">
-							<div class="featured-box featured-box-primary align-left mt-xlg"
-								style="height: 303px;">
-								<div class="box-content">
-									<h4 class="heading-primary text-uppercase mb-md">결제 예정 금액</h4>
-									<table class="cart-totals">
-										<tbody>
-											<tr class="shipping">
-												<th>배송정보</th>
-												<td>기본 배송(2500원)<input type="hidden"
-													value="free_shipping" id="shipping_method"
-													name="shipping_method">
-												</td>
-											</tr>
-											<tr class="total">
-												<th><strong>적립금사용액</strong></th>
-												<td>500원</td>
-											</tr>
-											<tr class="total">
-												<th><strong>총금액</strong></th>
-												<td><strong><span class="amount">$431</span></strong></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12">
-								<div class="actions-continue">
-									<button type="submit" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
-										반품하기 <i class="fa fa-angle-right ml-xs"></i>
-									</button>
-									<button type="submit" class="btn pull-right btn-primary btn-lg" >
-										취소하기 <i class="fa fa-angle-right ml-xs"></i>
-									</button>
-								</div>
-							</div>
+
+
 					</div>
 				</div>
 			</div>

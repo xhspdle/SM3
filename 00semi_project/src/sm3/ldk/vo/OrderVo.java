@@ -1,7 +1,7 @@
 package sm3.ldk.vo;
 
 import java.sql.Date;
-//컬럼 수정해야댐
+
 public class OrderVo {
 	private int order_num;
 	private int user_num;

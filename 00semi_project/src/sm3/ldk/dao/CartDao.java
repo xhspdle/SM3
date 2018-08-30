@@ -99,6 +99,27 @@ public class CartDao {
 			}
 		}
 	}
+	public int numDelete(int cart_num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="delete from sm3_cart where cart_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, cart_num);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int update(CartVo vo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -112,6 +133,28 @@ public class CartDao {
 			pstmt.setInt(3, vo.getOrder_cnt());
 			pstmt.setInt(4, vo.getItem_price());
 			pstmt.setInt(5, vo.getCart_num());
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public int cntUpdate(CartVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="update sm3_cart set order_cnt=? where cart_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, vo.getOrder_cnt());
+			pstmt.setInt(2, vo.getCart_num());
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());

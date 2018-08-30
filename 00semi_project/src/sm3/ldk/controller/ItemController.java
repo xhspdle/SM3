@@ -69,6 +69,7 @@ public class ItemController extends HttpServlet{
 				cate_num, item_info, item_price,
 				item_orgimg, item_savimg),color_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "상품 추가 성공!!");
 		}else {
 			request.setAttribute("msg", "상품 추가 실패..");
@@ -95,6 +96,7 @@ public class ItemController extends HttpServlet{
 		}
 		int n=ItemDao.getInstance().delete(item_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "상품 삭제 성공!!");
 		}else {
 			request.setAttribute("msg", "상품 삭제 실패..");
@@ -162,6 +164,7 @@ public class ItemController extends HttpServlet{
 		int n=ItemDao.getInstance().update(new ItemVo(item_num,
 				item_name, cate_num, item_info, item_price, item_orgimg, item_savimg),color_num);
 		if(n>0) {
+			request.setAttribute("success", "성공!");
 			request.setAttribute("msg", "상품 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "상품 수정 실패..");
