@@ -11,8 +11,8 @@
 <h1>주문프로세스</h1>
 <hr>
 <h3>주문내역</h3>
-<a href="<c:url value='/dev/cartOrder/PURCHASE_LIST_insert.jsp?do1=insert'/>">주문하기</a><br>
-<a href="<c:url value='/dev/cartOrder/purchase.do?cmd=list'/>">주문내역</a><br>
+<!--<a href="<c:url value='/dev/cartOrder/PURCHASE_LIST_insert.jsp?do1=insert'/>">주문하기</a><br>-->
+<a href="<c:url value='/dev/orderlist/orderlist.do?cmd=list'/>">주문내역</a><br>
 <hr>
 </body>
 </html>

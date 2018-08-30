@@ -91,18 +91,20 @@
 									</p>
 								<table class="table">
 									
-								
 									<thead>
 										<tr>
 											<th scope="col"><strong>상품주문번호</strong></th>
 											<th scope="col">상품정보</th>
 											<th scope="col">상품금액(수량)</th>
-											<th scope="col" class="bg_point">배송비</th>
 											<th scope="col" class="bg_point">진행상태</th>
 										</tr>
 									</thead>
 									<tbody>
+									
+										<!--orderlist.jsp끼워넣기. -->
 										<tr class="group">
+										<c:forEach var="vo" items="${requestScope.list }"> 
+										
 											<td><span class="thm ordernum2">2018073088503591</span></td>
 											<td class="product">
 												<div>
@@ -141,9 +143,9 @@
 											</td>
 											<td class="bg_point state">구매확정<br>
 											</td>
-
+											</c:forEach>
 										</tr>
-
+										<!--  -->
 									</tbody>
 								</table>
 							</div>

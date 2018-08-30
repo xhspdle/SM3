@@ -33,9 +33,7 @@ public class EventNoticeController extends HttpServlet{
 			update(request,response);
 		}else if(cmd!=null && cmd.equals("select")) {
 			select(request,response);
-		}//else if(cmd!=null && cmd.equals("getInfo")) {
-//			getInfo(request,response);
-//		}
+		}
 	}
 	protected void insert(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String path=request.getServletContext().getRealPath("/images");	
@@ -160,16 +158,5 @@ public class EventNoticeController extends HttpServlet{
 			request.getRequestDispatcher("test.jsp").forward(request, response);
 		}
 	 }
-//	protected void getInfo(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-//		int en_num=Integer.parseInt(request.getParameter("en_num"));
-//		EventNoticeVo vo = EventNoticeDao.getInstance().getInfo(en_num);
-//		if(vo!=null) {
-//			request.setAttribute("vo", vo);
-//			request.getRequestDispatcher("community_event_detail.jsp").forward(request, response);
-//		}else {
-//			request.setAttribute("msg", "상세보기실패");
-//			request.getRequestDispatcher("test.jsp").forward(request, response);
-//		}
-//	 }
   }		
 
