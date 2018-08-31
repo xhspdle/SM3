@@ -1,6 +1,7 @@
 package sm3.jya.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,8 +89,17 @@ public class OrderListViewDao {
 					String item_info=rs.getString("item_info");
 					int order_cnt=rs.getInt("order_cnt");
 					int order_pay=rs.getInt("order_pay");
+					String order_recipient=rs.getString("order_recipient");
+					String order_phone=rs.getString("order_phone");
+					String order_basic_addr=rs.getString("order_basic_addr");
+					String order_detail_addr=rs.getString("order_detail_addr");
+					int order_point=rs.getInt("order_point");
 					int order_status=rs.getInt("order_status");
-					OrderListViewVo vo = new OrderListViewVo(order_num,user_num,pur_num,item_name,item_savimg,item_info,order_cnt,order_pay,order_status);
+					Date order_date=rs.getDate("order_date");
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num,
+							item_name, item_savimg, item_info, order_cnt, order_pay,
+							order_recipient, order_phone, order_basic_addr, order_detail_addr,
+							order_point, order_status, order_date);
 					list.add(vo);
 				}while(rs.next()); 
 					return list;
@@ -109,7 +119,7 @@ public class OrderListViewDao {
 			}
 		}
 	}
-	public ArrayList<OrderListViewVo> list(){
+	public ArrayList<OrderListViewVo> list(){  //전체리스트를 보여주는.
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
@@ -129,8 +139,16 @@ public class OrderListViewDao {
 					String item_info=rs.getString("item_info");
 					int order_cnt=rs.getInt("order_cnt");
 					int order_pay=rs.getInt("order_pay");
+					String order_recipient=rs.getString("order_recipient");
+					String order_phone=rs.getString("order_phone");
+					String order_basic_addr=rs.getString("order_basic_addr");
+					String order_detail_addr=rs.getString("order_detail_addr");
+					int order_point=rs.getInt("order_point");
 					int order_status=rs.getInt("order_status");
-					OrderListViewVo vo = new OrderListViewVo(order_num1,user_num,pur_num,item_name,item_savimg,item_info,order_cnt,order_pay,order_status);
+					Date order_date=rs.getDate("order_date");
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_name, 
+								item_savimg, item_info, order_cnt, order_pay, order_recipient, order_phone, 
+								order_basic_addr, order_detail_addr, order_point, order_status, order_date);
 					list.add(vo);
 				}while(rs.next());
 				return list;
@@ -150,7 +168,7 @@ public class OrderListViewDao {
 			}
 		}
 	}
-		public ArrayList<OrderListViewVo> listUser(int user_num){
+		public ArrayList<OrderListViewVo> listUser(int user_num){  //로그인한 사용자의 주문내역을 보여줌.
 			Connection con=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs = null;
@@ -164,16 +182,22 @@ public class OrderListViewDao {
 				if(rs.next()) {
 					do {
 						int order_num1=rs.getInt("order_num");
-						//int user_num=rs.getInt("user_num");
 						int pur_num=rs.getInt("pur_num");
 						String item_name=rs.getString("item_name");
 						String item_savimg=rs.getString("item_savimg");
 						String item_info=rs.getString("item_info");
 						int order_cnt=rs.getInt("order_cnt");
 						int order_pay=rs.getInt("order_pay");
+						String order_recipient=rs.getString("order_recipient");
+						String order_phone=rs.getString("order_phone");
+						String order_basic_addr=rs.getString("order_basic_addr");
+						String order_detail_addr=rs.getString("order_detail_addr");
+						int order_point=rs.getInt("order_point");
 						int order_status=rs.getInt("order_status");
-						OrderListViewVo vo = new OrderListViewVo(order_num1,user_num,pur_num,item_name,item_savimg,item_info,order_cnt,order_pay,order_status);
-						list.add(vo);
+						Date order_date=rs.getDate("order_date");
+						OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_name, 
+										item_savimg, item_info, order_cnt, order_pay, order_recipient, 
+										order_phone, order_basic_addr, order_detail_addr, order_point, order_status, order_date);
 					}while(rs.next());
 					return list;
 				}else {
@@ -192,75 +216,21 @@ public class OrderListViewDao {
 				}
 		  }
 	}
-//	public int delete(int order_num) {
-//		Connection con=null;
-//		PreparedStatement pstmt=null;
-//		try {
-//			con=DBConnection.getConn();
-//			String sql="delete from sm3_orderlist_view where order_num=?";
-//			pstmt=con.prepareStatement(sql);
-//			pstmt.setInt(1, order_num);
-//			return pstmt.executeUpdate();
-//		}catch(SQLException se) {
-//			System.out.println(se.getMessage());
-//			return -1;
-//		}finally {
-//			try {
-//				if(pstmt!=null)pstmt.close();
-//				if(con!=null)con.close();
-//			}catch(SQLException se) {
-//				System.out.println(se.getMessage());
-//			}
-//		}
-//	}
-//	public int update(OrderListViewVo vo) {
-//		Connection con=null;
-//		PreparedStatement pstmt=null;
-//		try {
-//			con=DBConnection.getConn();
-//			String sql="update sm3_orderlist_view set order_cnt=? where order_num=?";
-//			pstmt=con.prepareStatement(sql);
-//			pstmt.setInt(1, vo.getOrder_cnt());
-//			pstmt.setInt(2, vo.getOrder_num());
-//			return pstmt.executeUpdate();
-//	}catch(SQLException se) {
-//		System.out.println(se.getMessage());
-//		return -1;
-//	}finally {
-//		try {
-//			if(pstmt!=null)pstmt.close();
-//			if(con!=null)con.close();
-//		}catch(SQLException se) {
-//			System.out.println(se.getMessage());
-//		}
-//	  }
-//	}
-	public int getCount(String search,String keyword) {//검색
+
+	public int getCount(int user_num) {//로그인한 사용자의 주문목록 수를 센다.
 		Connection con = null;
 		PreparedStatement pstmt= null;
 		ResultSet rs = null;
 		try {
 			con=DBConnection.getConn();
-			if(keyword.equals("")) {
-				String sql="select NVL(count(order_num),0) cnt from sm3_orderlist_view";
-				pstmt=con.prepareStatement(sql);
-				rs=pstmt.executeQuery();
-			}else {
-				String searchCase="";
-				if(search.equals("title")) {
-					searchCase=" =? ";
-				}else {
-					searchCase=" like '%'||?||'%' ";
-				}
-				String sql="select NVL(count(order_num),0) cnt from sm3_orderlist_view"
-							+ "where " +search+searchCase;
-				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, keyword);
-				rs=pstmt.executeQuery();
-			}
+			String sql="select NVL(count(order_num),0) cnt "
+					+ "from sm3_orderlist_view where user_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, user_num);
+			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt("cnt");
-		}
+			}
 			return 0;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
@@ -276,14 +246,13 @@ public class OrderListViewDao {
 		}
 	}
 	//검색페이지 검색리스트보이기
-	public ArrayList<OrderListViewVo> list(int startRow,int endRow,String search,String keyword){
+	public ArrayList<OrderListViewVo> list(int user_num,int startRow,int endRow){  //로그인한 사용자의 주문내역 목록 보기.
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<OrderListViewVo> list = new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			if(search.equals("")) {
 				String sql="select *" +
 						"from" +
 						"(" +
@@ -292,52 +261,35 @@ public class OrderListViewDao {
 						" (" +
 						" select *" +
 						" from sm3_orderlist_view" +
+						" where user_num=?" +
 						" order by order_num desc" +
 						" )aa" +
 						")" +
 						"where rnum>=? and rnum<=?";
 				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, startRow);
-				pstmt.setInt(2, endRow);
-				rs=pstmt.executeQuery();
-			}else {
-				String searchCase="";
-				if(search.equals("title")) {
-					searchCase=" =?";
-				}else {
-					searchCase=" like '%'||?||'%' ";
-				}
-				String sql="SELECT *" + 
-						"FROM" + 
-						"(" + 
-						"    SELECT AA.*,ROWNUM RNUM" + 
-						"    FROM" + 
-						"    (" + 
-						"        SELECT *" + 
-						"        FROM sm3_orderlist_view" + 
-						"		 WHERE "+search+" "+searchCase+
-						"        ORDER BY order_num DESC" + 
-						"    )AA" + 
-						")" + 
-						"WHERE RNUM>=? AND RNUM<=?";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, keyword);
+				pstmt.setInt(1, user_num);
 				pstmt.setInt(2, startRow);
 				pstmt.setInt(3, endRow);
 				rs=pstmt.executeQuery();
-			}
 			if(rs.next()) {
 				do {
 					int order_num1=rs.getInt("order_num");
-					int user_num=rs.getInt("user_num");
 					int pur_num=rs.getInt("pur_num");
 					String item_name=rs.getString("item_name");
 					String item_savimg=rs.getString("item_savimg");
 					String item_info=rs.getString("item_info");
 					int order_cnt=rs.getInt("order_cnt");
 					int order_pay=rs.getInt("order_pay");
+					String order_recipient=rs.getString("order_recipient");
+					String order_phone=rs.getString("order_phone");
+					String order_basic_addr=rs.getString("order_basic_addr");
+					String order_detail_addr=rs.getString("order_detail_addr");
+					int order_point=rs.getInt("order_point");
 					int order_status=rs.getInt("order_status");
-					OrderListViewVo vo = new OrderListViewVo(order_num1,user_num,pur_num,item_name,item_savimg,item_info,order_cnt,order_pay,order_status);
+					Date order_date=rs.getDate("order_date");
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_name, 
+							item_savimg, item_info, order_cnt, order_pay, order_recipient, 
+							order_phone, order_basic_addr, order_detail_addr, order_point, order_status, order_date);
 					list.add(vo);
 				}while(rs.next());
 				return list;
@@ -354,6 +306,58 @@ public class OrderListViewDao {
 				if(con!=null)con.close();
 			}catch(SQLException e) {
 				System.out.println(e.getMessage());
+			}
+		}
+	}
+//날짜 출력하기.(1개월,3개월 단위로 데이터 목록 보는거)
+	public ArrayList<OrderListViewVo> orderMonth(int user_num, int sDate) {
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<OrderListViewVo> list = new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			String sql="select * from sm3_orderlist_view where user_num =? where sysdate - ?  <  order_date ";
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, user_num);
+			pstmt.setInt(2, sDate);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int order_num1=rs.getInt("order_num");
+					int pur_num=rs.getInt("pur_num");
+					String item_name=rs.getString("item_name");
+					String item_savimg=rs.getString("item_savimg");
+					String item_info=rs.getString("item_info");
+					int order_cnt=rs.getInt("order_cnt");
+					int order_pay=rs.getInt("order_pay");
+					String order_recipient=rs.getString("order_recipient");
+					String order_phone=rs.getString("order_phone");
+					String order_basic_addr=rs.getString("order_basic_addr");
+					String order_detail_addr=rs.getString("order_detail_addr");
+					int order_point=rs.getInt("order_point");
+					int order_status=rs.getInt("order_status");
+					Date order_date=rs.getDate("order_date");
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_name, 
+							item_savimg, item_info, order_cnt, order_pay, order_recipient, 
+							order_phone, order_basic_addr, order_detail_addr, order_point, order_status, order_date);
+					list.add(vo);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
 			}
 		}
 	}

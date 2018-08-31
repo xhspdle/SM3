@@ -85,8 +85,8 @@
 							<div class="box-content">
 								<p style="float: left; font-size: 18px; color: #555;">주문내역</p>
 								<p class="day_list">
-									<a href="#" class="btn">최근 1달</a> <a href="#" class="btn">최근
-										3달</a> <a href="#" class="btn">전체</a>
+									<a href="orderlist.do?cmd=month&sDate=30" class="btn">1달</a> <a href="orderlist.do?cmd=month&sDate=90" class="btn">
+										3달</a> <a href="orderlist.do?cmd=list&sDate=0" class="btn">전체</a>
 								</p>
 								<table class="table">
 

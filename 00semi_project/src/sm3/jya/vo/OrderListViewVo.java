@@ -1,5 +1,7 @@
 package sm3.jya.vo;
 
+import java.sql.Date;
+
 public class OrderListViewVo {
 	private int order_num;
 	private int user_num;
@@ -9,12 +11,19 @@ public class OrderListViewVo {
 	private String item_info;
 	private int order_cnt;
 	private int order_pay;
+	private String order_recipient;
+	private String order_phone;
+	private String order_basic_addr;
+	private String order_detail_addr;
+	private int order_point;
 	private int order_status;
+	private Date order_date;
 	
 	public OrderListViewVo() {}
 
 	public OrderListViewVo(int order_num, int user_num, int pur_num, String item_name, String item_savimg,
-			String item_info, int order_cnt, int order_pay, int order_status) {
+			String item_info, int order_cnt, int order_pay, String order_recipient, String order_phone,
+			String order_basic_addr, String order_detail_addr, int order_point, int order_status, Date order_date) {
 		super();
 		this.order_num = order_num;
 		this.user_num = user_num;
@@ -24,7 +33,13 @@ public class OrderListViewVo {
 		this.item_info = item_info;
 		this.order_cnt = order_cnt;
 		this.order_pay = order_pay;
+		this.order_recipient = order_recipient;
+		this.order_phone = order_phone;
+		this.order_basic_addr = order_basic_addr;
+		this.order_detail_addr = order_detail_addr;
+		this.order_point = order_point;
 		this.order_status = order_status;
+		this.order_date = order_date;
 	}
 
 	public int getOrder_num() {
@@ -91,6 +106,46 @@ public class OrderListViewVo {
 		this.order_pay = order_pay;
 	}
 
+	public String getOrder_recipient() {
+		return order_recipient;
+	}
+
+	public void setOrder_recipient(String order_recipient) {
+		this.order_recipient = order_recipient;
+	}
+
+	public String getOrder_phone() {
+		return order_phone;
+	}
+
+	public void setOrder_phone(String order_phone) {
+		this.order_phone = order_phone;
+	}
+
+	public String getOrder_basic_addr() {
+		return order_basic_addr;
+	}
+
+	public void setOrder_basic_addr(String order_basic_addr) {
+		this.order_basic_addr = order_basic_addr;
+	}
+
+	public String getOrder_detail_addr() {
+		return order_detail_addr;
+	}
+
+	public void setOrder_detail_addr(String order_detail_addr) {
+		this.order_detail_addr = order_detail_addr;
+	}
+
+	public int getOrder_point() {
+		return order_point;
+	}
+
+	public void setOrder_point(int order_point) {
+		this.order_point = order_point;
+	}
+
 	public int getOrder_status() {
 		return order_status;
 	}
@@ -99,11 +154,22 @@ public class OrderListViewVo {
 		this.order_status = order_status;
 	}
 
+	public Date getOrder_date() {
+		return order_date;
+	}
+
+	public void setOrder_date(Date order_date) {
+		this.order_date = order_date;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderListViewVo [order_num=" + order_num + ", user_num=" + user_num + ", pur_num=" + pur_num
 				+ ", item_name=" + item_name + ", item_savimg=" + item_savimg + ", item_info=" + item_info
-				+ ", order_cnt=" + order_cnt + ", order_pay=" + order_pay + ", order_status=" + order_status + "]";
+				+ ", order_cnt=" + order_cnt + ", order_pay=" + order_pay + ", order_recipient=" + order_recipient
+				+ ", order_phone=" + order_phone + ", order_basic_addr=" + order_basic_addr + ", order_detail_addr="
+				+ order_detail_addr + ", order_point=" + order_point + ", order_status=" + order_status
+				+ ", order_date=" + order_date + "]";
 	}
-
+	
 }
