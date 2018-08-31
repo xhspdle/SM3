@@ -50,7 +50,7 @@ public class QaCommcontroller extends HttpServlet{
 		QaCommDao qao=QaCommDao.getInstance();
 		qao.insert(vo);
 		
-		
+		request.getRequestDispatcher("QA_board.do?cmd=detail").forward(request, response);
 		
 	}
 	public void delete(HttpServletRequest request, HttpServletResponse response) 
