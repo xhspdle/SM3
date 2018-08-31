@@ -119,7 +119,8 @@
 														<dl>
 															<dt>
 																<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
-																	target="_blank">${vo.item_name }</a>
+																	target="_blank">${vo.item_name }></a>
+																<p>${vo.order_date }</p>
 															</dt>
 														</dl>
 													</div>
