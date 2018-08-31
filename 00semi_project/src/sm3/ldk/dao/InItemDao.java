@@ -85,6 +85,49 @@ public class InItemDao {
 			}
 		}
 	}
+	public int insertTest(InItemVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			con.setAutoCommit(false);
+			String sql="insert into sm3_in_item values(?,?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, getMaxNum()+1);
+			pstmt.setInt(2, vo.getSize_num());
+			pstmt.setInt(3, vo.getAdmin_num());
+			pstmt.setInt(4, vo.getIn_cnt());
+			pstmt.setInt(5, vo.getIn_cost());
+			pstmt.setDate(6, vo.getIn_date());
+			int n=pstmt.executeUpdate();
+			if(n>0) {
+				ItemSizeVo voo=ItemSizeDao.getInstance().select(vo.getSize_num());
+				int nn=ItemSizeDao.getInstance().update(new ItemSizeVo(vo.getSize_num(),
+						voo.getSize_name(), voo.getItem_num(), voo.getColor_num(),
+						voo.getSize_cnt()+vo.getIn_cnt()));
+				if(nn>0) {
+					con.commit();
+					return nn;
+				}else {
+					con.rollback();
+					return -3;
+				}
+			}else {
+				con.rollback();
+				return -2;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int delete(int in_num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
