@@ -60,4 +60,36 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	<table>
+		
+		<c:forEach var="vo" items="${list }" varStatus="vs">
+		<c:if test="${vs.index >= 0 and vs.index <=7 }">
+		<tr>
+			<td>${vs.index }</td>
+			<td>${vo.pl_num }</td>
+			<td>${vo.pur_num }</td>
+			<td>${vo.size_num }</td>
+			<td>${vo.order_cnt }</td>
+			<td>${vo.item_price }</td>
+			<td><a href="<c:url value='/purchase.do?cmd=select&pl_num=${vo.pl_num }'/>">수정</a></td>
+			<td><a href="<c:url value='/purchase.do?cmd=delete&pur_num=${vo.pur_num }'/>">삭제</a></td>
+		</tr>
+		</c:if>
+		</c:forEach>
+		<tr><td>asdfas</td></tr>
+		<c:forEach var="vo" items="${list }" varStatus="vs">
+		<c:if test="${vs.index >= 8 and vs.index <=15 }">
+		<tr>
+			<td>${vs.index }</td>
+			<td>${vo.pl_num }</td>
+			<td>${vo.pur_num }</td>
+			<td>${vo.size_num }</td>
+			<td>${vo.order_cnt }</td>
+			<td>${vo.item_price }</td>
+			<td><a href="<c:url value='/purchase.do?cmd=select&pl_num=${vo.pl_num }'/>">수정</a></td>
+			<td><a href="<c:url value='/purchase.do?cmd=delete&pur_num=${vo.pur_num }'/>">삭제</a></td>
+		</tr>
+		</c:if>
+		</c:forEach>
+	</table>
 </div>
