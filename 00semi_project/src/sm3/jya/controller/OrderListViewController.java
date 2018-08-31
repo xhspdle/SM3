@@ -30,6 +30,8 @@ public class OrderListViewController extends HttpServlet{
 			listUser(request,response);
 		}else if(cmd!=null && cmd.equals("month")) {
 			month(request,response);
+		}else if(cmd!=null && cmd.equals("getInfo")) {
+			getInfo(request,response);
 		}
 	}
 	
@@ -81,12 +83,8 @@ public class OrderListViewController extends HttpServlet{
 		OrderListViewDao dao = OrderListViewDao.getInstance();
 		ArrayList<OrderListViewVo> list1=dao.list(user_num,startRow, endRow);
 		//System.out.println("list:"+list1); //toString메소드 호출하는..
-		
-		
 			int pageCount=(int)Math.ceil(dao.getCount(user_num)/10.0); //전체페이지수, 로그인한 사용자의 주문목록수만 나오게 하기.
-			
 			int startPage=((pageNum-1)/10*10)+1; //첫번째 페이지 번호
-			
 			int endPage=startPage+9; //끝페이지
 			if(endPage>pageCount) {
 				endPage=pageCount;
@@ -110,12 +108,28 @@ public class OrderListViewController extends HttpServlet{
 		}else{
 			request.setAttribute("list", list2);
 			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
+			}
 		}
-		
-		}
-	}
-	
-		
+	protected void getInfo(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+			String sorder_num = request.getParameter("order_num");
+			int order_num=0;
+			if(sorder_num!=null && !sorder_num.equals("")) {
+				order_num=Integer.parseInt(sorder_num);
+			}
+			ArrayList<OrderListViewVo> list=OrderListViewDao.getInstance().getInfoList(order_num);
+			OrderListViewVo voo=OrderListViewDao.getInstance().getInfo(order_num);
+			if(list!=null) {
+				request.setAttribute("voo", voo);
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("mypage_pay_list_detail.jsp").forward(request, response);
+			}else {
+				request.setAttribute("msg", "선택실패");
+				request.getRequestDispatcher("msg.jsp").forward(request, response);
+			}
+	     }
+      }
+
 	
 
 

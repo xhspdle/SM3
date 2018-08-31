@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,61 +83,87 @@
 					<div class="col-md-12">
 						<div class="featured-box featured-box-primary align-left mt-xlg">
 							<div class="box-content">
+								<p style="float: left; font-size: 18px; color: #555;">주문내역</p>
 								<table class="table">
-									<caption>주문내역</caption>
+
 									<thead>
 										<tr>
 											<th scope="col"><strong>상품주문번호</strong></th>
 											<th scope="col">상품정보</th>
 											<th scope="col">상품금액(수량)</th>
-											<th scope="col" class="bg_point">배송비</th>
+											<th scope="col">배송비</th>
 											<th scope="col" class="bg_point">진행상태</th>
+											<th scope="col">주문날짜</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="group">
-											<td><span class="thm ordernum2">2018073088503591</span></td>
-											<td class="product">
-												<div>
-													<div class="thmb">
-														<div class="img_center">
-															<a href="" target="_blank"><img
-																src="https://order.pay.naver.com/proxy/phinf/shop1/20180512_71/wnsdkadlrj_15261290280296QFQU_JPEG/49435328655598750_619657460.jpg?type=m80"
-																alt="탁상용 선풍기 미니 사무실 책상용 소형 저소음 USB 테이블 원룸 작은"></a>
+
+										<!--orderlist.jsp끼워넣기. -->
+										<c:forEach var="vo" items="${requestScope.list }">
+											<tr class="group">
+												<td><span class="thm ordernum2">${vo.order_num }</span></td>
+												
+												<td class="product">
+													<div>
+														<div class="thmb">
+															<div class="img_center">
+																<a href="" target="_blank"> <img
+																	src='<c:url value="/DBImages/${vo.item_savimg }"/>'
+																	style="width: 105px; height: 100px;" id="img1"></a> <br>
+																${vo.item_info }
+															</div>
+														</div>
+														<dl>
+															<dt>
+																<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
+																	target="_blank">${vo.item_name }></a>
+																<p>${vo.order_date }</p>
+															</dt>
+														</dl>
+													</div>
+												</td>
+												
+												<td class="money"><em class="thm">${vo.order_pay }</em>원<br>
+													<span>(${vo.order_cnt }개)</span></td>
+													
+												<td class="" rowspan="1">
+													<div class="send">
+														<div class="sum">무료배송</div>
+														<div class=""
+															style="max-width: 200px; display: none; z-index: 100">
+															<div class="ly_cont"></div>
+															<div class="edge_cen"></div>
 														</div>
 													</div>
-													<dl>
-														<dt>
-															<strong>[스마트스토어] 모아두아</strong> <a href="#"
-																target="_blank">탁상용 선풍기 미니 사무실 책상용 소형 저소음 USB 테이블 원룸
-																작은</a>
-														</dt>
-														<dd>색상: 화이트, 사이즈: M</dd>
-														<dd class="shp_toggle"></dd>
-													</dl>
-												</div>
-											</td>
-											<td class="money"><em class="thm">34,900</em>원<br>
-												<span>(1개)</span></td>
-											<td class="" rowspan="1">
-												<div class="send">
-													<div class="sum">
-														<em class="thm">2,500</em>원
-													</div>
-													<div class=""
-														style="max-width: 200px; display: none; z-index: 100">
-														<div class="ly_cont"></div>
-														<a href="#" class=""><span class="blind">닫기</span></a>
-														<div class="edge_cen"></div>
-													</div>
-												</div>
-											</td>
-											<td class="bg_point state">구매확정<br>
-											</td>
+												</td>
+												<c:choose>
+													<c:when test="${vo.order_status=='1' }">
+														<td class="bg_point state">배송중<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='2' }">
+														<td class="bg_point state">배송완료<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='3' }">
+														<td class="bg_point state">구매확정<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='4' }">
+														<td class="bg_point state">취소<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='5' }">
+														<td class="bg_point state">반송<br></td>
+													</c:when>
+													<c:otherwise>
+														<td class="bg_point state">주문내역없음<br></td>
+													</c:otherwise>
+												</c:choose>
+												
+											</tr>
+										</c:forEach>
 
-										</tr>
+										<!--  -->
 									</tbody>
 								</table>
+								
 							</div>
 						</div>
 						<div class="featured-box featured-box-primary align-left mt-xlg">
@@ -152,21 +179,23 @@
 									<tbody>
 										<tr class="gap">
 											<th scope="row">수령인</th>
-											<td>진수현</td>
+											<td>${voo.order_recipient}</td>
 										</tr>
 										<tr>
 											<th scope="row">연락처</th>
-											<td><span class="tel">010-4234-6618</span> <span></span></td>
+											<td><span class="tel">${voo.order_phone }</span> <span></span></td>
 										</tr>
 										<tr>
-											<th scope="row">배송지</th>
-											<td class="address">06953<br> 서울시 구구구 등촌동 샤브샤브짱
-											<br> 샤브샤브먹고싶어
+											<th scope="row">기본배송지</th>
+											<td class="address">
+											${voo.order_basic_addr }
 											</td>
 										</tr>
-										<tr class="gap3">
-											<th scope="row">배송메모</th>
-											<td>빨리배송해주세요~</td>
+										<tr>
+											<th scope="row">상세배송지</th>
+											<td class="address">
+											${voo.order_detail_addr }
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -181,18 +210,18 @@
 										<tbody>
 											<tr class="shipping">
 												<th>배송정보</th>
-												<td>기본 배송(2500원)<input type="hidden"
+												<td>무료배송<input type="hidden"
 													value="free_shipping" id="shipping_method"
 													name="shipping_method">
 												</td>
 											</tr>
 											<tr class="total">
 												<th><strong>적립금사용액</strong></th>
-												<td>500원</td>
+												<td>${voo.order_point }원</td>
 											</tr>
 											<tr class="total">
 												<th><strong>총금액</strong></th>
-												<td><strong><span class="amount">$431</span></strong></td>
+												<td><strong><span class="amount">${voo.order_pay }원</span></strong></td>
 											</tr>
 										</tbody>
 									</table>
