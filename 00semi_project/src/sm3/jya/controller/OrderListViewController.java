@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import sm3.jya.dao.EventNoticeDao;
 import sm3.jya.dao.OrderListViewDao;
@@ -30,6 +32,7 @@ public class OrderListViewController extends HttpServlet{
 			month(request,response);
 		}
 	}
+	
 	protected void listUser(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String suser_num=request.getParameter("user_num");
@@ -96,10 +99,18 @@ public class OrderListViewController extends HttpServlet{
 			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
 		}
 	protected void month(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		HttpSession session = request.getSession();
+		int user_num = (int)session.getAttribute("user_num"); 
 		int sDate = Integer.parseInt(request.getParameter("sDate"));
 		ArrayList<OrderListViewVo> list = OrderListViewDao.getInstance().list();
-		
-		
+		ArrayList<OrderListViewVo> list2 = OrderListViewDao.getInstance().orderMonth(user_num, sDate);
+		if(sDate == 0) {
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("orderlist.do?cmd=list&user_num="+user_num+"").forward(request, response);
+		}else{
+			request.setAttribute("list", list2);
+			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
+		}
 		
 		}
 	}

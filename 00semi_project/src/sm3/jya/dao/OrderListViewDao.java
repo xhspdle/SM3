@@ -317,8 +317,7 @@ public class OrderListViewDao {
 		ArrayList<OrderListViewVo> list = new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_orderlist_view where user_num =? where sysdate - ?  <  order_date ";
-			
+			String sql="select * from sm3_orderlist_view where user_num =? and sysdate - ?  <  order_date ";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, user_num);
 			pstmt.setInt(2, sDate);

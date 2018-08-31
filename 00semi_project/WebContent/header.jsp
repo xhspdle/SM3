@@ -87,7 +87,7 @@
 										<li><a
 											href="<c:url value='/pointControll.do?cmd=select&user_num=${sessionScope.user_num }'/>">마이페이지</a></li>
 										<li><a
-											href="<c:url value='/orderlist.do?cmd=listUser&user_num=${sessionScope.user_num }'/>">주문배송조회</a></li>
+											href="<c:url value='/orderlist.do?cmd=list&user_num=${sessionScope.user_num }'/>">주문배송조회</a></li>
 									</ul>
 								</li>
 						</c:when>
