@@ -109,8 +109,8 @@
 										data-plugin-options="{'items': 1, 'animateOut': 'fadeOut', 'autoplay': true, 'autoplayTimeout': 3000}" >
 										<c:forEach var="vo" items="${list }" varStatus="vs">
 										<c:choose>
-											<c:when test="${vs.index >=0 and vs.index <=7 }">
 										<div>
+											<c:when test="${vs.index >=0 and vs.index <=7 }">
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
 													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
@@ -128,14 +128,50 @@
 													</article>
 												</div>
 											</div>
+											</c:when>
 										</div>
-											</c:when>
+										<div>
 											<c:when test="${vs.index >=8 and vs.index <= 15 }">
-											
+											<div class="col-md-3">
+												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
+													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
+												<div class="recent-posts mt-md mb-lg">
+													<article class="post">
+														<h5>
+															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">[OFST-06703]
+																허밍 그레이</a>
+														</h5>
+
+														<div class="post-meta" class="item_info">
+															<span><i class="fa fa-tag"></i>39,000 </span> <span><i
+																class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
+														</div>
+													</article>
+												</div>
+											</div>
 											</c:when>
+										</div>
+										<div>
 											<c:when test="${vs.index >= 16 and vs.index <=23 }">
-											
+											<div class="col-md-3">
+												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
+													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
+												<div class="recent-posts mt-md mb-lg">
+													<article class="post">
+														<h5>
+															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">[OFST-06703]
+																허밍 그레이</a>
+														</h5>
+
+														<div class="post-meta" class="item_info">
+															<span><i class="fa fa-tag"></i>39,000 </span> <span><i
+																class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
+														</div>
+													</article>
+												</div>
+											</div>
 											</c:when>
+										</div>
 										</c:choose>
 										</c:forEach>
 											
