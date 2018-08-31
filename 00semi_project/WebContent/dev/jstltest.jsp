@@ -8,6 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="../purchase.do?cmd=list">jstl테스트</a>
+	<a href="../index.do?cmd=list">테스트</a>
 </body>
 </html>

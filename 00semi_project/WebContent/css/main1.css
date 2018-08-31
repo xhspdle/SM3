@@ -1,0 +1,583 @@
+/* 초기설정 */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.txtCenter {
+	text-align: center;
+	margin-top: 20px;
+}
+
+/* 메인 */
+.header-logo h1 a {
+	font-family: 'Shadows Into Light', cursive;
+	color: #333;
+	font-size: 43px;
+}
+
+.header-logo h1 a:hover {
+	text-decoration: none;
+}
+
+body a {
+	color: #1e2227;
+}
+
+.item_info {
+	border-top: 1px solid #ddd;
+}
+
+.recent-posts h2 {
+	text-align: center;
+	padding: 20px 0 0;
+}
+
+.main_box .col-md-3, .main_box .col-md-4 {
+	margin-top: 40px;
+}
+
+{
+}
+.main .main_box .col-md-4 .mb-lg {
+	margin: 0 !important;
+	padding: 20px 10px;
+	border: 1px solid #ddd;
+	border-top: none;
+}
+
+.post h5 {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 15px;
+}
+
+#BestItem_box {
+	margin-top: 50px;
+	padding-bottom: 50px;
+}
+
+.owl-theme .owl-nav.disabled+.owl-dots {
+	margin-top: 40px;
+}
+
+#m_banner .img-responsive {
+	height: 475px;
+}
+
+#event {
+	padding-top: 40px;
+}
+
+@media ( min-width : 1200px) {
+	.container {
+		width: 1260px !important;
+	}
+}
+
+@media ( min-width : 992px) {
+	#header .header-nav.header-nav-center .header-nav-main>nav>ul>li {
+		display: inline-block;
+		text-align: center !important;
+		float: left;
+		width: 10.3%;
+		margin-left: 2%;
+	}
+	#header .header-nav-main nav>ul>li:hover a {
+		background: none;
+		color: #a86e8b;
+	}
+	#header .header-nav-main nav>ul>li>a:hover {
+		background: none;
+		color: #a86e8b;
+	}
+	#header .header-nav-main nav>ul>li.dropdown .dropdown-menu {
+		border-top: none;
+	}
+	#header .header-nav-main nav>ul>li>a {
+		font-weight: 500;
+		font-size: 14px;
+		letter-spacing: 0.1em;
+	}
+	#header .header-nav-main nav>ul>li>a.dropdown-toggle:after {
+		display: none;
+	}
+	#header .header-column.header-column-center .header-logo {
+		padding: 25px 0 0px;
+	}
+	#footer.short {
+		padding: 0;
+		background-color: white;
+	}
+}
+
+#footer.short .footer_top {
+	background-color: black;
+	padding-top: 30px;
+}
+
+#footer.short .footer_bottom {
+	padding-top: 30px;
+}
+
+#footer.short .footer_bottom a, #footer.short .footer_bottom  h5 {
+	color: #333;
+}
+
+/* 서브 리스트페이지*/
+.sub .section {
+	background-color: white;
+	border: none;
+}
+
+.tabs.tabs-simple .nav-tabs>li a {
+	border-bottom: 2px solid #eee;
+}
+
+.tabs.tabs-simple .nav-tabs>li.active a, .tabs.tabs-bottom .nav-tabs li:hover a,
+	.tabs.tabs-bottom .nav-tabs li.active a, .tabs.tabs-bottom .nav-tabs a:hover
+	{
+	border-bottom: 2px solid #eee !important;
+	border-bottom-color: #333 !important;
+	color: #444 !important;
+}
+
+.tabs.tabs-bottom {
+	margin-top: 50px;
+	margin-bottom: 0;
+}
+
+.de_color a span {
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+	margin-right: 5px;
+	text-indent: -999999px;
+}
+
+.shop .thumbnail {
+	border: none;
+}
+
+.loginBox {
+	margin: auto;
+	float: none;
+}
+
+.join_num select, .join_num input {
+	width: auto;
+	display: inline-block;
+}
+
+.loginBox .featured-box {
+	margin-top: 0 !important;
+}
+
+.product {
+	overflow: hidden;
+}
+
+.thmb {
+	float: left;
+}
+
+.product dl {
+	float: left;
+	margin-left: 10px;
+}
+
+caption {
+	font-size: 17px;
+	color: #333;
+	font-weight: 500;
+	margin-bottom: 10px;
+}
+
+.qna_content {
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+.commBox .col-sm-11 {
+	float: none !important;
+	margin: auto !important;
+}
+
+.main .main_box .col-md-3 .mb-lg, .sub .col-md-3 .mb-lg {
+	margin: 0 !important;
+	padding: 20px 10px;
+	border: 1px solid #ddd;
+	border-top: none;
+}
+
+html .featured-box-primary .box-content {
+	border-top-color: #555;
+}
+
+html .btn-primary:hover, html .btn-primary {
+	border-color: #555;
+	background-color: #555;
+	margin-left: 10px;
+}
+
+.shop .cart-totals tr.total .amount, html .heading-primary, html .lnk-primary,
+	html .text-color-primary {
+	color: #333 !important;
+}
+
+html .featured-box-primary .box-content {
+	border-top-color: #333 !important;
+}
+
+.shop .actions-continue {
+	margin-right: 18px;
+}
+
+thead {
+	background-color: #333;
+}
+
+thead th {
+	color: white;
+	font-size: 15px;
+}
+
+.mytable thead {
+	background-color: white;
+}
+
+.mytable thead th {
+	color: #333;
+	font-size: 20px;
+}
+
+.mytable td {
+	font-size: 20px;
+	padding-left: 20px !important;
+}
+
+.thead {
+	background-color: #444;
+}
+
+thead th {
+	color: white;
+}
+
+.table-hover td {
+	padding: 16px !important;
+}
+
+.sub .col-md-4 .mb-lg {
+	margin: 0 !important;
+	padding: 20px 10px;
+	border: 1px solid #ddd;
+	border-top: none;
+}
+
+.find_area {
+	width: 500px;
+	margin: 0 auto 100px;
+}
+
+.find_area ul li {
+	display: inline-block;
+	text-align: center;
+	padding: 10px 0;
+	width: 32.5%;
+	color: #000;
+	font-weight: 300;
+	font-size: 16px;
+	letter-spacing: -1px;
+}
+
+.btn-default {
+	margin: 30px 0 80px !important;
+}
+
+.shop_table .btn-default {
+	margin: 0 !important;
+}
+
+.table th {
+	font-weight: 500 !important;
+}
+
+#header .header-search .btn-default {
+	margin: 0 !important;
+}
+
+#header .header-search {
+	float: none;
+	position: absolute;
+	right: 60px;
+	top: 30px;
+}
+
+.commBox .mt-lg {
+	margin-top: 0 !important;
+}
+
+.commTitle {
+	float: left;
+	margin-left: 30px;
+}
+
+#sample3_address {
+	width: 70%;
+}
+
+#searchs {
+	width: 30% !important;
+	display: inline-block;
+}
+
+.loginBox span:after {
+	display: block;
+	content: '';
+}
+
+.spanVal {
+	color: #ff5d5d;
+	font-size: 11px;
+}
+
+.col-md-6 .btn-aa {
+	margin: 0 !important;
+}
+
+.commBox .mt-lg {
+	margin-top: 0 !important;
+}
+
+.commTitle {
+	float: left;
+	margin-left: 30px;
+}
+
+#sample3_address {
+	width: 70%;
+}
+
+#searchs {
+	width: 30% !important;
+	display: inline-block;
+}
+
+.loginBox span:after {
+	display: block;
+	content: '';
+}
+
+.spanVal {
+	color: #ff5d5d;
+	font-size: 11px;
+}
+
+.shop .summary .price {
+	clear: both;
+}
+
+p.taller {
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #ddd;
+}
+
+.left-side {
+	float: left;
+	font-size: 15px;
+	color: #444;
+}
+
+.order-line {
+	clear: both;
+	padding-bottom: 60px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 30px;
+	padding-left: 15px;
+}
+
+.order-line select {
+	display: inline-block;
+	width: 200px;
+	height: 30px;
+}
+
+.order-line .amount {
+	float: right;
+}
+
+.de_color {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 30px;
+}
+
+.list_sel {
+	overflow: hidden;
+	border-bottom: 1px solid #aaa;
+}
+
+.list_sel li {
+	list-style: none;
+	float: left;
+	width: 30%;
+	text-align: center;
+	color: #444;
+}
+
+.list_sel li p, .list_sel li input {
+	color: #444;
+}
+
+.list_sel li:last-child {
+	width: 10%;
+	padding-top: 13px;
+}
+
+.list_sel li:nth-child(2) {
+	padding-top: 10px;
+}
+
+.list_sel li:nth-child(3) {
+	padding-top: 13px;
+	font-size: 15px;
+}
+
+.list_sel p {
+	margin: 0;
+}
+
+.price_box {
+	float: right;
+	font-size: 18px;
+	margin-top: 20px;
+}
+
+.list_sel .quantity {
+	margin-left: 40px;
+}
+
+.price_box #total_price {
+	font-size: 30px;
+	color: #444;
+	font-weight: bold;
+}
+
+a.cart-btn {
+	float: none;
+	margin: 0;
+	margin-right: 10px;
+}
+
+.day_list {
+	float: right;
+	margin: 0;
+}
+
+.day_list a.btn {
+	margin: 0;
+}
+
+/* 평점 별달아주기 */
+.star {
+	width: 32px;
+	height: 32px;
+	transition: .6s all;
+}
+
+#rating {
+	cursor: pointer;
+	display: inline-block
+}
+
+#review-form .input-group-addon {
+	min-width: 100px;
+}
+
+#review-form .btn {
+	min-width: 100px;
+}
+
+#review-form input[type="text"], #review-form textarea {
+	width: 100%;
+}
+
+#review-form .form-group {
+	margin-bottom: 15px;
+}
+
+#review-form .help-block {
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+blockquote {
+	border-left: 5px solid rgb(238, 238, 238);
+	padding-left: 20px;
+}
+
+blockquote .footer {
+	display: block;
+	font-size: 80%;
+}
+
+.stars-container {
+	margin-bottom: 5px;
+}
+
+.carousel-inner>.item>img {
+	display: inline-block;
+	width: 100% !important;
+	height: 100%;
+}
+
+.comment_box {
+	float: left;
+}
+
+.comment_update {
+	float: right;
+	margin-right: 10px !important;
+	position: relative;
+	top: -50px;
+	left: -15px;
+	margin-bottom: 0;
+}
+
+.review_box .star-rating {
+	margin-bottom: 0;
+}
+
+ul.comments .comment-block {
+	overflow: hidden;
+}
+
+button.mfp-arrow {
+	/* display: none; */
+	
+}
+
+ul.comments li {
+	width: 100%;
+}
+
+ul.comments li .comment {
+	margin: 0;
+}
+
+.tab-content {
+	padding: 30px;
+}
+
+.img-responsive {
+	border: 1px solid #ddd;
+	border-bottom: none;
+	padding-top: 20px;
+}
+.shop .img-responsive {
+	border: none;
+}
+.sm3kingwangzzang{
+	
+}

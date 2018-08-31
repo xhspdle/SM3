@@ -95,7 +95,6 @@
 					</ul>
 				</div>
 			</div>
-
 			<section id="BestItem_box">
 				<div class="container">
 					<div class="row">
@@ -113,17 +112,17 @@
 											<c:when test="${vs.index >=0 and vs.index <=7 }">
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
-													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
+													src="<c:url value='/DBImages/${vo.item_savimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>
-															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">[OFST-06703]
-																허밍 그레이</a>
+															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">
+															${vo.item_name }</a>
 														</h5>
 
 														<div class="post-meta" class="item_info">
-															<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-																class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
+															<span><i class="fa fa-tag"></i>${vo.item_price }</span> <span><i
+																class="fa fa-comments"></i> <a href="#">${vo.order_cnt }</a></span>
 														</div>
 													</article>
 												</div>
@@ -134,17 +133,17 @@
 											<c:when test="${vs.index >=8 and vs.index <= 15 }">
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
-													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
+													src="<c:url value='/DBImages/${vo.item_savimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>
-															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">[OFST-06703]
-																허밍 그레이</a>
+															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">
+															${vo.item_name }</a>
 														</h5>
 
 														<div class="post-meta" class="item_info">
-															<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-																class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
+															<span><i class="fa fa-tag"></i>${vo.item_price }</span> <span><i
+																class="fa fa-comments"></i> <a href="#">${vo.order_cnt }</a></span>
 														</div>
 													</article>
 												</div>
@@ -155,17 +154,17 @@
 											<c:when test="${vs.index >= 16 and vs.index <=23 }">
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
-													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
+													src="<c:url value='/DBImages/${vo.item_savimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>
-															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">[OFST-06703]
-																허밍 그레이</a>
+															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">
+															${vo.item_name }</a>
 														</h5>
 
 														<div class="post-meta" class="item_info">
-															<span><i class="fa fa-tag"></i>39,000 </span> <span><i
-																class="fa fa-comments"></i> <a href="#">500 Comments</a></span>
+															<span><i class="fa fa-tag"></i>${vo.item_price }</span> <span><i
+																class="fa fa-comments"></i> <a href="#">${vo.order_cnt }</a></span>
 														</div>
 													</article>
 												</div>
@@ -174,9 +173,6 @@
 										</div>
 										</c:choose>
 										</c:forEach>
-											
-											
-											
 											<div class="col-md-3">
 												<a href="#"><img class="img-responsive"
 													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
