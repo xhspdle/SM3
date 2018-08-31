@@ -38,45 +38,22 @@
 			<nav>
 				<ul class="nav nav-pills" id="mainNav">
 					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/item_list.jsp'/>"> NEW </a>
+						href="<c:url value='/item_list.jsp?cate_num=0'/>"> ALL </a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value='/item_list.jsp?cate_num=1'/>"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
+							<li><a href="<c:url value='/item_list.jsp?cate_num=0'/>"> ALL </a></li>
+							<li><a href="<c:url value='/item_list.jsp?cate_num=1'/>"> OUTER </a></li>
+							<li><a href="<c:url value='/item_list.jsp?cate_num=2'/>"> TOP </a></li>
+							<li><a href="<c:url value='/item_list.jsp?cate_num=3'/>"> BOTTOM </a></li>
 						</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/item_list.jsp?cate_num=1'/>"> OUTER </a>
-						<ul class="dropdown-menu">
-							<li><a href="index.html"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
-						</ul></li>
+						
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/item_list.jsp?cate_num=2'/>"> TOP </a>
-						<ul class="dropdown-menu">
-							<li><a href="index.html"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
-						</ul></li>
+						
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/item_list.jsp?cate_num=3'/>"> BOTTOM </a>
-						<ul class="dropdown-menu">
-							<li><a href="index.html"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
-						</ul></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/item_list.jsp'/>"> SALE </a>
-						<ul class="dropdown-menu">
-							<li><a href="index.html"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
-						</ul></li>
+			
 					<c:choose>
 						<c:when test="${sessionScope.user_id != null}">
 								<li class="dropdown">

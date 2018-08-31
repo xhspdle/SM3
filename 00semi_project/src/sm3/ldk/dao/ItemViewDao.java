@@ -137,11 +137,17 @@ public class ItemViewDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ArrayList<ItemViewVo> list=new ArrayList<>();
+		String sql = "";
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_item_view where cate_num=? order by size_num";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, cate_num);
+			if(cate_num==0) {
+				sql="select * from sm3_item_view order by size_num";
+				pstmt=con.prepareStatement(sql);
+			}else {
+				sql="select * from sm3_item_view where cate_num=? order by size_num";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, cate_num);
+			}
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				do {
