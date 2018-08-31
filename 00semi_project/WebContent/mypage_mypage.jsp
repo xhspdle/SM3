@@ -96,10 +96,10 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td>5000</td>
-													<td>4000</a></td>
-													<td>100</td>
-													<td>5회</td>
+													<td>${allPoint }</td>
+													<td>${point }</td>
+													<td>${hidePoint }</td>
+													<td>${order_cnt }회</td>
 												</tr>
 										
 											</tbody>

@@ -54,7 +54,45 @@ public class PointDao {
 		ArrayList<PointVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_point where user_num= ? and end_date - order_date < 180" ;
+			String sql="select * from sm3_point where user_num= ? and sysdate < end_date" ;
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, user_num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int order_num=rs.getInt(1);
+					user_num=rs.getInt(2);
+					Date order_date = rs.getDate(3);
+					int point=rs.getInt(4);
+					Date end_date = rs.getDate(5);
+					list.add(new PointVo(order_num, user_num, order_date, point, end_date));
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	
+	public ArrayList<PointVo> allList(int user_num){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<PointVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			String sql="select * from sm3_point where user_num = ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, user_num);
 			rs=pstmt.executeQuery();

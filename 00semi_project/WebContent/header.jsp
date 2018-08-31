@@ -77,14 +77,36 @@
 							<li><a href="index.html"> TOP </a></li>
 							<li><a href="index.html"> BOTTOM </a></li>
 						</ul></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/mypage_mypage.jsp'/>"> MYPAGE</a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value='/userControll.do?cmd=getInfo&user_num=${sessionScope.user_num }'/>">정보수정</a></li>
-							<li><a href="<c:url value='/cart.do?cmd=userCart'/>">장바구니</a></li>
-							<li><a href="<c:url value='/mypage_mypage.jsp'/>">마이페이지</a></li>
-							<li><a href="<c:url value='/orderlist.do?cmd=listUser&user_num=${sessionScope.user_num }'/>">주문배송조회</a></li>
-						</ul></li>
+					<c:choose>
+						<c:when test="${sessionScope.user_id != null}">
+								<li class="dropdown">
+									<a class="dropdown-toggle"href="<c:url value='/mypage_mypage.jsp'/>"> MYPAGE</a>
+									<ul class="dropdown-menu">
+										<li><a href="<c:url value='/user_pwdOk.jsp'/>">정보수정</a></li>
+										<li><a href="<c:url value='/cart.do?cmd=userCart'/>">장바구니</a></li>
+										<li><a
+											href="<c:url value='/pointControll.do?cmd=select&user_num=${sessionScope.user_num }'/>">마이페이지</a></li>
+										<li><a
+											href="<c:url value='/orderlist.do?cmd=listUser&user_num=${sessionScope.user_num }'/>">주문배송조회</a></li>
+									</ul>
+								</li>
+						</c:when>
+						<c:otherwise>
+								<li class="dropdown">
+									<a class="dropdown-toggle"href="<c:url value='/login.jsp'/>"> MYPAGE</a>
+									<ul class="dropdown-menu">
+										<li><a href="<c:url value='/login.jsp'/>">정보수정</a></li>
+										<li><a href="<c:url value='/login.jsp'/>">장바구니</a></li>
+										<li><a
+											href="<c:url value='/login.jsp'/>">마이페이지</a></li>
+										<li><a
+											href="<c:url value='/login.jsp'/>">주문배송조회</a></li>
+									</ul>
+								</li>
+						</c:otherwise>
+					</c:choose>
+						
+			
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/EventNotice.do?cmd=list'/>"> COMMUNITY </a>
 						<ul class="dropdown-menu">
