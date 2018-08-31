@@ -621,11 +621,13 @@
 			ul.className = "list_sel";
 			ul.innerHTML += 
 					 '<li class="item_name">'
-					+'<input type="hidden" name="size_num" value="'+size_num+'"><p><%=vo.getItem_name()%></p><p>size: sel_list.value'
-					+ '</p></li>'
+					+'<input type="hidden" name="size_num" value="'+size_num+'">'
+					+ '<p><%=vo.getItem_name()%></p>'
+					+ '<p>size: '+sel_list.value+'</p></li>'
 					+ '<li><input type="hidden">' //상품 카운트
 					+ '<div class="quantity">'
-					+ '<input type="button" class="minus" value="-"><input type="text" class="input-text qty text" title="Qty" name="order_cnt" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
+					+ '<input type="button" class="minus" value="-">'
+					+ '<input type="text" class="input-text qty text" title="Qty" name="order_cnt" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
 					+ '</div></li>'
 					+ '<li class="it_price"><input type="hidden" name="item_price" value="'+price +'">'
 					+ price
