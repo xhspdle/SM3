@@ -1,3 +1,5 @@
+<%@page import="sm3.jya.dao.EventNoticeDao"%>
+<%@page import="sm3.jya.vo.EventNoticeVo"%>
 <%@page import="sm3.ldk.dao.IndexViewDao"%>
 <%@page import="sm3.ldk.vo.IndexViewVo"%>
 <%@page import="java.util.ArrayList"%>
@@ -354,48 +356,28 @@
 								<h2>
 									EVENT <strong> NOTICE</strong>
 								</h2>
+								<%
+									ArrayList<EventNoticeVo> enList=EventNoticeDao.getInstance().indexList();
+								%>
+								<c:set var="enList" value="<%=enList %>"/>
+								<c:forEach var="voo" items="${enList }" varStatus="vss">
+								<c:if test="${vss.index <=3 }">
 								<div class="col-md-4">
 									<a href="#"><img class="img-responsive"
-										src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
+										src="<c:url value='/DBImages/${voo.en_savimg }'/>" alt="Blog"></a>
 									<div class="recent-posts mt-md mb-lg">
 										<article class="post">
 											<h5>
-												<a class="text-dark" href="blog-post.html">이달의 이벤트 공지</a>
+												<a class="text-dark" href="blog-post.html">${voo.en_title }</a>
 											</h5>
 											<div class="post-meta">
-												<span>EVENT </span> <span>2018-08-30</span>
+												<span>EVENT </span> <span>${voo.en_date }</span>
 											</div>
 										</article>
 									</div>
 								</div>
-								<div class="col-md-4">
-									<a href="#"><img class="img-responsive"
-										src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
-									<div class="recent-posts mt-md mb-lg">
-										<article class="post">
-											<h5>
-												<a class="text-dark" href="blog-post.html">이달의 이벤트 공지</a>
-											</h5>
-											<div class="post-meta">
-												<span>EVENT </span> <span>2018-08-30</span>
-											</div>
-										</article>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<a href="#"><img class="img-responsive"
-										src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
-									<div class="recent-posts mt-md mb-lg">
-										<article class="post">
-											<h5>
-												<a class="text-dark" href="blog-post.html">이달의 이벤트 공지</a>
-											</h5>
-											<div class="post-meta">
-												<span>EVENT </span> <span>2018-08-30</span>
-											</div>
-										</article>
-									</div>
-								</div>
+								</c:if>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
