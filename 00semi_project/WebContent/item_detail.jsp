@@ -75,12 +75,14 @@
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
 <%
+
 	String path = application.getContextPath();
 	ArrayList<ItemViewVo> list = (ArrayList) request.getAttribute("list");
 	ItemViewVo vo = list.get(0);
 	HashMap<Integer, String> list2 = (HashMap) request.getAttribute("list2");
 	Set<Integer> set = list2.keySet();
 	Iterator<Integer> keyList = set.iterator();
+	
 %>
 </head>
 
@@ -108,7 +110,7 @@
 						<div>
 							<div class="thumbnail">
 								<img alt="" class="img-responsive img-rounded"
-									src="DBImages/<%=vo.getItem_orgimg()%>">
+									src="<%=path%>/DBImages/<%=vo.getItem_orgimg()%>">
 							</div>
 						</div>
 					</div>
@@ -249,7 +251,7 @@
 															</c:when>
 															<c:otherwise>
 																<a title="<%=vo.getItem_name()%>"
-																	href="DBImages/${vo.review_orgimg}"> <span
+																	href="<%=path%>/DBImages/${vo.review_orgimg}"> <span
 																	class="thumbnail mb-none thumb-info thumb-info-centered-icons">
 																		<span class="thumb-info-wrapper"> <img
 																			class="avatar" alt=""
@@ -300,7 +302,7 @@
 												<c:if
 													test="${sessionScope.user_id == vo.user_id || sessionScope.admin_id != null }">
 													<p class="comment_update">
-														<a href="reviewControll.do?cmd=delete&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name() %>&review_num=${vo.review_num}">삭제</a>
+														<a href="<%=path%>/reviewControll.do?cmd=delete&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name() %>&review_num=${vo.review_num}">삭제</a>
 													</p>
 												</c:if>
 											</li>
@@ -312,7 +314,7 @@
 											<c:choose>
 												<c:when test="${startPage > 3 }">
 													<li><a
-														href="itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${startPage-1}&search=${search}&keyword=${keyword}"><i
+														href="<%=path%>/itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${startPage-1}&search=${search}&keyword=${keyword}"><i
 															class="fa fa-chevron-left"></i></a></li>
 												</c:when>
 												<c:otherwise>
@@ -323,18 +325,18 @@
 												<c:choose>
 													<c:when test="${i == pageNum}">
 														<li class="active"><a
-															href="itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${i }$search=${search}&keyword=${keyword}">${i}</a></li>
+															href="<%=path%>/itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${i }$search=${search}&keyword=${keyword}">${i}</a></li>
 													</c:when>
 													<c:otherwise>
 														<li><a
-															href="itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${i }&search=${search}&keyword=${keyword}">${i}</a></li>
+															href="<%=path%>/itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${i }&search=${search}&keyword=${keyword}">${i}</a></li>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
 											<c:choose>
 												<c:when test="${endPage < pageCount}">
 													<li><a
-														href="itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name() %>&pageNum=${endPage+1}&search=${search}&keyword=${keyword}"><i
+														href="<%=path%>/itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name() %>&pageNum=${endPage+1}&search=${search}&keyword=${keyword}"><i
 															class="fa fa-chevron-left"></i></a></li>
 												</c:when>
 												<c:otherwise>
@@ -355,7 +357,7 @@
 										<div class="row">
 											<div class="col-md-12">
 												<form
-													action="reviewControll.do?cmd=insert&item_num=<%=vo.getItem_num()%>"
+													action="<%=path%>/reviewControll.do?cmd=insert&item_num=<%=vo.getItem_num()%>"
 													id="submitReview" method="post"
 													enctype="multipart/form-data">
 													<div class="row">

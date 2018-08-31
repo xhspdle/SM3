@@ -77,7 +77,7 @@
 		xhr.send();
 	}
 	var cnt = 0 ;
-	var cnt2 = 8 ; //일단 두개씩 상품 불러오기위해...
+	var cnt2 = 32 ; // N(불러 올 상품) * 4
 	function callback() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var txt = xhr.responseText;	
@@ -107,7 +107,7 @@
 				}
 				   ++cnt;
 			}
-			cnt2 += 8;
+			cnt2 += 32;
 		}
 	}
 </script>

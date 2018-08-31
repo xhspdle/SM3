@@ -76,7 +76,6 @@
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
 			<jsp:include page="header.jsp" />
 		</header>
-
 		<div role="main" class="main shop">
 			<div class="container" style="margin-top: 80px;">
 				<div class="row">

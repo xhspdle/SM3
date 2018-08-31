@@ -105,8 +105,6 @@
 								</li>
 						</c:otherwise>
 					</c:choose>
-						
-			
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/EventNotice.do?cmd=list'/>"> COMMUNITY </a>
 						<ul class="dropdown-menu">
