@@ -50,7 +50,6 @@ public class ItemViewController extends HttpServlet{
 	}
 	
 	
-	
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String sitem_num=request.getParameter("item_num");
@@ -110,7 +109,6 @@ public class ItemViewController extends HttpServlet{
 		}
 	}
 	
-
 	
 	//카테고리넘버 셀렉트 
 		protected void select_cate(HttpServletRequest request, 

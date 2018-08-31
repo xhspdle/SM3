@@ -75,16 +75,27 @@ public class OrderController extends HttpServlet{
 				order_post_addr, order_basic_addr, order_detail_addr, order_phone, 
 				null, order_status));
 		if(n>0) {
-			request.setAttribute("success", "성공!");
-			request.setAttribute("msg", "주문 성공!!");
+			int point = (int)(Math.ceil(order_pay * 0.01)); //적립될 포인트금액
+			int point2 = order_point * -1 ;//차감 될 포인트 금액
+			int n1 = 0;
+ 			
 			//적립금 넣어주기
 			Date order_date=OrderDao.getInstance().select(order_num).getOrder_date();
-			//int n = PointDao.getInstance().insert(new PointVo(order_num, user_num, order_date, point, null));
+			if(order_point > 0) {//포인트를 사용했을 경우
+				n1 = PointDao.getInstance().insert(new PointVo(order_num, user_num, order_date, point2, null));
+			}else if(order_point ==0) {//포인트를 사용하지 않았을 경우
+				n1 = PointDao.getInstance().insert(new PointVo(order_num, user_num, order_date, point, null));
+			}
+			if(n1>0) {
+				request.setAttribute("success", "성공!");
+				request.setAttribute("msg", "주문 성공!!");
+			}else {
+				request.setAttribute("msg", "주문 실패..");
+			}
+			request.getRequestDispatcher("msg.jsp").forward(request, response);		
 			
-		}else {
-			request.setAttribute("msg", "주문 실패..");
 		}
-		request.getRequestDispatcher("msg.jsp").forward(request, response);		
+		
 	}
 	
 	

@@ -95,6 +95,8 @@ public class OrderDao {
 			5 ¹ÝÇ°
 			*/
 			return pstmt.executeUpdate();
+			
+			
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
