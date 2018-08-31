@@ -102,7 +102,7 @@
 											
 											<div class="post-block post-comments clearfix">
 												<h3 class="heading-primary">
-													<i class="fa fa-comments"></i>Comments (3)
+													<i class="fa fa-comments"></i>Comment:${count}
 												</h3>
 											
 												<ul class="comments">

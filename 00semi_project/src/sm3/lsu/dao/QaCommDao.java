@@ -28,7 +28,34 @@ public class QaCommDao {
 	 * }
 	 */
 
-	
+	public int count (int qa_num) {
+		Connection con = null;
+		PreparedStatement pstmt2= null;
+		ResultSet rs= null;
+		int count=0;
+		try {
+		con=DBConnection.getConn();
+		String sql2="select count(qa_num) aa from sm3_qa_comm where qa_num=?";
+		pstmt2=con.prepareStatement(sql2);
+		pstmt2.setInt(1, qa_num);
+		rs=pstmt2.executeQuery();
+		if(rs.next()) {
+			 count=rs.getInt("aa");
+			 System.out.println("count"+count );
+		}
+				return count;
+		}catch(SQLException se) {
+			return -1;
+		}finally {
+			try {
+				if (rs != null)rs.close();
+				if (pstmt2 != null)pstmt2.close();
+				if (con != null)con.close();		
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int maxnum() {
 		Connection con = null;
 		PreparedStatement pstmt = null;

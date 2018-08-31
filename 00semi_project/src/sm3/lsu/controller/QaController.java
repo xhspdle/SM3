@@ -124,15 +124,15 @@ public class QaController extends HttpServlet {
 			throws ServletException, IOException {
 		int qa_num = Integer.parseInt(request.getParameter("qa_num"));
 		QaDao qa = QaDao.getInstance();
-
+		
 		QaVo vo = qa.detail(qa_num);
 		
 		
 		//  ¥Ò±€¡§∫∏
 	    QaCommDao qa1= QaCommDao.getInstance(); 
 	    ArrayList<QaCommVo> list=qa1.Cmmdetail(qa_num);
-	    
-		
+	    int count=qa1.count(qa_num);
+	    request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("vo", vo);
 		request.getRequestDispatcher("community_qna_detail.jsp").forward(request, response);
