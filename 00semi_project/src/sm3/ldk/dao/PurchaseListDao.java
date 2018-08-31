@@ -42,6 +42,48 @@ public class PurchaseListDao {
 			}
 		}
 	}
+	public int getCount(String search,String keyword,int pur_num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			if(keyword.equals("")) {
+				String sql="select NVL(count(pl_num),0) cnt from sm3_purchase_list where pur_num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pur_num);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("size_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="select NVL(count(pl_num),0) cnt from sm3_purchase_list where pur_num=? "
+						+ "and " + search + searchCase;
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pur_num);
+				pstmt.setString(2, keyword);
+				rs=pstmt.executeQuery();
+			}
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+			return 0;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int insert(ArrayList<PurchaseListVo> list) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -234,6 +276,87 @@ public class PurchaseListDao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, pur_num);
 			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int pl_num=rs.getInt("pl_num");
+					int size_num=rs.getInt("size_num");
+					int order_cnt=rs.getInt("order_cnt");
+					int item_price=rs.getInt("item_price");
+					PurchaseListVo vo=new PurchaseListVo(pl_num, pur_num,
+							size_num, order_cnt, item_price);
+					list.add(vo);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public ArrayList<PurchaseListVo> purNumListPaging(int pur_num,int startRow,int endRow,
+			String search,String keyword){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<PurchaseListVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			if(search.equals("")) {
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_PURCHASE_LIST" + 
+						"		 WHERE PUR_NUM=? " +
+						"        ORDER BY SIZE_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pur_num);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("size_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_PURCHASE_LIST" +
+						"		 WHERE PUR_NUM=? AND " + search + " " + searchCase +
+						"        ORDER BY SIZE_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pur_num);
+				pstmt.setString(2, keyword);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				do {
 					int pl_num=rs.getInt("pl_num");

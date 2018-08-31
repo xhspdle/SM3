@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import sm3.ldk.dao.OrderDao;
 import sm3.ldk.dao.PurchaseDao;
 import sm3.ldk.dao.PurchaseListDao;
 import sm3.ldk.dao.PurchaseViewDao;
+import sm3.ldk.vo.OrderVo;
 import sm3.ldk.vo.PurchaseListVo;
 import sm3.ldk.vo.PurchaseViewVo;
 
@@ -95,9 +97,36 @@ public class PurchaseController extends HttpServlet{
 		if(spur_num!=null && !spur_num.equals("")) {
 			pur_num=Integer.parseInt(spur_num);
 		}
-		ArrayList<PurchaseListVo> list=PurchaseListDao.getInstance().purNumList(pur_num);
+		String search=request.getParameter("search");
+		String keyword=request.getParameter("keyword");
+		if(keyword==null || keyword.equals("")) {
+			search="";
+			keyword="";
+		}
+		String spageNum=request.getParameter("pageNum");
+		int pageNum=1;
+		if(spageNum!=null && !spageNum.equals("")) {
+			pageNum=Integer.parseInt(spageNum);
+		}
+		int startRow=(pageNum-1)*10+1;
+		int endRow=startRow+9;
+		//ArrayList<PurchaseListVo> list=PurchaseListDao.getInstance().purNumList(pur_num);
+		PurchaseListDao dao=PurchaseListDao.getInstance();
+		ArrayList<PurchaseListVo> list=dao.purNumListPaging(pur_num, startRow, endRow, search, keyword);
 		if(admin_num!=null) {
 			if(list!=null) {
+				int pageCount=(int)Math.ceil(dao.getCount(search, keyword,pur_num)/10.0);
+				int startPage=((pageNum-1)/10*10)+1;
+				int endPage=startPage+9;
+				if(endPage>pageCount) {
+					endPage=pageCount;
+				}
+				request.setAttribute("pageNum", pageNum);
+				request.setAttribute("pageCount", pageCount);
+				request.setAttribute("startPage", startPage);
+				request.setAttribute("endPage", endPage);
+				request.setAttribute("search", search);
+				request.setAttribute("keyword", keyword);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("admin.jsp?page1=PURCHASE_LIST_list.jsp").forward(request, response);
 			}else {

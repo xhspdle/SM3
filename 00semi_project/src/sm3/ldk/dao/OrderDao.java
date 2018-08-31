@@ -42,15 +42,29 @@ public class OrderDao {
 			}
 		}
 	}
-	public int getCount() {
+	public int getCount(String search,String keyword) {//∆‰¿Ã¬°√≥∏Æ
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(count(order_num),0) cnt from sm3_order";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			if(keyword.equals("")) {
+				String sql="select NVL(count(order_num),0) cnt from sm3_order";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("order_num") || search.equals("user_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="select NVL(count(order_num),0) cnt from sm3_order "
+						+ "where " + search + searchCase;
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				return rs.getInt("cnt");
 			}
@@ -292,16 +306,57 @@ public class OrderDao {
 			}
 		}
 	}
-	public ArrayList<OrderVo> list(){
+	public ArrayList<OrderVo> list(int startRow,int endRow,
+			String search,String keyword){
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ArrayList<OrderVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_order";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			if(search.equals("")) {
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_ORDER" + 
+						"        ORDER BY ORDER_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("order_num") || search.equals("user_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_ORDER" +
+						"		 WHERE " + search + " " + searchCase +
+						"        ORDER BY ORDER_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				do {
 					int order_num=rs.getInt("order_num");

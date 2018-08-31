@@ -39,14 +39,41 @@ public class ItemViewController extends HttpServlet{
 	
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<ItemViewVo> list=ItemViewDao.getInstance().list();
-		if(list!=null) {
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("admin.jsp?page1=ITEM_VIEW_list.jsp").forward(request, response);
-		}else {
-			request.setAttribute("msg", "목록 불러오기 실패");
-			request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
-		}
+		//ArrayList<ItemViewVo> list=ItemViewDao.getInstance().list();
+				String search=request.getParameter("search");
+				String keyword=request.getParameter("keyword");
+				if(keyword==null || keyword.equals("")) {
+					search="";
+					keyword="";
+				}
+				String spageNum=request.getParameter("pageNum");
+				int pageNum=1;
+				if(spageNum!=null && !spageNum.equals("")) {
+					pageNum=Integer.parseInt(spageNum);
+				}
+				int startRow=(pageNum-1)*10+1;
+				int endRow=startRow+9;
+				ItemViewDao dao=ItemViewDao.getInstance();
+				ArrayList<ItemViewVo> list=dao.list(startRow, endRow, search, keyword.toUpperCase());
+				if(list!=null) {
+					int pageCount=(int)Math.ceil(dao.getCount(search, keyword.toUpperCase())/10.0);
+					int startPage=((pageNum-1)/10*10)+1;
+					int endPage=startPage+9;
+					if(endPage>pageCount) {
+						endPage=pageCount;
+					}
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("pageCount", pageCount);
+					request.setAttribute("startPage", startPage);
+					request.setAttribute("endPage", endPage);
+					request.setAttribute("search", search);
+					request.setAttribute("keyword", keyword);
+					request.setAttribute("list", list);
+					request.getRequestDispatcher("admin.jsp?page1=ITEM_VIEW_list.jsp").forward(request, response);
+				}else {
+					request.setAttribute("msg", "목록 불러오기 실패");
+					request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+				}
 	}
 	
 	
