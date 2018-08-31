@@ -82,7 +82,8 @@ public class PurchaseController extends HttpServlet{
 		ArrayList<PurchaseListVo> list=PurchaseListDao.getInstance().list();
 		if(list!=null) {
 			request.setAttribute("list", list);
-			request.getRequestDispatcher("PURCHASE_LIST_list.jsp").forward(request, response);
+			//request.getRequestDispatcher("PURCHASE_LIST_list.jsp").forward(request, response);
+			request.getRequestDispatcher("dev/testtest.jsp").forward(request, response);			
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
 			request.getRequestDispatcher("msg.jsp").forward(request, response);

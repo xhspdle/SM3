@@ -107,6 +107,9 @@
 								<div class="row">
 									<div class="owl-carousel owl-theme mb-none"
 										data-plugin-options="{'items': 1, 'animateOut': 'fadeOut', 'autoplay': true, 'autoplayTimeout': 3000}" >
+										<c:forEach var="vo" items="${list }" varStatus="vs">
+										<c:choose>
+											<c:when test="${vs.index >=0 and vs.index <=7 }">
 										<div>
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
@@ -125,6 +128,19 @@
 													</article>
 												</div>
 											</div>
+										</div>
+											</c:when>
+											<c:when test="${vs.index >=8 and vs.index <= 15 }">
+											
+											</c:when>
+											<c:when test="${vs.index >= 16 and vs.index <=23 }">
+											
+											</c:when>
+										</c:choose>
+										</c:forEach>
+											
+											
+											
 											<div class="col-md-3">
 												<a href="#"><img class="img-responsive"
 													src="img/blog/blog-vintage-1.jpg" alt="Blog"></a>
