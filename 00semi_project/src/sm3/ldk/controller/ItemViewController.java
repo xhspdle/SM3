@@ -149,11 +149,14 @@ public class ItemViewController extends HttpServlet{
 				HttpServletResponse response) throws ServletException, IOException {
 			int cate_num=Integer.parseInt(request.getParameter("cate_num"));
 			ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select_cate(cate_num);
+			ReviewDao dao = ReviewDao.getInstance();
 			JSONObject obj = new JSONObject();
 			JSONArray arr = new JSONArray();
+			
 			if(list != null) {	
 				for(ItemViewVo vo : list) {
 				JSONObject ob = new JSONObject();
+				//int reviewCount = (int)(Math.ceil(dao.getCount(null, null, vo.getItem_name())));
 				ob.put("cate_num",vo.getCate_num());
 				ob.put("item_num",vo.getItem_num());
 				ob.put("item_name",vo.getItem_name());
@@ -161,6 +164,7 @@ public class ItemViewController extends HttpServlet{
 				ob.put("item_orgimg",vo.getItem_orgimg());
 				ob.put("size_name",vo.getSize_name());
 				ob.put("size_num",vo.getSize_num());
+				//ob.put("review_cnt", reviewCount );
 				arr.add(ob);
 			}
 			obj.put("arr", arr);

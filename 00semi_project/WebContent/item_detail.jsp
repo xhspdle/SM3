@@ -579,8 +579,11 @@
 	
 		/* submit 자바스크립트로 주소 변경해주기 */
 		function submit_change(){
-			document.orderList.action = "cart.do?cmd=insert"; //보낼주소
-			document.orderList.submit();
+			if(cnt==0) alert("사이즈를 1개이상 선택 해 주세요");
+			if(cnt > 0){
+				document.orderList.action = "cart.do?cmd=insert"; //보낼주소
+				document.orderList.submit();
+			}
 		}
 	
 	
