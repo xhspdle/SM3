@@ -1,10 +1,11 @@
+<%@page import="sm3.jsh.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-
 <!-- Basic -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,23 +69,13 @@
 
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
+<!-- api -->
 
+<script>
+
+</script>
 </head>
-
-<%
-	Cookie[] cookList = request.getCookies();
-	String val1 = "";
-	if (cookList != null) {
-		for (Cookie cook : cookList) {
-			String name = cook.getName();
-			if (name.equals("user_id")) {
-				val1 = cook.getValue();
-			}
-		}
-	}
-%>
-
-<body onload="check()">
+<body>
 	<div class="body">
 		<header id="header"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
@@ -94,60 +85,58 @@
 			<section class="section mt-none section-footer">
 				<div class="container main_box">
 					<div class="row mt-lg">
-						<div class="col-md-12">
+						<div class="col-md-8">
 							<div class="featured-boxes">
 								<div class="row">
-									<div class="col-sm-5 loginBox">
+									<div class="col-sm-8 loginBox">
 										<div
-											class="featured-box featured-box-primary align-left mt-xlg"
-											style="height: 350px;">
+											class="featured-box featured-box-primary align-left mt-xlg">
 											<div class="box-content">
-												<h4 class="heading-primary text-uppercase mb-md">로그인</h4>
-												<form action="<c:url value="/userControll.do?cmd=login"/>"
-													id="frmSignIn" method="post">
+												<h4 class="heading-primary text-uppercase mb-md">비밀번호찾기</h4>
+												<form method="post" action="">
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
 																<label for="user_id">아이디</label> <input id="user_id"
-																	type="text" value="<%=val1 %>" name="user_id"
-																	class="form-control input-lg">
+																	type="text" value="" name="user_id"
+																	class="form-control input-lg" onkeyup="showHint()">
 															</div>
 														</div>
 													</div>
+													
+													<div class="row join_num">
+														<div class="form-group">
+															<div class="col-md-12">
+																<label>핸드폰 번호</label> 
+																	<span class="spanVal"></span><input id="phone1" name="user_phone"
+																		size="4" class="form-control input-lg" value="">
+																	- <input id="phone2" name="user_phone" maxlength="4"
+																		size="4" type="text" class="form-control input-lg" value="">
+																	- <input id="phone3" name="user_phone" maxlength="4"
+																		size="4" type="text" class="form-control input-lg" value="">
+															</div>
+														</div>
+													</div>
+													
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label for="user_pwd">비밀번호</label> <input
-																	type="password" id="user_pwd" value="" name="user_pwd"
+																<label for="hint_ok" id="hint">힌트: </label> <input id="hint_ok"
+																	type="text" value="" name="hint_ok"
 																	class="form-control input-lg">
 															</div>
-															<p>${login_msg }</p>
 														</div>
 													</div>
+													
 													<div class="row">
-														<div class="col-md-6">
-															<span class="remember-box checkbox"> <label
-																for="remember"> <input type="checkbox"
-																	id="remember" name="remember">아이디 저장
-															</label>
-															</span>
-														</div>
-														<div class="col-md-6">
-															<input type="submit" value="Login"
-																class="btn btn-primary pull-right mb-xl"
-																data-loading-text="Loading...">
+														<div class="col-md-6" style="margin-top: 40px">
+															<a class="btn btn-primary pull-right mb-xl"
+																href="javascript:findPwd()">비밀번호찾기</a>
 														</div>
 													</div>
 												</form>
 											</div>
 										</div>
-									</div>
-									<div class="cboth find_area">
-										<ul>
-											<li><a href="<c:url value='/join.jsp'/>">회원가입</a></li>
-											<li><a href="<c:url value='/user_find_id.jsp'/>">아이디찾기</a></li>
-											<li><a href="<c:url value='/user_find_pwd.jsp'/>">비밀번호찾기</a></li>
-										</ul>
 									</div>
 								</div>
 							</div>
@@ -161,14 +150,27 @@
 		</footer>
 	</div>
 
-	<script>
-	function check(){
-		var id = document.getElementById("user_id");
-		id.value = '<%=val1%>';
-	}
-	</script>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">비밀번호 찾기</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modalMsg"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
 
+  </div>
+</div>
+	
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/jquery.appear/jquery.appear.min.js"></script>
@@ -211,6 +213,45 @@
 			ga('send', 'pageview');
 		</script>
 		 -->
-
 </body>
+<script type="text/javascript">
+	var xhr=null;
+	function findPwd(){
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=callback;
+		xhr.open('post', 'userControll.do?cmd=findPwd', true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		var user_id=document.getElementById("user_id").value
+		var suser_phone=document.getElementsByName("user_phone");
+		var user_phone=suser_phone[0].value + "-" + suser_phone[1].value + "-" + suser_phone[2].value;
+		var hint_ok=document.getElementsByName("hint_ok")[0].value;
+		var param= "user_id=" + user_id + "&user_phone=" + user_phone +"&hint_ok=" + hint_ok;
+		xhr.send(param);
+	}
+	function callback(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var txt=xhr.responseText;
+			var json=JSON.parse(txt);
+			var modalMsg=document.getElementById("modalMsg");
+			modalMsg.innerHTML=json.user_pwd;
+			$('#myModal').modal('show');//모달 띄우기
+		}
+	}
+	var xhr2=null;
+	function showHint(){
+		var user_id=document.getElementById("user_id").value;
+		xhr2=new XMLHttpRequest();
+		xhr2.onreadystatechange=callback2;
+		xhr2.open('get','userControll.do?cmd=showHint&user_id='+user_id,true);
+		xhr2.send();
+	}
+	function callback2(){
+		if(xhr2.readyState==4 && xhr2.status==200){
+			var txt=xhr2.responseText;
+			var json=JSON.parse(txt);
+			var hint=document.getElementById("hint");
+			hint.innerHTML = json.hint;
+		}
+	}
+</script>
 </html>

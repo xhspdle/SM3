@@ -46,7 +46,6 @@ public class OrderController extends HttpServlet{
 		int pur_num=0;
 		int order_total=0;
 		int order_point=0;
-		int order_pay=0;
 		if(suser_num!=null && !suser_num.equals("")) {
 			user_num=Integer.parseInt(suser_num);
 		}
@@ -59,6 +58,7 @@ public class OrderController extends HttpServlet{
 		if(sorder_point!=null && !sorder_point.equals("")) {
 			order_point=Integer.parseInt(sorder_point);
 		}
+		int order_pay=order_total-order_point;
 		if(sorder_pay!=null && !sorder_total.equals("")) {
 			order_pay=Integer.parseInt(sorder_pay);
 		}

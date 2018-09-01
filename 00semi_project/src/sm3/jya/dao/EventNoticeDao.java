@@ -358,7 +358,7 @@ public class EventNoticeDao {
 		ArrayList<EventNoticeVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_event_notice order by en_date";
+			String sql="select * from sm3_event_notice order by en_date desc";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {

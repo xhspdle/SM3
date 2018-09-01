@@ -380,5 +380,92 @@ public class UserDao {
 		}
 
 	}
+	
+	public String findId(String user_email,String user_phone) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="select user_id from sm3_user where user_email=? and user_phone=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			pstmt.setString(2, user_phone);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("user_id");
+			}
+			return null;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public String findPwd(UserVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="select user_pwd from sm3_user where user_id=? and user_phone=? and hint_ok=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getUser_id());
+			pstmt.setString(2, vo.getUser_phone());
+			pstmt.setString(3, vo.getHint_ok());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("user_pwd");
+			}
+			return null;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public String showHint(String user_id) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="SELECT H.HINT_Q HINT " + 
+					"FROM SM3_HINT H,SM3_USER U " + 
+					"WHERE H.HINT_NUM=U.HINT_NUM AND U.USER_ID=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("hint");
+			}
+			return null;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 
 }

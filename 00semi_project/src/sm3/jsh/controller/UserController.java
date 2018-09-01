@@ -2,6 +2,7 @@ package sm3.jsh.controller;
 
 import java.io.Console;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
+
+import org.json.simple.JSONObject;
 
 import com.sun.glass.ui.Application;
 
@@ -52,6 +55,12 @@ public class UserController extends HttpServlet {
 			login(request, response);
 		}else if(cmd.equals("logout")) {
 			logout(request, response);
+		}else if(cmd!=null && cmd.equals("findId")) {
+			findId(request, response);
+		}else if(cmd!=null && cmd.equals("findPwd")) {
+			findPwd(request, response);
+		}else if(cmd!=null && cmd.equals("showHint")) {
+			showHint(request,response);
 		}
 	}
 
@@ -261,6 +270,58 @@ public class UserController extends HttpServlet {
 		response.sendRedirect(request.getContextPath()+"/index.jsp");
 	}
 	
-	
+	protected void findId(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		String user_phone=request.getParameter("user_phone");
+		String user_email=request.getParameter("user_email");
+		String user_id=UserDao.getInstance().findId(user_email, user_phone);
+		JSONObject ob=new JSONObject();
+		response.setContentType("text/plain;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		if(user_id!=null) {
+			ob.put("user_id", "ID: " +user_id);
+			pw.println(ob.toString());
+		}else {
+			ob.put("user_id", "일치하는 아이디가 존재하지 않습니다.");
+			pw.print(ob.toString());
+		}
+		pw.close();
+	}
+	protected void findPwd(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		String user_id=request.getParameter("user_id");
+		String user_phone=request.getParameter("user_phone");
+		String hint_ok=request.getParameter("hint_ok");
+		String user_pwd=UserDao.getInstance().findPwd(new UserVo(0, user_id, null,
+				null, null, user_phone, null,
+				null, null, null, 0, hint_ok));
+		JSONObject ob=new JSONObject();
+		response.setContentType("text/plain;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		if(user_pwd!=null) {
+			ob.put("user_pwd", "PWD: " +user_pwd);
+			pw.println(ob.toString());
+		}else {
+			ob.put("user_pwd", "잘못 입력하셨습니다.");
+			pw.print(ob.toString());
+		}
+		pw.close();
+	}
+	protected void showHint(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		String user_id=request.getParameter("user_id");
+		String hint=UserDao.getInstance().showHint(user_id);
+		JSONObject ob=new JSONObject();
+		response.setContentType("text/plain;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		if(hint!=null) {
+			ob.put("hint", "힌트: " +hint);
+			pw.println(ob.toString());
+		}else {
+			ob.put("hint", "일치하는 아이디가 없습니다.");
+			pw.println(ob.toString());
+		}
+		pw.close();
+	}
 	
 }
