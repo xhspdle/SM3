@@ -97,7 +97,7 @@
 											<th scope="col">상품금액(수량)</th>
 											<th scope="col">배송비</th>
 											<th scope="col" class="bg_point">진행상태</th>
-											<th scope="col">구매날짜</th>
+											<th scope="col">주문날짜</th>
 											<th scope="col">주문확인</th>
 										</tr>
 									</thead>
@@ -173,7 +173,7 @@
 												</td>
 													<td class="" rowspan="1">
 													<div class="send">
-														<div class="sum"><a class="btn" href="<c:url value ='orderlist.do?cmd=getInfo&order_num=${vo.order_num}'/>">상세보기</a></div>
+														<div class="sum"><a class="btn" href="<c:url value ='orderlist.do?cmd=getInfo&order_num=${vo.order_num}'/>">주문확인</a></div>
 														<div class=""
 															style="max-width: 200px; display: none; z-index: 100">
 															<div class="ly_cont"></div>

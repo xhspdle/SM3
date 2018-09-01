@@ -35,22 +35,7 @@ public class OrderListViewController extends HttpServlet{
 		}
 	}
 	
-	protected void listUser(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		String suser_num=request.getParameter("user_num");
-		int user_num=0;
-		if(suser_num!=null && !suser_num.equals("")) {
-			user_num=Integer.parseInt(suser_num);
-		}
-		ArrayList<OrderListViewVo> list=OrderListViewDao.getInstance().listUser(user_num);
-		if(list!=null) {
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
-		}else {
-			request.setAttribute("msg", "목록 불러오기 실패");
-			request.getRequestDispatcher("msg.jsp").forward(request, response);
-		}
-	}
+	
 	protected void select(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String sorder_num=request.getParameter("order_num");
@@ -67,6 +52,23 @@ public class OrderListViewController extends HttpServlet{
 			request.getRequestDispatcher("msg.jsp").forward(request, response);
 		}
 	}
+	protected void listUser(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		String suser_num=request.getParameter("user_num");
+		int user_num=0;
+		if(suser_num!=null && !suser_num.equals("")) {
+			user_num=Integer.parseInt(suser_num);
+		}
+		ArrayList<OrderListViewVo> list=OrderListViewDao.getInstance().listUser(user_num);
+		if(list!=null) {
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
+		}else {
+			request.setAttribute("msg", "목록 불러오기 실패");
+			request.getRequestDispatcher("msg.jsp").forward(request, response);
+		}
+	}
+	
 	protected void list(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String suser_num=request.getParameter("user_num");
 		int user_num=0;
@@ -96,6 +98,8 @@ public class OrderListViewController extends HttpServlet{
 			request.setAttribute("list", list1);
 			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
 		}
+	
+	
 	protected void month(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		HttpSession session = request.getSession();
 		int user_num = (int)session.getAttribute("user_num"); 

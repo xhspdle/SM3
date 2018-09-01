@@ -20,7 +20,7 @@ public class OrderListViewDao {
 		return instance;
 	}
 
-	public int getMaxNum() {
+	public int getMaxNum() {  
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -291,7 +291,7 @@ public class OrderListViewDao {
 			}
 		}
 	}
-	public OrderListViewVo getInfo(int order_num) { // 로그인한 사용자의 주문내역을 보여줌.
+	public OrderListViewVo getInfo(int order_num) { 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -371,7 +371,6 @@ public class OrderListViewDao {
 		}
 	}
 
-	// 검색페이지 검색리스트보이기
 	public ArrayList<OrderListViewVo> list(int user_num, int startRow, int endRow) { // 로그인한 사용자의 주문내역 목록 보기.
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -483,4 +482,5 @@ public class OrderListViewDao {
 			}
 		}
 	}
+	
 }

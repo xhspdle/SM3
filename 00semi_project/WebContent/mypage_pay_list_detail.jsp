@@ -100,9 +100,8 @@
 
 										<!--orderlist.jsp끼워넣기. -->
 										<c:forEach var="vo" items="${requestScope.list }">
-											<tr class="group">
+														<tr class="group">
 												<td><span class="thm ordernum2">${vo.order_num }</span></td>
-												
 												<td class="product">
 													<div>
 														<div class="thmb">
@@ -110,14 +109,14 @@
 																<a href="" target="_blank"> <img
 																	src='<c:url value="/DBImages/${vo.item_savimg }"/>'
 																	style="width: 105px; height: 100px;" id="img1"></a> <br>
-																${vo.item_info }
 															</div>
 														</div>
 														<dl>
 															<dt>
 																<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
-																	target="_blank">${vo.item_name }></a>
-																<p>${vo.order_date }</p>
+																	target="_blank">${vo.item_name }</a>
+																	<br/>
+																	${vo.item_info }
 															</dt>
 														</dl>
 													</div>
@@ -156,6 +155,16 @@
 														<td class="bg_point state">주문내역없음<br></td>
 													</c:otherwise>
 												</c:choose>
+												<td class="" rowspan="1">
+													<div class="send">
+														<div class="sum">${vo.order_date }</div>
+														<div class=""
+															style="max-width: 200px; display: none; z-index: 100">
+															<div class="ly_cont"></div>
+															<div class="edge_cen"></div>
+														</div>
+													</div>
+												</td>
 												
 											</tr>
 										</c:forEach>
@@ -163,9 +172,11 @@
 										<!--  -->
 									</tbody>
 								</table>
-								
+							
 							</div>
 						</div>
+		
+						
 						<div class="featured-box featured-box-primary align-left mt-xlg">
 							<div class="box-content">
 								<table class="table">
@@ -239,6 +250,7 @@
 								</div>
 							</div>
 					</div>
+				
 				</div>
 			</div>
 		</div>
