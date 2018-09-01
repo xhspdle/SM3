@@ -2,9 +2,12 @@ package sm3.batch;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import sm3.dbcp.BatchDBConnection;
+import sm3.ldk.dao.ItemSizeDao;
 
 public class BatchDB {
 	public int batchPur() {
