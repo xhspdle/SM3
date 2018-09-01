@@ -94,6 +94,7 @@
 											<th scope="col">배송비</th>
 											<th scope="col" class="bg_point">진행상태</th>
 											<th scope="col">주문날짜</th>
+											<th scope="col">구매평</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -106,15 +107,14 @@
 													<div>
 														<div class="thmb">
 															<div class="img_center">
-																<a href="" target="_blank"> <img
+																<a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}'/>" > <img
 																	src='<c:url value="/DBImages/${vo.item_savimg }"/>'
 																	style="width: 105px; height: 100px;" id="img1"></a> <br>
 															</div>
 														</div>
 														<dl>
 															<dt>
-																<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
-																	target="_blank">${vo.item_name }</a>
+																<a href="<c:url value="/mypage_pay_list_detail.jsp"/>">${vo.item_name }</a>
 																	<br/>
 																	${vo.item_info }
 															</dt>
@@ -158,6 +158,18 @@
 												<td class="" rowspan="1">
 													<div class="send">
 														<div class="sum">${vo.order_date }</div>
+														<div class=""
+															style="max-width: 200px; display: none; z-index: 100">
+															<div class="ly_cont"></div>
+															<div class="edge_cen"></div>
+														</div>
+													</div>
+												</td>
+													<td class="" rowspan="1">
+													<div class="send">
+														<div class="sum"><a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}'/>" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
+										리뷰쓰기 <i class="fa fa-angle-right ml-xs"></i>
+									</a></div>
 														<div class=""
 															style="max-width: 200px; display: none; z-index: 100">
 															<div class="ly_cont"></div>
@@ -241,6 +253,7 @@
 						</div>
 						<div class="col-md-12">
 								<div class="actions-continue">
+									
 									<a href="<c:url value='/order.do?cmd=user_update&order_status=5&user_num=${user_num }&order_num=${voo.order_num }'/>" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
 										반품하기 <i class="fa fa-angle-right ml-xs"></i>
 									</a>

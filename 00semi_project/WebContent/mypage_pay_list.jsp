@@ -112,14 +112,14 @@
 													<div>
 														<div class="thmb">
 															<div class="img_center">
-																<a href="" target="_blank"> <img
+																<a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}'/>"> <img
 																	src='<c:url value="/DBImages/${vo.item_savimg }"/>'
 																	style="width: 105px; height: 100px;" id="img1"></a> <br>
 															</div>
 														</div>
 														<dl>
 															<dt>
-																<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
+																<a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}'/>"
 																	target="_blank">${vo.item_name }</a>
 																	<br/>
 																	${vo.item_info }
