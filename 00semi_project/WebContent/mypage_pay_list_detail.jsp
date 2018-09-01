@@ -241,12 +241,12 @@
 						</div>
 						<div class="col-md-12">
 								<div class="actions-continue">
-									<button type="submit" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
+									<a href="<c:url value='/order.do?cmd=user_update&order_status=5&user_num=${user_num }&order_num=${voo.order_num }'/>" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
 										반품하기 <i class="fa fa-angle-right ml-xs"></i>
-									</button>
-									<button type="submit" class="btn pull-right btn-primary btn-lg" >
+									</a>
+									<a href="<c:url value='/order.do?cmd=user_update&order_status=4&user_num=${user_num }&order_num=${voo.order_num }'/>" class="btn pull-right btn-primary btn-lg" >
 										취소하기 <i class="fa fa-angle-right ml-xs"></i>
-									</button>
+									</a>
 								</div>
 							</div>
 					</div>

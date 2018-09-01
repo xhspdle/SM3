@@ -32,6 +32,8 @@ public class OrderController extends HttpServlet{
 			select(request,response);
 		}else if(cmd!=null && cmd.equals("update")) {
 			update(request,response);
+		}else if(cmd!=null && cmd.equals("user_update")) {
+			user_update(request,response);
 		}
 	}
 	
@@ -235,5 +237,34 @@ public class OrderController extends HttpServlet{
 			request.setAttribute("msg", "주문 수정 실패..");
 		}
 		request.getRequestDispatcher("admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+	}
+	
+	protected void user_update(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		
+		String suser_num=request.getParameter("user_num");
+		String sorder_num=request.getParameter("order_num");
+		String sorder_status=request.getParameter("order_status");
+		int user_num=0;
+		int order_num=0;
+		int order_status=0;
+		if(suser_num!=null && !suser_num.equals("")) {
+			user_num=Integer.parseInt(suser_num);
+		}
+		if(sorder_num!=null && !sorder_num.equals("")) {
+			order_num=Integer.parseInt(sorder_num);
+		}
+		if(sorder_status!=null && !sorder_status.equals("")) {
+			order_status=Integer.parseInt(sorder_status);
+		}
+		int n=OrderDao.getInstance().user_update(order_num,order_status);
+		if(n>0) {
+			request.setAttribute("success", "성공!");
+			request.setAttribute("msg", "주문 수정 성공!!");
+			System.out.println(order_status);
+		}else {
+			request.setAttribute("msg", "주문 수정 실패..");
+		}
+		request.getRequestDispatcher("orderlist.do?cmd=list&user_num="+user_num+"").forward(request, response);
 	}
 }

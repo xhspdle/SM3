@@ -103,7 +103,11 @@ public class OrderListViewController extends HttpServlet{
 	protected void month(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		HttpSession session = request.getSession();
 		int user_num = (int)session.getAttribute("user_num"); 
-		int sDate = Integer.parseInt(request.getParameter("sDate"));
+		int sDate = 0;
+		String sDateM = request.getParameter("sDate");
+		if(sDateM != null) {
+			sDate = Integer.parseInt(sDateM);
+		}
 		ArrayList<OrderListViewVo> list = OrderListViewDao.getInstance().list();
 		ArrayList<OrderListViewVo> list2 = OrderListViewDao.getInstance().orderMonth(user_num, sDate);
 		if(sDate == 0) {

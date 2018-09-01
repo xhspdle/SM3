@@ -213,6 +213,31 @@ public class OrderDao {
 			}
 		}
 	}
+	
+	public int user_update(int order_num,int order_status) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="update sm3_order set order_status = ? where order_num = ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, order_status);
+			pstmt.setInt(2, order_num);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	
+	
 	public int updateTotal(Connection con,int order_total,int pur_num) {
 		PreparedStatement pstmt=null;
 		try {
