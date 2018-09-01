@@ -82,7 +82,7 @@
 			<div class="container" style="margin-top: 80px;">
 				<div class="row">
 					<div class="col-md-12">
-						<h4>kekerori님의 적립 포인트는 000입니다</h4>
+						<h4>kekerori님의 적립 포인트는 ${point}입니다</h4>
 						<hr class="tall">
 					</div>
 				</div>
@@ -244,7 +244,7 @@
 												<tr class="total">
 													<th><strong>적립금할인</strong></th>
 													<td><input type="text" size="5" name="order_point" onkeyup="calPay()" value=""> (사용할 금액을
-														입력해주세요)</td>
+														입력해주세요) <span style="color:#f98383;">현재 사용 가능한 적립금: ${point }</span></td>
 												</tr>
 												<tr class="total">
 													<th><strong>결제금액</strong></th>

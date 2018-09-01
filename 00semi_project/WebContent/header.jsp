@@ -57,7 +57,7 @@
 					<c:choose>
 						<c:when test="${sessionScope.user_id != null}">
 								<li class="dropdown">
-									<a class="dropdown-toggle"href="<c:url value='/mypage_mypage.jsp'/>"> MYPAGE</a>
+									<a class="dropdown-toggle"href="<c:url value='/pointControll.do?cmd=select&user_num=${sessionScope.user_num }'/>"> MYPAGE</a>
 									<ul class="dropdown-menu">
 										<li><a href="<c:url value='/user_pwdOk.jsp'/>">정보수정</a></li>
 										<li><a href="<c:url value='/cart.do?cmd=userCart'/>">장바구니</a></li>

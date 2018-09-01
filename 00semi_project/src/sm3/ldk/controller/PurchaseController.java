@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import sm3.jsh.dao.PointDao;
+import sm3.jsh.vo.PointVo;
 import sm3.ldk.dao.OrderDao;
 import sm3.ldk.dao.PurchaseDao;
 import sm3.ldk.dao.PurchaseListDao;
@@ -43,6 +45,7 @@ public class PurchaseController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		//size_num, order_cnt, item_price 여러개가 넘어올거 --> 배열로 받아서 for문으로 insert해야됨
 		//--> pur_num은 dao에서 받아야될듯
+		int user_num = Integer.parseInt(request.getParameter("user_num"));
 		String[] ssize_num=request.getParameterValues("size_num");
 		String[] sorder_cnt=request.getParameterValues("order_cnt");
 		String[] sitem_price=request.getParameterValues("item_price");
@@ -60,8 +63,15 @@ public class PurchaseController extends HttpServlet{
 				int n=PurchaseListDao.getInstance().insert(list);
 				if(n>0) {
 					ArrayList<PurchaseViewVo> list1=PurchaseViewDao.getInstance().select(pur_num);
+					ArrayList<PointVo> list2 = PointDao.getInstance().select(user_num); //적립금 리스트
+					int point = 0;
+					for (PointVo vo : list2) { //사용가능 적립금
+						point = point + vo.getPoint();
+					}
+					
 					if(list1!=null) {
 						request.setAttribute("list", list1);
+						request.setAttribute("point", point);
 						request.getRequestDispatcher("item_order_list.jsp").forward(request, response);
 					}else {
 						request.setAttribute("msg", "구매목록 추가 성공!! but, 구매목록 불러오기 실패 ");
