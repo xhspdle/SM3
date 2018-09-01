@@ -167,7 +167,7 @@
 												</td>
 													<td class="" rowspan="1">
 													<div class="send">
-														<div class="sum"><a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}'/>" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
+														<div class="sum"><a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}&order_num=${vo.order_num }'/>" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
 										리뷰쓰기 <i class="fa fa-angle-right ml-xs"></i>
 									</a></div>
 														<div class=""

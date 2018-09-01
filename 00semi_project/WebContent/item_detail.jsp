@@ -350,9 +350,7 @@
 									<!-- 리뷰남기기 -->
 
 
-									<c:if test="${sessionScope.user_id != null}">
-
-
+									<c:if test="${order_num != 0}">
 										<h4 class="heading-primary">리뷰 남기기</h4>
 										<div class="row">
 											<div class="col-md-12">
@@ -370,7 +368,7 @@
 																<input type="hidden" name="user_num"
 																	value="${sessionScope.user_num }">
 																<!-- 유저번호 -->
-																<input type="hidden" name="order_num" value="1">
+																<input type="hidden" name="order_num" value="${order_num}">
 																<!-- 주문번호 -->
 																<input type="hidden" id="review_rating"
 																	name="review_rating" value="5">

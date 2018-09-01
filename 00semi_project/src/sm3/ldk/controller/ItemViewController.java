@@ -81,7 +81,13 @@ public class ItemViewController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		String sitem_num=request.getParameter("item_num");
 		String item_nameVal=request.getParameter("item_name");
+		String sorder_num=request.getParameter("order_num");
 		String item_name= item_nameVal.substring(0, 5);
+		
+		int order_num=0;
+		if(sorder_num!=null && !sorder_num.equals("")) {
+			order_num=Integer.parseInt(sorder_num);
+		}
 		
 		int item_num=0;
 		if(sitem_num!=null && !sitem_num.equals("")) {
@@ -125,6 +131,7 @@ public class ItemViewController extends HttpServlet{
 			request.setAttribute("search", search);
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("reviewCount", reviewCount);
+			request.setAttribute("order_num", order_num);
 			request.setAttribute("list", list);
 			request.setAttribute("list2", list2);
 			request.setAttribute("review_list", review_list);
