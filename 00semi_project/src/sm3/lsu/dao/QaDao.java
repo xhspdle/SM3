@@ -321,6 +321,5 @@ public class QaDao {
 				System.out.println(se.getMessage());
 			}
 		}
-		
 	}
 }
