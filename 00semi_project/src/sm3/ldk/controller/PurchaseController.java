@@ -45,7 +45,12 @@ public class PurchaseController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		//size_num, order_cnt, item_price 여러개가 넘어올거 --> 배열로 받아서 for문으로 insert해야됨
 		//--> pur_num은 dao에서 받아야될듯
-		int user_num = Integer.parseInt(request.getParameter("user_num"));
+		//int user_num = Integer.parseInt(request.getParameter("user_num"));
+		String suser_num=request.getParameter("user_num");
+		int user_num=0;
+		if(suser_num!=null && !suser_num.equals("")) {
+			user_num=Integer.parseInt(suser_num);
+		}
 		String[] ssize_num=request.getParameterValues("size_num");
 		String[] sorder_cnt=request.getParameterValues("order_cnt");
 		String[] sitem_price=request.getParameterValues("item_price");

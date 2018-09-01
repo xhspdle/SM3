@@ -60,7 +60,7 @@ public class IndexViewDao {
 			}
 		}
 	}
-	public ArrayList<IndexViewVo> listRecent() {
+	public ArrayList<IndexViewVo> recentList() {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;

@@ -78,7 +78,7 @@
 		</header>
 
 		<div role="main" class="main shop">
-			<form method="post" action="<c:url value='/purchase.do?cmd=insert'/>">
+			<form method="post" action="<c:url value='/purchase.do?cmd=insert&user_num=${user_num }'/>">
 			<div class="container" style="margin-top: 80px;">
 				<div class="row">
 					<div class="col-md-12">

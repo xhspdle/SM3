@@ -58,9 +58,21 @@ public class IndexViewController extends HttpServlet{
 	protected void listRecent(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		String ajax=request.getParameter("ajax");
-		ArrayList<IndexViewVo> list=IndexViewDao.getInstance().listRecent();
+		ArrayList<IndexViewVo> list=IndexViewDao.getInstance().recentList();
 		if(ajax!=null && ajax.equals("true")) {
-			
+			JSONArray arr=new JSONArray();
+			for(IndexViewVo vo:list) {
+				JSONObject ob=new JSONObject();
+				ob.put("item_savimg", vo.getItem_savimg());
+				ob.put("item_name", vo.getItem_name());
+				ob.put("item_num", vo.getItem_num());
+				arr.add(ob);
+			}
+			response.setContentType("text/plain;charset=utf-8");
+			PrintWriter pw=response.getWriter();
+			pw.println(arr.toString());
+			pw.close();
+			return;
 		}
 		if(list!=null) {
 			request.setAttribute("listRecent", list);
