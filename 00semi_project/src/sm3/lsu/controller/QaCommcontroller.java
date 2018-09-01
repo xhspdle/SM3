@@ -44,9 +44,13 @@ public class QaCommcontroller extends HttpServlet{
 		
 		
 		int user_num=(Integer)(session.getAttribute("user_num"));
-	//	int admin_num=Integer.parseInt(request.getParameter("admin_num"));
 		
-		QaCommVo vo= new QaCommVo(0, comm_writer, comm_content, null, qa_num, user_num,1);
+		int admin_num = 0 ;
+		String sadmin_num=request.getParameter("admin_num");
+		if(sadmin_num != null) {
+			admin_num = Integer.parseInt(sadmin_num);
+		}
+		QaCommVo vo= new QaCommVo(0, comm_writer, comm_content, null, qa_num, user_num,admin_num);
 		QaCommDao qao=QaCommDao.getInstance();
 		qao.insert(vo);
 		

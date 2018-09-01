@@ -216,7 +216,6 @@ html .featured-box-primary .box-content {
 html .btn-primary:hover, html .btn-primary {
 	border-color: #555;
 	background-color: #555;
-	margin-left: 10px;
 }
 
 .shop .cart-totals tr.total .amount, html .heading-primary, html .lnk-primary,
@@ -466,7 +465,7 @@ p.taller {
 a.cart-btn {
 	float: none;
 	margin: 0;
-	margin-right: 10px;
+	margin-right: 5px;
 }
 
 .day_list {
@@ -578,6 +577,6 @@ ul.comments li .comment {
 .shop .img-responsive {
 	border: none;
 }
-.sm3kingwangzzang{
-	 wpqkdsklfjsdlfjdslkfjk
+ul.qna_comment li{
+	padding: 10px 0 0 0px;
 }

@@ -144,7 +144,8 @@ public class ItemViewController extends HttpServlet{
 			ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select_cate(cate_num);
 			JSONObject obj = new JSONObject();
 			JSONArray arr = new JSONArray();
-			for(ItemViewVo vo : list) {
+			if(list != null) {	
+				for(ItemViewVo vo : list) {
 				JSONObject ob = new JSONObject();
 				ob.put("cate_num",vo.getCate_num());
 				ob.put("item_num",vo.getItem_num());
@@ -160,5 +161,7 @@ public class ItemViewController extends HttpServlet{
 			PrintWriter pw = response.getWriter();
 			pw.print(obj.toString());
 			pw.close();
+			}
+		
 		}
 }

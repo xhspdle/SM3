@@ -107,7 +107,6 @@ public class QaCommDao {
 		pstmt.setInt(4, vo.getQa_num());
 		pstmt.setInt(5, vo.getUser_num());
 		pstmt.setInt(6, vo.getAdmin_num());
-		System.out.println("gggggggg");
 		int n=pstmt.executeUpdate();
 		System.err.println("n:" + n);
 		return n;

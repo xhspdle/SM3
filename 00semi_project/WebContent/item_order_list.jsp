@@ -260,7 +260,7 @@
 									<div class="actions-continue">
 										<a class="btn pull-right btn-primary btn-lg" 
 										href="<c:url value='/purchase.do?cmd=delete&pur_num=${pur_num }'/>">구매취소</a>
-										<button type="submit" class="btn pull-right btn-primary btn-lg">
+										<button type="submit" class="btn pull-right btn-primary btn-lg" style="margin-left: 10px;">
 											구매하기 <i class="fa fa-angle-right ml-xs"></i>
 										</button>
 										<!-- 여기서 배치프로그램 : 사용자가 구매목록만 등록시키고 실제로 구매단계로 안넘어갈경우, 구매목록 지워주기 -->

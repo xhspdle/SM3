@@ -96,32 +96,31 @@
 											</div>
 											<p class="qna_content">${vo.qa_content }</p>
 											<a href="community_qna_write.jsp?qa_num=${vo.qa_num }&ref=${vo.ref}&lev=${vo.lev}&step=${vo.step}">답글</a>
-											<% session.setAttribute("user_num", 1); %><!-- 세션에 유저넘버저장 -->
+											<%-- <% session.setAttribute("user_num", 1); %> --%><!-- 세션에 유저넘버저장 -->
 											<!-- uer_name -->
-											<% session.setAttribute("comm_writer","lee"); %><!-- 세션에 유저이름저장 -->
+											<%-- <% session.setAttribute("comm_writer","lee"); %> --%><!-- 세션에 유저이름저장 -->
 											
 											<div class="post-block post-comments clearfix">
 												<h3 class="heading-primary">
 													<i class="fa fa-comments"></i>Comment:${count}
 												</h3>
 											
-												<ul class="comments">
+												<ul class="comments qna_comment">
 													<li>
 														<div class="comment">
-															<div class="img-thumbnail">
-																<img class="avatar" alt=""
-																	src="img/avatars/avatar-2.jpg">
-															</div>
 															<c:forEach var="vo" items="${requestScope.list }">
-															<div class="comment-block">
+															<div class="comment-block" style="margin-top:10px">
 																<div class="comment-arrow"></div>
 																
-																<span class="comment-by"> <strong>${vo.comm_writer }
+																<span class="comment-by"> <strong>${vo.comm_writer}
 																		</strong> <span class="pull-right"> <span> <a
 																			href="#"><i class="fa fa-reply"></i> Reply</a></span>
 																</span>
 																</span>
-																<p>${vo.comm_content}</span>
+																<div>
+																	<p></p>
+																	<p>${vo.comm_content}</p>
+																</div>
 															</div>
 															</c:forEach>
 														</div>
@@ -130,17 +129,17 @@
 												</ul>
 												
 											</div>
-											
+											<c:if test="${sessionScope.user_id != null}">
 											<div class="post-block post-leave-comment">
 												<h3 class="heading-primary">댓글 남기기</h3>
 												<form action="<c:url value='/QA_COMMboard.do?cmd=insert'/>" method="post">
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																							<input type="hidden" name=qa_num value="${vo.qa_num}">
-																<label>Your name *</label> <input type="text" value="${comm_writer}"
-																	maxlength="100" class="form-control" name="name"
-																	id="name">
+																<input type="hidden" name=qa_num value="${vo.qa_num}">
+																<label>Your ID *</label> <input type="text" value="${sessionScope.user_id}"
+																	maxlength="100" class="form-control" name="comm_writer"
+																	id="comm_writer">
 															</div>
 
 														</div>
@@ -156,13 +155,14 @@
 													</div>
 													<div class="row">
 														<div class="col-md-12">
-															<input type="submit" value="Post Comment"
+															<input type="submit" value="등록하기"
 																class="btn btn-primary btn-lg"
 																data-loading-text="Loading...">
 														</div>
 													</div>
 												</form>
 											</div>
+											</c:if>
 										</div>
 									</div>
 								</div>
