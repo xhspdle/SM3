@@ -5,13 +5,15 @@ public class IndexViewVo {
 	private String item_savimg;
 	private String item_name;
 	private int item_price;
+	private int item_num;
 	private int order_cnt;
 	public IndexViewVo() {}
-	public IndexViewVo(String item_savimg, String item_name, int item_price, int order_cnt) {
+	public IndexViewVo(String item_savimg, String item_name, int item_price, int item_num, int order_cnt) {
 		super();
 		this.item_savimg = item_savimg;
 		this.item_name = item_name;
 		this.item_price = item_price;
+		this.item_num = item_num;
 		this.order_cnt = order_cnt;
 	}
 	public String getItem_savimg() {
@@ -32,6 +34,12 @@ public class IndexViewVo {
 	public void setItem_price(int item_price) {
 		this.item_price = item_price;
 	}
+	public int getItem_num() {
+		return item_num;
+	}
+	public void setItem_num(int item_num) {
+		this.item_num = item_num;
+	}
 	public int getOrder_cnt() {
 		return order_cnt;
 	}
@@ -41,6 +49,6 @@ public class IndexViewVo {
 	@Override
 	public String toString() {
 		return "IndexViewVo [item_savimg=" + item_savimg + ", item_name=" + item_name + ", item_price=" + item_price
-				+ ", order_cnt=" + order_cnt + "]";
+				+ ", item_num=" + item_num + ", order_cnt=" + order_cnt + "]";
 	}
 }
