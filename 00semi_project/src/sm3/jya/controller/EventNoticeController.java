@@ -39,7 +39,7 @@ public class EventNoticeController extends HttpServlet{
 		String path=request.getServletContext().getRealPath("/images");	
 		MultipartRequest mr=new MultipartRequest(request,
 			path,
-			1024*1024*5,
+			1024*1024*10,
 			"UTF-8",
 			new DefaultFileRenamePolicy());
 		String en_writer=mr.getParameter("en_writer");
@@ -114,7 +114,7 @@ public class EventNoticeController extends HttpServlet{
 		String path=request.getServletContext().getRealPath("/images");	
 		MultipartRequest mr=new MultipartRequest(request,
 			path,
-			1024*1024*5,      
+			1024*1024*10,      
 			"UTF-8",
 			new DefaultFileRenamePolicy());
 		int en_num = Integer.parseInt(mr.getParameter("en_num"));

@@ -264,7 +264,7 @@
 			var json=JSON.parse(txt);
 			var popularList=document.getElementById("popularList");
 			for(var i=0;i<3;i++){
-				popularList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="<%=application.getContextPath()%>/DBImages/'+ json[i].item_savimg +'" alt="상품사진" ></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">판매수량: '+ json[i].order_cnt +'</div></div></li>';
+				popularList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="<%=application.getContextPath()%>/DBImages/'+ json[i].item_orgimg +'" alt="상품사진" ></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">판매수량: '+ json[i].order_cnt +'</div></div></li>';
 			}
 		}
 	}
@@ -274,7 +274,7 @@
 			var json=JSON.parse(txt);
 			var recentList=document.getElementById("recentList");
 			for(var i=0;i<3;i++){
-				recentList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="<%=application.getContextPath()%>/DBImages/'+ json[i].item_savimg +'" alt="상품사진"></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">상품번호: '+ json[i].item_num +'</div></div></li>';
+				recentList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="<%=application.getContextPath()%>/DBImages/'+ json[i].item_orgimg +'" alt="상품사진"></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">상품번호: '+ json[i].item_num +'</div></div></li>';
 			}
 		}
 	}

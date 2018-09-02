@@ -2,25 +2,25 @@ package sm3.ldk.vo;
 //I.ITEM_SAVIMG,I.ITEM_NAME,I.ITEM_PRICE,
 //PU.ORDER_CNT
 public class IndexViewVo {
-	private String item_savimg;
+	private String item_orgimg;
 	private String item_name;
 	private int item_price;
 	private int item_num;
 	private int order_cnt;
 	public IndexViewVo() {}
-	public IndexViewVo(String item_savimg, String item_name, int item_price, int item_num, int order_cnt) {
+	public IndexViewVo(String item_orgimg, String item_name, int item_price, int item_num, int order_cnt) {
 		super();
-		this.item_savimg = item_savimg;
+		this.item_orgimg = item_orgimg;
 		this.item_name = item_name;
 		this.item_price = item_price;
 		this.item_num = item_num;
 		this.order_cnt = order_cnt;
 	}
-	public String getItem_savimg() {
-		return item_savimg;
+	public String getItem_orgimg() {
+		return item_orgimg;
 	}
-	public void setItem_savimg(String item_savimg) {
-		this.item_savimg = item_savimg;
+	public void setItem_orgimg(String item_orgimg) {
+		this.item_orgimg = item_orgimg;
 	}
 	public String getItem_name() {
 		return item_name;
@@ -48,7 +48,7 @@ public class IndexViewVo {
 	}
 	@Override
 	public String toString() {
-		return "IndexViewVo [item_savimg=" + item_savimg + ", item_name=" + item_name + ", item_price=" + item_price
+		return "IndexViewVo [item_orgimg=" + item_orgimg + ", item_name=" + item_name + ", item_price=" + item_price
 				+ ", item_num=" + item_num + ", order_cnt=" + order_cnt + "]";
 	}
 }

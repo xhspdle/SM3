@@ -160,7 +160,7 @@
 										<c:if test="${vs.index >=0 and vs.index <=7 }">
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
-													src="<c:url value='/DBImages/${vo.item_savimg }'/>" alt="Blog"></a>
+													src="<c:url value='/DBImages/${vo.item_orgimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>
@@ -183,7 +183,7 @@
 										<c:if test="${vs.index >=8 and vs.index <=15 }">
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
-													src="<c:url value='/DBImages/${vo.item_savimg }'/>" alt="Blog"></a>
+													src="<c:url value='/DBImages/${vo.item_orgimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>	
@@ -206,7 +206,7 @@
 										<c:if test="${vs.index >=16 and vs.index <=23 }">
 											<div class="col-md-3">
 												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
-													src="<c:url value='/DBImages/${vo.item_savimg }'/>" alt="Blog"></a>
+													src="<c:url value='/DBImages/${vo.item_orgimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>
@@ -271,7 +271,7 @@
 								<c:if test="${vss.index <=3 }">
 								<div class="col-md-4">
 									<a href="#"><img class="img-responsive"
-										src="<c:url value='/DBImages/${voo.en_savimg }'/>" alt="Blog"></a>
+										src="<c:url value='/images/${voo.en_orgimg }'/>" alt="Blog"></a>
 									<div class="recent-posts mt-md mb-lg">
 										<article class="post">
 											<h5>

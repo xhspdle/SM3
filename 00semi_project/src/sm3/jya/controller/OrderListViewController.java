@@ -122,13 +122,6 @@ public class OrderListViewController extends HttpServlet{
 		int endRow=startRow+9; //마지막 글
 		OrderListViewDao dao = OrderListViewDao.getInstance();
 		ArrayList<OrderListViewVo> list1=dao.Monthlist(user_num,sDate,startRow, endRow);
-		if(list1!=null) {
-			System.out.println("리스트가 널은아니네");
-			
-		}else {
-			System.out.println("리스트가 널이네");
-			
-		}
 		//System.out.println("list:"+list1); //toString메소드 호출하는..
 			int pageCount=(int)Math.ceil(dao.getCountMonth(user_num,sDate)/10.0); //전체페이지수, 로그인한 사용자의 주문목록수만 나오게 하기.
 			System.out.println(pageCount);
