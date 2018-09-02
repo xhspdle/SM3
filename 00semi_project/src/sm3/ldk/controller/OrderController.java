@@ -61,7 +61,7 @@ public class OrderController extends HttpServlet{
 			order_point=Integer.parseInt(sorder_point);
 		}
 		int order_pay=order_total-order_point;
-		if(sorder_pay!=null && !sorder_total.equals("")) {
+		if(sorder_pay!=null && !sorder_pay.equals("")) {
 			order_pay=Integer.parseInt(sorder_pay);
 		}
 		String order_recipient=request.getParameter("order_recipient");
