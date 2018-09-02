@@ -254,6 +254,9 @@
 						<div class="col-md-12">
 								<div class="actions-continue">
 									
+									<a href="<c:url value='/order.do?cmd=user_update&order_status=3&user_num=${user_num }&order_num=${voo.order_num }'/>" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
+										구매확정 <i class="fa fa-angle-right ml-xs"></i>
+									</a>
 									<a href="<c:url value='/order.do?cmd=user_update&order_status=5&user_num=${user_num }&order_num=${voo.order_num }'/>" class="btn pull-right btn-primary btn-lg" style="margin-left:10px;">
 										반품하기 <i class="fa fa-angle-right ml-xs"></i>
 									</a>

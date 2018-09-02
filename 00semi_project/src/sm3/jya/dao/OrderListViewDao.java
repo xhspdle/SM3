@@ -388,7 +388,8 @@ public class OrderListViewDao {
 			pstmt.setInt(2, sDate);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				return rs.getInt("cnt");
+				int n=rs.getInt("cnt");
+				return n;
 			}
 			return 0;
 		} catch (SQLException se) {
@@ -475,7 +476,7 @@ public class OrderListViewDao {
 		try {
 			con = DBConnection.getConn();
 			String sql = "select *" + "from" + "(" + " select aa.*,rownum rnum" + " from" + " (" + " select *"
-					+ " from sm3_orderlist_view" + " where user_num=? and sDate=?" + " order by order_date desc" + " )aa" + ")"
+					+ " from sm3_orderlist_view" + " where user_num=? and sysdate - ?  <  order_date" + " order by order_date desc" + " )aa" + ")"
 					+ "where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, user_num);

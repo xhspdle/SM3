@@ -79,7 +79,7 @@
 	function itemInsert(){
 		xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=callback;
-		xhr.open('get','itemColor.do?cmd=list&ajax=true',true);//cmd=list?ajax=true 로 썼다가 낭패봄...ㅠㅠ
+		xhr.open('get','itemColor.do?cmd=listAjax',true);//cmd=list?ajax=true 로 썼다가 낭패봄...ㅠㅠ
 		xhr.send();
 	}
 	function callback(){
@@ -199,7 +199,7 @@
 	function itemInsert(){
 		xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=callback;
-		xhr.open('get','itemColor.do?cmd=list&ajax=true',true);
+		xhr.open('get','itemColor.do?cmd=listAjax',true);
 		xhr.send();
 	}
 	function callback(){

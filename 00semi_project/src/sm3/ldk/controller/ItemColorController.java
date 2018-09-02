@@ -34,6 +34,8 @@ public class ItemColorController extends HttpServlet{
 			select(request,response);
 		}else if(cmd!=null && cmd.equals("goInsert")) {
 			goInsert(request,response);
+		}else if(cmd!=null && cmd.equals("listAjax")) {
+			listAjax(request,response);
 		}
 	}
 	protected void insert(HttpServletRequest request, 
@@ -72,23 +74,7 @@ public class ItemColorController extends HttpServlet{
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
 		ItemColorDao dao=ItemColorDao.getInstance();
-		ArrayList<ItemColorVo> list=dao.list(startRow, endRow, search, keyword);
-		String ajax=request.getParameter("ajax");
-		if(ajax!=null && ajax.equals("true")) {
-			JSONArray arr=new JSONArray();
-			for(ItemColorVo vo:list) {
-				JSONObject ob=new JSONObject();
-				ob.put("color_num", String.valueOf(vo.getColor_num()));
-				ob.put("color_name", vo.getColor_name());
-				ob.put("color_code", vo.getColor_code());
-				arr.add(ob);
-			}
-			response.setContentType("text/plain;charset=utf-8");
-			PrintWriter pw=response.getWriter();
-			pw.println(arr.toString());
-			pw.close();
-			return;
-		}
+		ArrayList<ItemColorVo> list=dao.list(startRow, endRow, search, keyword);		
 		if(list!=null) {
 			int pageCount=(int)Math.ceil(dao.getCount(search, keyword)/10.0);
 			int startPage=((pageNum-1)/10*10)+1;
@@ -107,6 +93,24 @@ public class ItemColorController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "목록 불러오기 실패");
 			request.getRequestDispatcher("../admin.jsp?page1=ADMIN_msg.jsp").forward(request, response);
+		}
+	}
+	protected void listAjax(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<ItemColorVo> list=ItemColorDao.getInstance().list();
+		if(list!=null) {
+			JSONArray arr=new JSONArray();
+			for(ItemColorVo vo:list) {
+				JSONObject ob=new JSONObject();
+				ob.put("color_num", String.valueOf(vo.getColor_num()));
+				ob.put("color_name", vo.getColor_name());
+				ob.put("color_code", vo.getColor_code());
+				arr.add(ob);
+			}
+			response.setContentType("text/plain;charset=utf-8");
+			PrintWriter pw=response.getWriter();
+			pw.println(arr.toString());
+			pw.close();
 		}
 	}
 	protected void delete(HttpServletRequest request, 

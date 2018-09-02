@@ -85,7 +85,7 @@
 							<div class="box-content">
 								<p style="float: left; font-size: 18px; color: #555;">주문내역</p>
 								<p class="day_list">
-									<a href="orderlist.do?cmd=month&sDate=30" class="btn">1달</a> <a href="orderlist.do?cmd=month&sDate=90" class="btn">
+									<a href="orderlist.do?cmd=monthList&sDate=30&user_num=${user_num }" class="btn">1달</a> <a href="orderlist.do?cmd=monthList&sDate=90&user_num=${user_num }" class="btn">
 										3달</a> <a href="orderlist.do?cmd=list&user_num=${user_num }" class="btn">전체</a>
 								</p>
 								<table class="table">
@@ -199,7 +199,7 @@
 							<c:choose>
 								<c:when test="${startPage>10}">
 									<a
-										href="<c:url value = 'orderlist.do?cmd=list&pageNum=${startPage-1 }'/>">[이전]</a>
+										href="<c:url value = 'orderlist.do?cmd=list&pageNum=${startPage-1 }&user_num=${sessionScope.user_num }'/>">[이전]</a>
 								</c:when>
 								<c:otherwise>
 								[이전]
@@ -209,12 +209,12 @@
 							<c:forEach var="i" begin="${startPage }" end="${endPage }">
 								<c:choose>
 									<c:when test="${i==pageNum }">
-										<a href="<c:url value='orderlist.do?cmd=list&pageNum=${i }'/>">
+										<a href="<c:url value='orderlist.do?cmd=list&pageNum=${i }&user_num=${sessionScope.user_num }'/>">
 											<span style="color: red">[${i }]</span>
 										</a>
 									</c:when>
 									<c:otherwise>
-										<a href="<c:url value='orderlist.do?cmd=list&pageNum=${i }'/>">
+										<a href="<c:url value='orderlist.do?cmd=list&pageNum=${i }&user_num=${sessionScope.user_num }'/>">
 											<span style="color: blue">[${i }]</span>
 										</a>
 									</c:otherwise>
@@ -223,7 +223,7 @@
 							<c:choose>
 								<c:when test="${endPage<pageCount }">
 									<a
-										href="<c:url value='orderlist.do?cmd=list&pageNum=${endPage+1 }'/>"></a>
+										href="<c:url value='orderlist.do?cmd=list&pageNum=${endPage+1 }&user_num=${sessionScope.user_num }'/>"></a>
 								</c:when>
 								<c:otherwise>
 								[다음]
@@ -234,7 +234,7 @@
 							<c:choose>
 								<c:when test="${startPage>10}">
 									<a
-										href="<c:url value = 'orderlist.do?cmd=Monthlist&pageNum=${startPage-1 }&user_num=${user_num}&sDate=${param.sDate }'/>">[이전]</a>
+										href="<c:url value = 'orderlist.do?cmd=monthList&pageNum=${startPage-1 }&user_num=${user_num}&sDate=${param.sDate }'/>">[이전]</a>
 								</c:when>
 								<c:otherwise>
 								[이전]
@@ -244,12 +244,12 @@
 							<c:forEach var="i" begin="${startPage }" end="${endPage }">
 								<c:choose>
 									<c:when test="${i==pageNum }">
-										<a href="<c:url value='orderlist.do?cmd=Monthlist&pageNum=${i }&user_num=${user_num}&sDate=${param.sDate }'/>">
+										<a href="<c:url value='orderlist.do?cmd=monthList&pageNum=${i }&user_num=${user_num}&sDate=${param.sDate }'/>">
 											<span style="color: red">[${i }]</span>
 										</a>
 									</c:when>
 									<c:otherwise>
-										<a href="<c:url value='orderlist.do?cmd=Monthlist&pageNum=${i }&user_num=${user_num}&sDate=${param.sDate }'/>">
+										<a href="<c:url value='orderlist.do?cmd=monthList&pageNum=${i }&user_num=${user_num}&sDate=${param.sDate }'/>">
 											<span style="color: blue">[${i }]</span>
 										</a>
 									</c:otherwise>
@@ -258,7 +258,7 @@
 							<c:choose>
 								<c:when test="${endPage<pageCount }">
 									<a
-										href="<c:url value='orderlist.do?cmd=Monthlist&pageNum=${endPage+1 }&user_num=${user_num}&sDate=${param.sDate }'/>"></a>
+										href="<c:url value='orderlist.do?cmd=monthList&pageNum=${endPage+1 }&user_num=${user_num}&sDate=${param.sDate }'/>"></a>
 								</c:when>
 								<c:otherwise>
 								[다음]

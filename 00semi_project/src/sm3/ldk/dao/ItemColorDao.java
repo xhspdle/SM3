@@ -255,4 +255,41 @@ public class ItemColorDao {
 			}
 		}
 	}
+	public ArrayList<ItemColorVo> list(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<ItemColorVo> list=new ArrayList<>();
+		try {
+		con=DBConnection.getConn();
+			String sql="select * from sm3_item_color";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int color_num=rs.getInt("color_num");
+					String color_name=rs.getString("color_name");
+					String color_code=rs.getString("color_code");
+					ItemColorVo vo=new ItemColorVo(color_num, color_name,
+							color_code);
+					list.add(vo);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	
 }
