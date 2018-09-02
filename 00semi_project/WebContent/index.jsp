@@ -186,7 +186,7 @@
 													src="<c:url value='/DBImages/${vo.item_savimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
-														<h5>
+														<h5>	
 															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">
 															${vo.item_name }</a>
 														</h5>
