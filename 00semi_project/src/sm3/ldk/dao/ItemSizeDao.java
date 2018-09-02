@@ -145,9 +145,10 @@ public class ItemSizeDao {//사이즈번호 --> 재고번호
 			con=DBConnection.getConn();
 			String sql="update sm3_item_size set "
 					+ "size_cnt=? where size_num=?";
+			int size_cnt=select(size_num).getSize_cnt();
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, size_num);
-			pstmt.setInt(2, order_cnt);
+			pstmt.setInt(1, size_cnt-order_cnt);
+			pstmt.setInt(2, size_num);
 			return pstmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<input type="hidden" value="SALES_grossProfit" id="here">
 <!-- Load D3.js -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <!-- Load billboard.js with style -->
@@ -18,9 +18,10 @@
 		</div>
 	</div>
 </div>
+
 <script>
 	var xhr=null;
-	window.onload = function(){
+	function chartReport(){
 		xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=callback;
 		xhr.open('get', 'saleReport.do?cmd=month', true);

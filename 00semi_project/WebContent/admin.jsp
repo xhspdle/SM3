@@ -240,12 +240,23 @@
 	window.onload = function(){
 		xhr1=new XMLHttpRequest();
 		xhr1.onreadystatechange=callback1;
-		xhr1.open('get', 'index.do?cmd=list&ajax=true', true);
+		xhr1.open('get', '<%=application.getContextPath()%>/index.do?cmd=list&ajax=true', true);
 		xhr1.send();
 		xhr2=new XMLHttpRequest();
 		xhr2.onreadystatechange=callback2;
-		xhr2.open('get', 'index.do?cmd=listRecent&ajax=true', true);
+		xhr2.open('get', '<%=application.getContextPath()%>/index.do?cmd=listRecent&ajax=true', true);
 		xhr2.send();
+		otherAjax();
+	}
+	function otherAjax(){
+		var here=document.getElementById("here").value;
+		if(here=='SALES_grossProfit'){
+			chartReport();
+		}else if(here=='IN_ITEM_insert'){
+			inItemInsert();
+		}else if(here=='ITEM_insert'){
+			itemInsert();
+		}
 	}
 	function callback1(){
 		if(xhr1.readyState==4 && xhr1.status==200){
@@ -253,7 +264,7 @@
 			var json=JSON.parse(txt);
 			var popularList=document.getElementById("popularList");
 			for(var i=0;i<3;i++){
-				popularList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="DBImages/'+ json[i].item_savimg +'" alt="상품사진" ></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">판매수량: '+ json[i].order_cnt +'</div></div></li>';
+				popularList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="<%=application.getContextPath()%>/DBImages/'+ json[i].item_savimg +'" alt="상품사진" ></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">판매수량: '+ json[i].order_cnt +'</div></div></li>';
 			}
 		}
 	}
@@ -263,7 +274,7 @@
 			var json=JSON.parse(txt);
 			var recentList=document.getElementById("recentList");
 			for(var i=0;i<3;i++){
-				recentList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="DBImages/'+ json[i].item_savimg +'" alt="상품사진"></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">상품번호: '+ json[i].item_num +'</div></div></li>';
+				recentList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="<%=application.getContextPath()%>/DBImages/'+ json[i].item_savimg +'" alt="상품사진"></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">상품번호: '+ json[i].item_num +'</div></div></li>';
 			}
 		}
 	}

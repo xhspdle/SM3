@@ -231,8 +231,13 @@ public class OrderController extends HttpServlet{
 				order_post_addr, order_basic_addr, order_detail_addr,
 				order_phone, null, order_status));
 		if(n>0) {
+			int nn=OrderDao.getInstance().orderSizeCnt();
+			if(nn>0) {
+				request.setAttribute("msg", "주문 수정 성공!! & 구매확정분 재고반영 성공!!");
+			}else {
+				request.setAttribute("msg", "주문 수정 성공!!");
+			}
 			request.setAttribute("success", "성공!");
-			request.setAttribute("msg", "주문 수정 성공!!");
 		}else {
 			request.setAttribute("msg", "주문 수정 실패..");
 		}
@@ -259,8 +264,13 @@ public class OrderController extends HttpServlet{
 		}
 		int n=OrderDao.getInstance().user_update(order_num,order_status);
 		if(n>0) {
+			int nn=OrderDao.getInstance().orderSizeCnt();
+			if(nn>0) {
+				request.setAttribute("msg", "주문 수정 성공!! & 구매확정분 재고반영 성공!!");
+			}else {
+				request.setAttribute("msg", "주문 수정 성공!!");
+			}
 			request.setAttribute("success", "성공!");
-			request.setAttribute("msg", "주문 수정 성공!!");
 			System.out.println(order_status);
 		}else {
 			request.setAttribute("msg", "주문 수정 실패..");
