@@ -73,7 +73,7 @@
 <body>
 	<div class="body">
 		<header id="header"
-			data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
+			da2ata-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 100, 'stickySetTop': '-100px'}">
 			<jsp:include page="header.jsp" />
 		</header>
 
