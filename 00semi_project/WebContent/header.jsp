@@ -10,20 +10,6 @@
 						<a href="<c:url value='/index.jsp'/>"> Something Like </a>
 					</h1>
 				</div>
-				<div class="header-search hidden-xs">
-					<form id="searchForm" action="page-search-results.html"
-						method="get" novalidate="novalidate">
-						<div class="input-group">
-							<input type="text" class="form-control" name="q" id="q"
-								placeholder="Search..." aria-required="true">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</span>
-						</div>
-					</form>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -89,8 +75,16 @@
 									EVENT&amp;NOTICE </a></li>
 							<li><a href="<c:url value='/QA_board.do?cmd=list'/>">Q&amp;A</a></li>
 						</ul></li>	
-					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/cart.do?cmd=userCart'/>"> CART </a></li>
+					<c:choose>
+						<c:when test="${user_id == null }">
+							<li class="dropdown"><a class="dropdown-toggle"
+							href="<c:url value='/login.jsp'/>"> CART </a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="dropdown"><a class="dropdown-toggle"
+							href="<c:url value='/cart.do?cmd=userCart'/>"> CART </a></li>
+						</c:otherwise>
+					</c:choose>
 					<c:choose>
 						<c:when test="${user_id != null }">
 							<li class="dropdown"><a class="dropdown-toggle"
@@ -101,8 +95,6 @@
 								href="<c:url value='/login.jsp'/>"> LOGIN</a></li>
 						</c:otherwise>
 					</c:choose>
-						
-					
 				</ul>
 			</nav>
 		</div>

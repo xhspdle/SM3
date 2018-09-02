@@ -32,6 +32,8 @@ public class OrderListViewController extends HttpServlet{
 			month(request,response);
 		}else if(cmd!=null && cmd.equals("getInfo")) {
 			getInfo(request,response);
+		}else if(cmd!=null && cmd.equals("Monthlist")) {
+			Monthlist(request,response);
 		}
 	}
 	
@@ -74,6 +76,7 @@ public class OrderListViewController extends HttpServlet{
 		if(suser_num!=null && !suser_num.equals("")) {
 			user_num=Integer.parseInt(suser_num);
 		}
+		
 		String spageNum=request.getParameter("pageNum");
 		int pageNum=1; //기본값
 		if(spageNum!=null) {
@@ -98,6 +101,42 @@ public class OrderListViewController extends HttpServlet{
 			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
 		}
 	
+	protected void Monthlist(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		String suser_num=request.getParameter("user_num");
+		int user_num=0;
+		if(suser_num!=null && !suser_num.equals("")) {
+			user_num=Integer.parseInt(suser_num);
+		}
+		String msDate=request.getParameter("sDate");
+		int sDate=0;
+		if(msDate!=null && !msDate.equals("")) {
+			sDate=Integer.parseInt(msDate);
+		}
+		
+		String spageNum=request.getParameter("pageNum");
+		int pageNum=1; //기본값
+		if(spageNum!=null) {
+			pageNum=Integer.parseInt(spageNum);
+		}
+		int startRow=(pageNum-1)*10+1; //페이지의 첫번째 글
+		int endRow=startRow+9; //마지막 글
+		OrderListViewDao dao = OrderListViewDao.getInstance();
+		ArrayList<OrderListViewVo> list1=dao.Monthlist(user_num,sDate,startRow, endRow);
+		//System.out.println("list:"+list1); //toString메소드 호출하는..
+			int pageCount=(int)Math.ceil(dao.getCountMonth(user_num,sDate)/10.0); //전체페이지수, 로그인한 사용자의 주문목록수만 나오게 하기.
+			System.out.println(pageCount);
+			int startPage=((pageNum-1)/10*10)+1; //첫번째 페이지 번호
+			int endPage=startPage+9; //끝페이지
+			if(endPage>pageCount) {
+				endPage=pageCount;
+			}
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("pageCount", pageCount);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("list", list1);
+			request.getRequestDispatcher("mypage_pay_list.jsp").forward(request, response);
+		}
 	
 	protected void month(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		HttpSession session = request.getSession();

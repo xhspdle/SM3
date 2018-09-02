@@ -82,7 +82,7 @@
 			<div class="container" style="margin-top: 80px;">
 				<div class="row">
 					<div class="col-md-12">
-						<h4>kekerori님의 적립 포인트는 ${point}입니다</h4>
+						<h4>${user_id }님의 적립 포인트는 ${point}입니다</h4>
 						<hr class="tall">
 					</div>
 				</div>

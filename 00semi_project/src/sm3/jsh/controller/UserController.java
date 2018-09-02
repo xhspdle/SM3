@@ -89,11 +89,8 @@ public class UserController extends HttpServlet {
 		System.out.println(pwd);
 		int n = dao.update(new UserVo(num, id, pwd, name, email, phone, postAddr, basicAddr, detailAddr, null, pwdHint, hintOk));
 		if (n > 0) {
-			request.setAttribute("msg", "수정성공쓰");
-		} else {
-			request.setAttribute("msg", "수정실패쓰");
-		}
-		request.getRequestDispatcher("test.jsp").forward(request, response);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		} 
 
 	}
 	

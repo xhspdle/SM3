@@ -123,7 +123,7 @@ public class ItemViewController extends HttpServlet{
 			if (pageCount < endPage) {
 				endPage = pageCount;
 			}
-			int reviewCount = (int)(Math.ceil(dao.getCount(search, keyword, item_name)));
+			int reviewCount = dao.getCount(search, keyword, item_name);
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("pageCount", pageCount);
@@ -148,31 +148,36 @@ public class ItemViewController extends HttpServlet{
 		protected void select_cate(HttpServletRequest request, 
 				HttpServletResponse response) throws ServletException, IOException {
 			int cate_num=Integer.parseInt(request.getParameter("cate_num"));
+			String search = "";
+			String keyword = "";
 			ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select_cate(cate_num);
 			ReviewDao dao = ReviewDao.getInstance();
 			JSONObject obj = new JSONObject();
 			JSONArray arr = new JSONArray();
-			
+			int reviewCount = 0;
 			if(list != null) {	
 				for(ItemViewVo vo : list) {
 				JSONObject ob = new JSONObject();
-				//int reviewCount = (int)(Math.ceil(dao.getCount(null, null, vo.getItem_name())));
-				ob.put("cate_num",vo.getCate_num());
+				reviewCount = dao.getCount(search, keyword, vo.getItem_name());
+				ob.put("cate_num",vo.getCate_num());	
 				ob.put("item_num",vo.getItem_num());
 				ob.put("item_name",vo.getItem_name());
 				ob.put("item_price",vo.getItem_price());
 				ob.put("item_orgimg",vo.getItem_orgimg());
 				ob.put("size_name",vo.getSize_name());
 				ob.put("size_num",vo.getSize_num());
-				//ob.put("review_cnt", reviewCount );
+				ob.put("review_cnt", ""+reviewCount+"" );
 				arr.add(ob);
 			}
-			obj.put("arr", arr);
-			response.setContentType("text/plain;charset=utf-8");
-			PrintWriter pw = response.getWriter();
-			pw.print(obj.toString());
-			pw.close();
+				obj.put("arr", arr);
+				response.setContentType("text/plain;charset=utf-8");
+				PrintWriter pw = response.getWriter();
+				pw.print(obj.toString());
+				pw.close();
 			}
+			
+			request.setAttribute("cate_num", cate_num);
+			request.getRequestDispatcher("item_list.jsp").forward(request, response);
 		
 		}
 }

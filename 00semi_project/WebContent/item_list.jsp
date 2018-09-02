@@ -122,14 +122,49 @@
 		<div class="col-md-12">
 			<div class="tabs tabs-bottom tabs-center tabs-simple">
 				<ul class="nav nav-tabs">
-					<li class=""><a href="#tabsNavigationSimple1"
-						data-toggle="tab" aria-expanded="false">ALL</a></li>
-					<li class=""><a href="#tabsNavigationSimple2"
-						data-toggle="tab" aria-expanded="false">OUTER</a></li>
-					<li class=""><a href="#tabsNavigationSimple3"
-						data-toggle="tab" aria-expanded="false">TOP</a></li>
-					<li class="active"><a href="#tabsNavigationSimple4"
-						data-toggle="tab" aria-expanded="true">BOTTOM</a></li>
+				<c:choose>
+					<c:when test="${param.cate_num == 0 }">
+						<li class="active"><a href="<c:url value='/item_list.jsp?cate_num=0'/>"
+							aria-expanded="false">ALL</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=1'/>"
+							 aria-expanded="false">OUTER</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
+							aria-expanded="false">TOP</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+							aria-expanded="true">BOTTOM</a></li>
+					</c:when>
+					<c:when test="${param.cate_num == 1 }">
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=0'/>"
+						aria-expanded="false">ALL</a></li>
+						<li class="active"><a href="<c:url value='/item_list.jsp?cate_num=1'/>"
+						aria-expanded="false">OUTER</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
+							aria-expanded="false">TOP</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+							aria-expanded="true">BOTTOM</a></li>
+					</c:when>
+					<c:when test="${param.cate_num == 2 }">
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=0'/>"
+						aria-expanded="false">ALL</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=1'/>"
+						aria-expanded="false">OUTER</a></li>
+						<li class="active"><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
+						 aria-expanded="false">TOP</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+						aria-expanded="true">BOTTOM</a></li>
+						
+					</c:when>
+						<c:when test="${param.cate_num == 3 }">
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=0'/>"
+						aria-expanded="false">ALL</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=1'/>"
+						aria-expanded="false">OUTER</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
+						aria-expanded="false">TOP</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+						aria-expanded="true">BOTTOM</a></li>
+					</c:when>
+				</c:choose>
 				</ul>
 			</div>
 		</div>

@@ -86,7 +86,7 @@
 								<p style="float: left; font-size: 18px; color: #555;">주문내역</p>
 								<p class="day_list">
 									<a href="orderlist.do?cmd=month&sDate=30" class="btn">1달</a> <a href="orderlist.do?cmd=month&sDate=90" class="btn">
-										3달</a> <a href="orderlist.do?cmd=list&sDate=0" class="btn">전체</a>
+										3달</a> <a href="orderlist.do?cmd=list&user_num=${user_num }" class="btn">전체</a>
 								</p>
 								<table class="table">
 
@@ -194,6 +194,8 @@
 
 						</div>
 						<div>
+						<c:choose>
+						<c:when test="${empty param.sDate }">
 							<c:choose>
 								<c:when test="${startPage>10}">
 									<a
@@ -227,6 +229,45 @@
 								[다음]
 								</c:otherwise>
 							</c:choose>
+						</c:when>
+						<c:when test="${!empty param.sDate }">
+							<c:choose>
+								<c:when test="${startPage>10}">
+									<a
+										href="<c:url value = 'orderlist.do?cmd=Monthlist&pageNum=${startPage-1 }&user_num=${user_num}&sDate=${param.sDate }'/>">[이전]</a>
+								</c:when>
+								<c:otherwise>
+								[이전]
+								</c:otherwise>
+							</c:choose>
+
+							<c:forEach var="i" begin="${startPage }" end="${endPage }">
+								<c:choose>
+									<c:when test="${i==pageNum }">
+										<a href="<c:url value='orderlist.do?cmd=Monthlist&pageNum=${i }&user_num=${user_num}&sDate=${param.sDate }'/>">
+											<span style="color: red">[${i }]</span>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='orderlist.do?cmd=Monthlist&pageNum=${i }&user_num=${user_num}&sDate=${param.sDate }'/>">
+											<span style="color: blue">[${i }]</span>
+										</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${endPage<pageCount }">
+									<a
+										href="<c:url value='orderlist.do?cmd=Monthlist&pageNum=${endPage+1 }&user_num=${user_num}&sDate=${param.sDate }'/>"></a>
+								</c:when>
+								<c:otherwise>
+								[다음]
+								</c:otherwise>
+							</c:choose>
+						</c:when>	
+
+
+						</c:choose>
 						</div>
 					</div>
 				</div>
