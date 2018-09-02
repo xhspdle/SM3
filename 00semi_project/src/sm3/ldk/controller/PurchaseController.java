@@ -70,10 +70,12 @@ public class PurchaseController extends HttpServlet{
 					ArrayList<PurchaseViewVo> list1=PurchaseViewDao.getInstance().select(pur_num);
 					ArrayList<PointVo> list2 = PointDao.getInstance().select(user_num); //적립금 리스트
 					int point = 0;
-					for (PointVo vo : list2) { //사용가능 적립금
-						point = point + vo.getPoint();
+					if(list2!=null) {
+						for (PointVo vo : list2) { //사용가능 적립금
+							point = point + vo.getPoint();
+						}
+						
 					}
-					
 					if(list1!=null) {
 						request.setAttribute("list", list1);
 						request.setAttribute("point", point);

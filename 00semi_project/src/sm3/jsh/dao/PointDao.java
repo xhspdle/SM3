@@ -25,12 +25,11 @@ public class PointDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBConnection.getConn();
-			String sql = "insert into sm3_point values(?,?,?,?, sysdate + 180)";
+			String sql = "insert into sm3_point values(?,?,sysdate,?, sysdate + 180)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, vo.getOrder_num());
 			pstmt.setInt(2, vo.getUser_num());
-			pstmt.setDate(3, vo.getOrder_date());
-			pstmt.setInt(4, vo.getPoint());
+			pstmt.setInt(3, vo.getPoint());
 			return pstmt.executeUpdate();
 		} catch (SQLException se) {
 			System.out.println(se.getMessage());
