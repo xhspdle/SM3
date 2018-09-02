@@ -175,9 +175,5 @@ public class ItemViewController extends HttpServlet{
 				pw.print(obj.toString());
 				pw.close();
 			}
-			
-			request.setAttribute("cate_num", cate_num);
-			request.getRequestDispatcher("item_list.jsp").forward(request, response);
-		
 		}
 }

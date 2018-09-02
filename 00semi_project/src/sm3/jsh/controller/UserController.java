@@ -118,7 +118,7 @@ public class UserController extends HttpServlet {
 		} else {
 			request.setAttribute("msg", "추가실패쓰");
 		}
-		request.getRequestDispatcher("test.jsp").forward(request, response);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 
 	}
 
