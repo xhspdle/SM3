@@ -58,7 +58,7 @@
 	</form>
 	</div>
 	<div style="text-align: center; clear: both;">
-	<ul class="pagination pagination-md">
+	<ul class="pagination pagination-md">:
 	<c:choose>
 		<c:when test="${startPage>10 }">
 			<li><a href="<c:url value='/purchase.do?cmd=purNumList&pageNum=${startPage-1 }&search=${param.search }&keyword=${param.keyword }&pur_num=${param.pur_num }'/>">
