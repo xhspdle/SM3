@@ -97,7 +97,7 @@
 							+ "<img class='img-responsive' src='<c:url value='DBImages/"+json.arr[i].item_orgimg+"'/>'alt='Blog'></a>"
 							+ "<div class='recent-posts mt-md mb-lg'>"
 							+ "<article class='post'>"
-							+ "<h5>" + json.arr[i].size_num +
+							+ "<h5>"
 							+ "<a class='te x t-dark' href='<c:url value='item_detail.jsp'/>'>"
 							+ json.arr[i].item_name
 							+ "</a>"
