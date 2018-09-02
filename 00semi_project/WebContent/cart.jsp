@@ -82,12 +82,6 @@
 			<div class="container" style="margin-top: 80px;">
 				<div class="row">
 					<div class="col-md-12">
-						<h4>kekerori님의 적립 포인트는 000입니다</h4>
-						<hr class="tall">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
 						
 						<div class="featured-boxes">
 							<div class="row">

@@ -108,37 +108,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12">
-							<h2>MY ORDER</h2>
-							<div class="featured-boxes">
-								<div class="row">
-									<div class="col-sm-11">
-										<table class="table mytable">
-											<thead>
-												<tr>
-													<th style="width:20%">배송중</th>
-													<th style="width:20%">배송 완료</th>
-													<th style="width:20%">취소</th>
-													<th style="width:20%">교환</th>
-													<th style="width:20%">반품</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td>2</td>
-													<td>0</td>
-													<td>0</td>
-													<td>0</td>
-													
-												</tr>
-										
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</section>

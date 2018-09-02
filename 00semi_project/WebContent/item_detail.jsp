@@ -169,7 +169,7 @@
 							<!-- 폼시쟉~ -->
 							<form method="post"
 								action="<c:url value='/purchase.do?cmd=insert'/>" class="cart"
-								name="orderList">
+								name="orderList" onsubmit="return onSubmit()">
 								<!-- 세션에 담긴 유저 넘버도 보내주도록 -->
 								<input type="hidden" name="user_num"
 									value="${sessionScope.user_num }">
@@ -445,7 +445,6 @@
 																data-loading-text="Loading...">
 														</div>
 													</div>
-
 												</form>
 											</div>
 										</div>
@@ -455,120 +454,15 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- 연관 카테고리 뿌려주기 -->
-				<!-- <div class="row">
-					<div class="col-md-12">
-						<hr class="tall">
-
-						<h4 class="mb-md text-uppercase">
-							Related <strong>Products</strong>
-						</h4>
-
-						<div class="row">
-
-							<ul class="products product-thumb-info-list">
-								<li class="col-sm-3 col-xs-12 product"><a
-									href="shop-product-sidebar.html"> <span class="onsale">Sale!</span>
-								</a> <span class="product-thumb-info"> <a
-										href="shop-cart.html" class="add-to-cart-product"> <span><i
-												class="fa fa-shopping-cart"></i> Add to Cart</span>
-									</a> <a href="shop-product-sidebar.html"> <span
-											class="product-thumb-info-image"> <span
-												class="product-thumb-info-act"> <span
-													class="product-thumb-info-act-left"><em>View</em></span> <span
-													class="product-thumb-info-act-right"><em><i
-															class="fa fa-plus"></i> Details</em></span>
-											</span> <img alt="" class="img-responsive"
-												src="img/products/product-1.jpg">
-										</span>
-									</a> <span class="product-thumb-info-content"> <a
-											href="shop-product-sidebar.html">
-												<h4>Photo Camera</h4> <span class="price"> <del>
-														<span class="amount">$325</span>
-													</del> <ins>
-														<span class="amount">$299</span>
-													</ins>
-											</span>
-										</a>
-									</span>
-								</span></li>
-								<li class="col-sm-3 col-xs-12 product"><span
-									class="product-thumb-info"> <a href="shop-cart.html"
-										class="add-to-cart-product"> <span><i
-												class="fa fa-shopping-cart"></i> Add to Cart</span>
-									</a> <a href="shop-product-sidebar.html"> <span
-											class="product-thumb-info-image"> <span
-												class="product-thumb-info-act"> <span
-													class="product-thumb-info-act-left"><em>View</em></span> <span
-													class="product-thumb-info-act-right"><em><i
-															class="fa fa-plus"></i> Details</em></span>
-											</span> <img alt="" class="img-responsive"
-												src="img/products/product-2.jpg">
-										</span>
-									</a> <span class="product-thumb-info-content"> <a
-											href="shop-product-sidebar.html">
-												<h4>Golf Bag</h4> <span class="price"> <span
-													class="amount">$72</span>
-											</span>
-										</a>
-									</span>
-								</span></li>
-								<li class="col-sm-3 col-xs-12 product"><span
-									class="product-thumb-info"> <a href="shop-cart.html"
-										class="add-to-cart-product"> <span><i
-												class="fa fa-shopping-cart"></i> Add to Cart</span>
-									</a> <a href="shop-product-sidebar.html"> <span
-											class="product-thumb-info-image"> <span
-												class="product-thumb-info-act"> <span
-													class="product-thumb-info-act-left"><em>View</em></span> <span
-													class="product-thumb-info-act-right"><em><i
-															class="fa fa-plus"></i> Details</em></span>
-											</span> <img alt="" class="img-responsive"
-												src="img/products/product-3.jpg">
-										</span>
-									</a> <span class="product-thumb-info-content"> <a
-											href="shop-product-sidebar.html">
-												<h4>Workout</h4> <span class="price"> <span
-													class="amount">$60</span>
-											</span>
-										</a>
-									</span>
-								</span></li>
-								<li class="col-sm-3 col-xs-12 product"><span
-									class="product-thumb-info"> <a href="shop-cart.html"
-										class="add-to-cart-product"> <span><i
-												class="fa fa-shopping-cart"></i> Add to Cart</span>
-									</a> <a href="shop-product-sidebar.html"> <span
-											class="product-thumb-info-image"> <span
-												class="product-thumb-info-act"> <span
-													class="product-thumb-info-act-left"><em>View</em></span> <span
-													class="product-thumb-info-act-right"><em><i
-															class="fa fa-plus"></i> Details</em></span>
-											</span> <img alt="" class="img-responsive"
-												src="img/products/product-4.jpg">
-										</span>
-									</a> <span class="product-thumb-info-content"> <a
-											href="shop-product-sidebar.html">
-												<h4>Luxury bag</h4> <span class="price"> <span
-													class="amount">$199</span>
-											</span>
-										</a>
-									</span>
-								</span></li>
-							</ul>
-						</div>
-						
-						 -->
 			</div>
 		</div>
 	</div>
 
-	</div>
+
 	<footer class="short" id="footer">
 		<jsp:include page="footer.jsp" />
 	</footer>
-	</div>
+
 	<script>
 	//엉엉유유ㅠㅇ어유유ㅠ
 	var cnt = 0;
@@ -577,8 +471,27 @@
 	var n3 = 0;
 	var n4 = 0;
 	
+	
+		/* 주문하기 제출조건 */
+		function onSubmit(){
+			var id_session = '${user_id}';
+			if(id_session == '') {
+				location.href= 'login.jsp';
+				return false;
+				}
+			if(cnt==0) {
+				alert("사이즈를 1개이상 선택 해 주세요");
+				return false;
+			}
+		}
+	
 		/* submit 자바스크립트로 주소 변경해주기 */
 		function submit_change(){
+			var id_session = '${user_id}';
+			if(id_session == ''){ 
+				location.href= 'login.jsp';
+				return false;
+			}
 			if(cnt==0) alert("사이즈를 1개이상 선택 해 주세요");
 			if(cnt > 0){
 				document.orderList.action = "cart.do?cmd=insert"; //보낼주소

@@ -106,7 +106,7 @@
 							+ "<span><i class='fa fa-tag'></i>"
 							+ json.arr[i].item_price
 							+ "</span>"
-							+ "<span><i class='fa fa-comments'></i> <a href='#'>500 Comments</a></span>"
+							+ "<span><i class='fa fa-comments'></i> <a href='#'>" + json.arr[i].review_cnt +" Comments</a></span>"
 							+ "</div>" + "</article>" + "</div>"
 					box[0].appendChild(div);
 				}
