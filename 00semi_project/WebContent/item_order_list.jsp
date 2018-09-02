@@ -164,17 +164,6 @@
 												</colgroup>
 												<!-- 국내 배송지 정보 -->
 												<tbody class="">
-													<tr class="">
-														<th scope="row">배송지 선택</th>
-														<td>
-															<div class="address">
-																<input id="sameaddr0" name="sameaddr" value="M"
-																	type="radio"><label for="sameaddr0">회원
-																	정보와 동일</label> <input id="sameaddr1" name="sameaddr" value="F"
-																	type="radio"><label for="sameaddr1">새로운배송지</label>
-															</div>
-														</td>
-													</tr>
 													<tr>
 														<th scope="row">받으시는 분 <img
 															src="//img.echosting.cafe24.com/skin/base_ko_KR/order/ico_required.gif"

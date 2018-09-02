@@ -265,8 +265,6 @@
 								</c:otherwise>
 							</c:choose>
 						</c:when>	
-
-
 						</c:choose>
 						</div>
 					</div>

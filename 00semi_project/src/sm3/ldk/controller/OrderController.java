@@ -61,7 +61,7 @@ public class OrderController extends HttpServlet{
 			order_point=Integer.parseInt(sorder_point);
 		}
 		int order_pay=order_total-order_point;
-		if(sorder_pay!=null && !sorder_total.equals("")) {
+		if(sorder_pay!=null && !sorder_pay.equals("")) {
 			order_pay=Integer.parseInt(sorder_pay);
 		}
 		String order_recipient=request.getParameter("order_recipient");
@@ -71,7 +71,7 @@ public class OrderController extends HttpServlet{
 		String[] sorder_phone=request.getParameterValues("order_phone");
 		String order_phone= sorder_phone[0] + "-" + sorder_phone[1] + "-" + sorder_phone[2];
 		int order_status=1;
-		int order_num=OrderDao.getInstance().getMaxNum();
+		int order_num=OrderDao.getInstance().getMaxNum()+1;
 		int n=OrderDao.getInstance().insert(new OrderVo(0, user_num, 
 				pur_num, order_total, order_point, order_pay, order_recipient,
 				order_post_addr, order_basic_addr, order_detail_addr, order_phone, 
@@ -82,22 +82,22 @@ public class OrderController extends HttpServlet{
 			int n1 = 0;
  			
 			//적립금 넣어주기
-			Date order_date=OrderDao.getInstance().select(order_num).getOrder_date();
 			if(order_point > 0) {//포인트를 사용했을 경우
-				n1 = PointDao.getInstance().insert(new PointVo(order_num, user_num, order_date, point2, null));
+				n1 = PointDao.getInstance().insert(new PointVo(order_num, user_num, null, point2, null));
 			}else if(order_point ==0) {//포인트를 사용하지 않았을 경우
-				n1 = PointDao.getInstance().insert(new PointVo(order_num, user_num, order_date, point, null));
+				n1 = PointDao.getInstance().insert(new PointVo(order_num, user_num, null, point, null));
 			}
 			if(n1>0) {
 				request.setAttribute("success", "성공!");
-				request.setAttribute("msg", "주문 성공!!");
+				request.setAttribute("msg", "주문 성공!! & 적립금 적립 성공!!");
 			}else {
-				request.setAttribute("msg", "주문 실패..");
+				request.setAttribute("success", "성공!");
+				request.setAttribute("msg", "주문 성공!!");
 			}
-			request.getRequestDispatcher("msg.jsp").forward(request, response);		
-			
+		}else {
+			request.setAttribute("msg", "주문 실패..");
 		}
-		
+		request.getRequestDispatcher("msg.jsp").forward(request, response);		
 	}
 	
 	
