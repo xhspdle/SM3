@@ -92,7 +92,7 @@
 							+ "<img class='img-responsive' src='<c:url value='DBImages/"+json.arr[i].item_orgimg+"'/>'alt='Blog'></a>"
 							+ "<div class='recent-posts mt-md mb-lg'>"
 							+ "<article class='post'>"
-							+ "<h5>" + json.arr[i].size_num +
+							+ "<h5>"
 							+ "<a class='te x t-dark' href='<c:url value='item_detail.jsp'/>'>"
 							+ json.arr[i].item_name
 							+ "</a>"
@@ -161,7 +161,7 @@
 						aria-expanded="false">OUTER</a></li>
 						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
 						aria-expanded="false">TOP</a></li>
-						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+						<li class="active"><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
 						aria-expanded="true">BOTTOM</a></li>
 					</c:when>
 				</c:choose>
