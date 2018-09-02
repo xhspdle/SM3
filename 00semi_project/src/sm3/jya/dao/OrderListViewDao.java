@@ -98,7 +98,7 @@ public class OrderListViewDao {
 					int pur_num = rs.getInt("pur_num");
 					int item_num = rs.getInt("item_num");
 					String item_name = rs.getString("item_name");
-					String item_savimg = rs.getString("item_savimg");
+					String item_orgimg = rs.getString("item_orgimg");
 					String item_info = rs.getString("item_info");
 					int order_cnt = rs.getInt("order_cnt");
 					int order_pay = rs.getInt("order_pay");
@@ -109,7 +109,7 @@ public class OrderListViewDao {
 					int order_point = rs.getInt("order_point");
 					int order_status = rs.getInt("order_status");
 					Date order_date = rs.getDate("order_date");
-					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, item_num,pur_num, item_name, item_savimg,
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, item_num,pur_num, item_name, item_orgimg,
 							item_info, order_cnt, order_pay, order_recipient, order_phone, order_basic_addr,
 							order_detail_addr, order_point, order_status, order_date);
 					list.add(vo);
@@ -152,7 +152,7 @@ public class OrderListViewDao {
 					int pur_num = rs.getInt("pur_num");
 					int item_num = rs.getInt("item_num");
 					String item_name = rs.getString("item_name");
-					String item_savimg = rs.getString("item_savimg");
+					String item_orgimg = rs.getString("item_orgimg");
 					String item_info = rs.getString("item_info");
 					int order_cnt = rs.getInt("order_cnt");
 					int order_pay = rs.getInt("order_pay");
@@ -163,7 +163,7 @@ public class OrderListViewDao {
 					int order_point = rs.getInt("order_point");
 					int order_status = rs.getInt("order_status");
 					Date order_date = rs.getDate("order_date");
-					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_num, item_name, item_savimg,
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_num, item_name, item_orgimg,
 							item_info, order_cnt, order_pay, order_recipient, order_phone, order_basic_addr,
 							order_detail_addr, order_point, order_status, order_date);
 					list.add(vo);
@@ -206,7 +206,7 @@ public class OrderListViewDao {
 					int pur_num = rs.getInt("pur_num");
 					int item_num = rs.getInt("item_num");
 					String item_name = rs.getString("item_name");
-					String item_savimg = rs.getString("item_savimg");
+					String item_orgimg = rs.getString("item_orgimg");
 					String item_info = rs.getString("item_info");
 					int order_cnt = rs.getInt("order_cnt");
 					int order_pay = rs.getInt("order_pay");
@@ -217,7 +217,7 @@ public class OrderListViewDao {
 					int order_point = rs.getInt("order_point");
 					int order_status = rs.getInt("order_status");
 					Date order_date = rs.getDate("order_date");
-					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, item_num,  pur_num, item_name, item_savimg,
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, item_num,  pur_num, item_name, item_orgimg,
 							item_info, order_cnt, order_pay, order_recipient, order_phone, order_basic_addr,
 							order_detail_addr, order_point, order_status, order_date);
 				} while (rs.next());
@@ -260,7 +260,7 @@ public class OrderListViewDao {
 					int pur_num = rs.getInt("pur_num");
 					int item_num = rs.getInt("item_num");
 					String item_name = rs.getString("item_name");
-					String item_savimg = rs.getString("item_savimg");
+					String item_orgimg = rs.getString("item_orgimg");
 					String item_info = rs.getString("item_info");
 					int order_cnt = rs.getInt("order_cnt");
 					int order_pay = rs.getInt("order_pay");
@@ -271,7 +271,7 @@ public class OrderListViewDao {
 					int order_point = rs.getInt("order_point");
 					int order_status = rs.getInt("order_status");
 					Date order_date = rs.getDate("order_date");
-					OrderListViewVo vo=new OrderListViewVo(order_num, user_num, pur_num, item_num, item_name, item_savimg, item_info, order_cnt,
+					OrderListViewVo vo=new OrderListViewVo(order_num, user_num, pur_num, item_num, item_name, item_orgimg, item_info, order_cnt,
 							order_pay, order_recipient, order_phone, order_basic_addr, order_detail_addr, order_point,
 							order_status, order_date);
 					list.add(vo);
@@ -311,7 +311,7 @@ public class OrderListViewDao {
 				int pur_num = rs.getInt("pur_num");
 				int item_num = rs.getInt("item_num");
 				String item_name = rs.getString("item_name");
-				String item_savimg = rs.getString("item_savimg");
+				String item_orgimg = rs.getString("item_orgimg");
 				String item_info = rs.getString("item_info");
 				int order_cnt = rs.getInt("order_cnt");
 				int order_pay = rs.getInt("order_pay");
@@ -322,7 +322,7 @@ public class OrderListViewDao {
 				int order_point = rs.getInt("order_point");
 				int order_status = rs.getInt("order_status");
 				Date order_date = rs.getDate("order_date");
-				OrderListViewVo vo=new OrderListViewVo(order_num, user_num, pur_num, item_num, item_name, item_savimg, item_info, order_cnt,
+				OrderListViewVo vo=new OrderListViewVo(order_num, user_num, pur_num, item_num, item_name, item_orgimg, item_info, order_cnt,
 						order_pay, order_recipient, order_phone, order_basic_addr, order_detail_addr, order_point,
 						order_status, order_date);
 				return vo;			
@@ -430,7 +430,7 @@ public class OrderListViewDao {
 					int pur_num = rs.getInt("pur_num");
 					int item_num = rs.getInt("item_num");
 					String item_name = rs.getString("item_name");
-					String item_savimg = rs.getString("item_savimg");
+					String item_orgimg = rs.getString("item_orgimg");
 					String item_info = rs.getString("item_info");
 					int order_cnt = rs.getInt("order_cnt");
 					int order_pay = rs.getInt("order_pay");
@@ -441,7 +441,7 @@ public class OrderListViewDao {
 					int order_point = rs.getInt("order_point");
 					int order_status = rs.getInt("order_status");
 					Date order_date = rs.getDate("order_date");
-					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_num, item_name, item_savimg,
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_num, item_name, item_orgimg,
 							item_info, order_cnt, order_pay, order_recipient, order_phone, order_basic_addr,
 							order_detail_addr, order_point, order_status, order_date);
 					list.add(vo);
@@ -490,7 +490,7 @@ public class OrderListViewDao {
 					int pur_num = rs.getInt("pur_num");
 					int item_num = rs.getInt("item_num");
 					String item_name = rs.getString("item_name");
-					String item_savimg = rs.getString("item_savimg");
+					String item_orgimg = rs.getString("item_orgimg");
 					String item_info = rs.getString("item_info");
 					int order_cnt = rs.getInt("order_cnt");
 					int order_pay = rs.getInt("order_pay");
@@ -501,7 +501,7 @@ public class OrderListViewDao {
 					int order_point = rs.getInt("order_point");
 					int order_status = rs.getInt("order_status");
 					Date order_date = rs.getDate("order_date");
-					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_num, item_name, item_savimg,
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_num, item_name, item_orgimg,
 							item_info, order_cnt, order_pay, order_recipient, order_phone, order_basic_addr,
 							order_detail_addr, order_point, order_status, order_date);
 					list.add(vo);
@@ -546,7 +546,7 @@ public class OrderListViewDao {
 					int pur_num = rs.getInt("pur_num");
 					int item_num = rs.getInt("item_num");
 					String item_name = rs.getString("item_name");
-					String item_savimg = rs.getString("item_savimg");
+					String item_orgimg = rs.getString("item_orgimg");
 					String item_info = rs.getString("item_info");
 					int order_cnt = rs.getInt("order_cnt");
 					int order_pay = rs.getInt("order_pay");
@@ -557,7 +557,7 @@ public class OrderListViewDao {
 					int order_point = rs.getInt("order_point");
 					int order_status = rs.getInt("order_status");
 					Date order_date = rs.getDate("order_date");
-					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_num, item_name, item_savimg,
+					OrderListViewVo vo = new OrderListViewVo(order_num1, user_num, pur_num, item_num, item_name, item_orgimg,
 							item_info, order_cnt, order_pay, order_recipient, order_phone, order_basic_addr,
 							order_detail_addr, order_point, order_status, order_date);
 					list.add(vo);
