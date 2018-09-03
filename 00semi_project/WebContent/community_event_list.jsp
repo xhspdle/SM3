@@ -92,7 +92,6 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="recent-posts mb-xl main_box">
-
 											<c:forEach var="vo" items="${requestScope.list }">
 												<!-- 리스트 들어갈 위치  -->
 												<div class="col-md-4">

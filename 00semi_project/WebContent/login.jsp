@@ -125,13 +125,12 @@
 														</div>
 													</div>
 													<div class="row">
-												
 														<div class="col-md-6" style="float:right;">
 															<input type="submit" value="Login"
 																class="btn btn-primary pull-right mb-xl"
 																data-loading-text="Loading...">
 														</div>
-													</div>
+													</div>s
 												</form>
 											</div>
 										</div>
