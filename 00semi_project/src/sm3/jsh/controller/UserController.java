@@ -210,6 +210,7 @@ public class UserController extends HttpServlet {
 		}
 		if(check){
 			request.setAttribute("check", check);
+			request.setAttribute("id", id);
 			request.setAttribute("idMsg", "사용가능한 아이디 입니다.");
 			
 		}else {

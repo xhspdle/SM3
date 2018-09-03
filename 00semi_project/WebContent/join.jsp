@@ -97,7 +97,7 @@
 															<div class="col-md-10">
 																<label for="id">아이디</label> <span class="spanVal">${idMsg }</span><input
 																	id="id" type="text" name="id"
-																	class="form-control input-lg">
+																	class="form-control input-lg" value="${id }">
 															</div>
 															<div class="col-md-2">
 																<a href="javascript:idCheck();"

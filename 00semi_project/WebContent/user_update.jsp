@@ -461,6 +461,9 @@
 			for(var i=0;i<json.length;i++){
 				var option=document.createElement("option");
 				option.setAttribute("value", json[i].hint_num);
+				if((i+1)==${vo.hint_num}){
+					option.setAttribute("selected", "selected");
+				}
 				option.text=json[i].hint_q;
 				pwdHint.add(option);
 			}
