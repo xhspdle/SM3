@@ -125,14 +125,8 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-6">
-															<span class="remember-box checkbox"> <label
-																for="remember"> <input type="checkbox"
-																	id="remember" name="remember">아이디 저장
-															</label>
-															</span>
-														</div>
-														<div class="col-md-6">
+												
+														<div class="col-md-6" style="float:right;">
 															<input type="submit" value="Login"
 																class="btn btn-primary pull-right mb-xl"
 																data-loading-text="Loading...">

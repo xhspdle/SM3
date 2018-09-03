@@ -80,8 +80,8 @@
 			<section class="section mt-none section-footer">
 				<div class="container main_box">
 					<div class="row mt-lg">
-						<div class="col-md-12">
-							<h2>MY POINT</h2>
+						<div class="col-md-12" style="margin-bottom: 100px;">
+							<h2 style="margin-top: 100px;">MY POINT</h2>
 							<div class="featured-boxes">
 								<div class="row">
 									<div class="col-sm-11">
