@@ -159,18 +159,18 @@
 										<c:forEach var="vo" items="${list }" varStatus="vs">
 										<c:if test="${vs.index >=0 and vs.index <=7 }">
 											<div class="col-md-3">
-												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
+												<a href="<c:url value='itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name }'/>"><img class="img-responsive"
 													src="<c:url value='/DBImages/${vo.item_orgimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>
-															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">
+															<a class="<c:url value='itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name }'/>" href="blog-post.html">
 															${vo.item_name }</a>
 														</h5>
 	
 														<div class="post-meta" class="item_info">
 															<span><i class="fa fa-tag"></i>${vo.item_price }</span> <span><i
-																class="fa fa-comments"></i> <a href="#">${vo.order_cnt }</a></span>
+																class="fa fa-comments"></i> <a href="#none">${vo.order_cnt }</a></span>
 														</div>
 													</article>
 												</div>
@@ -182,18 +182,18 @@
 										<c:forEach var="vo" items="${list }" varStatus="vs">
 										<c:if test="${vs.index >=8 and vs.index <=15 }">
 											<div class="col-md-3">
-												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
+												<a href="<c:url value='itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name }'/>"><img class="img-responsive"
 													src="<c:url value='/DBImages/${vo.item_orgimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>	
-															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">
+															<a class="<c:url value='itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name }'/>" href="blog-post.html">
 															${vo.item_name }</a>
 														</h5>
 	
 														<div class="post-meta" class="item_info">
 															<span><i class="fa fa-tag"></i>${vo.item_price }</span> <span><i
-																class="fa fa-comments"></i> <a href="#">${vo.order_cnt }</a></span>
+																class="fa fa-comments"></i> <a href="#none">${vo.order_cnt }</a></span>
 														</div>
 													</article>
 												</div>
@@ -205,18 +205,18 @@
 										<c:forEach var="vo" items="${list }" varStatus="vs">
 										<c:if test="${vs.index >=16 and vs.index <=23 }">
 											<div class="col-md-3">
-												<a href="<c:url value='item_list.jsp'/>"><img class="img-responsive"
+												<a href="<c:url value='itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name }'/>"><img class="img-responsive"
 													src="<c:url value='/DBImages/${vo.item_orgimg }'/>" alt="Blog"></a>
 												<div class="recent-posts mt-md mb-lg">
 													<article class="post">
 														<h5>
-															<a class="<c:url value='item_list.jsp'/>" href="blog-post.html">
+															<a class="<c:url value='itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name }'/>" href="blog-post.html">
 															${vo.item_name }</a>
 														</h5>
 	
 														<div class="post-meta" class="item_info">
 															<span><i class="fa fa-tag"></i>${vo.item_price }</span> <span><i
-																class="fa fa-comments"></i> <a href="#">${vo.order_cnt }</a></span>
+																class="fa fa-comments"></i> <a href="#none">${vo.order_cnt }</a></span>
 														</div>
 													</article>
 												</div>
@@ -270,12 +270,12 @@
 								<c:forEach var="voo" items="${enList }" varStatus="vss">
 								<c:if test="${vss.index <=3 }">
 								<div class="col-md-4">
-									<a href="#"><img class="img-responsive"
+									<a href="<c:url value='community_event_detail.jsp?savimg=${vo.en_savimg }&en_num=${vo.en_num }&en_content=${vo.en_content }'/>"><img class="img-responsive"
 										src="<c:url value='/images/${voo.en_orgimg }'/>" alt="Blog"></a>
 									<div class="recent-posts mt-md mb-lg">
 										<article class="post">
 											<h5>
-												<a class="text-dark" href="blog-post.html">${voo.en_title }</a>
+												<a class="text-dark" href="">${voo.en_title }</a>
 											</h5>
 											<div class="post-meta">
 												<span>EVENT </span> <span>${voo.en_date }</span>
