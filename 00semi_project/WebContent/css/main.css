@@ -581,4 +581,7 @@ ul.qna_comment li{
 	padding: 10px 0 0 0px;
 }
 
-kdd{dd}
+.main section.section{
+   background-color: white;
+   border-top: none;
+}

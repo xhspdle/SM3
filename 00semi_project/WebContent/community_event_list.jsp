@@ -96,10 +96,8 @@
 											<c:forEach var="vo" items="${requestScope.list }">
 												<!-- 리스트 들어갈 위치  -->
 												<div class="col-md-4">
-												<a href="<c:url value='community_event_detail.jsp?savimg=${vo.en_savimg }&en_num=${vo.en_num }&en_content=${vo.en_content }'/>"><img
-														class="img-responsive" src="<c:url value='/images/${vo.en_savimg }'/>"
-														alt="Blog"></a>  
-
+												<a style="height: 320px; display: inline-block; overflow:hidden;" href="<c:url value='community_event_detail.jsp?savimg=${vo.en_savimg }&en_num=${vo.en_num }&en_content=${vo.en_content }'/>">
+												<img class="img-responsive" src="<c:url value='/images/${vo.en_savimg }'/>" alt="Blog"></a>  
 													<div class="recent-posts mt-md mb-lg">
 														<article class="post">
 														<h5>
@@ -132,53 +130,58 @@
 													selected3 = " selected=selected";
 												}
 											%>
-											<form method="post"
-												action="<c:url value='EventNotice.do?cmd=list'/>">
-												<select name="search">
-													<option value="en_writer" <%=selected1%>>글쓴이</option>
-													<option value="en_title" <%=selected2%>>제목</option>
-													<option value="en_content" <%=selected3%>>내용</option>
-												</select> <input type="text" name="keyword" value="${param.keyword }">
-												<input type="submit" value="찾기">
-											</form>
-											<br />
-											<div>
-												<c:choose>
-													<c:when test="${startPage>3}">
-														<a
-															href="<c:url value ='EventNotice.do?cmd=list&pageNum=${startPage-1 }&search=${param.search}&keyword=${param.keyword}'/>">[이전]</a>
-													</c:when>
-													<c:otherwise>
-													[이전]
-													</c:otherwise>
-												</c:choose>
-
-												<c:forEach var="i" begin="${startPage }" end="${endPage }">
-													<c:choose>
-														<c:when test="${i==pageNum }">
-															<a
-																href="<c:url value='EventNotice.do?cmd=list&pageNum=${i }&search=${param.search}&keyword=${param.keyword }'/>">
-																<span style="color: red">[${i }]</span>
-															</a>
-														</c:when>
-														<c:otherwise>
-															<a
-																href="<c:url value='EventNotice.do?cmd=list&pageNum=${i }&search=${param.search}&keyword=${param.keyword }'/>">
-																<span style="color: blue">[${i }]</span>
-															</a>
-														</c:otherwise>
-													</c:choose>
-												</c:forEach>
-												<c:choose>
-													<c:when test="${endPage<pageCount }">
-														<a
-															href="<c:url value='EventNotice.do?cmd=list&pageNum=${endPage+1 }&search=${param.search}&keyword=${param.keyword}'/>">[다음]</a>
-													</c:when>
-													<c:otherwise>
-													[다음]
-													</c:otherwise>
-												</c:choose>
-											</div>
+									<div class="col-md-12" style="text-align: center; clear:both; margin-top: 30px;">
+	                                    <div class="pull-center">
+	                                       <form method="post" width="400"
+	                                          action="<c:url value='EventNotice.do?cmd=list'/>">
+	                                          <select name="search">
+	                                             <option value="en_writer" <%=selected1%>>글쓴이</option>
+	                                             <option value="en_title" <%=selected2%>>제목</option>
+	                                             <option value="en_content" <%=selected3%>>내용</option>
+	                                          </select> <input type="text" name="keyword"
+	                                             value="${param.keyword }"> <input type="submit"
+	                                             value="찾기">
+	                                       </form>
+	                                    </div>
+                                    <br />
+                                    <div class="col-md-12" style="text-align: center;">
+                                       <ul class="pagination pull-center">
+                                          <c:choose>
+                                             <c:when test="${startPage > 3 }">
+                                                <li><a
+                                                   href="<c:url value ='EventNotice.do?cmd=list&pageNum=${startPage-1 }&search=${param.search}&keyword=${param.keyword}'/>"><i
+                                                      class="fa fa-chevron-left"></i></a></li>
+                                             </c:when>
+                                             <c:otherwise>
+                                                <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                                             </c:otherwise>
+                                          </c:choose>
+                                          <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                                             <c:choose>
+                                                <c:when test="${i == pageNum}">
+                                                   <li class="active"><a
+                                          href="<c:url value ='EventNotice.do?cmd=list&pageNum=${startPage-1 }&search=${param.search}&keyword=${param.keyword}'/>">${i}</a></li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                   <li><a
+                                                      href="<c:url value='EventNotice.do?cmd=list&pageNum=${i }&search=${param.search}&keyword=${param.keyword }'/>"><span
+                                                         >${i }</span></a></li>
+                                                </c:otherwise>
+                                             </c:choose>
+                                          </c:forEach>
+                                          <c:choose>
+                                             <c:when test="${endPage < pageCount}">
+                                                <li><a
+                                                   href="<c:url value='EventNotice.do?cmd=list&pageNum=${endPage+1 }&search=${param.search}&keyword=${param.keyword}'/>"><i
+                                                      class="fa fa-chevron-right"></i></a></li>
+                                             </c:when>
+                                             <c:otherwise>
+                                                <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                                             </c:otherwise>
+                                          </c:choose>
+                                       </ul>
+                                    </div>
+                                 </div>
 										</div>
 									</div>
 								</div>
