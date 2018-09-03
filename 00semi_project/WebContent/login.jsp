@@ -130,7 +130,7 @@
 																class="btn btn-primary pull-right mb-xl"
 																data-loading-text="Loading...">
 														</div>
-													</div>s
+													</div>
 												</form>
 											</div>
 										</div>

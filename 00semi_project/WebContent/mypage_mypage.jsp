@@ -101,7 +101,6 @@
 													<td>${hidePoint }</td>
 													<td>${order_cnt }회</td>
 												</tr>
-										
 											</tbody>
 										</table>
 									</div>
