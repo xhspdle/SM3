@@ -246,13 +246,13 @@
 					<!-- ajax들어갈 공간 -->
 					</div>
 					<p class="txtCenter">
-						<button type="button" onclick="itemList()" class="btn btn-default mr-xs mb-sm">상품
+						<button type="button" onclick="itemList()" style="margin-top: 100px;"class="btn btn-default mr-xs mb-sm">상품
 							더보기</button>
 					</p>
 				</div>
 			</section>
 			<section id="m_banner">
-				<a href="#"><img class="img-responsive"
+				<a href="#"><img class="img-responsive" style="border:none;"
 					src="img/main_mBanner.jpg" alt="Blog"></a>
 			</section>
 			<section id="event">
