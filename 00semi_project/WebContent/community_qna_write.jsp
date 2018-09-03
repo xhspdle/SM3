@@ -98,9 +98,15 @@
 														<input type="hidden" name="lev" value="${param.lev }"/>
 														<input type="hidden" name="step" value="${param.step }"/>
 														<input type="hidden" name="user_id" value="${user_id }">	<!-- 유저아이디 -->
-														
-														<input type="hidden" name="admin_id" value="test">	<!-- 관리자아이디 -->
-														<label>작성자</label> <input type="text" value="lee" 
+														<c:choose>
+															<c:when test="${!empty admin_id }">
+															<input type="hidden" name="admin_id" value="${admin_id }">
+															</c:when>
+															<c:otherwise>
+															<input type="hidden" name="admin_id" value="noone">	<!-- 관리자아이디 -->		
+															</c:otherwise>
+														</c:choose>
+														<label>작성자</label> <input type="text" value="${user_id }" 
 															data-msg-required="Please enter your name."
 															maxlength="100" class="form-control" name="qa_writer"
 															id="title">

@@ -131,7 +131,14 @@ function searchCheck(frm){
 														</c:if>
 													<a href="<c:url value='/QA_board.do?cmd=detail&qa_num=${vo.qa_num }'/>">${vo.qa_title}</a></td>
 													<td>${vo.qa_writer }</td>
-													<td><a href="<c:url value='/QA_board.do?cmd=delete&qa_num=${vo.qa_num}'/>">삭제</a></td>
+													<c:choose>
+														<c:when test="${vo.user_num==sessionScope.user_num }">
+													<td><a href="<c:url value='/QA_board.do?cmd=delete&qa_num=${vo.qa_num}'/>">삭제</a></td>	
+														</c:when>
+														<c:otherwise>
+													<td>삭제</td>
+														</c:otherwise>
+													</c:choose>
 												</tr>
 											</c:forEach>
 		<tr>  

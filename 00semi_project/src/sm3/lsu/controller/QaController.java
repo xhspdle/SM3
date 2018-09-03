@@ -65,7 +65,7 @@ public class QaController extends HttpServlet {
 		QaVo vo = new QaVo(qa_num, qa_writer, qa_title, qa_content, null, ref, lev, step, 0, 0);
 		int n=qa.insert(vo, user_id);
 		if(n>0) {
-			request.getRequestDispatcher("community_qna_write.jsp").forward(request, response);
+			request.getRequestDispatcher("QA_board.do?cmd=list").forward(request, response);
 		}else {
 			
 		}

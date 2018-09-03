@@ -35,19 +35,18 @@ public class PointController extends HttpServlet {
 		int allPoint = 0;
 		int point = 0;
 		
-		int order_cnt = list.size();
-		
-		for (PointVo vo : allList) { //전체 적립금
-			allPoint = allPoint + vo.getPoint();
-		}
-		
-		for (PointVo vo : list) { //사용가능 적립금
-			point = point + vo.getPoint();
-		}
-		
-		int hidePoint = allPoint - point; 
-		
 		if(list != null) {
+			int order_cnt = list.size();
+			
+			for (PointVo vo : allList) { //전체 적립금
+				allPoint = allPoint + vo.getPoint();
+			}
+			
+			for (PointVo vo : list) { //사용가능 적립금
+				point = point + vo.getPoint();
+			}
+			
+			int hidePoint = allPoint - point; 
 			request.setAttribute("allPoint", allPoint);
 			request.setAttribute("point", point);
 			request.setAttribute("hidePoint", hidePoint);
