@@ -165,7 +165,7 @@
 
 											<tr class="shipping">
 												<th>배송정보</th>
-												<td>기본 배송(2500원)<input type="hidden"
+												<td>무료 배송<input type="hidden"
 													value="free_shipping" id="shipping_method"
 													name="shipping_method">
 												</td>

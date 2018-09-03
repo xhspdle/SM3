@@ -97,7 +97,8 @@
 														<input type="hidden" name="ref" value="${param.ref}" />
 														<input type="hidden" name="lev" value="${param.lev }"/>
 														<input type="hidden" name="step" value="${param.step }"/>
-														<input type="hidden" name="user_id" value="apple">	<!-- 유저아이디 -->
+														<input type="hidden" name="user_id" value="${user_id }">	<!-- 유저아이디 -->
+														
 														<input type="hidden" name="admin_id" value="test">	<!-- 관리자아이디 -->
 														<label>작성자</label> <input type="text" value="lee" 
 															data-msg-required="Please enter your name."

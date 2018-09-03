@@ -26,7 +26,7 @@
 			<td>${vo.cate_num }</td>
 			<td>${vo.item_info }</td>
 			<td>${vo.item_price }</td>
-			<td><img src='<c:url value="/DBImages/${vo.item_savimg }"/>' 
+			<td><img src='<c:url value="/DBImages/${vo.item_orgimg }"/>' 
 			style="width:105px;height:140px;" id="img1"></td>
 			<td><a href="<c:url value=
 			'/admin/item.do?cmd=select&item_num=${vo.item_num }'/>">수정</a></td>
