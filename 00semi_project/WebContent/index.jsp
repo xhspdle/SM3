@@ -270,7 +270,7 @@
 								<c:forEach var="voo" items="${enList }" varStatus="vss">
 								<c:if test="${vss.index <=3 }">
 								<div class="col-md-4">
-									<a href="<c:url value='community_event_detail.jsp?savimg=${vo.en_savimg }&en_num=${vo.en_num }&en_content=${vo.en_content }'/>"><img class="img-responsive"
+									<a style="height: 320px; display: inline-block; overflow:hidden;" href="<c:url value='community_event_detail.jsp?savimg=${vo.en_savimg }&en_num=${vo.en_num }&en_content=${vo.en_content }'/>"><img class="img-responsive"
 										src="<c:url value='/images/${voo.en_orgimg }'/>" alt="Blog"></a>
 									<div class="recent-posts mt-md mb-lg">
 										<article class="post">

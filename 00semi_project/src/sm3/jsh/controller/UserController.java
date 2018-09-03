@@ -118,7 +118,7 @@ public class UserController extends HttpServlet {
 		} else {
 			request.setAttribute("msg", "추가실패쓰");
 		}
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 
 	}
 
@@ -193,6 +193,7 @@ public class UserController extends HttpServlet {
 			request.getRequestDispatcher("userControll.do?cmd=list").forward(request, response);
 		}
 	}
+	
 	
 	protected void idSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
