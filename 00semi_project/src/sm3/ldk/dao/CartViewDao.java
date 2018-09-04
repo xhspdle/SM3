@@ -84,11 +84,11 @@ public class CartViewDao {
 					int size_num=rs.getInt("size_num");
 					int order_cnt=rs.getInt("order_cnt");
 					int item_price=rs.getInt("item_price");
-					String item_orgimg=rs.getString("item_orgimg");
+					String item_savimg=rs.getString("item_savimg");
 					String item_name=rs.getString("item_name");
 					String color_name=rs.getString("color_name");
 					CartViewVo vo=new CartViewVo(cart_num, user_num, size_num,
-							order_cnt, item_price, item_orgimg,
+							order_cnt, item_price, item_savimg,
 							item_name, color_name);
 					list.add(vo);
 				}while(rs.next());
@@ -126,11 +126,11 @@ public class CartViewDao {
 					int size_num=rs.getInt("size_num");
 					int order_cnt=rs.getInt("order_cnt");
 					int item_price=rs.getInt("item_price");
-					String item_orgimg=rs.getString("item_orgimg");
+					String item_savimg=rs.getString("item_savimg");
 					String item_name=rs.getString("item_name");
 					String color_name=rs.getString("color_name");
 					CartViewVo vo=new CartViewVo(cart_num, user_num, size_num,
-							order_cnt, item_price, item_orgimg,
+							order_cnt, item_price, item_savimg,
 							item_name, color_name);
 					list.add(vo);
 				}while(rs.next());

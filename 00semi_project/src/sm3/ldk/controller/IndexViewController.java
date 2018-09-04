@@ -36,7 +36,7 @@ public class IndexViewController extends HttpServlet{
 			JSONArray arr=new JSONArray();
 			for(IndexViewVo vo:list) {
 				JSONObject ob=new JSONObject();
-				ob.put("item_orgimg", vo.getItem_orgimg());
+				ob.put("item_orgimg", vo.getItem_savimg());
 				ob.put("item_name", vo.getItem_name());
 				ob.put("order_cnt", vo.getOrder_cnt());
 				arr.add(ob);
@@ -63,7 +63,7 @@ public class IndexViewController extends HttpServlet{
 			JSONArray arr=new JSONArray();
 			for(IndexViewVo vo:list) {
 				JSONObject ob=new JSONObject();
-				ob.put("item_orgimg", vo.getItem_orgimg());
+				ob.put("item_orgimg", vo.getItem_savimg());
 				ob.put("item_name", vo.getItem_name());
 				ob.put("item_num", vo.getItem_num());
 				arr.add(ob);

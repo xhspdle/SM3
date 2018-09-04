@@ -34,12 +34,12 @@ public class IndexViewDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				do {
-					String item_orgimg=rs.getString("item_orgimg");
+					String item_savimg=rs.getString("item_savimg");
 					String item_name=rs.getString("item_name");
 					int item_price=rs.getInt("item_price");
 					int item_num=rs.getInt("item_num");
 					int order_cnt=rs.getInt("order_cnt");
-					IndexViewVo vo=new IndexViewVo(item_orgimg,
+					IndexViewVo vo=new IndexViewVo(item_savimg,
 							item_name, item_price, item_num, order_cnt);
 					list.add(vo);
 				}while(rs.next());
@@ -79,12 +79,12 @@ public class IndexViewDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				do {
-					String item_orgimg=rs.getString("item_orgimg");
+					String item_savimg=rs.getString("item_savimg");
 					String item_name=rs.getString("item_name");
 					int item_price=rs.getInt("item_price");
 					int item_num=rs.getInt("item_num");
 					int order_cnt=rs.getInt("order_cnt");
-					IndexViewVo vo=new IndexViewVo(item_orgimg,
+					IndexViewVo vo=new IndexViewVo(item_savimg,
 							item_name, item_price, item_num, order_cnt);
 					list.add(vo);
 				}while(rs.next());

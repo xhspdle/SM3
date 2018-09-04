@@ -113,7 +113,7 @@
 														<td class="product-thumbnail"><a
 															href="shop-product-sidebar.html"> <img width="100"
 																height="100" alt="" class="img-responsive"
-																src="<c:url value='/DBImages/${vo.item_orgimg }'/>">
+																src="<c:url value='/DBImages/${vo.item_savimg }'/>">
 														</a></td>
 														<td class="product-name"><a
 															href="shop-product-sidebar.html">${vo.item_name }</a></td>

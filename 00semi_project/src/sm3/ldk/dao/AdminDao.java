@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import sm3.dbcp.BatchDBConnection;
 import sm3.dbcp.DBConnection;
 import sm3.ldk.vo.AdminVo;
 

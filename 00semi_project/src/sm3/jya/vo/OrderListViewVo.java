@@ -8,7 +8,7 @@ public class OrderListViewVo {
 	private int pur_num;
 	private int item_num;
 	private String item_name;
-	private String item_orgimg;
+	private String item_savimg;
 	private String item_info;
 	private int order_cnt;
 	private int order_pay;
@@ -22,7 +22,7 @@ public class OrderListViewVo {
 	
 	public OrderListViewVo() {}
 
-	public OrderListViewVo(int order_num, int user_num, int pur_num, int item_num, String item_name, String item_orgimg,
+	public OrderListViewVo(int order_num, int user_num, int pur_num, int item_num, String item_name, String item_savimg,
 			String item_info, int order_cnt, int order_pay, String order_recipient, String order_phone,
 			String order_basic_addr, String order_detail_addr, int order_point, int order_status, Date order_date) {
 		super();
@@ -31,7 +31,7 @@ public class OrderListViewVo {
 		this.pur_num = pur_num;
 		this.item_num = item_num;
 		this.item_name = item_name;
-		this.item_orgimg = item_orgimg;
+		this.item_savimg = item_savimg;
 		this.item_info = item_info;
 		this.order_cnt = order_cnt;
 		this.order_pay = order_pay;
@@ -84,12 +84,12 @@ public class OrderListViewVo {
 		this.item_name = item_name;
 	}
 
-	public String getItem_orgimg() {
-		return item_orgimg;
+	public String getItem_savimg() {
+		return item_savimg;
 	}
 
-	public void setItem_orgimg(String item_orgimg) {
-		this.item_orgimg = item_orgimg;
+	public void setItem_savimg(String item_savimg) {
+		this.item_savimg = item_savimg;
 	}
 
 	public String getItem_info() {
@@ -170,6 +170,16 @@ public class OrderListViewVo {
 
 	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderListViewVo [order_num=" + order_num + ", user_num=" + user_num + ", pur_num=" + pur_num
+				+ ", item_num=" + item_num + ", item_name=" + item_name + ", item_savimg=" + item_savimg
+				+ ", item_info=" + item_info + ", order_cnt=" + order_cnt + ", order_pay=" + order_pay
+				+ ", order_recipient=" + order_recipient + ", order_phone=" + order_phone + ", order_basic_addr="
+				+ order_basic_addr + ", order_detail_addr=" + order_detail_addr + ", order_point=" + order_point
+				+ ", order_status=" + order_status + ", order_date=" + order_date + "]";
 	}
 	
 	

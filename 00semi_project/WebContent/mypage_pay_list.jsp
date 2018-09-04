@@ -113,7 +113,7 @@
 														<div class="thmb">
 															<div class="img_center">
 																<a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}'/>"> <img
-																	src='<c:url value="/DBImages/${vo.item_orgimg }"/>'
+																	src='<c:url value="/DBImages/${vo.item_savimg }"/>'
 																	style="width: 105px; height: 100px;" id="img1"></a> <br>
 															</div>
 														</div>
