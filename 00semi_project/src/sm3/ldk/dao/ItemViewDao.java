@@ -243,7 +243,7 @@ public class ItemViewDao {
 						"    (" + 
 						"        SELECT *" + 
 						"        FROM SM3_ITEM_VIEW" + 
-						"        ORDER BY CATE_NUM DESC, ITEM_NUM DESC" + 
+						"        ORDER BY ITEM_NUM DESC, SIZE_NUM DESC" + 
 						"    )AA" + 
 						")" + 
 						"WHERE RNUM>=? AND RNUM<=?";
@@ -267,7 +267,7 @@ public class ItemViewDao {
 						"        SELECT *" + 
 						"        FROM SM3_ITEM_VIEW" +
 						"		 WHERE " + search + " " + searchCase +
-						"        ORDER BY CATE_NUM DESC, ITEM_NUM DESC" + 
+						"        ORDER BY ITEM_NUM DESC, SIZE_NUM DESC" + 
 						"    )AA" + 
 						")" + 
 						"WHERE RNUM>=? AND RNUM<=?";

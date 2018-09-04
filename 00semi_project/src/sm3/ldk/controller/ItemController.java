@@ -93,9 +93,9 @@ public class ItemController extends HttpServlet{
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
 		ItemDao dao=ItemDao.getInstance();
-		ArrayList<ItemVo> list=dao.list(startRow, endRow, search, keyword.toUpperCase());
+		ArrayList<ItemVo> list=dao.list(startRow, endRow, search, keyword);
 		if(list!=null) {
-			int pageCount=(int)Math.ceil(dao.getCount(search, keyword.toUpperCase())/10.0);
+			int pageCount=(int)Math.ceil(dao.getCount(search, keyword)/10.0);
 			int startPage=((pageNum-1)/10*10)+1;
 			int endPage=startPage+9;
 			if(endPage>pageCount) {

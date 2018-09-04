@@ -140,4 +140,10 @@ public class AdminController extends HttpServlet{
 		request.getRequestDispatcher("../admin.jsp?page1=ADMIN_insert.jsp?do1=" + do1).forward(request, response);
 		//주의! page1=으로 넘긴 파라미터에 &로 파라미터 붙이는게 아니라, ?로 파라미터 붙여야함...(page1이 링크주소로 붙을거라서)
 	}
+	/*
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		
+	}
+	*/
 }
