@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import sm3.dbcp.BatchDBConnection;
 import sm3.dbcp.DBConnection;
 import sm3.ldk.vo.AdminVo;
 
@@ -21,6 +22,7 @@ public class AdminDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="select NVL(max(admin_num),0) maxnum from sm3_admin";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
@@ -86,6 +88,7 @@ public class AdminDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="insert into sm3_admin values(?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, getMaxNum()+1);
@@ -109,6 +112,7 @@ public class AdminDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="update sm3_admin set admin_id=?,admin_pwd=? where admin_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, vo.getAdmin_id());
@@ -132,6 +136,7 @@ public class AdminDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="delete from sm3_admin where admin_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, admin_num);
@@ -154,6 +159,7 @@ public class AdminDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="select * from sm3_admin where admin_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, admin_num);
@@ -216,6 +222,7 @@ public class AdminDao {
 		ArrayList<AdminVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			if(search.equals("")) {
 				String sql="SELECT *" + 
 						"FROM" + 

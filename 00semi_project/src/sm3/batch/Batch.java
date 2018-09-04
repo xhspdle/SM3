@@ -23,7 +23,7 @@ public class Batch {
 		};
 		Timer timer=new Timer(false);
 		Calendar cal=Calendar.getInstance();
-		cal.set(2018,8,4,13,54,0);
+		cal.set(2018,8,4,17,27,0);
 		timer.schedule(task, new Date(cal.getTimeInMillis()),1000*60*60*24);
 	}
 }

@@ -132,7 +132,11 @@ public class EventNoticeController extends HttpServlet{
 		 en_orgimg=mr.getOriginalFileName("file1");  //이미지수정을 하지 않으면 원본 그대로
 		 en_savimg=mr.getFilesystemName("file1");
 		}
-		int admin_num=Integer.parseInt(mr.getParameter("admin_num"));
+		int admin_num=0;
+		String sadmin_num=mr.getParameter("admin_num");
+		if(sadmin_num!=null && !sadmin_num.equals("")) {
+			admin_num=Integer.parseInt(sadmin_num);
+		}
 		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(en_num, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
 		if(n>0) {
 			request.setAttribute("msg", "이벤트공지 수정 성공");
