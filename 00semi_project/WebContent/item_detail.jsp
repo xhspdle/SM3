@@ -237,7 +237,7 @@
 														<c:choose>
 															<c:when test="${vo.review_orgimg == null}">
 																<a title="<%=vo.getItem_name()%>"
-																	href="DBImages/<%=vo.getItem_orgimg()%>"> <span
+																	href="/DBImages/<%=vo.getItem_savimg()%>"> <span
 																	class="thumbnail mb-none thumb-info thumb-info-centered-icons">
 																		<img class="avatar" alt=""
 																		src="DBImages/<%=vo.getItem_orgimg()%>"> <span

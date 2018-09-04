@@ -147,7 +147,12 @@ public class ItemViewController extends HttpServlet{
 	//카테고리넘버 셀렉트 
 		protected void select_cate(HttpServletRequest request, 
 				HttpServletResponse response) throws ServletException, IOException {
-			int cate_num=Integer.parseInt(request.getParameter("cate_num"));
+			String scate_num = request.getParameter("cate_num");
+			int cate_num = 0;
+			if(scate_num != null) {
+				cate_num=Integer.parseInt(scate_num);
+			}
+			
 			String search = "";
 			String keyword = "";
 			ArrayList<ItemViewVo> list=ItemViewDao.getInstance().select_cate(cate_num);
@@ -164,6 +169,7 @@ public class ItemViewController extends HttpServlet{
 				ob.put("item_name",vo.getItem_name());
 				ob.put("item_price",vo.getItem_price());
 				ob.put("item_orgimg",vo.getItem_orgimg());
+				ob.put("item_savimg",vo.getItem_savimg());
 				ob.put("size_name",vo.getSize_name());
 				ob.put("size_num",vo.getSize_num());
 				ob.put("review_cnt", ""+reviewCount+"" );
