@@ -16,7 +16,7 @@ import sm3.lsu.dao.QaCommDao;
 import sm3.lsu.dao.QaDao;
 import sm3.lsu.vo.QaCommVo;
 
-@WebServlet("/dev/board/QA_COMMboard.do")
+@WebServlet("/QA_COMMboard.do")
 public class QaCommcontroller extends HttpServlet{
 
 	
@@ -27,6 +27,8 @@ public class QaCommcontroller extends HttpServlet{
 		String cmd = request.getParameter("cmd");
 		if(cmd !=null && cmd.equals("insert")) {
 			insert(request, response);
+		}else if(cmd !=null && cmd.equals("delete")) {
+			delete(request, response);
 		}
 	}
 	public void insert(HttpServletRequest request, HttpServletResponse response) 
@@ -42,13 +44,30 @@ public class QaCommcontroller extends HttpServlet{
 		
 		
 		int user_num=(Integer)(session.getAttribute("user_num"));
-	//	int admin_num=Integer.parseInt(request.getParameter("admin_num"));
 		
-		QaCommVo vo= new QaCommVo(0, comm_writer, comm_content, null, qa_num, user_num,1);
+		int admin_num = 0 ;
+		String sadmin_num=request.getParameter("admin_num");
+		if(sadmin_num != null) {
+			admin_num = Integer.parseInt(sadmin_num);
+		}
+		QaCommVo vo= new QaCommVo(0, comm_writer, comm_content, null, qa_num, user_num,admin_num);
 		QaCommDao qao=QaCommDao.getInstance();
 		qao.insert(vo);
 		
+		request.getRequestDispatcher("QA_board.do?cmd=detail").forward(request, response);
 		
+	}
+	public void delete(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		int comm_num=Integer.parseInt(request.getParameter("comm_num"));
+		System.out.println("µô¸®Æ®");
+		String sqa_num=request.getParameter("qa_num");
+		int qa_num=0;
+		if(sqa_num!=null && !sqa_num.equals("")) {
+			qa_num=Integer.parseInt(sqa_num);
+		}
+		QaCommDao dao=QaCommDao.getInstance();
+		dao.delete(comm_num);
 		
 	}
 	

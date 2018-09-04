@@ -90,149 +90,56 @@
 											</h2>
 
 											<div class="post-meta">
-												<span><i class="fa fa-user"></i> By <a href="#">John
-														Doe</a> </span> <span><i class="fa fa-comments"></i> <a
-													href="#">12 Comments</a></span>
+												<span><i class="fa fa-user"></i> By <a href="#">${vo.qa_writer }
+														</a> </span> <span><i class="fa fa-comments"></i> <a
+													href="#">제목:${vo.qa_title }</a></span>
 											</div>
-											<p class="qna_content">필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~
-												필독하세요~~~~~~~~~~~~~~~~~~~~~~~~~</p>
-
-
+											<p class="qna_content">${vo.qa_content }</p>
+											<a href="community_qna_write.jsp?qa_num=${vo.qa_num }&ref=${vo.ref}&lev=${vo.lev}&step=${vo.step}">답글</a>
+											<%-- <% session.setAttribute("user_num", 1); %> --%><!-- 세션에 유저넘버저장 -->
+											<!-- uer_name -->
+											<%-- <% session.setAttribute("comm_writer","lee"); %> --%><!-- 세션에 유저이름저장 -->
+											
 											<div class="post-block post-comments clearfix">
 												<h3 class="heading-primary">
-													<i class="fa fa-comments"></i>Comments (3)
+													<i class="fa fa-comments"></i>Comment:${count}
 												</h3>
-
-												<ul class="comments">
+											
+												<ul class="comments qna_comment">
 													<li>
 														<div class="comment">
-															<div class="img-thumbnail">
-																<img class="avatar" alt=""
-																	src="img/avatars/avatar-2.jpg">
-															</div>
-															<div class="comment-block">
+															<c:forEach var="vo" items="${requestScope.list }">
+															<div class="comment-block" style="margin-top:10px">
 																<div class="comment-arrow"></div>
-																<span class="comment-by"> <strong>John
-																		Doe</strong> <span class="pull-right"> <span> <a
+																
+																<span class="comment-by"> <strong>${vo.comm_writer}
+																		</strong> <span class="pull-right"> <span> <a
 																			href="#"><i class="fa fa-reply"></i> Reply</a></span>
 																</span>
 																</span>
-																<p>Lorem ipsum dolor sit amet, consectetur
-																	adipiscing elit. Nam viverra euismod odio, gravida
-																	pellentesque urna varius vitae, gravida pellentesque
-																	urna varius vitae. Lorem ipsum dolor sit amet,
-																	consectetur adipiscing elit. Nam viverra euismod odio,
-																	gravida pellentesque urna varius vitae. Sed dui lorem,
-																	adipiscing in adipiscing et, interdum nec metus. Mauris
-																	ultricies, justo eu convallis placerat, felis enim
-																	ornare nisi, vitae mattis nulla ante id dui.</p>
-																<span class="date pull-right">November 12, 2017
-																	at 1:38 pm</span>
-															</div>
-														</div>
-
-														<ul class="comments reply">
-															<li>
-																<div class="comment">
-																	<div class="img-thumbnail">
-																		<img class="avatar" alt=""
-																			src="img/avatars/avatar-3.jpg">
-																	</div>
-																	<div class="comment-block">
-																		<div class="comment-arrow"></div>
-																		<span class="comment-by"> <strong>John
-																				Doe</strong> <span class="pull-right"> <span> <a
-																					href="#"><i class="fa fa-reply"></i> Reply</a></span>
-																		</span>
-																		</span>
-																		<p>Lorem ipsum dolor sit amet, consectetur
-																			adipiscing elit. Nam viverra euismod odio, gravida
-																			pellentesque urna varius vitae, gravida pellentesque
-																			urna varius vitae.</p>
-																		<span class="date pull-right">November 12, 2017
-																			at 1:38 pm</span>
-																	</div>
+																<div>
+																	<p></p>
+																	<p>${vo.comm_content}</p>
 																</div>
-															</li>
-															<li>
-																<div class="comment">
-																	<div class="img-thumbnail">
-																		<img class="avatar" alt=""
-																			src="img/avatars/avatar-4.jpg">
-																	</div>
-																	<div class="comment-block">
-																		<div class="comment-arrow"></div>
-																		<span class="comment-by"> <strong>John
-																				Doe</strong> <span class="pull-right"> <span> <a
-																					href="#"><i class="fa fa-reply"></i> Reply</a></span>
-																		</span>
-																		</span>
-																		<p>Lorem ipsum dolor sit amet, consectetur
-																			adipiscing elit. Nam viverra euismod odio, gravida
-																			pellentesque urna varius vitae, gravida pellentesque
-																			urna varius vitae.</p>
-																		<span class="date pull-right">November 12, 2017
-																			at 1:38 pm</span>
-																	</div>
-																</div>
-															</li>
-														</ul>
-													</li>
-													<li>
-														<div class="comment">
-															<div class="img-thumbnail">
-																<img class="avatar" alt="" src="img/avatars/avatar.jpg">
 															</div>
-															<div class="comment-block">
-																<div class="comment-arrow"></div>
-																<span class="comment-by"> <strong>John
-																		Doe</strong> <span class="pull-right"> <span> <a
-																			href="#"><i class="fa fa-reply"></i> Reply</a></span>
-																</span>
-																</span>
-																<p>Lorem ipsum dolor sit amet, consectetur
-																	adipiscing elit.</p>
-																<span class="date pull-right">November 12, 2017
-																	at 1:38 pm</span>
-															</div>
+															</c:forEach>
 														</div>
-													</li>
-													<li>
-														<div class="comment">
-															<div class="img-thumbnail">
-																<img class="avatar" alt="" src="img/avatars/avatar.jpg">
-															</div>
-															<div class="comment-block">
-																<div class="comment-arrow"></div>
-																<span class="comment-by"> <strong>John
-																		Doe</strong> <span class="pull-right"> <span> <a
-																			href="#"><i class="fa fa-reply"></i> Reply</a></span>
-																</span>
-																</span>
-																<p>Lorem ipsum dolor sit amet, consectetur
-																	adipiscing elit.</p>
-																<span class="date pull-right">November 12, 2017
-																	at 1:38 pm</span>
-															</div>
-														</div>
-													</li>
+														</li>
+														
 												</ul>
+												
 											</div>
+											<c:if test="${sessionScope.user_id != null}">
 											<div class="post-block post-leave-comment">
 												<h3 class="heading-primary">댓글 남기기</h3>
-												<form action="" method="post">
+												<form action="<c:url value='/QA_COMMboard.do?cmd=insert'/>" method="post">
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>Your name *</label> <input type="text" value=""
-																	maxlength="100" class="form-control" name="name"
-																	id="name">
+																<input type="hidden" name=qa_num value="${vo.qa_num}">
+																<label>Your ID *</label> <input type="text" value="${sessionScope.user_id}"
+																	maxlength="100" class="form-control" name="comm_writer"
+																	id="comm_writer">
 															</div>
 
 														</div>
@@ -242,19 +149,20 @@
 															<div class="col-md-12">
 																<label>Comment *</label>
 																<textarea maxlength="5000" rows="10"
-																	class="form-control" name="comment" id="comment"></textarea>
+																	class="form-control" name="comm_content" id="comment"></textarea>
 															</div>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-12">
-															<input type="submit" value="Post Comment"
+															<input type="submit" value="등록하기"
 																class="btn btn-primary btn-lg"
 																data-loading-text="Loading...">
 														</div>
 													</div>
 												</form>
 											</div>
+											</c:if>
 										</div>
 									</div>
 								</div>

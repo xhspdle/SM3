@@ -80,8 +80,8 @@
 			<section class="section mt-none section-footer">
 				<div class="container main_box">
 					<div class="row mt-lg">
-						<div class="col-md-12">
-							<h2>MY POINT</h2>
+						<div class="col-md-12" style="margin-bottom: 100px;">
+							<h2 style="margin-top: 100px;">MY POINT</h2>
 							<div class="featured-boxes">
 								<div class="row">
 									<div class="col-sm-11">
@@ -96,43 +96,11 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td>5000</td>
-													<td>4000</a></td>
-													<td>100</td>
-													<td>5회</td>
+													<td>${allPoint }</td>
+													<td>${point }</td>
+													<td>${hidePoint }</td>
+													<td>${order_cnt }회</td>
 												</tr>
-										
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<h2>MY ORDER</h2>
-							<div class="featured-boxes">
-								<div class="row">
-									<div class="col-sm-11">
-										<table class="table mytable">
-											<thead>
-												<tr>
-													<th style="width:20%">배송중</th>
-													<th style="width:20%">배송 완료</th>
-													<th style="width:20%">취소</th>
-													<th style="width:20%">교환</th>
-													<th style="width:20%">반품</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td>2</td>
-													<td>0</td>
-													<td>0</td>
-													<td>0</td>
-													
-												</tr>
-										
 											</tbody>
 										</table>
 									</div>

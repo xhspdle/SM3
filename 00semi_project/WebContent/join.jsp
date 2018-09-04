@@ -97,7 +97,7 @@
 															<div class="col-md-10">
 																<label for="id">아이디</label> <span class="spanVal">${idMsg }</span><input
 																	id="id" type="text" name="id"
-																	class="form-control input-lg">
+																	class="form-control input-lg" value="${id }">
 															</div>
 															<div class="col-md-2">
 																<a href="javascript:idCheck();"
@@ -138,10 +138,6 @@
 															<div class="col-md-12">
 																<label>비밀번호 힌트</label> <select
 																	class="form-control input-lg" name="pwdHint">
-																	<option value="1">당신의 보물 1호는?</option>
-																	<option value="2">당신의 취미는?</option>
-																	<option value="3">당신의 생일은?</option>
-																	<option value="4">당신이 좋아하는 음악은?</option>
 																</select>
 															</div>
 														</div>
@@ -158,7 +154,8 @@
 													<div class="row join_num">
 														<div class="form-group">
 															<div class="col-md-12">
-																<label>핸드폰 번호</label> <span class="spanVal"></span><select
+																<label>핸드폰 번호</label> <span class="spanVal"></span>
+																<select
 																	id="phone1" name="phone[]"
 																	class="form-control input-lg">
 																	<option value="010">010</option>
@@ -481,4 +478,26 @@
 	</script>
 
 </body>
+<script type="text/javascript">
+	var xhr=null;
+	window.onload = function(){
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=callback;
+		xhr.open('get','hint.do?cmd=list',true);
+		xhr.send();
+	}
+	function callback(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var txt=xhr.responseText;
+			var json=JSON.parse(txt);
+			var pwdHint=document.getElementsByName("pwdHint")[0];
+			for(var i=0;i<json.length;i++){
+				var option=document.createElement("option");
+				option.setAttribute("value", json[i].hint_num);
+				option.text=json[i].hint_q;
+				pwdHint.add(option);
+			}
+		}
+	}
+</script>
 </html>

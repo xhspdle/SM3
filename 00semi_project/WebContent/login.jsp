@@ -125,14 +125,7 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-6">
-															<span class="remember-box checkbox"> <label
-																for="remember"> <input type="checkbox"
-																	id="remember" name="remember">아이디 저장
-															</label>
-															</span>
-														</div>
-														<div class="col-md-6">
+														<div class="col-md-6" style="float:right;">
 															<input type="submit" value="Login"
 																class="btn btn-primary pull-right mb-xl"
 																data-loading-text="Loading...">
@@ -144,9 +137,9 @@
 									</div>
 									<div class="cboth find_area">
 										<ul>
-											<li><a href="<c:url value='join.jsp'/>">회원가입</a></li>
-											<li><a href="/member/id/find_id.html">아이디찾기</a></li>
-											<li><a href="/member/passwd/find_passwd_info.html">비밀번호찾기</a></li>
+											<li><a href="<c:url value='/join.jsp'/>">회원가입</a></li>
+											<li><a href="<c:url value='/user_find_id.jsp'/>">아이디찾기</a></li>
+											<li><a href="<c:url value='/user_find_pwd.jsp'/>">비밀번호찾기</a></li>
 										</ul>
 									</div>
 								</div>

@@ -78,14 +78,8 @@
 		</header>
 
 		<div role="main" class="main shop">
-			<form method="post" action="<c:url value='/purchase.do?cmd=insert'/>">
+			<form method="post" action="<c:url value='/purchase.do?cmd=insert&user_num=${user_num }'/>">
 			<div class="container" style="margin-top: 80px;">
-				<div class="row">
-					<div class="col-md-12">
-						<h4>kekerori님의 적립 포인트는 000입니다</h4>
-						<hr class="tall">
-					</div>
-				</div>
 				<div class="row">
 					<div class="col-md-12">
 						
@@ -119,7 +113,7 @@
 														<td class="product-thumbnail"><a
 															href="shop-product-sidebar.html"> <img width="100"
 																height="100" alt="" class="img-responsive"
-																src="<c:url value='/DBImages/${vo.item_savimg }'/>">
+																src="<c:url value='/DBImages/${vo.item_orgimg }'/>">
 														</a></td>
 														<td class="product-name"><a
 															href="shop-product-sidebar.html">${vo.item_name }</a></td>
@@ -171,7 +165,7 @@
 
 											<tr class="shipping">
 												<th>배송정보</th>
-												<td>기본 배송(2500원)<input type="hidden"
+												<td>무료 배송<input type="hidden"
 													value="free_shipping" id="shipping_method"
 													name="shipping_method">
 												</td>
@@ -205,8 +199,6 @@
 			<jsp:include page="footer.jsp" />
 		</footer>
 	</div>
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">

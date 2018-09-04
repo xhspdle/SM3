@@ -146,10 +146,6 @@
 															<div class="col-md-12">
 																<label>비밀번호 힌트</label> <select
 																	class="form-control input-lg" id="hints"name="pwdHint">
-																	<option value="1">당신의 보물 1호는?</option>
-																	<option value="2">당신의 취미는?</option>
-																	<option value="3">당신의 생일은?</option>
-																	<option value="4">당신이 좋아하는 음악은?</option>
 																</select>
 															</div>
 														</div>
@@ -449,4 +445,29 @@
 	</script>
 
 </body>
+<script type="text/javascript">
+	var xhr=null;
+	window.onload = function(){
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=callback;
+		xhr.open('get','hint.do?cmd=list',true);
+		xhr.send();
+	}
+	function callback(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var txt=xhr.responseText;
+			var json=JSON.parse(txt);
+			var pwdHint=document.getElementsByName("pwdHint")[0];
+			for(var i=0;i<json.length;i++){
+				var option=document.createElement("option");
+				option.setAttribute("value", json[i].hint_num);
+				if((i+1)==${vo.hint_num}){
+					option.setAttribute("selected", "selected");
+				}
+				option.text=json[i].hint_q;
+				pwdHint.add(option);
+			}
+		}
+	}
+</script>
 </html>

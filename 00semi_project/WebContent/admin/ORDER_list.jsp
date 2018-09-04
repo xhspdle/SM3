@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<input type="hidden" value="ORDER_list" id="here">
 <div class="row">
 <h2>주문 목록</h2>
 	<table class="table table-hover">
@@ -56,4 +57,80 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	<c:set var="selected1" value=""/>
+	<c:set var="selected2" value=""/>
+	<c:set var="selected3" value=""/>
+	<c:set var="selected4" value=""/>
+	<c:if test="${!empty search }">
+		<c:choose>
+			<c:when test="${search=='order_num' }">
+				<c:set var="selected1" value="selected=selected"/>
+			</c:when>
+			<c:when test="${search=='user_num' }">
+				<c:set var="selected2" value="selected=selected"/>
+			</c:when>
+			<c:when test="${search=='order_recipient' }">
+				<c:set var="selected3" value="selected=selected"/>
+			</c:when>
+			<c:when test="${search=='order_phone' }">
+				<c:set var="selected4" value="selected=selected"/>
+			</c:when>
+		</c:choose>
+	</c:if>
+	<div class="pull-right" style="width:50%">
+	<form method="post" action="<c:url value='/order.do?cmd=list'/>">
+	<div class="form-group">
+		<div class="col-md-4">
+			<select class="form-control populate " name="search">
+				<optgroup label="검색">
+					<option value="order_num" ${selected1 }>주문번호</option>
+					<option value="user_num" ${selected2 }>유저번호</option>
+					<option value="order_recipient" ${selected3 }>받는사람</option>
+					<option value="order_phone" ${selected4 }>전화번호</option>
+				</optgroup>
+			</select>
+		</div>
+		<div class="input-group input-group-md col-md-7">
+			<input class="form-control" placeholder="Search..." name="keyword" value="${param.keyword }" type="text">
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-primary btn-md"><i class="fa fa-search"></i></button>
+			</span>
+		</div>
+	</div>
+	</form>
+	</div>
+	<div style="text-align: center; clear: both;">
+	<ul class="pagination pagination-md">
+	<c:choose>
+		<c:when test="${startPage>10 }">
+			<li><a href="<c:url value='/order.do?cmd=list&pageNum=${startPage-1 }&search=${param.search }&keyword=${param.keyword }'/>">
+			«</a></li>
+		</c:when>
+		<c:otherwise>
+			<li><a href="#none">«</a></li>
+		</c:otherwise>
+	</c:choose>
+	<c:forEach var="i" begin="${startPage }" end="${endPage }">
+		<c:choose>
+			<c:when test="${i==pageNum }">
+				<li class="active"><a href="<c:url value='/order.do?cmd=list&pageNum=${i }&search=${param.search }&keyword=${param.keyword }'/>">
+				${i }</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="<c:url value='/order.do?cmd=list&pageNum=${i }&search=${param.search }&keyword=${param.keyword }'/>">
+				${i }</a></li>	
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	<c:choose>
+		<c:when test="${endPage<pageCount }">
+			<li><a href="<c:url value='/order.do?cmd=list&pageNum=${endPage+1 }&search=${param.search }&keyword=${param.keyword }'/>">
+			»</a></li>
+		</c:when>
+		<c:otherwise>
+			<li><a href="#none">»</a></li>
+		</c:otherwise>
+	</c:choose>		
+	</ul>
+	</div>
 </div>

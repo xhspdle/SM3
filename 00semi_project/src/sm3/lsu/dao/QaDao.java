@@ -85,8 +85,8 @@ public class QaDao {
 			}catch(SQLException se) {
 				System.out.println(se.getMessage());
 			}
-			
 		}
+			
 	}
 	public int insert(QaVo vo, String user_id) {
 		Connection con = null;
@@ -321,6 +321,5 @@ public class QaDao {
 				System.out.println(se.getMessage());
 			}
 		}
-		
 	}
 }

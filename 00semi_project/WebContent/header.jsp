@@ -10,20 +10,6 @@
 						<a href="<c:url value='/index.jsp'/>"> Something Like </a>
 					</h1>
 				</div>
-				<div class="header-search hidden-xs">
-					<form id="searchForm" action="page-search-results.html"
-						method="get" novalidate="novalidate">
-						<div class="input-group">
-							<input type="text" class="form-control" name="q" id="q"
-								placeholder="Search..." aria-required="true">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-							</span>
-						</div>
-					</form>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -38,62 +24,67 @@
 			<nav>
 				<ul class="nav nav-pills" id="mainNav">
 					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/item_list.jsp'/>"> NEW </a>
+						href="<c:url value='/item_list.jsp?cate_num=0'/>"> ALL </a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value='/item_list.jsp?cate_num=1'/>"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
+							<li><a href="<c:url value='/item_list.jsp?cate_num=0'/>"> ALL </a></li>
+							<li><a href="<c:url value='/item_list.jsp?cate_num=1'/>"> OUTER </a></li>
+							<li><a href="<c:url value='/item_list.jsp?cate_num=2'/>"> TOP </a></li>
+							<li><a href="<c:url value='/item_list.jsp?cate_num=3'/>"> BOTTOM </a></li>
 						</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/item_list.jsp?cate_num=1'/>"> OUTER </a>
-						<ul class="dropdown-menu">
-							<li><a href="index.html"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
-						</ul></li>
+						
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/item_list.jsp?cate_num=2'/>"> TOP </a>
-						<ul class="dropdown-menu">
-							<li><a href="index.html"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
-						</ul></li>
+						
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/item_list.jsp?cate_num=3'/>"> BOTTOM </a>
-						<ul class="dropdown-menu">
-							<li><a href="index.html"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
-						</ul></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/item_list.jsp'/>"> SALE </a>
-						<ul class="dropdown-menu">
-							<li><a href="index.html"> ALL </a></li>
-							<li><a href="index.html"> OUTER </a></li>
-							<li><a href="index.html"> TOP </a></li>
-							<li><a href="index.html"> BOTTOM </a></li>
-						</ul></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/mypage_mypage.jsp'/>"> MYPAGE</a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value='/userControll.do?cmd=getInfo&user_num=${sessionScope.user_num }'/>">정보수정</a></li>
-							<li><a href="<c:url value='/cart.do?cmd=userCart'/>">장바구니</a></li>
-							<li><a href="<c:url value='/mypage_mypage.jsp'/>">마이페이지</a></li>
-							<li><a href="<c:url value='/mypage_pay_list.jsp'/>">주문배송조회</a></li>
-						</ul></li>
+			
+					<c:choose>
+						<c:when test="${sessionScope.user_id != null}">
+								<li class="dropdown">
+									<a class="dropdown-toggle"href="<c:url value='/pointControll.do?cmd=select&user_num=${sessionScope.user_num }'/>"> MYPAGE</a>
+									<ul class="dropdown-menu">
+										<li><a href="<c:url value='/user_pwdOk.jsp'/>">정보수정</a></li>
+										<li><a href="<c:url value='/cart.do?cmd=userCart'/>">장바구니</a></li>
+										<li><a
+											href="<c:url value='/pointControll.do?cmd=select&user_num=${sessionScope.user_num }'/>">마이페이지</a></li>
+										<li><a
+											href="<c:url value='/orderlist.do?cmd=list&user_num=${sessionScope.user_num }'/>">주문배송조회</a></li>
+									</ul>
+								</li>
+						</c:when>
+						<c:otherwise>
+								<li class="dropdown">
+									<a class="dropdown-toggle"href="<c:url value='/login.jsp'/>"> MYPAGE</a>
+									<ul class="dropdown-menu">
+										<li><a href="<c:url value='/login.jsp'/>">정보수정</a></li>
+										<li><a href="<c:url value='/login.jsp'/>">장바구니</a></li>
+										<li><a
+											href="<c:url value='/login.jsp'/>">마이페이지</a></li>
+										<li><a
+											href="<c:url value='/login.jsp'/>">주문배송조회</a></li>
+									</ul>
+								</li>
+						</c:otherwise>
+					</c:choose>
 					<li class="dropdown"><a class="dropdown-toggle"
 						href="<c:url value='/EventNotice.do?cmd=list'/>"> COMMUNITY </a>
 						<ul class="dropdown-menu">
 							<li><a href="<c:url value='/EventNotice.do?cmd=list'/>">
 									EVENT&amp;NOTICE </a></li>
-							<li><a href="<c:url value='/community_qna_list.jsp'/>">Q&amp;A</a></li>
+							<li><a href="<c:url value='/QA_board.do?cmd=list'/>">Q&amp;A</a></li>
 						</ul></li>	
-					<li class="dropdown"><a class="dropdown-toggle"
-						href="<c:url value='/cart.do?cmd=userCart'/>"> CART </a></li>
+					<c:choose>
+						<c:when test="${user_id == null }">
+							<li class="dropdown"><a class="dropdown-toggle"
+							href="<c:url value='/login.jsp'/>"> CART </a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="dropdown"><a class="dropdown-toggle"
+							href="<c:url value='/cart.do?cmd=userCart'/>"> CART </a></li>
+						</c:otherwise>
+					</c:choose>
 					<c:choose>
 						<c:when test="${user_id != null }">
 							<li class="dropdown"><a class="dropdown-toggle"
@@ -104,8 +95,6 @@
 								href="<c:url value='/login.jsp'/>"> LOGIN</a></li>
 						</c:otherwise>
 					</c:choose>
-						
-					
 				</ul>
 			</nav>
 		</div>

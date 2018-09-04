@@ -82,7 +82,7 @@
 			<div class="container" style="margin-top: 80px;">
 				<div class="row">
 					<div class="col-md-12">
-						<h4>kekerori님의 적립 포인트는 000입니다</h4>
+						<h4>${user_id }님의 적립 포인트는 ${point}입니다</h4>
 						<hr class="tall">
 					</div>
 				</div>
@@ -164,17 +164,6 @@
 												</colgroup>
 												<!-- 국내 배송지 정보 -->
 												<tbody class="">
-													<tr class="">
-														<th scope="row">배송지 선택</th>
-														<td>
-															<div class="address">
-																<input id="sameaddr0" name="sameaddr" value="M"
-																	type="radio"><label for="sameaddr0">회원
-																	정보와 동일</label> <input id="sameaddr1" name="sameaddr" value="F"
-																	type="radio"><label for="sameaddr1">새로운배송지</label>
-															</div>
-														</td>
-													</tr>
 													<tr>
 														<th scope="row">받으시는 분 <img
 															src="//img.echosting.cafe24.com/skin/base_ko_KR/order/ico_required.gif"
@@ -244,7 +233,7 @@
 												<tr class="total">
 													<th><strong>적립금할인</strong></th>
 													<td><input type="text" size="5" name="order_point" onkeyup="calPay()" value=""> (사용할 금액을
-														입력해주세요)</td>
+														입력해주세요) <span style="color:#f98383;">현재 사용 가능한 적립금: ${point }</span></td>
 												</tr>
 												<tr class="total">
 													<th><strong>결제금액</strong></th>
@@ -260,7 +249,7 @@
 									<div class="actions-continue">
 										<a class="btn pull-right btn-primary btn-lg" 
 										href="<c:url value='/purchase.do?cmd=delete&pur_num=${pur_num }'/>">구매취소</a>
-										<button type="submit" class="btn pull-right btn-primary btn-lg">
+										<button type="submit" class="btn pull-right btn-primary btn-lg" style="margin-left: 10px;">
 											구매하기 <i class="fa fa-angle-right ml-xs"></i>
 										</button>
 										<!-- 여기서 배치프로그램 : 사용자가 구매목록만 등록시키고 실제로 구매단계로 안넘어갈경우, 구매목록 지워주기 -->

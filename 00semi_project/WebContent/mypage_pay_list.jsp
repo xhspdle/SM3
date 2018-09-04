@@ -83,76 +83,190 @@
 					<div class="col-md-12">
 						<div class="featured-box featured-box-primary align-left mt-xlg">
 							<div class="box-content">
-							<p style="float:left; font-size:18px; color: #555;">주문내역</p>
+								<p style="float: left; font-size: 18px; color: #555;">주문내역</p>
 								<p class="day_list">
-										<a href="#" class="btn">최근 1달</a>
-										<a href="#" class="btn">최근 3달</a>
-										<a href="#" class="btn">전체</a>
-									</p>
+									<a href="orderlist.do?cmd=monthList&sDate=30&user_num=${user_num }" class="btn">1달</a> <a href="orderlist.do?cmd=monthList&sDate=90&user_num=${user_num }" class="btn">
+										3달</a> <a href="orderlist.do?cmd=list&user_num=${user_num }" class="btn">전체</a>
+								</p>
 								<table class="table">
-									
+
 									<thead>
 										<tr>
 											<th scope="col"><strong>상품주문번호</strong></th>
 											<th scope="col">상품정보</th>
 											<th scope="col">상품금액(수량)</th>
+											<th scope="col">배송비</th>
 											<th scope="col" class="bg_point">진행상태</th>
+											<th scope="col">주문날짜</th>
+											<th scope="col">주문확인</th>
 										</tr>
 									</thead>
 									<tbody>
-									
+
 										<!--orderlist.jsp끼워넣기. -->
-										<tr class="group">
-										<c:forEach var="vo" items="${requestScope.list }"> 
-										
-											<td><span class="thm ordernum2">2018073088503591</span></td>
-											<td class="product">
-												<div>
-													<div class="thmb">
-														<div class="img_center">
-															<a href="" target="_blank"><img
-																src="https://order.pay.naver.com/proxy/phinf/shop1/20180512_71/wnsdkadlrj_15261290280296QFQU_JPEG/49435328655598750_619657460.jpg?type=m80"
-																alt="탁상용 선풍기 미니 사무실 책상용 소형 저소음 USB 테이블 원룸 작은"></a>
+
+										<c:forEach var="vo" items="${requestScope.list }">
+											<tr class="group">
+												<td><span class="thm ordernum2">${vo.order_num }</span></td>
+												<td class="product">
+													<div>
+														<div class="thmb">
+															<div class="img_center">
+																<a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}'/>"> <img
+																	src='<c:url value="/DBImages/${vo.item_orgimg }"/>'
+																	style="width: 105px; height: 100px;" id="img1"></a> <br>
+															</div>
+														</div>
+														<dl>
+															<dt>
+																<a href="<c:url value='/itemView.do?cmd=select&item_num=${vo.item_num }&item_name=${vo.item_name}'/>"
+																	target="_blank">${vo.item_name }</a>
+																	<br/>
+																	${vo.item_info }
+															</dt>
+														</dl>
+													</div>
+												</td>
+												<td class="money"><em class="thm">${vo.order_pay }</em>원<br>
+													<span>(${vo.order_cnt }개)</span></td>
+												<td class="" rowspan="1">
+													<div class="send">
+														<div class="sum">무료배송</div>
+														<div class=""
+															style="max-width: 200px; display: none; z-index: 100">
+															<div class="ly_cont"></div>
+															<div class="edge_cen"></div>
 														</div>
 													</div>
-													<dl>
-														<dt>
-															<a href="<c:url value="/mypage_pay_list_detail.jsp"/>"
-																target="_blank">탁상용 선풍기 미니 사무실 책상용 소형 저소음 USB 테이블 원룸
-																작은</a>
-														</dt>
-														<dd>색상: 화이트, 사이즈: M</dd>
-														<dd class="shp_toggle"></dd>
-													</dl>
-												</div>
-											</td>
-											<td class="money"><em class="thm">34,900</em>원<br>
-												<span>(1개)</span></td>
-											<td class="" rowspan="1">
-												<div class="send">
-													<div class="sum">
-														<em class="thm">2,500</em>원
+												</td>
+
+												<c:choose>
+													<c:when test="${vo.order_status=='1' }">
+														<td class="bg_point state">배송중<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='2' }">
+														<td class="bg_point state">배송완료<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='3' }">
+														<td class="bg_point state">구매확정<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='4' }">
+														<td class="bg_point state">취소<br></td>
+													</c:when>
+													<c:when test="${vo.order_status=='5' }">
+														<td class="bg_point state">반송<br></td>
+													</c:when>
+													<c:otherwise>
+														<td class="bg_point state">주문내역없음<br></td>
+													</c:otherwise>
+												</c:choose>
+												
+												<td class="" rowspan="1">
+													<div class="send">
+														<div class="sum">${vo.order_date }</div>
+														<div class=""
+															style="max-width: 200px; display: none; z-index: 100">
+															<div class="ly_cont"></div>
+															<div class="edge_cen"></div>
+														</div>
 													</div>
-													<div class=""
-														style="max-width: 200px; display: none; z-index: 100">
-														<div class="ly_cont"></div>
-														<a href="#" class=""><span class="blind">닫기</span></a>
-														<div class="edge_cen"></div>
+												</td>
+													<td class="" rowspan="1">
+													<div class="send">
+														<div class="sum"><a class="btn" href="<c:url value ='orderlist.do?cmd=getInfo&order_num=${vo.order_num}'/>">주문확인</a></div>
+														<div class=""
+															style="max-width: 200px; display: none; z-index: 100">
+															<div class="ly_cont"></div>
+															<div class="edge_cen"></div>
+														</div>
 													</div>
-												</div>
-											</td>
-											<td class="bg_point state">구매확정<br>
-											</td>
-											</c:forEach>
-										</tr>
-										<!--  -->
+												</td>
+
+											</tr>
+										</c:forEach>
+
+										
 									</tbody>
+									
+								
 								</table>
 							</div>
+
 						</div>
+						<div>
+						<c:choose>
+						<c:when test="${empty param.sDate }">
+							<c:choose>
+								<c:when test="${startPage>10}">
+									<a
+										href="<c:url value = 'orderlist.do?cmd=list&pageNum=${startPage-1 }&user_num=${sessionScope.user_num }'/>">[이전]</a>
+								</c:when>
+								<c:otherwise>
+								[이전]
+								</c:otherwise>
+							</c:choose>
 
+							<c:forEach var="i" begin="${startPage }" end="${endPage }">
+								<c:choose>
+									<c:when test="${i==pageNum }">
+										<a href="<c:url value='orderlist.do?cmd=list&pageNum=${i }&user_num=${sessionScope.user_num }'/>">
+											<span style="color: red">[${i }]</span>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='orderlist.do?cmd=list&pageNum=${i }&user_num=${sessionScope.user_num }'/>">
+											<span style="color: blue">[${i }]</span>
+										</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${endPage<pageCount }">
+									<a
+										href="<c:url value='orderlist.do?cmd=list&pageNum=${endPage+1 }&user_num=${sessionScope.user_num }'/>"></a>
+								</c:when>
+								<c:otherwise>
+								[다음]
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:when test="${!empty param.sDate }">
+							<c:choose>
+								<c:when test="${startPage>10}">
+									<a
+										href="<c:url value = 'orderlist.do?cmd=monthList&pageNum=${startPage-1 }&user_num=${user_num}&sDate=${param.sDate }'/>">[이전]</a>
+								</c:when>
+								<c:otherwise>
+								[이전]
+								</c:otherwise>
+							</c:choose>
 
-
+							<c:forEach var="i" begin="${startPage }" end="${endPage }">
+								<c:choose>
+									<c:when test="${i==pageNum }">
+										<a href="<c:url value='orderlist.do?cmd=monthList&pageNum=${i }&user_num=${user_num}&sDate=${param.sDate }'/>">
+											<span style="color: red">[${i }]</span>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='orderlist.do?cmd=monthList&pageNum=${i }&user_num=${user_num}&sDate=${param.sDate }'/>">
+											<span style="color: blue">[${i }]</span>
+										</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${endPage<pageCount }">
+									<a
+										href="<c:url value='orderlist.do?cmd=monthList&pageNum=${endPage+1 }&user_num=${user_num}&sDate=${param.sDate }'/>"></a>
+								</c:when>
+								<c:otherwise>
+								[다음]
+								</c:otherwise>
+							</c:choose>
+						</c:when>	
+						</c:choose>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -39,7 +39,7 @@ public class EventNoticeController extends HttpServlet{
 		String path=request.getServletContext().getRealPath("/images");	
 		MultipartRequest mr=new MultipartRequest(request,
 			path,
-			1024*1024*5,
+			1024*1024*10,
 			"UTF-8",
 			new DefaultFileRenamePolicy());
 		String en_writer=mr.getParameter("en_writer");
@@ -114,7 +114,7 @@ public class EventNoticeController extends HttpServlet{
 		String path=request.getServletContext().getRealPath("/images");	
 		MultipartRequest mr=new MultipartRequest(request,
 			path,
-			1024*1024*5,      
+			1024*1024*10,      
 			"UTF-8",
 			new DefaultFileRenamePolicy());
 		int en_num = Integer.parseInt(mr.getParameter("en_num"));
@@ -132,11 +132,15 @@ public class EventNoticeController extends HttpServlet{
 		 en_orgimg=mr.getOriginalFileName("file1");  //이미지수정을 하지 않으면 원본 그대로
 		 en_savimg=mr.getFilesystemName("file1");
 		}
-		int admin_num=Integer.parseInt(mr.getParameter("admin_num"));
+		int admin_num=0;
+		String sadmin_num=mr.getParameter("admin_num");
+		if(sadmin_num!=null && !sadmin_num.equals("")) {
+			admin_num=Integer.parseInt(sadmin_num);
+		}
 		int n=EventNoticeDao.getInstance().update(new EventNoticeVo(en_num, en_writer, en_title, en_content, null, en_orgimg, en_savimg, admin_num));
 		if(n>0) {
 			request.setAttribute("msg", "이벤트공지 수정 성공");
-			request.getRequestDispatcher("en_").forward(request, response);
+			request.getRequestDispatcher("EventNotice.do?cmd=list").forward(request, response);
 		}else {
 			request.setAttribute("msg", "이벤트공지 수정 실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
@@ -152,7 +156,7 @@ public class EventNoticeController extends HttpServlet{
 		EventNoticeVo vo = EventNoticeDao.getInstance().select(en_num);
 		if(vo!=null) { 
 			request.setAttribute("vo", vo);
-			request.getRequestDispatcher("EventNotice.do?cmd=list").forward(request, response);
+			request.getRequestDispatcher("community_event_update.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);

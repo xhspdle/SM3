@@ -42,15 +42,29 @@ public class ItemViewDao {
 			}
 		}
 	}
-	public int getCount() {
+	public int getCount(String search,String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(count(item_num),0) cnt from sm3_item_view";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			if(keyword.equals("")) {
+				String sql="select NVL(count(item_num),0) cnt from sm3_item_view";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("item_num") || search.equals("size_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="select NVL(count(item_num),0) cnt from sm3_item_view "
+						+ "where " + search + searchCase;
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				return rs.getInt("cnt");
 			}
@@ -123,11 +137,17 @@ public class ItemViewDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ArrayList<ItemViewVo> list=new ArrayList<>();
+		String sql = "";
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_item_view where cate_num=? order by size_num";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, cate_num);
+			if(cate_num==0) {
+				sql="select * from sm3_item_view order by size_num";
+				pstmt=con.prepareStatement(sql);
+			}else {
+				sql="select * from sm3_item_view where cate_num=? order by size_num";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, cate_num);
+			}
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				do {
@@ -205,19 +225,58 @@ public class ItemViewDao {
 			}
 		}
 	}
-	
-	
-	
-	public ArrayList<ItemViewVo> list(){
+
+	public ArrayList<ItemViewVo> list(int startRow,int endRow,
+			String search,String keyword){
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ArrayList<ItemViewVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_item_view";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			if(search.equals("")) {
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_ITEM_VIEW" + 
+						"        ORDER BY ITEM_NUM DESC, SIZE_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("item_num") || search.equals("size_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_ITEM_VIEW" +
+						"		 WHERE " + search + " " + searchCase +
+						"        ORDER BY ITEM_NUM DESC, SIZE_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				do {
 					int item_num=rs.getInt("item_num");

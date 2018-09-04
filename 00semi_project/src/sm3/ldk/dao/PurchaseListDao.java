@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import sm3.dbcp.DBConnection;
+import sm3.ldk.vo.OrderVo;
 import sm3.ldk.vo.PurchaseListVo;
 
 public class PurchaseListDao {
@@ -26,6 +27,48 @@ public class PurchaseListDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt("maxnum");
+			}
+			return 0;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public int getCount(String search,String keyword,int pur_num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			if(keyword.equals("")) {
+				String sql="select NVL(count(pl_num),0) cnt from sm3_purchase_list where pur_num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pur_num);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("size_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="select NVL(count(pl_num),0) cnt from sm3_purchase_list where pur_num=? "
+						+ "and " + search + searchCase;
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pur_num);
+				pstmt.setString(2, keyword);
+				rs=pstmt.executeQuery();
+			}
+			if(rs.next()) {
+				return rs.getInt("cnt");
 			}
 			return 0;
 		}catch(SQLException se) {
@@ -103,15 +146,41 @@ public class PurchaseListDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			con.setAutoCommit(false);
 			String sql="update sm3_purchase_list set pur_num=?,"
 					+ "size_num=?,order_cnt=?,item_price=? where pl_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, vo.getPur_num());
+			int pur_num=vo.getPur_num();
+			pstmt.setInt(1, pur_num);
 			pstmt.setInt(2, vo.getSize_num());
 			pstmt.setInt(3, vo.getOrder_cnt());
 			pstmt.setInt(4, vo.getItem_price());
 			pstmt.setInt(5, vo.getPl_num());
-			return pstmt.executeUpdate();
+			int n=pstmt.executeUpdate();
+			if(n>0) {
+				con.commit();
+				ArrayList<PurchaseListVo> list=purNumList(pur_num);
+				int order_total=0;
+				if(list!=null) {
+					for(PurchaseListVo voo:list) {
+						order_total += voo.getItem_price()*voo.getOrder_cnt();
+					}
+					int nn=OrderDao.getInstance().updateTotal(con, order_total,pur_num);
+					if(nn>0) {
+						con.commit();
+						return nn;
+					}else {
+						con.rollback();
+						return -4;
+					}
+				}else {
+					con.rollback();
+					return -3;
+				}
+			}else {
+				con.rollback();
+				return -2;
+			}
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
@@ -207,6 +276,87 @@ public class PurchaseListDao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, pur_num);
 			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				do {
+					int pl_num=rs.getInt("pl_num");
+					int size_num=rs.getInt("size_num");
+					int order_cnt=rs.getInt("order_cnt");
+					int item_price=rs.getInt("item_price");
+					PurchaseListVo vo=new PurchaseListVo(pl_num, pur_num,
+							size_num, order_cnt, item_price);
+					list.add(vo);
+				}while(rs.next());
+				return list;
+			}else {
+				return null;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return null;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public ArrayList<PurchaseListVo> purNumListPaging(int pur_num,int startRow,int endRow,
+			String search,String keyword){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<PurchaseListVo> list=new ArrayList<>();
+		try {
+			con=DBConnection.getConn();
+			if(search.equals("")) {
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_PURCHASE_LIST" + 
+						"		 WHERE PUR_NUM=? " +
+						"        ORDER BY SIZE_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pur_num);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("size_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_PURCHASE_LIST" +
+						"		 WHERE PUR_NUM=? AND " + search + " " + searchCase +
+						"        ORDER BY SIZE_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, pur_num);
+				pstmt.setString(2, keyword);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				do {
 					int pl_num=rs.getInt("pl_num");

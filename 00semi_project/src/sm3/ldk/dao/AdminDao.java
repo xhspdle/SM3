@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import sm3.dbcp.BatchDBConnection;
 import sm3.dbcp.DBConnection;
 import sm3.ldk.vo.AdminVo;
 
@@ -21,6 +22,7 @@ public class AdminDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="select NVL(max(admin_num),0) maxnum from sm3_admin";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
@@ -41,19 +43,33 @@ public class AdminDao {
 			}
 		}
 	}
-	public int getCount() {
+	public int getCount(String search,String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
-			String sql="select NVL(count(admin_num),0) cnt from sm3_admin";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			if(keyword.equals("")) {
+				String sql="select NVL(count(admin_num),0) cnt from sm3_admin";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("admin_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="select NVL(count(admin_num),0) cnt from sm3_admin "
+						+ "where " + search + searchCase;
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				return rs.getInt("cnt");
 			}
-			return -1;
+			return 0;
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
 			return -1;
@@ -72,6 +88,7 @@ public class AdminDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="insert into sm3_admin values(?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, getMaxNum()+1);
@@ -95,6 +112,7 @@ public class AdminDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="update sm3_admin set admin_id=?,admin_pwd=? where admin_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, vo.getAdmin_id());
@@ -118,6 +136,7 @@ public class AdminDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="delete from sm3_admin where admin_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, admin_num);
@@ -140,6 +159,7 @@ public class AdminDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getConn();
+			//con=BatchDBConnection.getConn();
 			String sql="select * from sm3_admin where admin_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, admin_num);
@@ -194,16 +214,58 @@ public class AdminDao {
 			}
 		}
 	}
-	public ArrayList<AdminVo> list() {
+	public ArrayList<AdminVo> list(int startRow,int endRow,
+			String search,String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ArrayList<AdminVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_admin";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			//con=BatchDBConnection.getConn();
+			if(search.equals("")) {
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_ADMIN" + 
+						"        ORDER BY ADMIN_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("admin_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_ADMIN" +
+						"		 WHERE " + search + " " + searchCase +
+						"        ORDER BY ADMIN_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				do {
 					int admin_num=rs.getInt("admin_num");

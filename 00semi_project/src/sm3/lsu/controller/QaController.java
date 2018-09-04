@@ -16,7 +16,7 @@ import sm3.lsu.dao.QaDao;
 import sm3.lsu.vo.QaCommVo;
 import sm3.lsu.vo.QaVo;
 
-@WebServlet("/dev/board/QA_board.do")
+@WebServlet("/QA_board.do")
 public class QaController extends HttpServlet {
 
 	@Override
@@ -51,12 +51,12 @@ public class QaController extends HttpServlet {
 		int ref = 0;
 		int lev = 0;
 		int step = 0;
-		System.out.println("snum:" +snum);
+		
 		  if(snum!=null && !snum.equals("")){ //답글인경우
 		
 		 qa_num=Integer.parseInt(snum);
 		 ref=Integer.parseInt(request.getParameter("ref"));
-		 System.out.println("ref:" + ref);
+		 
 		 lev=Integer.parseInt(request.getParameter("lev"));
 		 step=Integer.parseInt(request.getParameter("step")); 
 		 }
@@ -65,7 +65,7 @@ public class QaController extends HttpServlet {
 		QaVo vo = new QaVo(qa_num, qa_writer, qa_title, qa_content, null, ref, lev, step, 0, 0);
 		int n=qa.insert(vo, user_id);
 		if(n>0) {
-			request.getRequestDispatcher("QA_insert.jsp").forward(request, response);
+			request.getRequestDispatcher("QA_board.do?cmd=list").forward(request, response);
 		}else {
 			
 		}
@@ -95,8 +95,7 @@ public class QaController extends HttpServlet {
 		
 		list = qa.Getlist(startRow, endRow, keyField ,keyWord);
 		int pageCount=(int)Math.ceil(qa.getCount()/10.0);
-		System.out.println("키워드"+keyWord);
-		System.out.println("키필드"+keyField);
+		
 		int startPage=((pageNum-1)/10*10)+1;
 		int endPage=startPage+9;
 		if(endPage>pageCount) {
@@ -109,7 +108,7 @@ public class QaController extends HttpServlet {
 		request.setAttribute("endPage",endPage);
 		request.setAttribute("pageNum",pageNum);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("QA_list.jsp").forward(request, response);
+		request.getRequestDispatcher("community_qna_list.jsp").forward(request, response);
 	}
 				//삭제
 	protected void delete(HttpServletRequest request, HttpServletResponse response)
@@ -125,19 +124,18 @@ public class QaController extends HttpServlet {
 			throws ServletException, IOException {
 		int qa_num = Integer.parseInt(request.getParameter("qa_num"));
 		QaDao qa = QaDao.getInstance();
-
+		
 		QaVo vo = qa.detail(qa_num);
-		System.out.println(vo.getQa_num());
-		System.out.println(vo.getQa_content());
+		
 		
 		//  댓글정보
 	    QaCommDao qa1= QaCommDao.getInstance(); 
 	    ArrayList<QaCommVo> list=qa1.Cmmdetail(qa_num);
-	    	System.out.println("디테일넘버"+qa_num);
-		
+	    int count=qa1.count(qa_num);
+	    request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("vo", vo);
-		request.getRequestDispatcher("QA_detail.jsp").forward(request, response);
+		request.getRequestDispatcher("community_qna_detail.jsp").forward(request, response);
 		;
 
 	}

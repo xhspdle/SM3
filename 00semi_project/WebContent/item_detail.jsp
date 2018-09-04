@@ -75,12 +75,14 @@
 <!-- Head Libs -->
 <script src="vendor/modernizr/modernizr.min.js"></script>
 <%
+
 	String path = application.getContextPath();
 	ArrayList<ItemViewVo> list = (ArrayList) request.getAttribute("list");
 	ItemViewVo vo = list.get(0);
 	HashMap<Integer, String> list2 = (HashMap) request.getAttribute("list2");
 	Set<Integer> set = list2.keySet();
 	Iterator<Integer> keyList = set.iterator();
+	
 %>
 </head>
 
@@ -108,7 +110,7 @@
 						<div>
 							<div class="thumbnail">
 								<img alt="" class="img-responsive img-rounded"
-									src="DBImages/${vo.getItem_orgimg()}">
+									src="<%=path%>/DBImages/<%=vo.getItem_orgimg()%>">
 							</div>
 						</div>
 					</div>
@@ -116,11 +118,12 @@
 						<div class="summary entry-summary">
 							<!-- 제목 -->
 							<h1 class="mb-none">
-								<strong>${vo.getItem_name()}></strong>
+								<strong><%=vo.getItem_name()%></strong>
 							</h1>
 							<!-- 리뷰순 -->
 							<div class="review_num">
-								<span class="count" itemprop="ratingCount">2</span> reviews
+								<span class="count" itemprop="ratingCount">${reviewCount}</span>
+								reviews
 							</div>
 							<!-- 평균추천수 -->
 							<div title="Rated 5.00 out of 5" class="star-rating">
@@ -128,7 +131,7 @@
 									out of 5</span>
 							</div>
 							<!-- 상품정보 -->
-							<p class="taller">${vo.getItem_info()}</p>
+							<p class="taller"><%=vo.getItem_info()%></p>
 
 							<!-- 컬러 -->
 							<div class="cboth de_color">
@@ -137,20 +140,20 @@
 										int key = keyList.next();
 								%>
 								<a
-									href="<%=path%>/itemView.do?cmd=select&item_num=<%=key%>&item_name=${vo.getItem_name()}"><span
+									href="<%=path%>/itemView.do?cmd=select&item_num=<%=key%>&item_name=<%=vo.getItem_name()%>"><span
 									style="background-color:<%=list2.get(key)%>;">1</span></a>
 								<%
 									}
 								%>
 							</div>
-							
 
-<!-- !!!!!!!!!!!!!!!!  해당 페이지 자동들여쓰기하지말아주세요  !!!!!!!!!!!!!!!!!! ---->
+
+							<!-- !!!!!!!!!!!!!!!!  해당 페이지 자동들여쓰기하지말아주세요  !!!!!!!!!!!!!!!!!! ---->
 
 
 							<!-- 가격 -->
 							<p class="price order-line">
-								<span class="left-side">가격</span><span class="amount">${vo.getItem_price()}원</span>
+								<span class="left-side">가격</span><span class="amount"><%=vo.getItem_price()%>원</span>
 							</p>
 							<!-- 사이즈선택 -->
 							<p class="size_select order-line">
@@ -164,27 +167,32 @@
 								</select></span>
 							</p>
 							<!-- 폼시쟉~ -->
-							<form method="post" action="<c:url value='/purchase.do?cmd=insert'/>" class="cart" name="orderList">
+							<form method="post"
+								action="<c:url value='/purchase.do?cmd=insert'/>" class="cart"
+								name="orderList" onsubmit="return onSubmit()">
 								<!-- 세션에 담긴 유저 넘버도 보내주도록 -->
-								<input type="hidden" name="user_num" value="${sessionScope.user_num }">
+								<input type="hidden" name="user_num"
+									value="${sessionScope.user_num }">
 								<div id="select_list_box">
 									<!-- 사이즈 셀렉할 경우 상품 리스트 자바스크립트로 뿌려주는 내용이 들어감.  -->
 								</div>
-							
+
 								<p class="price_box">
-									<input type="hidden" name="total_price" id="total_p">
-									<span>총 금액:</span> <span id="total_price"></span>
+									<input type="hidden" name="total_price" id="total_p"> <span>총
+										금액:</span> <span id="total_price"></span>
 								</p>
-							
-							<div class="product_meta">
-								<span class="posted_in">Categories: <a rel="tag" href="#">${vo.getCate_name()}</a>
-								</span>
-							</div>
-							<!-- submit 버튼 -->
-							<p style="float:right; clear: both; padding-right: 10px;">
-								<a onclick="submit_change()" class="btn btn-primary btn-icon cart-btn">장바구니</a> 
-								<input type="submit" class="btn btn-primary btn-icon" value="주문하기">
-							</p>
+
+								<div class="product_meta">
+									<span class="posted_in">Categories: <a rel="tag"
+										href="#"><%=vo.getCate_name()%></a>
+									</span>
+								</div>
+								<!-- submit 버튼 -->
+								<p style="float: right; clear: both; padding-right: 10px;">
+									<a onclick="submit_change()"
+										class="btn btn-primary btn-icon cart-btn">장바구니</a> <input
+										type="submit" class="btn btn-primary btn-icon" value="주문하기">
+								</p>
 							</form>
 						</div>
 					</div>
@@ -193,13 +201,14 @@
 					<div class="col-md-12">
 						<div class="tabs tabs-product">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#productInfo" data-toggle="tab">상품정보</a></li>
-								<li><a href="#productReviews" data-toggle="tab">리뷰 (2)</a></li>
+								<li class="active"><a href="#productReviews"
+									data-toggle="tab">리뷰 (${reviewCount })</a></li>
+								<li><a href="#productInfo" data-toggle="tab">상품정보</a></li>
 							</ul>
 							<div class="tab-content">
 								<!-- 상품설명 들어가는 곳 -->
 
-								<div class="tab-pane active" id="productInfo">
+								<div class="tab-pane" id="productInfo">
 									<!-- 상품 사이즈 색상 정보 -->
 									<table class="table table-striped mt-xl">
 										<tbody>
@@ -209,75 +218,103 @@
 											</tr>
 											<tr>
 												<th>정보</th>
-												<td>${vo.getItem_info()}</td>
+												<td><%=vo.getItem_info()%></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<div class="tab-pane" id="productReviews">
-									
+								<div class="tab-pane  active" id="productReviews">
+
 									<!-- 리뷰리스트 들어갈 곳 -->
-									<ul class="comments review_box">
+									<ul class="comments">
 										<c:forEach var="vo" items="${review_list }">
 											<li>
-												<div class="comment">
+												<div class="comment review_box thumbnail-gallery"
+													data-plugin-lightbox=""
+													data-plugin-options="{'delegate': 'a', 'type': 'image', 'gallery': {'enabled': true}}">
 													<!-- 리뷰포토 사진 삽입 -->
 													<div class="img-thumbnail">
 														<c:choose>
 															<c:when test="${vo.review_orgimg == null}">
-																<img class="avatar" alt="" src="DBImages/${vo.getItem_orgimg()}">
+																<a title="<%=vo.getItem_name()%>"
+																	href="/DBImages/<%=vo.getItem_savimg()%>"> <span
+																	class="thumbnail mb-none thumb-info thumb-info-centered-icons">
+																		<img class="avatar" alt=""
+																		src="DBImages/<%=vo.getItem_orgimg()%>"> <span
+																		class="thumb-info-action"> <span
+																			class="thumb-info-action-icon thumb-info-action-icon-light">
+																				<i class="fa fa-plus"></i>
+																		</span>
+																	</span>
+																</span>
+																</a>
 															</c:when>
 															<c:otherwise>
-																<img class="avatar" alt="" src="DBImages/${vo.review_orgimg}">
+																<a title="<%=vo.getItem_name()%>"
+																	href="<%=path%>/DBImages/${vo.review_orgimg}"> <span
+																	class="thumbnail mb-none thumb-info thumb-info-centered-icons">
+																		<span class="thumb-info-wrapper"> <img
+																			class="avatar" alt=""
+																			src="DBImages/${vo.review_orgimg}"> <span
+																			class="thumb-info-action"> <span
+																				class="thumb-info-action-icon thumb-info-action-icon-light">
+																					<i class="fa fa-plus"></i>
+																			</span>
+																		</span>
+																	</span>
+																</span>
+																</a>
 															</c:otherwise>
 														</c:choose>
 													</div>
 													<div class="comment-block">
 														<div class="comment-arrow"></div>
 														<!-- 리뷰작성자 -->
-														<span class="comment-by"> <strong style="font-size:18px;">${vo.user_id}</strong> [${vo.review_item } 구매]  ${vo.review_date }
-															<span class="pull-right"> <!-- 평점준	 정도 -->
+														<span class="comment-by"> <strong
+															style="font-size: 18px;">${vo.user_id}</strong>
+															[${vo.review_item } 구매] ${vo.review_date } <span
+															class="pull-right"> <!-- 평점준	 정도 -->
 																<div title="Rated 5.00 out of 5" class="star-rating">
 																	<c:choose>
 																		<c:when test="${vo.review_rating == 5}">
-																				<span class="stars">sssss</span>
+																			<span class="stars">sssss</span>
 																		</c:when>
 																		<c:when test="${vo.review_rating == 4}">
-																				<span class="stars">ssss</span>
+																			<span class="stars">ssss</span>
 																		</c:when>
 																		<c:when test="${vo.review_rating == 3}">
-																				<span class="stars">sss</span>
+																			<span class="stars">sss</span>
 																		</c:when>
 																		<c:when test="${vo.review_rating == 2}">
-																				<span class="stars">ss</span>
+																			<span class="stars">ss</span>
 																		</c:when>
 																		<c:when test="${vo.review_rating == 1}">
-																				<span class="stars">s</span>
+																			<span class="stars">s</span>
 																		</c:when>
 																	</c:choose>
 																</div>
-															</span>
 														</span>
-														
+														</span>
 														<!-- 리뷰 내용 -->
 														<div class="comment_box">${vo.review_content}</div>
-															<c:if test="${sessionScope.user_id == vo.user_id}">
-																<p class="comment_update"><a href="#">삭제</a></p>
-															</c:if>	
 													</div>
-												</div>
+												</div> 
+												<c:if
+													test="${sessionScope.user_id == vo.user_id || sessionScope.admin_id != null }">
+													<p class="comment_update">
+														<a href="<%=path%>/reviewControll.do?cmd=delete&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name() %>&review_num=${vo.review_num}">삭제</a>
+													</p>
+												</c:if>
 											</li>
 										</c:forEach>
 									</ul>
-									
-									 <!-- 리뷰리스트 페이징처리 -->
-									
-											<div class="col-md-12" style="text-align: center;">
+
+									<div class="col-md-12" style="text-align: center;">
 										<ul class="pagination pull-center">
 											<c:choose>
 												<c:when test="${startPage > 3 }">
 													<li><a
-														href="<c:url value='/itemView.do?cmd=select&pageNum=${startPage-1}&search=${search}&keyword=${keyword}'/>"><i
+														href="<%=path%>/itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${startPage-1}&search=${search}&keyword=${keyword}"><i
 															class="fa fa-chevron-left"></i></a></li>
 												</c:when>
 												<c:otherwise>
@@ -288,18 +325,18 @@
 												<c:choose>
 													<c:when test="${i == pageNum}">
 														<li class="active"><a
-															href="<c:url value='/itemView.do?cmd=select&pageNum=${i}&search=${search}&keyword=${keyword}'/>">${i}</a></li>
+															href="<%=path%>/itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${i }$search=${search}&keyword=${keyword}">${i}</a></li>
 													</c:when>
 													<c:otherwise>
 														<li><a
-															href="<c:url value='/itemView.do?cmd=select&pageNum=${i}&search=${search}&keyword=${keyword}'/>">${i}</a></li>
+															href="<%=path%>/itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name()%>&pageNum=${i }&search=${search}&keyword=${keyword}">${i}</a></li>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
 											<c:choose>
 												<c:when test="${endPage < pageCount}">
 													<li><a
-														href="<c:url value='/itemView.do?cmd=select&pageNum=${endPage+1}&search=${search}&keyword=${keyword}'/>"><i
+														href="<%=path%>/itemView.do?cmd=select&item_num=<%=vo.getItem_num()%>&item_name=<%=vo.getItem_name() %>&pageNum=${endPage+1}&search=${search}&keyword=${keyword}"><i
 															class="fa fa-chevron-left"></i></a></li>
 												</c:when>
 												<c:otherwise>
@@ -311,31 +348,41 @@
 
 									<hr class="tall">
 									<!-- 리뷰남기기 -->
-									<h4 class="heading-primary">리뷰 남기기</h4>
+
+
+									<c:if test="${order_num != 0}">
+										<h4 class="heading-primary">리뷰 남기기</h4>
 										<div class="row">
 											<div class="col-md-12">
-												<form action="<c:url value='ReviewControll.do?cmd=insert'/>" id="submitReview" method="post"
+												<form
+													action="<%=path%>/reviewControll.do?cmd=insert&item_num=<%=vo.getItem_num()%>"
+													id="submitReview" method="post"
 													enctype="multipart/form-data">
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-6">
 																<!-- 리뷰제목입력란 -->
 																<input type="hidden" name="review_item"
-																	value="<%=vo.getItem_name()%>">  <!-- 제품이름 -->
-																<input type="hidden"
-																	name="user_num" value="${sessionScope.user_num }"> <!-- 유저번호 -->
-																<input
-																	type="hidden" name="order_num" value="1">  <!-- 주문번호 -->
-																<input
-																	type="hidden" id="review_rating" name="review_rating" value="5">  <!-- 평점정보 -->	
-																<label>아이디</label>
-																<input type="text" value="${sessionScope.user_id}"
-																	data-msg-required="Please enter your name." maxlength="100"
-																	class="form-control" name="title" id="title">
+																	value="<%=vo.getItem_name()%>">
+																<!-- 제품이름 -->
+																<input type="hidden" name="user_num"
+																	value="${sessionScope.user_num }">
+																<!-- 유저번호 -->
+																<input type="hidden" name="order_num" value="${order_num}">
+																<!-- 주문번호 -->
+																<input type="hidden" id="review_rating"
+																	name="review_rating" value="5">
+																<!-- 평점정보 -->
+																<label>아이디</label> <input type="text"
+																	value="${sessionScope.user_id}"
+																	data-msg-required="Please enter your name."
+																	maxlength="100" class="form-control" name="title"
+																	id="title">
 															</div>
 															<div class="col-md-6">
 																<label>후기 사진 추가</label> <input type="file" name="file1"
-																	class="form-control"> <!-- 사진정보 -->
+																	class="form-control">
+																<!-- 사진정보 -->
 															</div>
 														</div>
 													</div>
@@ -344,167 +391,78 @@
 															<div class="col-md-12">
 																<label>리뷰 내용(최대300자)</label>
 																<textarea maxlength="400"
-																	data-msg-required="Please enter your message." rows="10"
-																	class="form-control" name="review_content" id="message"></textarea> <!-- 리뷰내용 -->
+																	data-msg-required="Please enter your message."
+																	rows="10" class="form-control" name="review_content"
+																	id="message"></textarea>
+																<!-- 리뷰내용 -->
 															</div>
 														</div>
 													</div>
-													
+
 													<div class="row">
 														<div class="form-group">
 															<div class="col-md-12">
 																<div id="rating">
-																    <svg class="star" id="1" viewBox="0 12.705 512 486.59" x="0px" y="0px" xml:space="preserve" style="fill: #f39c12;">
-																     1 <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
+																	<svg class="star" id="1" viewBox="0 12.705 512 486.59"
+																		x="0px" y="0px" xml:space="preserve"
+																		style="fill: #f39c12;">
+																     1 <polygon
+																			points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
 																    </svg>
-																    <svg class="star" id="2" viewBox="0 12.705 512 486.59" x="0px" y="0px" xml:space="preserve" style="fill: rgb(243, 156, 18);">
-																     2 <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
+																	<svg class="star" id="2" viewBox="0 12.705 512 486.59"
+																		x="0px" y="0px" xml:space="preserve"
+																		style="fill: rgb(243, 156, 18);">
+																     2 <polygon
+																			points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
 																    </svg>
-																    <svg class="star" id="3" viewBox="0 12.705 512 486.59" x="0px" y="0px" xml:space="preserve" style="fill: rgb(243, 156, 18);">
-																     3 <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
+																	<svg class="star" id="3" viewBox="0 12.705 512 486.59"
+																		x="0px" y="0px" xml:space="preserve"
+																		style="fill: rgb(243, 156, 18);">
+																     3 <polygon
+																			points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
 																    </svg>
-																    <svg class="star" id="4" viewBox="0 12.705 512 486.59" x="0px" y="0px" xml:space="preserve" style="fill: rgb(243, 156, 18);">
-																     4 <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
+																	<svg class="star" id="4" viewBox="0 12.705 512 486.59"
+																		x="0px" y="0px" xml:space="preserve"
+																		style="fill: rgb(243, 156, 18);">
+																     4 <polygon
+																			points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
 																    </svg>
-																    <svg class="star" id="5" viewBox="0 12.705 512 486.59" x="0px" y="0px" xml:space="preserve" style="fill: rgb(243, 156, 18);">
-																     5 <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
+																	<svg class="star" id="5" viewBox="0 12.705 512 486.59"
+																		x="0px" y="0px" xml:space="preserve"
+																		style="fill: rgb(243, 156, 18);">
+																     5 <polygon
+																			points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566"></polygon>
 																    </svg>
-																  </div>
+																</div>
 															</div>
 														</div>
 													</div>
-													
-													
+
+
 													<div class="row">
 														<div class="col-md-12">
 															<input type="submit" value="등록하기" class="btn btn-primary"
 																data-loading-text="Loading...">
 														</div>
 													</div>
-											
 												</form>
 											</div>
 										</div>
-							
+									</c:if>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<!-- 연관 카테고리 뿌려주기 -->
-				<!-- <div class="row">
-					<div class="col-md-12">
-						<hr class="tall">
-
-						<h4 class="mb-md text-uppercase">
-							Related <strong>Products</strong>
-						</h4>
-
-						<div class="row">
-
-							<ul class="products product-thumb-info-list">
-								<li class="col-sm-3 col-xs-12 product"><a
-									href="shop-product-sidebar.html"> <span class="onsale">Sale!</span>
-								</a> <span class="product-thumb-info"> <a
-										href="shop-cart.html" class="add-to-cart-product"> <span><i
-												class="fa fa-shopping-cart"></i> Add to Cart</span>
-									</a> <a href="shop-product-sidebar.html"> <span
-											class="product-thumb-info-image"> <span
-												class="product-thumb-info-act"> <span
-													class="product-thumb-info-act-left"><em>View</em></span> <span
-													class="product-thumb-info-act-right"><em><i
-															class="fa fa-plus"></i> Details</em></span>
-											</span> <img alt="" class="img-responsive"
-												src="img/products/product-1.jpg">
-										</span>
-									</a> <span class="product-thumb-info-content"> <a
-											href="shop-product-sidebar.html">
-												<h4>Photo Camera</h4> <span class="price"> <del>
-														<span class="amount">$325</span>
-													</del> <ins>
-														<span class="amount">$299</span>
-													</ins>
-											</span>
-										</a>
-									</span>
-								</span></li>
-								<li class="col-sm-3 col-xs-12 product"><span
-									class="product-thumb-info"> <a href="shop-cart.html"
-										class="add-to-cart-product"> <span><i
-												class="fa fa-shopping-cart"></i> Add to Cart</span>
-									</a> <a href="shop-product-sidebar.html"> <span
-											class="product-thumb-info-image"> <span
-												class="product-thumb-info-act"> <span
-													class="product-thumb-info-act-left"><em>View</em></span> <span
-													class="product-thumb-info-act-right"><em><i
-															class="fa fa-plus"></i> Details</em></span>
-											</span> <img alt="" class="img-responsive"
-												src="img/products/product-2.jpg">
-										</span>
-									</a> <span class="product-thumb-info-content"> <a
-											href="shop-product-sidebar.html">
-												<h4>Golf Bag</h4> <span class="price"> <span
-													class="amount">$72</span>
-											</span>
-										</a>
-									</span>
-								</span></li>
-								<li class="col-sm-3 col-xs-12 product"><span
-									class="product-thumb-info"> <a href="shop-cart.html"
-										class="add-to-cart-product"> <span><i
-												class="fa fa-shopping-cart"></i> Add to Cart</span>
-									</a> <a href="shop-product-sidebar.html"> <span
-											class="product-thumb-info-image"> <span
-												class="product-thumb-info-act"> <span
-													class="product-thumb-info-act-left"><em>View</em></span> <span
-													class="product-thumb-info-act-right"><em><i
-															class="fa fa-plus"></i> Details</em></span>
-											</span> <img alt="" class="img-responsive"
-												src="img/products/product-3.jpg">
-										</span>
-									</a> <span class="product-thumb-info-content"> <a
-											href="shop-product-sidebar.html">
-												<h4>Workout</h4> <span class="price"> <span
-													class="amount">$60</span>
-											</span>
-										</a>
-									</span>
-								</span></li>
-								<li class="col-sm-3 col-xs-12 product"><span
-									class="product-thumb-info"> <a href="shop-cart.html"
-										class="add-to-cart-product"> <span><i
-												class="fa fa-shopping-cart"></i> Add to Cart</span>
-									</a> <a href="shop-product-sidebar.html"> <span
-											class="product-thumb-info-image"> <span
-												class="product-thumb-info-act"> <span
-													class="product-thumb-info-act-left"><em>View</em></span> <span
-													class="product-thumb-info-act-right"><em><i
-															class="fa fa-plus"></i> Details</em></span>
-											</span> <img alt="" class="img-responsive"
-												src="img/products/product-4.jpg">
-										</span>
-									</a> <span class="product-thumb-info-content"> <a
-											href="shop-product-sidebar.html">
-												<h4>Luxury bag</h4> <span class="price"> <span
-													class="amount">$199</span>
-											</span>
-										</a>
-									</span>
-								</span></li>
-							</ul>
-						</div>
-						
-						 -->
-					</div>
-				</div>
 			</div>
-
 		</div>
-		<footer class="short" id="footer">
-			<jsp:include page="footer.jsp" />
-		</footer>
 	</div>
+
+
+	<footer class="short" id="footer">
+		<jsp:include page="footer.jsp" />
+	</footer>
+
 	<script>
 	//엉엉유유ㅠㅇ어유유ㅠ
 	var cnt = 0;
@@ -513,10 +471,32 @@
 	var n3 = 0;
 	var n4 = 0;
 	
+	
+		/* 주문하기 제출조건 */
+		function onSubmit(){
+			var id_session = '${user_id}';
+			if(id_session == '') {
+				location.href= 'login.jsp';
+				return false;
+				}
+			if(cnt==0) {
+				alert("사이즈를 1개이상 선택 해 주세요");
+				return false;
+			}
+		}
+	
 		/* submit 자바스크립트로 주소 변경해주기 */
 		function submit_change(){
-			document.orderList.action = "cart.do?cmd=insert"; //보낼주소
-			document.orderList.submit();
+			var id_session = '${user_id}';
+			if(id_session == ''){ 
+				location.href= 'login.jsp';
+				return false;
+			}
+			if(cnt==0) alert("사이즈를 1개이상 선택 해 주세요");
+			if(cnt > 0){
+				document.orderList.action = "cart.do?cmd=insert"; //보낼주소
+				document.orderList.submit();
+			}
 		}
 	
 	
@@ -525,7 +505,7 @@
 			var select_box = document.getElementById("select_list_box");
 			var sel_list = document.getElementById("sel_list");
 			var total_price = document.getElementById("total_price");
-			var price = '${vo.getItem_price()}';
+			var price = <%=vo.getItem_price()%>;
 			var sel_num = sel_list.options.selectedIndex;
 			if(sel_num == 0 ) return;
 			
@@ -556,222 +536,224 @@
 			var size_num = <%=vo.getSize_num()%>;
 			ul.className = "list_sel";
 			ul.innerHTML += 
-			'<li class="item_name">'+
-			'<input type="hidden" name="size_num" value="'+size_num+'">'+ //사이즈 넘버 
-			   '<p><%=vo.getItem_name()%></p><p>size: '+sel_list.value+'</p></li>'
+					 '<li class="item_name">'
+					+'<input type="hidden" name="size_num" value="'+size_num+'">'
+					+ '<p><%=vo.getItem_name()%></p>'
+					+ '<p>size: '+sel_list.value+'</p></li>'
 					+ '<li><input type="hidden">' //상품 카운트
 					+ '<div class="quantity">'
-					+ '<input type="button" class="minus" value="-"><input type="text" class="input-text qty text" title="Qty" name="order_cnt" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
+					+ '<input type="button" class="minus" value="-">'
+					+ '<input type="text" class="input-text qty text" title="Qty" name="order_cnt" value="1" min="1" step="1"><input type="button" class="plus" value="+">'
 					+ '</div></li>'
-					+ '<li class="it_price"><input type="hidden" name="item_price" value="'+price +'">'+price+'원</li>' //사이즈 갯수별 금액
+					+ '<li class="it_price"><input type="hidden" name="item_price" value="'+price +'">'
+					+ price
+					+ '원</li>' //사이즈 갯수별 금액
 					+ '<li><a title="Remove this item" class="remove" href="#none"> <i class="fa fa-times"></i></a></li>'
-				select_box.appendChild(ul);
-				var plus = document.getElementsByClassName("plus");
-				var minus = document.getElementsByClassName("minus");
-				var qty = document.getElementsByClassName("qty");
-				var it_price = document.getElementsByClassName("it_price");
-				var remove = document.getElementsByClassName("remove");
-				var ul_box = document.getElementsByClassName("list_sel");
-				var total_p = document.getElementById("total_p");
-				
-				//상품 수 증가할 때
-				for (var i = 0; i < plus.length; i++) {
-					plus[i].onclick = function(){
-						++this.previousSibling.value;
-						var item_price = price * this.previousSibling.value;
-						this.parentElement.parentElement.nextSibling.innerHTML = "<input type='hidden' name='item_price' value='"+item_price+" '>" +item_price+"원";
-						++cnt;
-						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
-						total_p.value = price * cnt;
-					}
-				}
-				//상품 수 감소할 때
-				for (var i = 0; i < minus.length; i++) {
-					minus[i].onclick = function(){
-						if(this.nextSibling.value>1){
-							--this.nextSibling.value;
-							--cnt;
-						}
-						var item_price = price * this.nextSibling.value
-						this.parentElement.parentElement.nextSibling.innerHTML = "<input type='hidden' name='item_price' value='"+item_price+" '>"+item_price +"원";
-						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
-						total_p.value = price * cnt;
-					}
-				}
-				//상품 목록 삭제했을 때
-				for (var i = 0; i < remove.length; i++) {
-					remove[i].onclick = function(){
-						this.parentElement.parentElement.remove();
-						var a =this.parentElement.previousSibling.previousSibling.lastChild.lastChild.previousSibling.value;
-						cnt = cnt - a ;
-						total_price.innerHTML =  price * cnt +"원("+cnt+")개";
-						total_p.value = price * cnt;
-					}
-				}
-		}
-		
-		
-		/* 리뷰 평점 별 달아주기 */
-		
-				
-		function starsReducer(state, action) {
-		    switch (action.type) {
-		      case 'HOVER_STAR': {
-		        return {
-		          starsHover: action.value,
-		          starsSet: state.starsSet
-		        }
-		      }
-		      case 'CLICK_STAR': {
-		        return {
-		          starsHover: state.starsHover,
-		          starsSet: action.value
-		        }
-		      }
-		        break;
-		      default:
-		        return state
-		    }
-		  }
-		
-		  var StarContainer = document.getElementById('rating');
-		  var StarComponents = StarContainer.children;
-		
-		  var state = {
-		    starsHover: 0,
-		    starsSet: 4
-		  }
-		
-		  function render(value) {
-		    for(var i = 0; i < StarComponents.length; i++) {
-		      StarComponents[i].style.fill = i < value ? '#f39c12' : '#808080'
-		    }
-		  }
-		
-		  for (var i=0; i < StarComponents.length; i++) {
-		    StarComponents[i].addEventListener('mouseenter', function() {
-		      state = starsReducer(state, {
-		        type: 'HOVER_STAR',
-		        value: this.id
-		      })
-		      render(state.starsHover);
-		    })
-		
-		    StarComponents[i].addEventListener('click', function() {
-		      state = starsReducer(state, {
-		        type: 'CLICK_STAR',
-		        value: this.id
-		      })
-		      render(state.starsHover);
-		    })
-		  }
-		
-		  StarContainer.addEventListener('mouseleave', function() {
-		    render(state.starsSet);
-		  })
-		
+			select_box.appendChild(ul);
+			var plus = document.getElementsByClassName("plus");
+			var minus = document.getElementsByClassName("minus");
+			var qty = document.getElementsByClassName("qty");
+			var it_price = document.getElementsByClassName("it_price");
+			var remove = document.getElementsByClassName("remove");
+			var ul_box = document.getElementsByClassName("list_sel");
+			var total_p = document.getElementById("total_p");
 
-		
-		  var reviews = {
-		    reviews: [
-		      {
-		        stars: 3,
-		        name: 'bob',
-		        city: 'Noos  k',
-		        review: '1 Thompson Greenspon is so grateful to have worked with CPASiteSolutions on our'
-		      },{
-		        stars: 4,
-		        name: 'bobbo',
-		        city: 'WinNoosk',
-		        review: '2 Thompson Greenspon is so grateful to have worked with CPASiteSolutions on our'
-		      },{
-		        stars: 2,
-		        name: 'bobster',
-		        city: 'NooSKI',
-		        review: '3 Thompson Greenspon is so grateful to have worked with CPASiteSolutions on our'
-		      },
-		    ]
-		  }
-		
-		  function ReviewStarContainer(stars) {
-		    var div = document.createElement('div');
-		    div.className = "stars-container";
-		    for (var i = 0; i < 5; i++) {
-		      var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		      svg.setAttribute('viewBox',"0 12.705 512 486.59");
-		      svg.setAttribute('x',"0px");
-		      svg.setAttribute('y',"0px");
-		      svg.setAttribute('xml:space',"preserve");
-		      svg.setAttribute('class',"star");
-		      var svgNS = svg.namespaceURI;
-		      var star = document.createElementNS(svgNS,'polygon');
-		      star.setAttribute('points', '256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566');
-		      star.setAttribute('fill', i < stars ? '#f39c12' : '#808080');
-		      svg.appendChild(star);
-		      div.appendChild(svg);
-		    }
-		    return div;
-		  }
-		
-		  function ReviewContentContainer(name, city, review) {
-		
-		    var reviewee = document.createElement('div');
-		    reviewee.className = "reviewee footer";
-		    reviewee.innerHTML  = '- ' + name + ', ' + city
-		
-		    var comment = document.createElement('p');
-		    comment.innerHTML = review;
-		
-		    var div = document.createElement('div');
-		    div.className = "review-content";
-		    div.appendChild(comment);
-		    div.appendChild(reviewee);
-		
-		    return div;
-		  }
-		
-		  function ReviewsContainer(review) {
-		    var div = document.createElement('blockquote');
-		    div.className = "review";
-		    div.appendChild(ReviewStarContainer(review.stars));
-		    div.appendChild(ReviewContentContainer(review.name,review.city,review.review));
-		    return div;
-		  }
-		
-		
-		  /* 별 클릭할 때 평점 수 넣어주기 */
-		  
-		 var star = document.getElementsByClassName('star');
-		 var review_rating = document.getElementById('review_rating');
-			
-		star[0].onclick = function(){
-			var a = this.firstChild.nodeValue;
-			review_rating.value = '1' ;
+			//상품 수 증가할 때
+			for (var i = 0; i < plus.length; i++) {
+				plus[i].onclick = function() {
+					++this.previousSibling.value;
+					var item_price = price * this.previousSibling.value;
+					this.parentElement.parentElement.nextSibling.innerHTML = "<input type='hidden' name='item_price' value='"+item_price+" '>"
+							+ item_price + "원";
+					++cnt;
+					total_price.innerHTML = price * cnt + "원(" + cnt + ")개";
+					total_p.value = price * cnt;
+				}
+			}
+			//상품 수 감소할 때
+			for (var i = 0; i < minus.length; i++) {
+				minus[i].onclick = function() {
+					if (this.nextSibling.value > 1) {
+						--this.nextSibling.value;
+						--cnt;
+					}
+					var item_price = price * this.nextSibling.value
+					this.parentElement.parentElement.nextSibling.innerHTML = "<input type='hidden' name='item_price' value='"+item_price+" '>"
+							+ item_price + "원";
+					total_price.innerHTML = price * cnt + "원(" + cnt + ")개";
+					total_p.value = price * cnt;
+				}
+			}
+			//상품 목록 삭제했을 때
+			for (var i = 0; i < remove.length; i++) {
+				remove[i].onclick = function() {
+					this.parentElement.parentElement.remove();
+					var a = this.parentElement.previousSibling.previousSibling.lastChild.lastChild.previousSibling.value;
+					cnt = cnt - a;
+					total_price.innerHTML = price * cnt + "원(" + cnt + ")개";
+					total_p.value = price * cnt;
+				}
+			}
 		}
-		star[1].onclick = function(){
-			var a = this.firstChild.nodeValue;
-			review_rating.value = '2' ;
+
+		/* 리뷰 평점 별 달아주기 */
+
+		function starsReducer(state, action) {
+			switch (action.type) {
+			case 'HOVER_STAR': {
+				return {
+					starsHover : action.value,
+					starsSet : state.starsSet
+				}
+			}
+			case 'CLICK_STAR': {
+				return {
+					starsHover : state.starsHover,
+					starsSet : action.value
+				}
+			}
+				break;
+			default:
+				return state
+			}
 		}
-		star[2].onclick = function(){
-			var a = this.firstChild.nodeValue;
-			review_rating.value = '3' ;
+
+		var StarContainer = document.getElementById('rating');
+		var StarComponents = StarContainer.children;
+
+		var state = {
+			starsHover : 0,
+			starsSet : 4
 		}
-		star[3].onclick = function(){
-			var a = this.firstChild.nodeValue;
-			review_rating.value = '4' ;
+
+		function render(value) {
+			for (var i = 0; i < StarComponents.length; i++) {
+				StarComponents[i].style.fill = i < value ? '#f39c12'
+						: '#808080'
+			}
 		}
-		star[4].onclick = function(){
-			var a = this.firstChild.nodeValue;
-			review_rating.value = '5' ;
+
+		for (var i = 0; i < StarComponents.length; i++) {
+			StarComponents[i].addEventListener('mouseenter', function() {
+				state = starsReducer(state, {
+					type : 'HOVER_STAR',
+					value : this.id
+				})
+				render(state.starsHover);
+			})
+
+			StarComponents[i].addEventListener('click', function() {
+				state = starsReducer(state, {
+					type : 'CLICK_STAR',
+					value : this.id
+				})
+				render(state.starsHover);
+			})
 		}
-		
+
+		StarContainer.addEventListener('mouseleave', function() {
+			render(state.starsSet);
+		})
+
+		var reviews = {
+			reviews : [
+					{
+						stars : 3,
+						name : 'bob',
+						city : 'Noos  k',
+						review : '1 Thompson Greenspon is so grateful to have worked with CPASiteSolutions on our'
+					},
+					{
+						stars : 4,
+						name : 'bobbo',
+						city : 'WinNoosk',
+						review : '2 Thompson Greenspon is so grateful to have worked with CPASiteSolutions on our'
+					},
+					{
+						stars : 2,
+						name : 'bobster',
+						city : 'NooSKI',
+						review : '3 Thompson Greenspon is so grateful to have worked with CPASiteSolutions on our'
+					}, ]
+		}
+
+		function ReviewStarContainer(stars) {
+			var div = document.createElement('div');
+			div.className = "stars-container";
+			for (var i = 0; i < 5; i++) {
+				var svg = document.createElementNS(
+						"http://www.w3.org/2000/svg", "svg");
+				svg.setAttribute('viewBox', "0 12.705 512 486.59");
+				svg.setAttribute('x', "0px");
+				svg.setAttribute('y', "0px");
+				svg.setAttribute('xml:space', "preserve");
+				svg.setAttribute('class', "star");
+				var svgNS = svg.namespaceURI;
+				var star = document.createElementNS(svgNS, 'polygon');
+				star
+						.setAttribute(
+								'points',
+								'256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566');
+				star.setAttribute('fill', i < stars ? '#f39c12' : '#808080');
+				svg.appendChild(star);
+				div.appendChild(svg);
+			}
+			return div;
+		}
+
+		function ReviewContentContainer(name, city, review) {
+
+			var reviewee = document.createElement('div');
+			reviewee.className = "reviewee footer";
+			reviewee.innerHTML = '- ' + name + ', ' + city
+
+			var comment = document.createElement('p');
+			comment.innerHTML = review;
+
+			var div = document.createElement('div');
+			div.className = "review-content";
+			div.appendChild(comment);
+			div.appendChild(reviewee);
+
+			return div;
+		}
+
+		function ReviewsContainer(review) {
+			var div = document.createElement('blockquote');
+			div.className = "review";
+			div.appendChild(ReviewStarContainer(review.stars));
+			div.appendChild(ReviewContentContainer(review.name, review.city,
+					review.review));
+			return div;
+		}
+
+		/* 별 클릭할 때 평점 수 넣어주기 */
+
+		var star = document.getElementsByClassName('star');
+		var review_rating = document.getElementById('review_rating');
+
+		star[0].onclick = function() {
+			var a = this.firstChild.nodeValue;
+			review_rating.value = '1';
+		}
+		star[1].onclick = function() {
+			var a = this.firstChild.nodeValue;
+			review_rating.value = '2';
+		}
+		star[2].onclick = function() {
+			var a = this.firstChild.nodeValue;
+			review_rating.value = '3';
+		}
+		star[3].onclick = function() {
+			var a = this.firstChild.nodeValue;
+			review_rating.value = '4';
+		}
+		star[4].onclick = function() {
+			var a = this.firstChild.nodeValue;
+			review_rating.value = '5';
+		}
+
 		/* 리뷰 목록 평점 수 계산 */
-  		
-  
-			
-				
-		  
-		
 	</script>
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.min.js"></script>

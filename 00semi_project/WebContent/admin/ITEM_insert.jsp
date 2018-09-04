@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<input type="hidden" value="ITEM_insert" id="here">
 <c:choose>
 	<c:when test="${param.do1=='insert' }">
 <div style="margin-top:10%;">
@@ -72,12 +73,13 @@
 		</section>
 	</div>
 </div>	
+
 <script type="text/javascript">
 	var xhr=null;
-	window.onload = function(){
+	function itemInsert(){
 		xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=callback;
-		xhr.open('get','itemColor.do?cmd=list&ajax=true',true);//cmd=list?ajax=true 로 썼다가 낭패봄...ㅠㅠ
+		xhr.open('get','itemColor.do?cmd=listAjax',true);//cmd=list?ajax=true 로 썼다가 낭패봄...ㅠㅠ
 		xhr.send();
 	}
 	function callback(){
@@ -191,26 +193,13 @@
 		</section>
 	</div>
 </div>	
+
 <script type="text/javascript">
-	function showFile(){
-		var inputFile=document.getElementById("inputFile");
-		inputFile.style.display="block";
-		var hidden1=document.getElementsByName("item_orgimg")[0];
-		var hidden2=document.getElementsByName("item_savimg")[0];
-		hidden1.setAttribute("disabled", "disabled");
-		hidden2.setAttribute("disabled", "disabled");
-	}
-	function imgChange(){
-		var file=document.getElementsByName("file1")[0].value;
-		var fileName=file.split("\\");
-		var img=document.getElementById("oldimg1");
-		img.src="<%=application.getContextPath()%>/DBImages/" +fileName[2];
-	}
 	var xhr=null;
-	window.onload = function(){
+	function itemInsert(){
 		xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=callback;
-		xhr.open('get','itemColor.do?cmd=list&ajax=true',true);
+		xhr.open('get','itemColor.do?cmd=listAjax',true);
 		xhr.send();
 	}
 	function callback(){
@@ -226,6 +215,21 @@
 			}
 		}
 	}
+	function showFile(){
+		var inputFile=document.getElementById("inputFile");
+		inputFile.style.display="block";
+		var hidden1=document.getElementsByName("item_orgimg")[0];
+		var hidden2=document.getElementsByName("item_savimg")[0];
+		hidden1.setAttribute("disabled", "disabled");
+		hidden2.setAttribute("disabled", "disabled");
+	}
+	function imgChange(){
+		var file=document.getElementsByName("file1")[0].value;
+		var fileName=file.split("\\");
+		var img=document.getElementById("oldimg1");
+		img.src="<%=application.getContextPath()%>/DBImages/" +fileName[2];
+	}
+	
 </script>
 	</c:when>
 </c:choose>

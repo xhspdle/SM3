@@ -139,6 +139,28 @@ public class ItemSizeDao {//사이즈번호 --> 재고번호
 			}
 		}
 	}
+	public int updateCnt(Connection con,int size_num,int order_cnt) {
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			String sql="update sm3_item_size set "
+					+ "size_cnt=? where size_num=?";
+			int size_cnt=select(size_num).getSize_cnt();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, size_cnt-order_cnt);
+			pstmt.setInt(2, size_num);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int updateColor(int color_num,int item_num) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

@@ -67,7 +67,27 @@
 
 
 <!-- Head Libs -->
-<script src="vendor/modernizr/modernizr.min.js"></script>
+<script src="vendor/modernizr/modernizr.min.js">
+
+
+
+function searchCheck(frm){
+    //검색
+   
+    if(frm.keyWord.value ==""){
+        alert("검색 단어를 입력하세요.");
+        frm.keyWord.focus();
+        return;
+    }
+    frm.submit();      
+}
+
+
+
+
+
+
+</script>
 
 </head>
 <body>
@@ -82,7 +102,7 @@
 					<div class="row mt-lg">
 						<div class="col-md-12">
 							<h2 class="commTitle">QNA</h2>
-								<a href="<c:url value='community_event_write.jsp'/>" class="btn pull-right btn-primary btn-md"> 글쓰기 <i
+								<a href="<c:url value='community_qna_write.jsp'/>" class="btn pull-right btn-primary btn-md"> 글쓰기 <i
 								class="fa fa-angle-right ml-xs"></i>
 							</a>
 							<div class="featured-boxes">
@@ -94,30 +114,91 @@
 													<th style="width:12%">번호</th>
 													<th style="width:60%">제목</th>
 													<th style="width:20%">글쓴이</th>
-													<th style="width:8%">조회수</th>
+													<th style="width:8%">삭제</th>
 												</tr>
+												
 											</thead>
 											<tbody>
+											<c:forEach var="vo" items="${requestScope.list }">
 												<tr>
-													<td>1</td>
-													<td><a href="<c:url value='community_qna_detail.jsp'/>">물건 반품요청 시 필독</a></td>
-													<td>Otto</td>
-													<td>5</td>
+													<td>${vo.qa_num }</td>
+													<td>
+													<c:if test="${vo.lev>0 }">
+												<c:forEach var="i" begin="1" end="${vo.lev }">
+													&nbsp;&nbsp;
+													</c:forEach>
+														[re]
+														</c:if>
+													<a href="<c:url value='/QA_board.do?cmd=detail&qa_num=${vo.qa_num }'/>">${vo.qa_title}</a></td>
+													<td>${vo.qa_writer }</td>
+													<c:choose>
+														<c:when test="${vo.user_num==sessionScope.user_num }">
+													<td><a href="<c:url value='/QA_board.do?cmd=delete&qa_num=${vo.qa_num}'/>">삭제</a></td>	
+														</c:when>
+														<c:otherwise>
+													<td>삭제</td>
+														</c:otherwise>
+													</c:choose>
 												</tr>
-												<tr>
-													<td>2</td>
-													<td><a href="#">물건 반품요청 시 필독</a></td>
-													<td>Thornton</td>
-													<td>2</td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td><a href="#">물건 반품요청 시 필독</a></td>
-													<td>the Bird</td>
-													<td>3</td>
-												</tr>
-											</tbody>
-										</table>
+											</c:forEach>
+		<tr>  
+        	<td colspan="7"> <br/>
+            <form  action="<c:url value='/QA_board.do?cmd=list'/>" name="serach" method ="post">
+            <select name="keyField">
+                <option value="0"> ----선택----</option>
+                <option value="qa_writer">글쓴이</option>
+                <option value="qa_title">제목</option>
+                <option value="qa_content">내용</option>  
+            </select>
+            <input type="text" name="keyWord" />
+            <input type="button" value="검색" onclick="searchCheck(form)" />
+           
+            </form>
+           
+        </td>      
+    </tr>
+			
+			</table>
+						
+							
+			
+	<!--검색  -->		
+	<div>	
+	<!-- 이전 -->
+ 	<c:choose>
+		<c:when test="${startPage>2 }">
+			<a href="<c:url value='/QA_board.do?cmd=list&pageNum=${startPage-1 }'/>">[이전]</a>		
+			</c:when>
+		<c:otherwise>
+			[이전]
+		</c:otherwise>
+	</c:choose>	 	
+			
+			
+			<!--페이징  -->
+			<c:forEach var="i" begin="${startPage }" end="${endPage }">
+	<c:choose>
+		<c:when test="${pageNum==i }"><%-- 현재페이지인경우--%>
+			<a href="<c:url value='/QA_board.do?cmd=list&pageNum=${i }'/>"><span style="color:red" >[${i }]</span></a>
+		</c:when>
+		<c:otherwise>
+			<a href="<c:url value='/QA_board.do?cmd=list&pageNum=${i }'/>"><span style="color:#555" >[${i }]</span></a>
+		</c:otherwise>
+	</c:choose>	
+	</c:forEach>
+	
+	<!-- 다음 -->
+ 	<c:choose>
+		<c:when test="${endPage<pageCount }">
+			<a href="<c:url value='/QA_board.do?cmd=list&pageNum=${endPage+1 }'/>">[다음]</a>
+		</c:when>
+		<c:otherwise>
+			[다음]
+		</c:otherwise>
+	</c:choose> 
+	</div>	
+											
+									
 									</div>
 
 								</div>

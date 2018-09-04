@@ -61,7 +61,7 @@ body a {
 }
 
 #m_banner .img-responsive {
-	height: 475px;
+	height: 495px;
 }
 
 #event {
@@ -72,8 +72,6 @@ body a {
 	.container {
 		width: 1260px !important;
 	}
-
-	
 }
 
 @media ( min-width : 992px) {
@@ -81,7 +79,7 @@ body a {
 		display: inline-block;
 		text-align: center !important;
 		float: left;
-		width: 9%;
+		width: 10.3%;
 		margin-left: 2%;
 	}
 	#header .header-nav-main nav>ul>li:hover a {
@@ -323,11 +321,6 @@ thead th {
 	margin-left: 30px;
 }
 
-a.btn {
-	margin-right: 20px;
-	margin-top: 30px;
-}
-
 #sample3_address {
 	width: 70%;
 }
@@ -358,11 +351,6 @@ a.btn {
 .commTitle {
 	float: left;
 	margin-left: 30px;
-}
-
-a.btn {
-	margin-right: 20px;
-	margin-top: 30px;
 }
 
 #sample3_address {
@@ -442,7 +430,7 @@ p.taller {
 
 .list_sel li:last-child {
 	width: 10%;
-	padding-top: 7px;
+	padding-top: 13px;
 }
 
 .list_sel li:nth-child(2) {
@@ -477,7 +465,7 @@ p.taller {
 a.cart-btn {
 	float: none;
 	margin: 0;
-	margin-right: 10px;
+	margin-right: 5px;
 }
 
 .day_list {
@@ -550,12 +538,50 @@ blockquote .footer {
 .comment_update {
 	float: right;
 	margin-right: 10px !important;
+	position: relative;
+	top: -50px;
+	left: -15px;
+	margin-bottom: 0;
 }
 
 .review_box .star-rating {
 	margin-bottom: 0;
 }
-ul.comments .comment-block{
+
+ul.comments .comment-block {
 	overflow: hidden;
 }
 
+button.mfp-arrow {
+	/* display: none; */
+	
+}
+
+ul.comments li {
+	width: 100%;
+}
+
+ul.comments li .comment {
+	margin: 0;
+}
+
+.tab-content {
+	padding: 30px;
+}
+
+.img-responsive {
+	border: 1px solid #ddd;
+	border-bottom: none;
+	padding-top: 20px;
+}
+.shop .img-responsive {
+	border: none;
+}
+ul.qna_comment li{
+	padding: 10px 0 0 0px;
+}
+
+.main section.section{
+   background-color: white;
+   border-top: none
+}

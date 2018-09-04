@@ -77,7 +77,7 @@
 		xhr.send();
 	}
 	var cnt = 0 ;
-	var cnt2 = 8 ; //일단 두개씩 상품 불러오기위해...
+	var cnt2 = 32 ; // N(불러 올 상품) * 4
 	function callback() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var txt = xhr.responseText;	
@@ -89,26 +89,25 @@
 					var div = document.createElement("div");
 					div.className = "col-md-3";
 					div.innerHTML = "<a href='<c:url value='itemView.do?cmd=select&item_num="+json.arr[i].item_num+"&item_name="+json.arr[i].item_name+"'/>'>"
-							+ "<img class='img-responsive' src='<c:url value='DBImages/"+json.arr[i].item_orgimg+"'/>'alt='Blog'></a>"
+							+ "<img class='img-responsive' src='<c:url value='/DBImages/"+json.arr[i].item_savimg+"'/>'alt='Blog'></a>"
 							+ "<div class='recent-posts mt-md mb-lg'>"
 							+ "<article class='post'>"
-							+ "<h5>" + json.arr[i].size_num +
-							+ "<a class='te x t-dark' href='<c:url value='item_detail.jsp'/>'>"
+							+ "<h5>"
+							+ "<a class='text-dark' href='<c:url value='item_detail.jsp'/>'>"
 							+ json.arr[i].item_name
 							+ "</a>"
 							+ "</h5>"
 							+ "<div class='post-meta' class='item_info'>"
 							+ "<span><i class='fa fa-tag'></i>"
 							+ json.arr[i].item_price
-							
 							+ "</span>"
-							+ "<span><i class='fa fa-comments'></i> <a href='#'>500 Comments</a></span>"
+							+ "<span><i class='fa fa-comments'></i> <a href='#'>" + json.arr[i].review_cnt +" Comments</a></span>"
 							+ "</div>" + "</article>" + "</div>"
 					box[0].appendChild(div);
 				}
 				   ++cnt;
 			}
-			cnt2 += 8;
+			cnt2 += 32;
 		}
 	}
 </script>
@@ -123,14 +122,49 @@
 		<div class="col-md-12">
 			<div class="tabs tabs-bottom tabs-center tabs-simple">
 				<ul class="nav nav-tabs">
-					<li class=""><a href="#tabsNavigationSimple1"
-						data-toggle="tab" aria-expanded="false">ALL</a></li>
-					<li class=""><a href="#tabsNavigationSimple2"
-						data-toggle="tab" aria-expanded="false">OUTER</a></li>
-					<li class=""><a href="#tabsNavigationSimple3"
-						data-toggle="tab" aria-expanded="false">TOP</a></li>
-					<li class="active"><a href="#tabsNavigationSimple4"
-						data-toggle="tab" aria-expanded="true">BOTTOM</a></li>
+				<c:choose>
+					<c:when test="${param.cate_num == 0 }">
+						<li class="active"><a href="<c:url value='/item_list.jsp?cate_num=0'/>"
+							aria-expanded="false">ALL</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=1'/>"
+							 aria-expanded="false">OUTER</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
+							aria-expanded="false">TOP</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+							aria-expanded="true">BOTTOM</a></li>
+					</c:when>
+					<c:when test="${param.cate_num == 1 }">
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=0'/>"
+						aria-expanded="false">ALL</a></li>
+						<li class="active"><a href="<c:url value='/item_list.jsp?cate_num=1'/>"
+						aria-expanded="false">OUTER</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
+							aria-expanded="false">TOP</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+							aria-expanded="true">BOTTOM</a></li>
+					</c:when>
+					<c:when test="${param.cate_num == 2 }">
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=0'/>"
+						aria-expanded="false">ALL</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=1'/>"
+						aria-expanded="false">OUTER</a></li>
+						<li class="active"><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
+						 aria-expanded="false">TOP</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+						aria-expanded="true">BOTTOM</a></li>
+						
+					</c:when>
+						<c:when test="${param.cate_num == 3 }">
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=0'/>"
+						aria-expanded="false">ALL</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=1'/>"
+						aria-expanded="false">OUTER</a></li>
+						<li class=""><a href="<c:url value='/item_list.jsp?cate_num=2'/>"
+						aria-expanded="false">TOP</a></li>
+						<li class="active"><a href="<c:url value='/item_list.jsp?cate_num=3'/>"
+						aria-expanded="true">BOTTOM</a></li>
+					</c:when>
+				</c:choose>
 				</ul>
 			</div>
 		</div>

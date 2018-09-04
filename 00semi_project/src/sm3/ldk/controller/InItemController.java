@@ -66,8 +66,35 @@ public class InItemController extends HttpServlet{
 	}
 	protected void list(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<InItemVo> list=InItemDao.getInstance().list();
+		//ArrayList<InItemVo> list=InItemDao.getInstance().list();
+		String search=request.getParameter("search");
+		String keyword=request.getParameter("keyword");
+		if(keyword==null || keyword.equals("")) {
+			search="";
+			keyword="";
+		}
+		String spageNum=request.getParameter("pageNum");
+		int pageNum=1;
+		if(spageNum!=null && !spageNum.equals("")) {
+			pageNum=Integer.parseInt(spageNum);
+		}
+		int startRow=(pageNum-1)*10+1;
+		int endRow=startRow+9;
+		InItemDao dao=InItemDao.getInstance();
+		ArrayList<InItemVo> list=dao.list(startRow, endRow, search, keyword);
 		if(list!=null) {
+			int pageCount=(int)Math.ceil(dao.getCount(search, keyword)/10.0);
+			int startPage=((pageNum-1)/10*10)+1;
+			int endPage=startPage+9;
+			if(endPage>pageCount) {
+				endPage=pageCount;
+			}
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("pageCount", pageCount);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("search", search);
+			request.setAttribute("keyword", keyword);
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("../admin.jsp?page1=IN_ITEM_list.jsp").forward(request, response);
 		}else {

@@ -28,7 +28,34 @@ public class QaCommDao {
 	 * }
 	 */
 
-	
+	public int count (int qa_num) {
+		Connection con = null;
+		PreparedStatement pstmt2= null;
+		ResultSet rs= null;
+		int count=0;
+		try {
+		con=DBConnection.getConn();
+		String sql2="select count(qa_num) aa from sm3_qa_comm where qa_num=?";
+		pstmt2=con.prepareStatement(sql2);
+		pstmt2.setInt(1, qa_num);
+		rs=pstmt2.executeQuery();
+		if(rs.next()) {
+			 count=rs.getInt("aa");
+			 System.out.println("count"+count );
+		}
+				return count;
+		}catch(SQLException se) {
+			return -1;
+		}finally {
+			try {
+				if (rs != null)rs.close();
+				if (pstmt2 != null)pstmt2.close();
+				if (con != null)con.close();		
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int maxnum() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -80,7 +107,6 @@ public class QaCommDao {
 		pstmt.setInt(4, vo.getQa_num());
 		pstmt.setInt(5, vo.getUser_num());
 		pstmt.setInt(6, vo.getAdmin_num());
-		System.out.println("gggggggg");
 		int n=pstmt.executeUpdate();
 		System.err.println("n:" + n);
 		return n;
@@ -115,7 +141,7 @@ public class QaCommDao {
 				int comm_num=rs.getInt("comm_num");
 				String comm_writer=rs.getString("comm_writer");
 				String comm_content=rs.getString("comm_content");
-				System.out.println("ÄÚ¸àÆ®"+comm_content);
+			
 				Date comm_date=rs.getDate("comm_date");			 
 				qa_num=rs.getInt("qa_num");
 				int user_num=rs.getInt("user_num");
@@ -138,7 +164,34 @@ public class QaCommDao {
 				}
 		 }
 	}
+	public int delete (int comm_num) {
+		Connection con=null;
+		PreparedStatement pstmt =null;
+		try {
+		con=DBConnection.getConn();
+		
+		String sql="delete from sm3_qa_comm where comm_num=?";
+		pstmt=con.prepareStatement(sql);
+		
+		pstmt.setInt(1, comm_num);
+		int n=pstmt.executeUpdate();
+		return n;
+		
+	}catch(SQLException se) {
+		System.out.println(se.getMessage());
+		return -1;
+	}finally {
+		try {
+			if(pstmt != null)pstmt.close();
+			if(con != null) con.close();
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+		}
+	}
+	}
 }
+
+
 
 
 

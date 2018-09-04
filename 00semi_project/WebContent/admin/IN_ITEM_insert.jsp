@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<input type="hidden" value="IN_ITEM_insert" id="here">
 <c:choose>
 	<c:when test="${param.do1=='insert' }">
 <div style="margin-top:10%;">
@@ -47,9 +48,10 @@
 		</section>
 	</div>
 </div>
+
 <script>
 	var xhr=null;
-	window.onload = function(){
+	function inItemInsert(){
 		xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=callback;
 		xhr.open('get','itemSize.do?cmd=list&ajax=true',true);
@@ -58,12 +60,12 @@
 	function callback(){
 		if(xhr.readyState==4 && xhr.status==200){
 			var txt=xhr.responseText;
-			var json=JSON.parse(txt);
+			var json1=JSON.parse(txt);
 			var sizeAjax=document.getElementById("sizeAjax");
-			for(var i=0;i<json.length;i++){
+			for(var i=0;i<json1.length;i++){
 				var option=document.createElement("option");
-				option.setAttribute("value", json[i].size_num);
-				option.text=json[i].size_num
+				option.setAttribute("value", json1[i].size_num);
+				option.text=json1[i].size_num
 				sizeAjax.add(option);
 			}
 		}
@@ -142,9 +144,10 @@
 		</section>
 	</div>
 </div>
+
 <script>
 	var xhr=null;
-	window.onload = function(){
+	function inItemInsert(){
 		xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=callback;
 		xhr.open('get','itemSize.do?cmd=list&ajax=true',true);
@@ -153,12 +156,12 @@
 	function callback(){
 		if(xhr.readyState==4 && xhr.status==200){
 			var txt=xhr.responseText;
-			var json=JSON.parse(txt);
+			var json1=JSON.parse(txt);
 			var sizeAjax=document.getElementById("sizeAjax");
-			for(var i=0;i<json.length;i++){
+			for(var i=0;i<json1.length;i++){
 				var option=document.createElement("option");
-				option.setAttribute("value", json[i].size_num);
-				option.text=json[i].size_num
+				option.setAttribute("value", json1[i].size_num);
+				option.text=json1[i].size_num
 				sizeAjax.add(option);
 			}
 		}

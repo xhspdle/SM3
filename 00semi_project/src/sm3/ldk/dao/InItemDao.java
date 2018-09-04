@@ -43,6 +43,46 @@ public class InItemDao {
 			}
 		}
 	}
+	public int getCount(String search,String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			if(keyword.equals("")) {
+				String sql="select NVL(count(in_num),0) cnt from sm3_in_item";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("in_date")) {
+					searchCase=" like '%'||?||'%' ";
+				}else {
+					searchCase=" =? ";
+				}
+				String sql="select NVL(count(in_num),0) cnt from sm3_in_item "
+						+ "where " + search + searchCase;
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				rs=pstmt.executeQuery();
+			}
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+			return 0;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int insert(InItemVo vo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -56,6 +96,49 @@ public class InItemDao {
 			pstmt.setInt(3, vo.getAdmin_num());
 			pstmt.setInt(4, vo.getIn_cnt());
 			pstmt.setInt(5, vo.getIn_cost());
+			int n=pstmt.executeUpdate();
+			if(n>0) {
+				ItemSizeVo voo=ItemSizeDao.getInstance().select(vo.getSize_num());
+				int nn=ItemSizeDao.getInstance().update(new ItemSizeVo(vo.getSize_num(),
+						voo.getSize_name(), voo.getItem_num(), voo.getColor_num(),
+						voo.getSize_cnt()+vo.getIn_cnt()));
+				if(nn>0) {
+					con.commit();
+					return nn;
+				}else {
+					con.rollback();
+					return -3;
+				}
+			}else {
+				con.rollback();
+				return -2;
+			}
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
+	public int insertTest(InItemVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getConn();
+			con.setAutoCommit(false);
+			String sql="insert into sm3_in_item values(?,?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, getMaxNum()+1);
+			pstmt.setInt(2, vo.getSize_num());
+			pstmt.setInt(3, vo.getAdmin_num());
+			pstmt.setInt(4, vo.getIn_cnt());
+			pstmt.setInt(5, vo.getIn_cost());
+			pstmt.setDate(6, vo.getIn_date());
 			int n=pstmt.executeUpdate();
 			if(n>0) {
 				ItemSizeVo voo=ItemSizeDao.getInstance().select(vo.getSize_num());
@@ -221,16 +304,57 @@ public class InItemDao {
 			}
 		}
 	}
-	public ArrayList<InItemVo> list(){
+	public ArrayList<InItemVo> list(int startRow,int endRow,
+			String search,String keyword){
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ArrayList<InItemVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_in_item";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			if(search.equals("")) {
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_IN_ITEM" + 
+						"        ORDER BY IN_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("in_date")) {
+					searchCase=" like '%'||?||'%' ";
+				}else {
+					searchCase=" =? ";
+				}
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_IN_ITEM" +
+						"		 WHERE " + search + " " + searchCase +
+						"        ORDER BY IN_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				do {
 					int in_num=rs.getInt("in_num");

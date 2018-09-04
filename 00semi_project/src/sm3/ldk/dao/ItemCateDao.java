@@ -41,6 +41,46 @@ public class ItemCateDao {
 			}
 		}
 	}
+	public int getCount(String search,String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getConn();
+			if(keyword.equals("")) {
+				String sql="select NVL(count(cate_num),0) cnt from sm3_itemcate";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("cate_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="select NVL(count(cate_num),0) cnt from sm3_itemcate "
+						+ "where " + search + searchCase;
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				rs=pstmt.executeQuery();
+			}
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+			return 0;
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			return -1;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(SQLException se) {
+				System.out.println(se.getMessage());
+			}
+		}
+	}
 	public int insert(String cate_name) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -135,16 +175,57 @@ public class ItemCateDao {
 			}
 		}
 	}
-	public ArrayList<ItemCateVo> list(){
+	public ArrayList<ItemCateVo> list(int startRow,int endRow,
+			String search,String keyword){
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ArrayList<ItemCateVo> list=new ArrayList<>();
 		try {
 			con=DBConnection.getConn();
-			String sql="select * from sm3_itemcate";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			if(search.equals("")) {
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_ITEMCATE" + 
+						"        ORDER BY CATE_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				rs=pstmt.executeQuery();
+			}else {
+				String searchCase="";
+				if(search.equals("cate_num")) {
+					searchCase=" =? ";
+				}else {
+					searchCase=" like '%'||?||'%' ";
+				}
+				String sql="SELECT *" + 
+						"FROM" + 
+						"(" + 
+						"    SELECT AA.*,ROWNUM RNUM" + 
+						"    FROM" + 
+						"    (" + 
+						"        SELECT *" + 
+						"        FROM SM3_ITEMCATE" +
+						"		 WHERE " + search + " " + searchCase +
+						"        ORDER BY CATE_NUM DESC" + 
+						"    )AA" + 
+						")" + 
+						"WHERE RNUM>=? AND RNUM<=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs=pstmt.executeQuery();
+			}
 			if(rs.next()) {
 				do {
 					int cate_num=rs.getInt("cate_num");

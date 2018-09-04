@@ -141,9 +141,9 @@
 									<label>Sales Report</label>
 									<div class="toggle-content" style="display: none;">
 										<div class="list-group">
-										  <a href="#" class="list-group-item">매출총이익</a>
-										  <a href="#" class="list-group-item">기간별판매량</a>
-										  <a href="#" class="list-group-item">제품별판매량</a>
+										  <a href="<c:url value='/admin.jsp?page1=SALES_grossProfit.jsp'/>" 
+										  class="list-group-item">매출총이익</a>
+										  <a href="<c:url value='/saleReport.do?cmd=test'/>" class="list-group-item">테스트데이터</a>
 										</div>
 									</div>
 								</section>													
@@ -156,90 +156,10 @@
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="popularPosts">
-										<ul class="simple-post-list">
-											<li>
-												<div class="post-image">
-													<div class="img-thumbnail">
-														<a href="blog-post.html"> <img
-															src="img/blog/blog-thumb-1.jpg" alt="">
-														</a>
-													</div>
-												</div>
-												<div class="post-info">
-													<a href="blog-post.html">Nullam Vitae Nibh Un Odiosters</a>
-													<div class="post-meta">Jan 10, 2017</div>
-												</div>
-											</li>
-											<li>
-												<div class="post-image">
-													<div class="img-thumbnail">
-														<a href="blog-post.html"> <img
-															src="img/blog/blog-thumb-2.jpg" alt="">
-														</a>
-													</div>
-												</div>
-												<div class="post-info">
-													<a href="blog-post.html">Vitae Nibh Un Odiosters</a>
-													<div class="post-meta">Jan 10, 2017</div>
-												</div>
-											</li>
-											<li>
-												<div class="post-image">
-													<div class="img-thumbnail">
-														<a href="blog-post.html"> <img
-															src="img/blog/blog-thumb-3.jpg" alt="">
-														</a>
-													</div>
-												</div>
-												<div class="post-info">
-													<a href="blog-post.html">Odiosters Nullam Vitae</a>
-													<div class="post-meta">Jan 10, 2017</div>
-												</div>
-											</li>
-										</ul>
+										<ul class="simple-post-list" id="popularList"></ul>
 									</div>
 									<div class="tab-pane" id="recentPosts">
-										<ul class="simple-post-list">
-											<li>
-												<div class="post-image">
-													<div class="img-thumbnail">
-														<a href="blog-post.html"> <img
-															src="img/blog/blog-thumb-2.jpg" alt="">
-														</a>
-													</div>
-												</div>
-												<div class="post-info">
-													<a href="blog-post.html">Vitae Nibh Un Odiosters</a>
-													<div class="post-meta">Jan 10, 2017</div>
-												</div>
-											</li>
-											<li>
-												<div class="post-image">
-													<div class="img-thumbnail">
-														<a href="blog-post.html"> <img
-															src="img/blog/blog-thumb-3.jpg" alt="">
-														</a>
-													</div>
-												</div>
-												<div class="post-info">
-													<a href="blog-post.html">Odiosters Nullam Vitae</a>
-													<div class="post-meta">Jan 10, 2017</div>
-												</div>
-											</li>
-											<li>
-												<div class="post-image">
-													<div class="img-thumbnail">
-														<a href="blog-post.html"> <img
-															src="img/blog/blog-thumb-1.jpg" alt="">
-														</a>
-													</div>
-												</div>
-												<div class="post-info">
-													<a href="blog-post.html">Nullam Vitae Nibh Un Odiosters</a>
-													<div class="post-meta">Jan 10, 2017</div>
-												</div>
-											</li>
-										</ul>
+										<ul class="simple-post-list" id="recentList"></ul>
 									</div>
 								</div>
 							</div>
@@ -314,4 +234,50 @@
 		 -->
 
 </body>
+<script type="text/javascript">
+	var xhr1=null;
+	var xhr2=null;
+	window.onload = function(){
+		xhr1=new XMLHttpRequest();
+		xhr1.onreadystatechange=callback1;
+		xhr1.open('get', '<%=application.getContextPath()%>/index.do?cmd=list&ajax=true', true);
+		xhr1.send();
+		xhr2=new XMLHttpRequest();
+		xhr2.onreadystatechange=callback2;
+		xhr2.open('get', '<%=application.getContextPath()%>/index.do?cmd=listRecent&ajax=true', true);
+		xhr2.send();
+		otherAjax();
+	}
+	function otherAjax(){
+		var here=document.getElementById("here").value;
+		if(here=='SALES_grossProfit'){
+			chartReport();
+		}else if(here=='IN_ITEM_insert'){
+			inItemInsert();
+		}else if(here=='ITEM_insert'){
+			itemInsert();
+		}
+	}
+	function callback1(){
+		if(xhr1.readyState==4 && xhr1.status==200){
+			var txt=xhr1.responseText;
+			var json=JSON.parse(txt);
+			var popularList=document.getElementById("popularList");
+			for(var i=0;i<3;i++){
+				popularList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="<%=application.getContextPath()%>/DBImages/'+ json[i].item_orgimg +'" alt="상품사진" ></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">판매수량: '+ json[i].order_cnt +'</div></div></li>';
+			}
+		}
+	}
+	function callback2(){
+		if(xhr2.readyState==4 && xhr2.status==200){
+			var txt=xhr2.responseText;
+			var json=JSON.parse(txt);
+			var recentList=document.getElementById("recentList");
+			for(var i=0;i<3;i++){
+				recentList.innerHTML +='<li><div class="post-image"><div class="img-thumbnail"><img class="img-responsive" width="50" height="50" src="<%=application.getContextPath()%>/DBImages/'+ json[i].item_orgimg +'" alt="상품사진"></div></div><div class="post-info">	<a href="#none">'+ json[i].item_name +'</a><div class="post-meta">상품번호: '+ json[i].item_num +'</div></div></li>';
+			}
+		}
+	}
+</script>
 </html>
+	
