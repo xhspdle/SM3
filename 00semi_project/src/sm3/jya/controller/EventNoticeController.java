@@ -126,7 +126,8 @@ public class EventNoticeController extends HttpServlet{
 		String en_orgimg="";
 		String en_savimg="";
 		if(sen_orgimg!=null && !sen_orgimg.equals("")) {  //새로넣을 사진이 null이 아니고 공백이 아니면 즉 넣을게 있으면
-			en_orgimg=sen_orgimg;     /*여기다가 조건을 준 이유는 원래사진은 db에서 받아오고(dao,controller,db다 지나감) 새로저장할 사진은 multipartrequest에서 받는데 둘이 공통으로 지나다니는 부분이 controller이기 때문에.*/
+			en_orgimg=sen_orgimg;  /*여기다가 조건을 준 이유는 원래사진은 db에서 받아오고(dao,controller,db다 지나감) 
+			                                             새로저장할 사진은 multipartrequest에서 받는데 둘이 공통으로 지나다니는 부분이 controller이기 때문에.*/
 			en_savimg=sen_savimg;
 		}else {   
 		 en_orgimg=mr.getOriginalFileName("file1");  //이미지수정을 하지 않으면 원본 그대로
@@ -144,8 +145,7 @@ public class EventNoticeController extends HttpServlet{
 		}else {
 			request.setAttribute("msg", "이벤트공지 수정 실패");
 			request.getRequestDispatcher("test.jsp").forward(request, response);
-		}
-				
+		}		
 	 }
 	protected void select(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
 		String sen_num=request.getParameter("en_num");

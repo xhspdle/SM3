@@ -242,7 +242,7 @@ public class OrderListViewDao {
 		}
 	}
 
-	public ArrayList<OrderListViewVo> getInfoList(int order_num) { // 로그인한 사용자의 주문내역을 보여줌.
+	public ArrayList<OrderListViewVo> getInfoList(int order_num) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
